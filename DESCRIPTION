@@ -1,0 +1,15 @@
+Package: simlandr
+Type: Package
+Title: Simulation-based Landscape Construction for Dynamic Systems
+Version: 0.0.9000
+Authors@R: person(given = "Jingmeng", family = "Cui", email = "jingmeng.cui@outlook.com",
+		role = c("aut", "cre"))
+Description: Tools for constructing potential landscape function for
+		dynamic systems, especially for psychological formal models.
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    dplyr,
+    magrittr
+RoxygenNote: 7.1.1
