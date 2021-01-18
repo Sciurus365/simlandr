@@ -1,0 +1,17 @@
+citHeader("To cite simlandr in publications use:")
+
+citEntry(entry = "inproceedings",
+  title        = "From metaphor to computation: {Constructing} the potential landscape for the dynamics of panic disorder",
+  author       = personList(as.person("Jingmeng Cui"),
+                   as.person("Merlijn Olthof"),
+                   as.person("Anna Lichtwarck-Aschoff"),
+                   as.person("Fred Hasselman"),
+                   as.person("Tiejun Li")),
+  booktitle    = "Book of Abstracts of the Conference on Complex Systems 2020",
+  year         = "2020",
+  pages        = "88",
+  doi          = "10.5281/zenodo.4419178",
+
+  textVersion  =
+  "Cui, J., Olthof, M., Lichtwarck-Aschoff, A., Hasselman, F., & Li, T. (2020). From metaphor to computation: Constructing the potential landscape for the dynamics of panic disorder. Book of Abstracts of the Conference on Complex Systems 2020, 88. https://doi.org/10.5281/zenodo.4419178"
+)
