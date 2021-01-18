@@ -15,30 +15,29 @@
 #'
 #' @examples
 #' test <- new_var_set()
-#' test <- test %>% add_var("par1", "var1", 1,2,0.1) %>%
-#' 	add_var("par2", "var2", 1,2,0.1)
-#'
-#'
+#' test <- test %>%
+#'   add_var("par1", "var1", 1, 2, 0.1) %>%
+#'   add_var("par2", "var2", 1, 2, 0.1)
 #' @seealso \code{\link{make_var_grid}} for making grids from variable sets;
 #' \code{\link{batch_simulation}} for running batch simulation and a
 #' concrete example.
 #'
 #' @export
-new_var_set <- function(){
-	result <- list()
-	class(result) <- c("var_set", "list")
-	attr(result, "nvar") <- 0
-	attr(result, "npar") <- 0
-	return(result)
+new_var_set <- function() {
+  result <- list()
+  class(result) <- c("var_set", "list")
+  attr(result, "nvar") <- 0
+  attr(result, "npar") <- 0
+  return(result)
 }
 
 #' @describeIn new_var_set Add a variable to the \code{var_set}.
 #' @export
-add_var <- function(var_set, par_name, var_name, start, end, by){
-	var_set[[par_name]][[var_name]] <- tibble::lst(start, end, by) # 这里var_name应该直接变成name吧？
-	attr(var_set, "nvar") <- attr(var_set, "nvar") +1
-	attr(var_set, "npar") <- length(var_set)
-	return(var_set)
+add_var <- function(var_set, par_name, var_name, start, end, by) {
+  var_set[[par_name]][[var_name]] <- tibble::lst(start, end, by) # <U+8FD9><U+91CC>var_name<U+5E94><U+8BE5><U+76F4><U+63A5><U+53D8><U+6210>name<U+5427><U+FF1F>
+  attr(var_set, "nvar") <- attr(var_set, "nvar") + 1
+  attr(var_set, "npar") <- length(var_set)
+  return(var_set)
 }
 
 #' @describeIn new_var_set The number of variables.
@@ -51,26 +50,27 @@ npar <- function(var_set) attr(var_set, "npar")
 
 #' @rdname new_var_set
 #' @export
-print.var_set <- function(x, detail = FALSE, ...){
-	if(detail) print.default(x)
-	else{
-		cat(
-			sprintf("A `var_set` with %d parameter(s) and %d variable(s)", npar(x), nvar(x))
-		)
-	}
+print.var_set <- function(x, detail = FALSE, ...) {
+  if (detail) {
+    print.default(x)
+  } else {
+    cat(
+      sprintf("A `var_set` with %d parameter(s) and %d variable(s)", npar(x), nvar(x))
+    )
+  }
 }
 
-fill_in_struct <- function(vec, struct){
-	if(!("var_set" %in% class(struct))) stop("Wrong input class. `struct` should be a `var_set`.")
-	vec_index <- 1
-	for(i in 1:length(struct)){
-		for(j in 1:length(struct[[i]])){
-			struct[[i]][[j]] <- vec[vec_index]
-			vec_index <- vec_index + 1
-		}
-	}
-	class(struct) <- c("var_list", "list")
-	return(struct)
+fill_in_struct <- function(vec, struct) {
+  if (!("var_set" %in% class(struct))) stop("Wrong input class. `struct` should be a `var_set`.")
+  vec_index <- 1
+  for (i in 1:length(struct)) {
+    for (j in 1:length(struct[[i]])) {
+      struct[[i]][[j]] <- vec[vec_index]
+      vec_index <- vec_index + 1
+    }
+  }
+  class(struct) <- c("var_list", "list")
+  return(struct)
 }
 
 #' Make variable grids for batch simulation
@@ -85,53 +85,55 @@ fill_in_struct <- function(vec, struct){
 #' @seealso \code{\link{batch_simulation}} for a concrete example.
 #'
 #' @export
-make_var_grid <- function(var_set){
-	var_set_seq <- list()
-	var_set_par <- list()
-	for(i in names(var_set)){
-		for(j in names(var_set[[i]])){
-			var_set_seq[[j]] <- seq(var_set[[i]][[j]]$start, var_set[[i]][[j]]$end, var_set[[i]][[j]]$by)
-			var_set_par[[j]] <- names(var_set)[i]
-		}
-	}
-	var_grid_num <- expand.grid(var_set_seq)
+make_var_grid <- function(var_set) {
+  var_set_seq <- list()
+  var_set_par <- list()
+  for (i in names(var_set)) {
+    for (j in names(var_set[[i]])) {
+      var_set_seq[[j]] <- seq(var_set[[i]][[j]]$start, var_set[[i]][[j]]$end, var_set[[i]][[j]]$by)
+      var_set_par[[j]] <- names(var_set)[i]
+    }
+  }
+  var_grid_num <- expand.grid(var_set_seq)
 
-	var_grid_list <- data.frame(var_list = rep(NA, nrow(var_grid_num)))
+  var_grid_list <- data.frame(var_list = rep(NA, nrow(var_grid_num)))
 
-	var_grid_list$var_list <- apply(var_grid_num, 1, fill_in_struct, var_set)
+  var_grid_list$var_list <- apply(var_grid_num, 1, fill_in_struct, var_set)
 
-	var_grid <- cbind(var_grid_list, as.data.frame(var_grid_num))
+  var_grid <- cbind(var_grid_list, as.data.frame(var_grid_num))
 
-	result <- var_grid
-	class(result) <- c("var_grid", "data.frame")
-	attr(result, "var_set_seq") <- var_set_seq
-	attr(result, "var_set_par") <- var_set_par
-	attr(result, "nvar") <- nvar(var_set)
-	attr(result, "npar") <- npar(var_set)
-	return(result)
+  result <- var_grid
+  class(result) <- c("var_grid", "data.frame")
+  attr(result, "var_set_seq") <- var_set_seq
+  attr(result, "var_set_par") <- var_set_par
+  attr(result, "nvar") <- nvar(var_set)
+  attr(result, "npar") <- npar(var_set)
+  return(result)
 }
 
 #' @rdname make_var_grid
 #' @export
-print.var_grid <- function(x, detail = FALSE, ...){
-	if(detail) print.default(x)
-	cat(
-		sprintf("A `var_grid` with %d parameter(s), %d variable(s), and %d condition(s)",
-						npar(x), nvar(x), nrow(x$var_grid))
-	)
+print.var_grid <- function(x, detail = FALSE, ...) {
+  if (detail) print.default(x)
+  cat(
+    sprintf(
+      "A `var_grid` with %d parameter(s), %d variable(s), and %d condition(s)",
+      npar(x), nvar(x), nrow(x$var_grid)
+    )
+  )
 }
 
 #' @describeIn batch_simulation Modify a single simulation.
 #' @export
-modified_simulation <- function(sim_fun, var_list, default_list){
-	sim_fun_list <- default_list
-	for(i in names(var_list)){
-		for(j in names(var_list[[i]])){
-			sim_fun_list[[i]][[j]] <- var_list[[i]][[j]]
-		}
-	}
-	#return(sim_fun_list)
-	return(do.call(sim_fun, sim_fun_list))
+modified_simulation <- function(sim_fun, var_list, default_list) {
+  sim_fun_list <- default_list
+  for (i in names(var_list)) {
+    for (j in names(var_list[[i]])) {
+      sim_fun_list[[i]][[j]] <- var_list[[i]][[j]]
+    }
+  }
+  # return(sim_fun_list)
+  return(do.call(sim_fun, sim_fun_list))
 }
 
 
@@ -146,14 +148,14 @@ modified_simulation <- function(sim_fun, var_list, default_list){
 #'
 #' @export
 #'
-sim_fun_test <- function(par1, par2){
-	output <- matrix(nrow = 10, ncol = 3)
-	colnames(output) <- c("var1", "var2", "var3")
-	output[1,] <- c(par1$var1, par2$var2, par2$var3)
-	for(i in 2:10){
-		output[i,] <- output[i-1,] + c(0, 0.1, 0.2)
-	}
-	return(output)
+sim_fun_test <- function(par1, par2) {
+  output <- matrix(nrow = 10, ncol = 3)
+  colnames(output) <- c("var1", "var2", "var3")
+  output[1, ] <- c(par1$var1, par2$var2, par2$var3)
+  for (i in 2:10) {
+    output[i, ] <- output[i - 1, ] + c(0, 0.1, 0.2)
+  }
+  return(output)
 }
 
 #' Do the batch simulation
@@ -174,34 +176,38 @@ sim_fun_test <- function(par1, par2){
 #'
 #' @examples
 #' test <- new_var_set()
-#' test <- test %>% add_var("par1", "var1", 1,2,0.1) %>%
-#' 	add_var("par2", "var2", 1,2,0.1)
+#' test <- test %>%
+#'   add_var("par1", "var1", 1, 2, 0.1) %>%
+#'   add_var("par2", "var2", 1, 2, 0.1)
 #' test_grid <- make_var_grid(test)
 #' modified_simulation(sim_fun = sim_fun_test, var_list = test_grid$var_list[[1]], default_list = list(
-#' 	par1 = list(var1 = 0),
-#' 	par2 = list(var2 = 0, var3 = 0)
+#'   par1 = list(var1 = 0),
+#'   par2 = list(var2 = 0, var3 = 0)
 #' ))
 #' test_result <- batch_simulation(sim_fun_test, test_grid,
-#'  default_list = list(
-#' 	 par1 = list(var1 = 0),
-#' 	 par2 = list(var2 = 0, var3 = 0)
-#' ))
+#'   default_list = list(
+#'     par1 = list(var1 = 0),
+#'     par2 = list(var2 = 0, var3 = 0)
+#'   )
+#' )
 #' test_result
-#'
 #' @export
-batch_simulation <- function(sim_fun, var_grid, default_list){
-	result <- var_grid %>%
-		dplyr::mutate(output = purrr::map(var_list, function(x) modified_simulation(sim_fun, x, default_list)))
-	class(result) <- c("batch_simulation", "data.frame")
-	return(result)
+batch_simulation <- function(sim_fun, var_grid, default_list) {
+  result <- var_grid %>%
+    dplyr::mutate(output = purrr::map(var_list, function(x) modified_simulation(sim_fun, x, default_list)))
+  class(result) <- c("batch_simulation", "data.frame")
+  attr(result, "sim_fun") <- sim_fun
+  return(result)
 }
 
 #' @rdname batch_simulation
 #' @export
-print.batch_simulation <- function(x, detail = FALSE, ...){
-	if(detail) print.default(x)
-	else{
-	cat(
-		sprintf("Output(s) from %d simulations.", nrow(x))
-	)}
+print.batch_simulation <- function(x, detail = FALSE, ...) {
+  if (detail) {
+    print.default(x)
+  } else {
+    cat(
+      sprintf("Output(s) from %d simulations.", nrow(x))
+    )
+  }
 }

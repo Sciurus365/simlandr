@@ -4,16 +4,16 @@
 \alias{make_2d_density}
 \title{Make 2D density-based landscape plot for a single simulation output}
 \usage{
-make_2d_density(out, x, adjust = 50, from = -0.1, to = 1, max_U = 5)
+make_2d_density(output, x, adjust = 50, from = -0.1, to = 1, zmax = 5)
 }
 \arguments{
-\item{out}{A matrix of simulation output.}
+\item{output}{A matrix of simulation output.}
 
 \item{x}{The name of the target variable.}
 
 \item{adjust, from, to}{Passed to \code{density}.}
 
-\item{max_U}{The maximum displayed value of U.}
+\item{zmax}{The maximum displayed value of potential.}
 }
 \value{
 A \code{ggplot} graph.

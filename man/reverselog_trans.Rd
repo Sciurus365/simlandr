@@ -7,7 +7,7 @@
 reverselog_trans(base = exp(1))
 }
 \arguments{
-\item{base}{The base of logrithm}
+\item{base}{The base of logarithm}
 }
 \description{
 A function for reversed log transformation

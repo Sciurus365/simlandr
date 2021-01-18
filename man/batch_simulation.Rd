@@ -39,18 +39,19 @@ This is the main function for the batch simulation.
 
 \examples{
 test <- new_var_set()
-test <- test \%>\% add_var("par1", "var1", 1,2,0.1) \%>\%
-	add_var("par2", "var2", 1,2,0.1)
+test <- test \%>\%
+  add_var("par1", "var1", 1, 2, 0.1) \%>\%
+  add_var("par2", "var2", 1, 2, 0.1)
 test_grid <- make_var_grid(test)
 modified_simulation(sim_fun = sim_fun_test, var_list = test_grid$var_list[[1]], default_list = list(
-	par1 = list(var1 = 0),
-	par2 = list(var2 = 0, var3 = 0)
+  par1 = list(var1 = 0),
+  par2 = list(var2 = 0, var3 = 0)
 ))
 test_result <- batch_simulation(sim_fun_test, test_grid,
- default_list = list(
-	 par1 = list(var1 = 0),
-	 par2 = list(var2 = 0, var3 = 0)
-))
+  default_list = list(
+    par1 = list(var1 = 0),
+    par2 = list(var2 = 0, var3 = 0)
+  )
+)
 test_result
-
 }

@@ -47,10 +47,9 @@ object, and use \code{add_var} to add descriptions of variables.
 
 \examples{
 test <- new_var_set()
-test <- test \%>\% add_var("par1", "var1", 1,2,0.1) \%>\%
-	add_var("par2", "var2", 1,2,0.1)
-
-
+test <- test \%>\%
+  add_var("par1", "var1", 1, 2, 0.1) \%>\%
+  add_var("par2", "var2", 1, 2, 0.1)
 }
 \seealso{
 \code{\link{make_var_grid}} for making grids from variable sets;
