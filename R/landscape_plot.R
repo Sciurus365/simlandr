@@ -3,7 +3,7 @@
 #' @param l A landscape object
 #'
 #' @export
-plot.landscape <- function(l, ...) {l$plot}
+plot.landscape <- function(x, ...) {x$plot}
 
 #' Save landscape plots
 #'
@@ -17,13 +17,13 @@ save_landscape <- function(l, path = NULL, selfcontained = F, ...){
 	p <- l$plot
 	message("Saving the plot...")
 	if(is.null(path)){
-		if(is.null(l$var)) path <- paste(getwd(), "/pics/", x, "_", y, "_", var, ".html", sep = "")
-		else path <- paste(getwd(), "/pics/", x, "_", y, ".html", sep = "")
+		if(!is.null(l$fr)) path <- paste(getwd(), "/pics/", l$x, "_", l$y, "_", l$fr, ".html", sep = "")
+		else path <- paste(getwd(), "/pics/", l$x, "_", l$y, sep = "")
 	}
 
-	if("plotly" %in% class(p)) htmlwidgets::saveWidget(p, path, selfcontained = selfcontained, ...)
+	if("plotly" %in% class(p)) htmlwidgets::saveWidget(p, paste(path, ".html", sep = ""), selfcontained = selfcontained, ...)
 	else{
-		if("ggplot" %in% class(p)) ggplot2::ggsave(path, p, ...)
+		if("ggplot" %in% class(p)) ggplot2::ggsave(paste(path, ".png", sep = ""), p, ...)
 	}
 	message("Done!")
 }

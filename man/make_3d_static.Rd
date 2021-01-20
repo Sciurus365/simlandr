@@ -9,9 +9,6 @@ make_3d_static(
   x,
   y,
   zmax = 5,
-  save = FALSE,
-  path = NULL,
-  selfcontained = F,
   n = 200,
   lims = c(-0.1, 1.1, -0.1, 1.1),
   h = 0.1
@@ -23,12 +20,6 @@ make_3d_static(
 \item{x, y}{The name of the target variable.}
 
 \item{zmax}{The maximum displayed value of potential.}
-
-\item{save}{Save the output as a html file? Default: FALSE.}
-
-\item{path}{The path to save the output. Default: "/pics/x_y.html".}
-
-\item{selfcontained}{Save the output as a selfcontained html file? Default: FALSE.}
 
 \item{n, lims, h}{Passed to \code{\link[MASS]{kde2d}}}
 }

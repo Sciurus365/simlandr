@@ -4,7 +4,7 @@
 \alias{make_3d_animation_multisim}
 \title{Make 3d animations from multiple simulations}
 \usage{
-make_3d_animation_multisim(bs, x, y, fr, zmax = 5)
+make_3d_animation_multisim(bs, x, y, fr, zmax = 5, individual_plot = FALSE)
 }
 \arguments{
 \item{bs}{A \code{batch_simulation} object created by \code{\link{batch_simulation}.}}
@@ -15,12 +15,6 @@ make_3d_animation_multisim(bs, x, y, fr, zmax = 5)
 \item{zmax}{The maximum displayed value of potential.}
 
 \item{individual_plot}{Make individual plot for each var value?}
-
-\item{save}{Save the output as a html file? Default: FALSE.}
-
-\item{path}{The path to save the output. Default: "/pics/x_y.html".}
-
-\item{selfcontained}{Save the output as a selfcontained html file? Default: FALSE.}
 }
 \description{
 Make 3d animations from multiple simulations

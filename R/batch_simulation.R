@@ -162,9 +162,9 @@ sim_fun_test <- function(par1, par2) {
 #'
 #' This is the main function for the batch simulation.
 #'
+#' @param var_grid A \code{var_grid} object. See \code{\link{make_var_grid}}.
 #' @param sim_fun The simulation function. See \code{\link{sim_fun_test}}
 #' for an example.
-#' @param var_grid A \code{var_grid} object. See \code{\link{make_var_grid}}.
 #' @param default_list A list of default values for \code{sim_fun}.
 #' @param detail Do you want to print the object details as a full list?
 #'
@@ -192,7 +192,7 @@ sim_fun_test <- function(par1, par2) {
 #' )
 #' test_result
 #' @export
-batch_simulation <- function(sim_fun, var_grid, default_list) {
+batch_simulation <- function(var_grid, sim_fun, default_list) {
   result <- var_grid %>%
     dplyr::mutate(output = purrr::map(var_list, function(x) modified_simulation(sim_fun, x, default_list)))
   class(result) <- c("batch_simulation", "data.frame")

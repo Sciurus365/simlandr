@@ -32,12 +32,9 @@ make_tidy_dist <- function(dist_2d, value, var_name) {
 #' \code{fr} corresponds to the \code{frame} parameter in plotly.
 #' @param zmax The maximum displayed value of potential.
 #' @param individual_plot Make individual plot for each var value?
-#' @param save Save the output as a html file? Default: FALSE.
-#' @param path The path to save the output. Default: "/pics/x_y.html".
-#' @param selfcontained Save the output as a selfcontained html file? Default: FALSE.
 #'
 #' @export
-make_3d_animation_multisim <- function(bs, x, y, fr, zmax = 5) {
+make_3d_animation_multisim <- function(bs, x, y, fr, zmax = 5, individual_plot = FALSE) {
   message("Wrangling data...")
   df_multichannel <- bs %>%
     dplyr::mutate(
@@ -52,7 +49,7 @@ make_3d_animation_multisim <- function(bs, x, y, fr, zmax = 5) {
   }
 
   df_multichannel_tidy <- df_multichannel %>%
-    dplyr::mutate(tidy_dist = purrr::map2(dist, sample_var, make_tidy_dist, variable_name = fr))
+    dplyr::mutate(tidy_dist = purrr::map2(dist, df_multichannel[,fr], make_tidy_dist, var_name = fr))
 
   df_multichannel_collect <- do.call(rbind, df_multichannel_tidy$tidy_dist)
   message("Done!")

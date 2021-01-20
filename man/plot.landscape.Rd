@@ -4,7 +4,7 @@
 \alias{plot.landscape}
 \title{Make plots from landscape objects}
 \usage{
-\method{plot}{landscape}(l)
+\method{plot}{landscape}(x, ...)
 }
 \arguments{
 \item{l}{A landscape object}
