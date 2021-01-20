@@ -70,15 +70,16 @@ make_3d_animation_multisim <- function(bs, x, y, fr, zmax = 5, individual_plot =
 #' Make a matrix of 3d graphs for two parameters
 #' @param bs A \code{batch_simulation} object created by \code{\link{batch_simulation}.}
 #' @param x,rows,cols The names of the target variables.
+#' @param adjust,from,to Passed to \code{density}.
 #' @param zmax The maximum displayed value of potential.
 #'
 #' @export
-make_2d_matrix <- function(bs, x, rows, cols, zmax = 5){
+make_2d_matrix <- function(bs, x, rows, cols, adjust = 50, from = -0.1, to = 1, zmax = 5){
 	df_multichannel <- bs %>%
-		dplyr::mutate(output2 = purrr::pmap(list(output, rows, cols), function(out, sample_var1, sample_var2){
-			d <- stats::density(out[[1]][,x], adjust = 0.5, from = -0.1, to = 1)
+		dplyr::mutate(output2 = purrr::pmap(list(output, bs[,rows], bs[,cols]), function(out, sample_var1, sample_var2){
+			d <- stats::density(out[,x], adjust = adjust, from = from, to = to)
 			df <- data.frame(x = d$x, y = d$y, U = pmin(-log10(d$y), zmax)) %>%
-				dplyr::mutate(rows = rows, cols = cols)
+				dplyr::mutate(rows = sample_var1, cols = sample_var2)
 			df
 		}))
 
@@ -88,7 +89,7 @@ make_2d_matrix <- function(bs, x, rows, cols, zmax = 5){
 	p <- df_all %>%
 		ggplot2::ggplot(mapping = ggplot2::aes(x = x, y = U)) +
 		ggplot2::geom_line() +
-		ggplot2::facet_grid(sample_var1 ~ sample_var2) +
+		ggplot2::facet_grid(rows ~ cols) +
 		ggplot2::theme_bw() + ggplot2::xlab(x)
 	message("Done!")
 
