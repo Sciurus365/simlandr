@@ -1,6 +1,7 @@
 #' Make plots from landscape objects
 #'
-#' @param l A landscape object
+#' @param x A landscape object
+#' @param ... Not in use.
 #'
 #' @export
 plot.landscape <- function(x, ...) {x$plot}

@@ -28,9 +28,10 @@ find_local_min <- function(dist, localmin, r){
 #' @param d A \code{3d_static_landscape} object or a \code{kde2d} distribution.
 #' @param start_location,end_location The initial position for searching the start/end point.
 #' @param start_r,end_r The searching radius for searching the start/end point.
+#' @param base The base of the log function.
 #'
 #' @export
-calculate_barrier_2d <- function(d, start_location = c(0,0), start_r = 0.1, end_location = c(0.7,0.6), end_r = 0.15){
+calculate_barrier_2d <- function(d, start_location = c(0,0), start_r = 0.1, end_location = c(0.7,0.6), end_r = 0.15, base = exp(1)){
 	if("3d_static_landscape" %in% class(d)) d <- d$dist
 
 	local_min_start <- find_local_min(d, start_location, start_r)
@@ -51,11 +52,11 @@ calculate_barrier_2d <- function(d, start_location = c(0,0), start_r = 0.1, end_
 			colnames(.) <- c("x", "y")
 			.+1
 		} %>%
-		dplyr::mutate(U = purrr::map2_dbl(x, y, function(x, y) -log10(d$z[x,y])))
+		dplyr::mutate(U = purrr::map2_dbl(x, y, function(x, y) -log(d$z[x,y], base = base)))
 
 	s_U <- max(min_path_index$U)
 	s_location_row <- which(min_path_index$U == s_U)
-	s_location_index <- as.numeric(min_path_index[s_location_row, 1:2])
+	s_location_index <- as.numeric(min_path_index[s_location_row[1], 1:2])
 	names(s_location_index) <- c("x", "y")
 
 	s_location_value <- c(d$x[s_location_index[1]], d$y[s_location_index[2]])

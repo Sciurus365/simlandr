@@ -2,12 +2,9 @@
 % Please edit documentation in R/batch_simulation.R
 \name{make_var_grid}
 \alias{make_var_grid}
-\alias{print.var_grid}
 \title{Make variable grids for batch simulation}
 \usage{
 make_var_grid(var_set)
-
-\method{print}{var_grid}(x, detail = FALSE, ...)
 }
 \arguments{
 \item{var_set}{A \code{var_set} object. See \code{\link{new_var_set}}

@@ -5,7 +5,6 @@
 \alias{add_var}
 \alias{nvar}
 \alias{npar}
-\alias{print.var_set}
 \title{Create and modify variable sets for batch simulation}
 \usage{
 new_var_set()
@@ -15,8 +14,6 @@ add_var(var_set, par_name, var_name, start, end, by)
 nvar(var_set)
 
 npar(var_set)
-
-\method{print}{var_set}(x, detail = FALSE, ...)
 }
 \arguments{
 \item{var_set}{A \code{var_set} object.}
@@ -26,8 +23,6 @@ in the simulation function}
 
 \item{start, end, by}{The data points where you want to test the variables.
 Passed to \code{seq}.}
-
-\item{detail}{Do you want to print the object details as a full list?}
 }
 \description{
 A variable set contains the descriptions of the relevant variables in a

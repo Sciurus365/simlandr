@@ -10,7 +10,8 @@ calculate_barrier_2d(
   start_location = c(0, 0),
   start_r = 0.1,
   end_location = c(0.7, 0.6),
-  end_r = 0.15
+  end_r = 0.15,
+  base = exp(1)
 )
 
 get_barrier_height(b)
@@ -21,6 +22,8 @@ get_barrier_height(b)
 \item{start_location, end_location}{The initial position for searching the start/end point.}
 
 \item{start_r, end_r}{The searching radius for searching the start/end point.}
+
+\item{base}{The base of the log function.}
 
 \item{b}{A \code{barrier_landscape} object.}
 }

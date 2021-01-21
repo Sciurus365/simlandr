@@ -7,7 +7,9 @@
 \method{plot}{landscape}(x, ...)
 }
 \arguments{
-\item{l}{A landscape object}
+\item{x}{A landscape object}
+
+\item{...}{Not in use.}
 }
 \description{
 Make plots from landscape objects
