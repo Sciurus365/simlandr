@@ -1,7 +1,5 @@
 ---
-output: 
-  html_document:
-    keep_md: true
+output: github_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -66,10 +64,14 @@ l1 <- make_2d_density(single_test, x = "out1", from = -2, to = 2, adjust = 0.1)
 plot(l1)
 
 l2 <- make_3d_static(single_test, x = "out1", y = "out2", lims = c(-3,3,-3,3), h = 0.5)
-plot(l2)
+# plot(l2)
+plotly::orca(plot(l2), file = "man/figures/README-example-l2.png")
+knitr::include_graphics("man/figures/README-example-l2.png")
 
 l3 <- make_3d_animation_multisim(batch_test_result, x = "out1", y = "out2", fr = "var3", zmax = 10, lims = c(-3,3,-3,3), h = 0.2)
-plot(l3)
+# plot(l3)
+plotly::orca(plot(l3), file = "man/figures/README-example-l3.png")
+knitr::include_graphics("man/figures/README-example-l3.png")
 ```
 
 <!-- devtools::build_readme() -->
