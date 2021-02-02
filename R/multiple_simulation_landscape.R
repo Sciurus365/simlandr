@@ -31,14 +31,15 @@ make_tidy_dist <- function(dist_2d, value, var_name) {
 #' @param x,y,fr The names of the target variables.
 #' \code{fr} corresponds to the \code{frame} parameter in plotly.
 #' @param zmax The maximum displayed value of potential.
+#' @param n,lims,h Passed to \code{\link[MASS]{kde2d}}
 #' @param individual_plot Make individual plot for each var value?
 #'
 #' @export
-make_3d_animation_multisim <- function(bs, x, y, fr, zmax = 5, individual_plot = FALSE) {
+make_3d_animation_multisim <- function(bs, x, y, fr, zmax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 0.1, individual_plot = FALSE) {
   message("Wrangling data...")
   df_multichannel <- bs %>%
     dplyr::mutate(
-      dist = purrr::map(output, make_kernel_dist, x = x, y = y)
+      dist = purrr::map(output, make_kernel_dist, x, y, n, lims, h)
     )
 
   if (individual_plot) {

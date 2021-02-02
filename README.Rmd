@@ -1,5 +1,7 @@
 ---
-output: github_document
+output: 
+  html_document:
+    keep_md: true
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -26,18 +28,48 @@ The goal of simlandr is to provide a set of tools for constructing potential lan
 
 You can install the development version from [GitHub](https://github.com/) with:
 
-``` r
+```{r eval = FALSE}
 # install.packages("devtools")
 devtools::install_github("Sciurus365/simlandr")
 ```
-## Example
 
-This is a basic example which shows you how to solve a common problem:
+## Example
 
 ```{r example}
 library(simlandr)
-## basic example code
-## coming soon
+
+# Single simulation
+
+single_test <- sim_fun_test(par1 = list(var1 = 1), 
+														par2 = list(var2 = 1, var3 = 0))
+
+# Batch simulation
+
+batch_test <- new_var_set()
+batch_test <- batch_test %>%
+  # add_var("par1", "var1", 1, 2, 0.3) %>%
+  # add_var("par2", "var2", 1, 2, 0.3) %>%
+	add_var("par2", "var3", 0, 0.5, 0.1)
+batch_test_grid <- make_var_grid(batch_test)
+
+batch_test_result <- batch_simulation(batch_test_grid, sim_fun_test,
+  default_list = list(
+    par1 = list(var1 = 0),
+    par2 = list(var2 = 0, var3 = 0)
+  )
+)
+batch_test_result
+
+# Build landscapes
+
+l1 <- make_2d_density(single_test, x = "out1", from = -2, to = 2, adjust = 0.1)
+plot(l1)
+
+l2 <- make_3d_static(single_test, x = "out1", y = "out2", lims = c(-3,3,-3,3), h = 0.5)
+plot(l2)
+
+l3 <- make_3d_animation_multisim(batch_test_result, x = "out1", y = "out2", fr = "var3", zmax = 10, lims = c(-3,3,-3,3), h = 0.2)
+plot(l3)
 ```
 
 <!-- devtools::build_readme() -->

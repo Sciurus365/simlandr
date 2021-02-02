@@ -162,11 +162,12 @@ modified_simulation <- function(sim_fun, var_list, default_list) {
 #' @export
 #'
 sim_fun_test <- function(par1, par2) {
-  output <- matrix(nrow = 10, ncol = 3)
-  colnames(output) <- c("var1", "var2", "var3")
-  output[1, ] <- c(par1$var1, par2$var2, par2$var3)
-  for (i in 2:10) {
-    output[i, ] <- output[i - 1, ] + c(0, 0.1, 0.2)
+  output <- matrix(nrow = 1000, ncol = 2)
+  colnames(output) <- c("out1", "out2")
+  output[1, ] <- c(par1$var1, par2$var2)
+  for (i in 2:1000) {
+    output[i, 1] <- 0.5*output[i - 1, 1] + output[i - 1, 2] + par2$var3
+    output[i, 2] <- -0.5*output[i - 1, 1] + output[i - 1, 2] + par2$var3
   }
   return(output)
 }

@@ -4,7 +4,17 @@
 \alias{make_3d_animation_multisim}
 \title{Make 3d animations from multiple simulations}
 \usage{
-make_3d_animation_multisim(bs, x, y, fr, zmax = 5, individual_plot = FALSE)
+make_3d_animation_multisim(
+  bs,
+  x,
+  y,
+  fr,
+  zmax = 5,
+  n = 200,
+  lims = c(-0.1, 1.1, -0.1, 1.1),
+  h = 0.1,
+  individual_plot = FALSE
+)
 }
 \arguments{
 \item{bs}{A \code{batch_simulation} object created by \code{\link{batch_simulation}.}}
@@ -13,6 +23,8 @@ make_3d_animation_multisim(bs, x, y, fr, zmax = 5, individual_plot = FALSE)
 \code{fr} corresponds to the \code{frame} parameter in plotly.}
 
 \item{zmax}{The maximum displayed value of potential.}
+
+\item{n, lims, h}{Passed to \code{\link[MASS]{kde2d}}}
 
 \item{individual_plot}{Make individual plot for each var value?}
 }
