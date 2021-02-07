@@ -1,7 +1,7 @@
 Package: simlandr
 Type: Package
 Title: Simulation-based Landscape Construction for Dynamic Systems
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: person(given = "Jingmeng", family = "Cui", email = "jingmeng.cui@outlook.com",
 		role = c("aut", "cre"))
 Description: Tools for constructing potential landscape function for
@@ -19,7 +19,8 @@ Imports:
     MASS,
     plotly,
     htmlwidgets,
-    reticulate
+    reticulate,
+    bigmemory
 RoxygenNote: 7.1.1
 URL: https://github.com/Sciurus365/simlandr
 BugReports: https://github.com/Sciurus365/simlandr/issues
