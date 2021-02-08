@@ -52,6 +52,7 @@ npar <- function(var_set) attr(var_set, "npar")
 #' @param x An \code{var_set} object.
 #' @param detail Do you want to print the object details as a full list?
 #' @param ... Not in use.
+#' @method print var_set
 #' @export
 print.var_set <- function(x, detail = FALSE, ...) {
   if (detail) {
@@ -123,7 +124,7 @@ make_var_grid <- function(var_set) {
 #' Print a var_grid
 #'
 #' @inheritParams print.var_set
-#'
+#' @method print var_grid
 #' @export
 print.var_grid <- function(x, detail = FALSE, ...) {
   if (detail) print.default(x)
@@ -147,7 +148,7 @@ modified_simulation <- function(sim_fun, var_list, default_list, bigmemory = TRU
   }
   result <- do.call(sim_fun, sim_fun_list)
 
-  if(bigmemory & is.matrix(result)) result <- bigmemory::as.big.matrix(result)
+  if(bigmemory & is.matrix(result)) result <- as.hash_big.matrix(result)
   return(result)
 }
 
@@ -196,10 +197,6 @@ sim_fun_test <- function(par1, par2) {
 #'   add_var("par1", "var1", 1, 2, 0.1) %>%
 #'   add_var("par2", "var2", 1, 2, 0.1)
 #' test_grid <- make_var_grid(test)
-#' modified_simulation(sim_fun = sim_fun_test, var_list = test_grid$var_list[[1]], default_list = list(
-#'   par1 = list(var1 = 0),
-#'   par2 = list(var2 = 0, var3 = 0)
-#' ))
 #' test_result <- batch_simulation(test_grid, sim_fun_test,
 #'   default_list = list(
 #'     par1 = list(var1 = 0),
@@ -218,6 +215,7 @@ batch_simulation <- function(var_grid, sim_fun, default_list, bigmemory = TRUE) 
 
 #' Print a batch_simulation
 #' @inheritParams print.var_set
+#' @method print batch_simulation
 #' @export
 print.batch_simulation <- function(x, detail = FALSE, ...) {
   if (detail) {
@@ -227,4 +225,16 @@ print.batch_simulation <- function(x, detail = FALSE, ...) {
       sprintf("Output(s) from %d simulations.", nrow(x))
     )
   }
+}
+
+#' Attach all matrices in a batch simulation
+#'
+#' @param bs A \code{\link{batch_simulation}} object.
+#' @param backingpath Passed to \code{\link[bigmemory]{as.big.matrix}}.
+#' @export
+attach_all_matrices <- function(bs, backingpath = "bp"){
+  if(!"batch_simulation" %in% class(bs)) stop("Wrong input class. bs should be a `batch_simulation`.")
+  bs <- bs %>%
+    dplyr::mutate(output = purrr::map(output, attach.hash_big.matrix, backingpath = backingpath))
+  return(bs)
 }
