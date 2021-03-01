@@ -164,11 +164,11 @@ modified_simulation <- function(sim_fun, var_list, default_list, bigmemory = TRU
 #'
 #' @export
 #'
-sim_fun_test <- function(par1, par2) {
-  output <- matrix(nrow = 1000, ncol = 2)
+sim_fun_test <- function(par1, par2, length = 1000) {
+  output <- matrix(nrow = length, ncol = 2)
   colnames(output) <- c("out1", "out2")
   output[1, ] <- c(par1$var1, par2$var2)
-  for (i in 2:1000) {
+  for (i in 2:length) {
     output[i, 1] <- 0.5*output[i - 1, 1] + output[i - 1, 2] + par2$var3
     output[i, 2] <- -0.5*output[i - 1, 1] + output[i - 1, 2] + par2$var3
   }

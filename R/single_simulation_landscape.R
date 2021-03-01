@@ -45,14 +45,29 @@ make_kernel_dist <- function(output, x, y, n = 200, lims = c(-0.1, 1.1, -0.1, 1.
   if (any(!is.finite(output[, x])) || any(!is.finite(output[, y]))) {
     return(NULL)
   }
-  if (length[output, x] > 5e5){
+  if (length(output[ ,x]) > 5e5){
     # When the simulation length is too long, directly using kde2d function would take too much time.
-    # Therefore, the function will try to analyze them seperatedly
+    # Therefore, the function will try to analyze them separately
 
+    kde_result_list <- vector("list", ceiling(length(output[ ,x])/5e5))
+    kde_weight_list <- vector("integer", ceiling(length(output[ ,x])/5e5))
+    for(i in 1:ceiling(length(output[ ,x])/5e5)){
+      min_index <- (i-1)*5e5+1
+      max_index <- min(i*5e5, length(output[ ,x]))
+      kde_weight_list[i] <- max_index - min_index +1
+      kde_result_list[[i]] <- MASS::kde2d(x = output[min_index:max_index, x], y = output[min_index:max_index, y], n = n, lims = lims, h = h)
+    }
+    kde_weight_list <- kde_weight_list / sum(kde_weight_list)
+    result <- kde_result_list[[1]]
+    kde_result_list <- Map(function(x) x$z, kde_result_list)
+    result$z <- Reduce(`+`,Map(`*`, kde_result_list, kde_weight_list))
+    return(result)
   }else{
     return(MASS::kde2d(x = output[, x], y = output[, y], n = n, lims = lims, h = h))
   }
 }
+
+
 
 #' Make 3D static landscape plots from simulation output
 #'
