@@ -45,7 +45,13 @@ make_kernel_dist <- function(output, x, y, n = 200, lims = c(-0.1, 1.1, -0.1, 1.
   if (any(!is.finite(output[, x])) || any(!is.finite(output[, y]))) {
     return(NULL)
   }
-  return(MASS::kde2d(x = output[, x], y = output[, y], n = n, lims = lims, h = h))
+  if (length[output, x] > 5e5){
+    # When the simulation length is too long, directly using kde2d function would take too much time.
+    # Therefore, the function will try to analyze them seperatedly
+
+  }else{
+    return(MASS::kde2d(x = output[, x], y = output[, y], n = n, lims = lims, h = h))
+  }
 }
 
 #' Make 3D static landscape plots from simulation output
