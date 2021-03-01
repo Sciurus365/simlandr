@@ -42,12 +42,10 @@ reverselog_trans <- function(base = exp(1)) {
 #' @export
 make_kernel_dist <- function(output, x, y, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 0.1) {
   if (is.list(output)) output <- output[[1]]
-  data_x <- output[, x]
-  data_y <- output[, y]
-  if (any(!is.finite(data_x)) || any(!is.finite(data_y))) {
+  if (any(!is.finite(output[, x])) || any(!is.finite(output[, y]))) {
     return(NULL)
   }
-  return(MASS::kde2d(x = data_x, y = data_y, n = n, lims = lims, h = h))
+  return(MASS::kde2d(x = output[, x], y = output[, y], n = n, lims = lims, h = h))
 }
 
 #' Make 3D static landscape plots from simulation output
