@@ -12,7 +12,7 @@ find_local_min <- function(dist, localmin, r){
 	effective_dist <- dist$z[dist$x > x1-r & dist$x < x1+r,
 													 dist$y > y1-r & dist$y < y1+r]
 	max_dist <- max(effective_dist)
-	min_U <- -log10(max_dist)
+	min_U <- -log(max_dist)
 	location_index <- which(dist$z == max_dist, arr.ind = TRUE)
 	location_value <- c(dist$x[location_index[1]], dist$y[location_index[2]])
 	names(location_value) <- names(location_index)

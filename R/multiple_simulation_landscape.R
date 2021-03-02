@@ -31,15 +31,15 @@ make_tidy_dist <- function(dist_2d, value, var_name) {
 #' @param x,y,fr The names of the target variables.
 #' \code{fr} corresponds to the \code{frame} parameter in plotly.
 #' @param zmax The maximum displayed value of potential.
-#' @param n,lims,h Passed to \code{\link[MASS]{kde2d}}
+#' @param n,lims,h,kde_fun Passed to \code{make_kernel_dist}
 #' @param individual_plot Make individual plot for each var value?
 #'
 #' @export
-make_3d_animation_multisim <- function(bs, x, y, fr, zmax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 0.1, individual_plot = FALSE) {
+make_3d_animation_multisim <- function(bs, x, y, fr, zmax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 1e-3, kde_fun = "ks", individual_plot = FALSE) {
   message("Wrangling data...")
   df_multichannel <- bs %>%
     dplyr::mutate(
-      dist = purrr::map(output, make_kernel_dist, x, y, n, lims, h)
+      dist = purrr::map(output, make_kernel_dist, x, y, n, lims, h, kde_fun = kde_fun)
     )
 
   if (individual_plot) {
@@ -58,7 +58,7 @@ make_3d_animation_multisim <- function(bs, x, y, fr, zmax = 5, n = 200, lims = c
   message("Making the plot...")
   p <-
     df_multichannel_collect %>%
-    plotly::plot_ly(x = ~x, y = ~y, z = pmin(-log10(.$z), zmax), color = pmin(-log10(.$z), zmax), frame = .[, fr]) %>%
+    plotly::plot_ly(x = ~x, y = ~y, z = pmin(-log(.$z), zmax), color = pmin(-log(.$z), zmax), frame = .[, fr]) %>%
     plotly::add_markers(size = I(5)) %>%
     plotly::layout(scene = list(xaxis = list(title = x), yaxis = list(title = y), zaxis = list(title = "U")))
   message("Done!")
@@ -79,7 +79,7 @@ make_2d_matrix <- function(bs, x, rows, cols, adjust = 50, from = -0.1, to = 1, 
 	df_multichannel <- bs %>%
 		dplyr::mutate(output2 = purrr::pmap(list(output, bs[,rows], bs[,cols]), function(out, sample_var1, sample_var2){
 			d <- stats::density(out[,x], adjust = adjust, from = from, to = to)
-			df <- data.frame(x = d$x, y = d$y, U = pmin(-log10(d$y), zmax)) %>%
+			df <- data.frame(x = d$x, y = d$y, U = pmin(-log(d$y), zmax)) %>%
 				dplyr::mutate(rows = sample_var1, cols = sample_var2)
 			df
 		}))

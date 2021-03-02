@@ -4,11 +4,13 @@
 \alias{sim_fun_test}
 \title{A simple simulation function for testing}
 \usage{
-sim_fun_test(par1, par2)
+sim_fun_test(par1, par2, length = 1000)
 }
 \arguments{
 \item{par1, par2}{Two parameters. \code{par1} contains \code{var1};
 \code{par2} contains \code{var2} and \code{var3}.}
+
+\item{length}{The length of simulation.}
 }
 \value{
 A matrix of simulation results.
