@@ -57,13 +57,17 @@ batch_test_result <- batch_simulation(batch_test_grid, sim_fun_test,
   )
 )
 batch_test_result
+batch_test_result <- attach_all_matrices(batch_test_result)
+
+####### WARNING if you are using bigmemory: Due to a bug of RStudio, its variable inspector cannot handle objects with null external pointers. Work around: Turn off "automatically load workspace image"; change the variable inspector to "Manual refresh only", and then load the image and use attach_all_matrices for all batch simulations. After that, you can safely use the variable inspector. #########
 
 # Build landscapes
 
 l1 <- make_2d_density(single_test, x = "out1", from = -2, to = 2, adjust = 0.1)
 plot(l1)
 
-l2 <- make_3d_static(single_test, x = "out1", y = "out2", lims = c(-3,3,-3,3), h = 0.5)
+l2 <- make_3d_static(single_test, x = "out1", y = "out2", lims = c(-3,3,-3,3), h = 0.5, kde.fun = "MASS")
+# l2 <- make_3d_static(single_test, x = "out1", y = "out2", lims = c(-3,3,-3,3), h = 0.01, kde.fun = "ks")
 # plot(l2)
 plotly::orca(plot(l2), file = "man/figures/README-example-l2.png")
 knitr::include_graphics("man/figures/README-example-l2.png")
