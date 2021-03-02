@@ -11,8 +11,8 @@ make_3d_static(
   zmax = 5,
   n = 200,
   lims = c(-0.1, 1.1, -0.1, 1.1),
-  h = 0.1,
-  kde.fun = "MASS"
+  h = 0.001,
+  kde.fun = "ks"
 )
 }
 \arguments{

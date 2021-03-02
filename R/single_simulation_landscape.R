@@ -9,7 +9,7 @@
 #' @export
 make_2d_density <- function(output, x, adjust = 50, from = -0.1, to = 1, zmax = 5) {
   d <- stats::density(output[, x], adjust = adjust, from = from, to = to)
-  data.frame(x = d$x, y = d$y, U = pmin(-log10(d$y), zmax)) %>%
+  data.frame(x = d$x, y = d$y, U = pmin(-log(d$y), zmax)) %>%
     ggplot2::ggplot(mapping = ggplot2::aes(x = x, y = U)) +
     ggplot2::geom_line() +
     # geom_smooth(se = F) +
@@ -36,12 +36,15 @@ reverselog_trans <- function(base = exp(1)) {
 #'
 #' @param output A matrix of simulation output.
 #' @param x,y The name of the target variable.
-#' @param n,lims,h Passed to \code{\link[MASS]{kde2d}} or \code{\link[ks]{kde}}. If using \code{ks::kde}, \code{H = diag(h/50, 2, 2)} to make the bandwidth comparable with \code{MASS::kde2d}.
-#' @param kde.fun Which to use? Choices: "MASS" (default) \code{MASS::kde2d}; "ks" \code{ks::kde} (recommended when \code{MASS::kde2d} takes too much memory.).
+#' @param n,lims,h Passed to \code{\link[ks]{kde}} or \code{\link[MASS]{kde2d}}.
+#' If using \code{ks::kde}, \code{H = diag(h, 2, 2)}.
+#' Note: the definition of bandwidth (`h`) is different in two functions.
+#' To get a similar output, the `h` is about 50 to 5000 times smaller for \code{\link[ks]{kde}} than \code{\link[MASS]{kde2d}}
+#' @param kde.fun Which to use? Choices: "ks" \code{ks::kde} (default; faster and taking less memory); "MASS" \code{MASS::kde2d}.
 #'
 #' @return A \code{kde2d}-type list.
 #' @export
-make_kernel_dist <- function(output, x, y, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h, kde.fun = "MASS") {
+make_kernel_dist <- function(output, x, y, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h, kde.fun = "ks") {
   if (is.list(output)) output <- output[[1]]
   if (any(!is.finite(output[, x])) || any(!is.finite(output[, y]))) {
     return(NULL)
@@ -50,7 +53,7 @@ make_kernel_dist <- function(output, x, y, n = 200, lims = c(-0.1, 1.1, -0.1, 1.
   else if(kde.fun == "ks"){
     # prepare the parameters for ks::kde
     output_x <- output[,c(x,y)]
-    if(!missing(h)) H <- diag(h/50, 2, 2)
+    if(!missing(h)) H <- diag(h, 2, 2)
     gridsize <- rep(n, 2)
     xmin <- lims[c(1,3)]
     xmax <- lims[c(2,4)]
@@ -76,7 +79,7 @@ make_kernel_dist <- function(output, x, y, n = 200, lims = c(-0.1, 1.1, -0.1, 1.
 #' @return A \code{3d_static_landscape}, \code{landscape} object.
 #'
 #' @export
-make_3d_static <- function(output, x, y, zmax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 0.1, kde.fun = "MASS") {
+make_3d_static <- function(output, x, y, zmax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 1e-3, kde.fun = "ks") {
   if (is.list(output)) output <- unlist(output)
 
   message("Calculating the smooth distribution...")
@@ -84,7 +87,7 @@ make_3d_static <- function(output, x, y, zmax = 5, n = 200, lims = c(-0.1, 1.1, 
   message("Done!")
 
   message("Making the plot...")
-  p <- plotly::plot_ly(x = out_2d$x, y = out_2d$y, z = pmin(-log10(out_2d$z), zmax), type = "surface")
+  p <- plotly::plot_ly(x = out_2d$x, y = out_2d$y, z = pmin(-log(out_2d$z), zmax), type = "surface")
   p <- plotly::layout(p, scene = list(xaxis = list(title = x), yaxis = list(title = y), zaxis = list(title = "U")))
   message("Done!")
 
