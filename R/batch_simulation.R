@@ -157,6 +157,7 @@ modified_simulation <- function(sim_fun, var_list, default_list, bigmemory = TRU
 #'
 #' @param par1,par2 Two parameters. \code{par1} contains \code{var1};
 #' \code{par2} contains \code{var2} and \code{var3}.
+#' @param length The length of simulation.
 #'
 #' @return A matrix of simulation results.
 #'

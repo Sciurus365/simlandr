@@ -36,37 +36,34 @@ reverselog_trans <- function(base = exp(1)) {
 #'
 #' @param output A matrix of simulation output.
 #' @param x,y The name of the target variable.
-#' @param n,lims,h Passed to \code{\link[MASS]{kde2d}}
+#' @param n,lims,h Passed to \code{\link[MASS]{kde2d}} or \code{\link[ks]{kde}}. If using \code{ks::kde}, \code{H = diag(h/50, 2, 2)} to make the bandwidth comparable with \code{MASS::kde2d}.
+#' @param kde.fun Which to use? Choices: "MASS" (default) \code{MASS::kde2d}; "ks" \code{ks::kde} (recommended when \code{MASS::kde2d} takes too much memory.).
 #'
 #' @return A \code{kde2d}-type list.
 #' @export
-make_kernel_dist <- function(output, x, y, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 0.1) {
+make_kernel_dist <- function(output, x, y, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h, kde.fun = "MASS") {
   if (is.list(output)) output <- output[[1]]
   if (any(!is.finite(output[, x])) || any(!is.finite(output[, y]))) {
     return(NULL)
   }
-  if (length(output[ ,x]) > 5e5){
-    # When the simulation length is too long, directly using kde2d function would take too much time.
-    # Therefore, the function will try to analyze them separately
+  if(kde.fun == "MASS")  return(MASS::kde2d(x = output[, x], y = output[, y], n = n, lims = lims, h = h))
+  else if(kde.fun == "ks"){
+    # prepare the parameters for ks::kde
+    output_x <- output[,c(x,y)]
+    if(!missing(h)) H <- diag(h/50, 2, 2)
+    gridsize <- rep(n, 2)
+    xmin <- lims[c(1,3)]
+    xmax <- lims[c(2,4)]
 
-    kde_result_list <- vector("list", ceiling(length(output[ ,x])/5e5))
-    kde_weight_list <- vector("integer", ceiling(length(output[ ,x])/5e5))
-    for(i in 1:ceiling(length(output[ ,x])/5e5)){
-      min_index <- (i-1)*5e5+1
-      max_index <- min(i*5e5, length(output[ ,x]))
-      kde_weight_list[i] <- max_index - min_index +1
-      kde_result_list[[i]] <- MASS::kde2d(x = output[min_index:max_index, x], y = output[min_index:max_index, y], n = n, lims = lims, h = h)
-    }
-    kde_weight_list <- kde_weight_list / sum(kde_weight_list)
-    result <- kde_result_list[[1]]
-    kde_result_list <- Map(function(x) x$z, kde_result_list)
-    result$z <- Reduce(`+`,Map(`*`, kde_result_list, kde_weight_list))
+    # calculate the result using ks::kde
+    if(!missing(h)) result <- ks::kde(output_x, H = H, gridsize = gridsize, xmin = xmin, xmax = xmax, compute.cont=FALSE, approx.cont=FALSE)
+    else result <- ks::kde(output_x, gridsize = gridsize, xmin = xmin, xmax = xmax, compute.cont=FALSE, approx.cont=FALSE)
+    # reformat the result to the format of MASS::kde2d
+    result <- list(x = result$eval.points[[1]], y = result$eval.points[[2]], z = pmax(result$estimate, 0)) # different result??
     return(result)
-  }else{
-    return(MASS::kde2d(x = output[, x], y = output[, y], n = n, lims = lims, h = h))
   }
+  else stop('Wrong input for `kde.fun`. Please choose from "MASS" and "ks".')
 }
-
 
 
 #' Make 3D static landscape plots from simulation output
@@ -74,16 +71,16 @@ make_kernel_dist <- function(output, x, y, n = 200, lims = c(-0.1, 1.1, -0.1, 1.
 #' @param output A matrix of simulation output.
 #' @param x,y The name of the target variable.
 #' @param zmax The maximum displayed value of potential.
-#' @param n,lims,h Passed to \code{\link[MASS]{kde2d}}
+#' @param n,lims,h,kde.fun Passed to \code{\link{make_kernel_dist}}
 #'
 #' @return A \code{3d_static_landscape}, \code{landscape} object.
 #'
 #' @export
-make_3d_static <- function(output, x, y, zmax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 0.1) {
+make_3d_static <- function(output, x, y, zmax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 0.1, kde.fun = "MASS") {
   if (is.list(output)) output <- unlist(output)
 
   message("Calculating the smooth distribution...")
-  out_2d <- make_kernel_dist(output, x, y, n, lims, h)
+  out_2d <- make_kernel_dist(output, x, y, n, lims, h, kde.fun)
   message("Done!")
 
   message("Making the plot...")

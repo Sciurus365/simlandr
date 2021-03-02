@@ -10,7 +10,8 @@ make_kernel_dist(
   y,
   n = 200,
   lims = c(-0.1, 1.1, -0.1, 1.1),
-  h = 0.1
+  h,
+  kde.fun = "MASS"
 )
 }
 \arguments{
@@ -18,7 +19,9 @@ make_kernel_dist(
 
 \item{x, y}{The name of the target variable.}
 
-\item{n, lims, h}{Passed to \code{\link[MASS]{kde2d}}}
+\item{n, lims, h}{Passed to \code{\link[MASS]{kde2d}} or \code{\link[ks]{kde}}. If using \code{ks::kde}, \code{H = diag(h/50, 2, 2)} to make the bandwidth comparable with \code{MASS::kde2d}.}
+
+\item{kde.fun}{Which to use? Choices: "MASS" (default) \code{MASS::kde2d}; "ks" \code{ks::kde} (recommended when \code{MASS::kde2d} takes too much memory.).}
 }
 \value{
 A \code{kde2d}-type list.
