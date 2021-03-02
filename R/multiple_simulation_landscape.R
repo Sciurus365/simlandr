@@ -8,7 +8,7 @@
 #'
 #' @export
 #'
-make_tidy_dist <- function(dist_2d, value, var_name) {
+make_tidy_dist <- function(dist_2d, value = NULL, var_name = NULL) {
   df <- cbind(
     expand.grid(x = dist_2d$x, y = dist_2d$y),
     expand.grid(
@@ -21,7 +21,8 @@ make_tidy_dist <- function(dist_2d, value, var_name) {
     dplyr::mutate(z = purrr::map2_dbl(x_index, y_index, function(x, y, zm) {
       zm[x, y]
     }, zm = z_mat))
-  df[, var_name] <- value
+
+  if(!is.null(value) & !is.null(var_name)) df[, var_name] <- value
   return(df)
 }
 
