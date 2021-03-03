@@ -64,12 +64,20 @@ make_3d_animation_multisim <- function(bs, x, y, fr, zmax = 5, n = 200, lims = c
     plotly::layout(scene = list(xaxis = list(title = x), yaxis = list(title = y), zaxis = list(title = "U")))
   message("Done!")
 
-  result <- list(df = df_multichannel, df_collect = df_multichannel_collect, plot = p, x = x, y = y, fr = fr)
+  message("Making the 2d plot...")
+  p2 <- ggplot2::ggplot(df_multichannel_collect, ggplot2::aes(x = x, y = y)) +
+  	ggplot2::geom_raster(ggplot2::aes(fill=pmin(-log(z), zmax))) +
+  	ggplot2::scale_fill_viridis_c() +
+  	ggplot2::labs(x = x, y = y, fill = "U") +
+  	gganimate::transition_states(df_multichannel_collect[,fr])
+  message("Done!")
+
+  result <- list(df = df_multichannel, df_collect = df_multichannel_collect, plot = p, plot_2 = p2, x = x, y = y, fr = fr)
   class(result) <- c("3d_animation_multichain_landscape", "landscape")
   return(result)
 }
 
-#' Make a matrix of 3d graphs for two parameters
+#' Make a matrix of 2d graphs for two parameters
 #' @param bs A \code{batch_simulation} object created by \code{\link{batch_simulation}.}
 #' @param x,rows,cols The names of the target variables.
 #' @param adjust,from,to Passed to \code{density}.
@@ -88,14 +96,54 @@ make_2d_matrix <- function(bs, x, rows, cols, adjust = 50, from = -0.1, to = 1, 
 	df_all <- do.call(rbind, df_multichannel$output2)
 
 	message("Making the plot...")
+	rows_labeller <- function(x) paste0(rows, ": ", x)
+	cols_labeller <- function(x) paste0(cols, ": ", x)
 	p <- df_all %>%
 		ggplot2::ggplot(mapping = ggplot2::aes(x = x, y = U)) +
 		ggplot2::geom_line() +
-		ggplot2::facet_grid(rows ~ cols) +
+		ggplot2::facet_grid(rows ~ cols, labeller = ggplot2::labeller(.rows = ggplot2::as_labeller(rows_labeller), .cols = ggplot2::as_labeller(cols_labeller))) +
 		ggplot2::theme_bw() + ggplot2::xlab(x)
 	message("Done!")
 
 	result <- list(dist1 = df_multichannel, dist2 = df_all, plot = p, x = x, rows = rows, cols = cols)
 	class(result) <- c("2d_matrix_landscape", "landscape")
+	return(result)
+}
+
+#' Make a matrix or vector of 3d heatmap graphs for two parameters
+#'
+#' (Note: a matrix of interactive maps is currently not supported.)
+#'
+#' @param bs A \code{batch_simulation} object created by \code{\link{batch_simulation}.}
+#' @param x,y,rows,cols The names of the target variables.
+#' If `y` is missing, only a vector of graphs will be generated.
+#' @param zmax The maximum displayed value of potential.
+#' @param n,lims,h,kde_fun Passed to \code{\link{make_kernel_dist}}
+#'
+#' @export
+make_3d_matrix <- function(bs, x, y, rows, cols, zmax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 1e-3, kde_fun = "ks"){
+	df_multichannel <- bs %>%
+		dplyr::mutate(output2 = purrr::pmap(list(output, bs[,rows], bs[,cols]), function(out, sample_var1, sample_var2){
+			d <- make_kernel_dist(out, x, y, n, lims, h, kde_fun)
+			df <- make_tidy_dist(d)
+			df$rows <- sample_var1
+			df$cols <- sample_var2
+			df
+		}))
+
+	df_all <- do.call(rbind, df_multichannel$output2)
+
+	message("Making the 2d plot...")
+	rows_labeller <- function(x) paste0(rows, ": ", x)
+	cols_labeller <- function(x) paste0(cols, ": ", x)
+	p <- ggplot2::ggplot(data = df_all, ggplot2::aes(x = x, y = y)) +
+		ggplot2::geom_raster(ggplot2::aes(fill=pmin(-log(z), zmax))) +
+		ggplot2::scale_fill_viridis_c() +
+		ggplot2::facet_grid(rows ~ cols, labeller = ggplot2::labeller(.rows = ggplot2::as_labeller(rows_labeller), .cols = ggplot2::as_labeller(cols_labeller))) +
+		ggplot2::labs(x = x, y = y, fill = "U")
+	message("Done!")
+
+	result <- list(dist1 = df_multichannel, dist2 = df_all, plot = p, x = x, y = y, rows = rows, cols = cols)
+	class(result) <- c("3d_matrix_landscape", "landscape")
 	return(result)
 }

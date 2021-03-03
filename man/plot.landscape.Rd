@@ -4,10 +4,13 @@
 \alias{plot.landscape}
 \title{Make plots from landscape objects}
 \usage{
-\method{plot}{landscape}(x, ...)
+\method{plot}{landscape}(x, index = 1, ...)
 }
 \arguments{
 \item{x}{A landscape object}
+
+\item{index}{Default is 1. For some landscape objects, there is a second plot (usually 2d heatmaps for 3d landscapes).
+Use `index = 2` to plot that one.}
 
 \item{...}{Not in use.}
 }
