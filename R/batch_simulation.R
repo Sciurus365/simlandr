@@ -170,7 +170,7 @@ sim_fun_test <- function(par1, par2, length = 1000) {
   colnames(output) <- c("out1", "out2")
   output[1, ] <- c(par1$var1, par2$var2)
   for (i in 2:length) {
-    output[i, 1] <- 0.5*output[i - 1, 1] + output[i - 1, 2] + par2$var3
+    output[i, 1] <- 0.5*output[i - 1, 1] + output[i - 1, 2] + par2$var3 + par1$var1*par2$var2
     output[i, 2] <- -0.5*output[i - 1, 1] + output[i - 1, 2] + par2$var3
   }
   return(output)

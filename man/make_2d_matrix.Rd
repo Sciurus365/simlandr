@@ -2,7 +2,7 @@
 % Please edit documentation in R/multiple_simulation_landscape.R
 \name{make_2d_matrix}
 \alias{make_2d_matrix}
-\title{Make a matrix of 3d graphs for two parameters}
+\title{Make a matrix of 2d graphs for two parameters}
 \usage{
 make_2d_matrix(bs, x, rows, cols, adjust = 50, from = -0.1, to = 1, zmax = 5)
 }
@@ -16,5 +16,5 @@ make_2d_matrix(bs, x, rows, cols, adjust = 50, from = -0.1, to = 1, zmax = 5)
 \item{zmax}{The maximum displayed value of potential.}
 }
 \description{
-Make a matrix of 3d graphs for two parameters
+Make a matrix of 2d graphs for two parameters
 }

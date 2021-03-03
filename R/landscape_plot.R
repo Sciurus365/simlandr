@@ -1,10 +1,15 @@
 #' Make plots from landscape objects
 #'
 #' @param x A landscape object
+#' @param index Default is 1. For some landscape objects, there is a second plot (usually 2d heatmaps for 3d landscapes).
+#' Use `index = 2` to plot that one.
 #' @param ... Not in use.
 #'
 #' @export
-plot.landscape <- function(x, ...) {x$plot}
+plot.landscape <- function(x, index = 1, ...) {
+	if(index == 1) x$plot
+	else if(index == 2) x$plot_2
+}
 
 #' Save landscape plots
 #'

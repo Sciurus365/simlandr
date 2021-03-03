@@ -11,7 +11,7 @@ make_kernel_dist(
   n = 200,
   lims = c(-0.1, 1.1, -0.1, 1.1),
   h,
-  kde.fun = "ks"
+  kde_fun = "ks"
 )
 }
 \arguments{
@@ -24,7 +24,7 @@ If using \code{ks::kde}, \code{H = diag(h, 2, 2)}.
 Note: the definition of bandwidth (`h`) is different in two functions.
 To get a similar output, the `h` is about 50 to 5000 times smaller for \code{\link[ks]{kde}} than \code{\link[MASS]{kde2d}}}
 
-\item{kde.fun}{Which to use? Choices: "ks" \code{ks::kde} (default; faster and taking less memory); "MASS" \code{MASS::kde2d}.}
+\item{kde_fun}{Which to use? Choices: "ks" \code{ks::kde} (default; faster and taking less memory); "MASS" \code{MASS::kde2d}.}
 }
 \value{
 A \code{kde2d}-type list.

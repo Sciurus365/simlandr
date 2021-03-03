@@ -4,7 +4,7 @@
 \alias{make_tidy_dist}
 \title{Make a tidy data frame from smooth 2d distribution matrix}
 \usage{
-make_tidy_dist(dist_2d, value, var_name)
+make_tidy_dist(dist_2d, value = NULL, var_name = NULL)
 }
 \arguments{
 \item{dist_2d}{\code{kde2d} distribution.}

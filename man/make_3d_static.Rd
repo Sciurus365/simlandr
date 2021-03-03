@@ -12,7 +12,7 @@ make_3d_static(
   n = 200,
   lims = c(-0.1, 1.1, -0.1, 1.1),
   h = 0.001,
-  kde.fun = "ks"
+  kde_fun = "ks"
 )
 }
 \arguments{
@@ -22,7 +22,7 @@ make_3d_static(
 
 \item{zmax}{The maximum displayed value of potential.}
 
-\item{n, lims, h, kde.fun}{Passed to \code{\link{make_kernel_dist}}}
+\item{n, lims, h, kde_fun}{Passed to \code{\link{make_kernel_dist}}}
 }
 \value{
 A \code{3d_static_landscape}, \code{landscape} object.
