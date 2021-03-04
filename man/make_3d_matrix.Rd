@@ -8,7 +8,7 @@ make_3d_matrix(
   bs,
   x,
   y,
-  rows,
+  rows = NULL,
   cols,
   zmax = 5,
   n = 200,
@@ -21,7 +21,7 @@ make_3d_matrix(
 \item{bs}{A \code{batch_simulation} object created by \code{\link{batch_simulation}.}}
 
 \item{x, y, rows, cols}{The names of the target variables.
-If `y` is missing, only a vector of graphs will be generated.}
+If `rows` is `NULL`, only a vector of graphs will be generated.}
 
 \item{zmax}{The maximum displayed value of potential.}
 

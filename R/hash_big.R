@@ -18,17 +18,14 @@ as.hash_big.matrix <- function(x, backingpath = "bp", silence = TRUE, ...){
 	if(!dir.exists(backingpath)) dir.create(backingpath)
 	temp <- methods::new("hash_big.matrix")
 	temp@md5 <- digest::digest(x)
-	if(file.exists(file.path(backingpath, paste0(temp@md5, ".bin")))){
-		file.remove(file.path(backingpath, paste0(temp@md5, ".bin")))
-		if(!silence) message("Old backing file removed.")
-	}
 	if(file.exists(file.path(backingpath, paste0(temp@md5, ".desc")))){
-		file.remove(file.path(backingpath, paste0(temp@md5, ".desc")))
-		if(!silence) message("Old description file removed.")
+		temp@address <- bigmemory::attach.big.matrix(paste0(temp@md5, ".desc"), path = backingpath)@address
+		if(!silence) message("Old backing file attached.")
+	}else{
+		temp@address <- bigmemory::as.big.matrix(x, backingpath = backingpath,
+																						 backingfile = paste0(temp@md5, ".bin"),
+																						 descriptorfile = paste0(temp@md5, ".desc"))@address
 	}
-
-	temp@address <- as.big.matrix(x, backingpath = backingpath,
-																backingfile = paste0(temp@md5, ".bin"), descriptorfile = paste0(temp@md5, ".desc"))@address
 	methods::validObject(temp)
 	return(temp)
 }

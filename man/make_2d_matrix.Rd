@@ -4,12 +4,22 @@
 \alias{make_2d_matrix}
 \title{Make a matrix of 2d graphs for two parameters}
 \usage{
-make_2d_matrix(bs, x, rows, cols, adjust = 50, from = -0.1, to = 1, zmax = 5)
+make_2d_matrix(
+  bs,
+  x,
+  rows = NULL,
+  cols,
+  adjust = 50,
+  from = -0.1,
+  to = 1,
+  zmax = 5
+)
 }
 \arguments{
 \item{bs}{A \code{batch_simulation} object created by \code{\link{batch_simulation}.}}
 
-\item{x, rows, cols}{The names of the target variables.}
+\item{x, rows, cols}{The names of the target variables.
+If `rows` is `NULL`, only a vector of graphs will be generated.}
 
 \item{adjust, from, to}{Passed to \code{density}.}
 

@@ -142,6 +142,15 @@ plot(l4)
 <img src="man/figures/README-example-5.png" width="100%" />
 
 ``` r
+l4_1 <- make_2d_matrix(batch_test_result, x = "out1", cols = "var3", from = -3, to = 3)
+#> Making the plot...
+#> Done!
+plot(l4_1)
+```
+
+<img src="man/figures/README-example-6.png" width="100%" />
+
+``` r
 ## 5. 3d (including color dimension) heatplot matrix with two changing parameters
 l5 <- make_3d_matrix(batch_test_result2, x = "out1", y = "out2", rows = "var1", cols = "var2", lims = c(-3,3,-3,3), h = 0.01, kde_fun = "ks", zmax = 10)
 #> Making the 2d plot...
@@ -149,6 +158,15 @@ l5 <- make_3d_matrix(batch_test_result2, x = "out1", y = "out2", rows = "var1", 
 plot(l5)
 ```
 
-<img src="man/figures/README-example-6.png" width="100%" />
+<img src="man/figures/README-example-7.png" width="100%" />
+
+``` r
+l5_1 <- make_3d_matrix(batch_test_result, x = "out1", y = "out2", cols = "var3", lims = c(-3,3,-3,3), h = 0.01, kde_fun = "ks", zmax = 10)
+#> Making the 2d plot...
+#> Done!
+plot(l5_1)
+```
+
+<img src="man/figures/README-example-8.png" width="100%" />
 
 <!-- devtools::build_readme() -->
