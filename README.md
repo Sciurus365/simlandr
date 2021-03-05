@@ -4,11 +4,7 @@
 # simlandr
 
 ![](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
-
-<!-- badges: start -->
-
 [![R-CMD-check](https://github.com/Sciurus365/simlandr/workflows/R-CMD-check/badge.svg)](https://github.com/Sciurus365/simlandr/actions)
-<!-- badges: end -->
 
 The goal of simlandr is to provide a set of tools for constructing
 potential landscape function for dynamic systems, especially for
