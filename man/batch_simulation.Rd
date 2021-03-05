@@ -17,7 +17,7 @@ for an example.}
 
 \item{default_list}{A list of default values for \code{sim_fun}.}
 
-\item{bigmemory}{Use \code{bigmemory} package to store large matrices?}
+\item{bigmemory}{Use \code{\link{hash_big.matrix-class}} to store large matrices?}
 
 \item{var_grid}{A \code{var_grid} object. See \code{\link{make_var_grid}}.}
 }

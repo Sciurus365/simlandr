@@ -184,7 +184,7 @@ sim_fun_test <- function(par1, par2, length = 1000) {
 #' @param sim_fun The simulation function. See \code{\link{sim_fun_test}}
 #' for an example.
 #' @param default_list A list of default values for \code{sim_fun}.
-#' @param bigmemory Use \code{bigmemory} package to store large matrices?
+#' @param bigmemory Use \code{\link{hash_big.matrix-class}} to store large matrices?
 #'
 #' @return A \code{batch_simulation} object, also a data frame.
 #' The first column, \code{var}, is a list of
