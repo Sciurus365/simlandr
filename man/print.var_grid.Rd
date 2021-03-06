@@ -7,7 +7,7 @@
 \method{print}{var_grid}(x, detail = FALSE, ...)
 }
 \arguments{
-\item{x}{An \code{var_set} object.}
+\item{x}{The object.}
 
 \item{detail}{Do you want to print the object details as a full list?}
 

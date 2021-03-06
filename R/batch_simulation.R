@@ -49,7 +49,7 @@ npar <- function(var_set) attr(var_set, "npar")
 
 #' Print a var_set
 #'
-#' @param x An \code{var_set} object.
+#' @param x The object.
 #' @param detail Do you want to print the object details as a full list?
 #' @param ... Not in use.
 #' @method print var_set
