@@ -26,9 +26,9 @@ check_conv <- function(output, vars, sample_perc = 0.2){
 		stage_list[[3]] <- output %>% add_stage_tag(((1-sample_perc)*simulation_length):simulation_length, i, stage = "final")
 		# stage_list[[4]] <- output %>% add_stage_tag(1:simulation_length, i, stage = "all")
 
-		data_all <- do.call(rbind, stage_list)
+		data_all <- do.call(rbind, stage_list) %>% dplyr::mutate(stage = forcats::fct_relevel(stage, "initial", "middle", "final"))
 
-		p <- ggplot2::ggplot(data_all, mapping = ggplot2::aes(x = data_all[,i], fill = stage)) +
+		p <- ggplot2::ggplot(data_all, mapping = ggplot2::aes(x = !!ggplot2::sym(i), fill = stage)) +
 			ggplot2::stat_bin(position = "dodge") +
 			ggplot2::labs(x = i)
 		result_list[[i]] <- p
