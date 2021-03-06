@@ -44,7 +44,7 @@ check_conv <- function(output, vars, sample_perc = 0.2){
 #' @method print check_conv
 #' @export
 print.check_conv <- function(x, ask = TRUE, ...){
-	if(TRUE){
+	if(ask){
 		for(i in x){
 			print(i)
 			readline(prompt = "Press <Enter> to see the next plot...")
