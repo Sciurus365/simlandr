@@ -54,7 +54,7 @@ batch_test_result
 #> Output(s) from 6 simulations.
 batch_test_result <- attach_all_matrices(batch_test_result)
 
-# WARNING if you are using bigmemory: Due to a bug of RStudio, its variable inspector cannot handle objects with null external pointers. Work around: Turn off "automatically load workspace image"; change the variable inspector to "Manual refresh only", and then load the image and use attach_all_matrices for all batch simulations. After that, you can safely use the variable inspector. #
+# WARNING if you are using bigmemory: Due to a bug of RStudio(https://github.com/rstudio/rstudio/issues/8923), its variable inspector cannot handle objects with null external pointers. Work around: Turn off "automatically load workspace image"; change the variable inspector to "Manual refresh only", and then load the image and use attach_all_matrices for all batch simulations. After that, you can safely use the variable inspector. #
 
 # Batch simulation with two parameters
 
@@ -76,7 +76,7 @@ batch_test_result2
 # Build landscapes
 
 ## 1. 2d density landscape
-l1 <- make_2d_density(single_test, x = "out1", from = -2, to = 2, adjust = 0.1)
+l1 <- make_2d_density(single_test, x = "out1", from = -2, to = 2, adjust = 1)
 plot(l1)
 ```
 
@@ -119,6 +119,10 @@ l3 <- make_3d_animation_multisim(batch_test_result, x = "out1", y = "out2", fr =
 #> Done!
 #> Making the 2d plot...
 #> Done!
+#> Making the 3d matrix...
+#> Making the 2d plot...
+#> Done!
+#> Done!
 # plot(l3)
 plotly::orca(plot(l3), file = "man/figures/README-example-l3.png")
 ```
@@ -130,6 +134,12 @@ knitr::include_graphics("man/figures/README-example-l3.png")
 <img src="man/figures/README-example-l3.png" width="100%" />
 
 ``` r
+plot(l3, 3)
+```
+
+<img src="man/figures/README-example-5.png" width="100%" />
+
+``` r
 ## 4. 2d density matrix with two changing parameters
 l4 <- make_2d_matrix(batch_test_result2, x = "out1", rows = "var1", cols = "var2", from = -3, to = 3)
 #> Making the plot...
@@ -137,7 +147,7 @@ l4 <- make_2d_matrix(batch_test_result2, x = "out1", rows = "var1", cols = "var2
 plot(l4)
 ```
 
-<img src="man/figures/README-example-5.png" width="100%" />
+<img src="man/figures/README-example-6.png" width="100%" />
 
 ``` r
 l4_1 <- make_2d_matrix(batch_test_result, x = "out1", cols = "var3", from = -3, to = 3)
@@ -146,7 +156,7 @@ l4_1 <- make_2d_matrix(batch_test_result, x = "out1", cols = "var3", from = -3, 
 plot(l4_1)
 ```
 
-<img src="man/figures/README-example-6.png" width="100%" />
+<img src="man/figures/README-example-7.png" width="100%" />
 
 ``` r
 ## 5. 3d (including color dimension) heatplot matrix with two changing parameters
@@ -156,7 +166,7 @@ l5 <- make_3d_matrix(batch_test_result2, x = "out1", y = "out2", rows = "var1", 
 plot(l5)
 ```
 
-<img src="man/figures/README-example-7.png" width="100%" />
+<img src="man/figures/README-example-8.png" width="100%" />
 
 ``` r
 l5_1 <- make_3d_matrix(batch_test_result, x = "out1", y = "out2", cols = "var3", lims = c(-3,3,-3,3), h = 0.01, kde_fun = "ks", zmax = 10)
@@ -165,6 +175,6 @@ l5_1 <- make_3d_matrix(batch_test_result, x = "out1", y = "out2", cols = "var3",
 plot(l5_1)
 ```
 
-<img src="man/figures/README-example-8.png" width="100%" />
+<img src="man/figures/README-example-9.png" width="100%" />
 
 <!-- devtools::build_readme() -->

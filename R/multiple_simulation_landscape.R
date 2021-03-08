@@ -34,9 +34,10 @@ make_tidy_dist <- function(dist_2d, value = NULL, var_name = NULL) {
 #' @param zmax The maximum displayed value of potential.
 #' @param n,lims,h,kde_fun Passed to \code{make_kernel_dist}
 #' @param individual_plot Make individual plot for each var value?
+#' @param mat_3d Also make heatmap matrix?
 #'
 #' @export
-make_3d_animation_multisim <- function(bs, x, y, fr, zmax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 1e-3, kde_fun = "ks", individual_plot = FALSE) {
+make_3d_animation_multisim <- function(bs, x, y, fr, zmax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 1e-3, kde_fun = "ks", individual_plot = FALSE, mat_3d = TRUE) {
   message("Wrangling data...")
   df_multichannel <- bs %>%
     dplyr::mutate(
@@ -72,7 +73,13 @@ make_3d_animation_multisim <- function(bs, x, y, fr, zmax = 5, n = 200, lims = c
   	gganimate::transition_states(df_multichannel_collect[,fr])
   message("Done!")
 
-  result <- list(df = df_multichannel, df_collect = df_multichannel_collect, plot = p, plot_2 = p2, x = x, y = y, fr = fr)
+  if(mat_3d){
+  	message("Making the 3d matrix...")
+  	mat_3d <- make_3d_matrix(bs = bs, x = x, y = y, rows = NULL, cols = fr, zmax = zmax, n = n, lims = lims, h = h, kde_fun = kde_fun)
+  	message("Done!")
+  }
+
+  result <- list(df = df_multichannel, df_collect = df_multichannel_collect, plot = p, plot_2 = p2, mat_3d = mat_3d, x = x, y = y, fr = fr)
   class(result) <- c("3d_animation_multichain_landscape", "landscape")
   return(result)
 }

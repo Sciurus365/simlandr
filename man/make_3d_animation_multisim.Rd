@@ -14,7 +14,8 @@ make_3d_animation_multisim(
   lims = c(-0.1, 1.1, -0.1, 1.1),
   h = 0.001,
   kde_fun = "ks",
-  individual_plot = FALSE
+  individual_plot = FALSE,
+  mat_3d = TRUE
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ make_3d_animation_multisim(
 \item{n, lims, h, kde_fun}{Passed to \code{make_kernel_dist}}
 
 \item{individual_plot}{Make individual plot for each var value?}
+
+\item{mat_3d}{Also make heatmap matrix?}
 }
 \description{
 Make 3d animations from multiple simulations
