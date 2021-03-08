@@ -33,26 +33,26 @@ make_tidy_dist <- function(dist_2d, value = NULL, var_name = NULL) {
 #' \code{fr} corresponds to the \code{frame} parameter in plotly.
 #' @param zmax The maximum displayed value of potential.
 #' @param n,lims,h,kde_fun Passed to \code{make_kernel_dist}
-#' @param individual_plot Make individual plot for each var value?
+#' @param individual_landscape Make individual landscape for each simulation?
 #' @param mat_3d Also make heatmap matrix?
 #'
 #' @export
-make_3d_animation_multisim <- function(bs, x, y, fr, zmax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 1e-3, kde_fun = "ks", individual_plot = FALSE, mat_3d = TRUE) {
+make_3d_animation <- function(bs, x, y, fr, zmax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 1e-3, kde_fun = "ks", individual_landscape = FALSE, mat_3d = TRUE) {
   message("Wrangling data...")
   df_multichannel <- bs %>%
     dplyr::mutate(
       dist = purrr::map(output, make_kernel_dist, x, y, n, lims, h, kde_fun = kde_fun)
     )
 
-  if (individual_plot) {
+  if (individual_landscape) {
     df_multichannel <- df_multichannel %>%
       dplyr::mutate(
-        plot = purrr::map(output, make_3d_static, x = x, y = y)
+        l = purrr::map(output, make_3d_static, x = x, y = y, zmax = zmax, n = n, lims = lims, h = h, kde_fun = kde_fun)
       )
   }
 
   df_multichannel_tidy <- df_multichannel %>%
-    dplyr::mutate(tidy_dist = purrr::map2(dist, df_multichannel[,fr], make_tidy_dist, var_name = fr))
+    dplyr::mutate(tidy_dist = purrr::map2(dist, df_multichannel[,fr], make_tidy_dist, var_name = "fr"))
 
   df_multichannel_collect <- do.call(rbind, df_multichannel_tidy$tidy_dist)
   message("Done!")
@@ -60,9 +60,12 @@ make_3d_animation_multisim <- function(bs, x, y, fr, zmax = 5, n = 200, lims = c
   message("Making the plot...")
   p <-
     df_multichannel_collect %>%
-    plotly::plot_ly(x = ~x, y = ~y, z = pmin(-log(.$z), zmax), color = pmin(-log(.$z), zmax), frame = .[, fr]) %>%
+    plotly::plot_ly(x = ~x, y = ~y, z = pmin(-log(.$z), zmax), color = pmin(-log(.$z), zmax), frame = ~fr) %>%
     plotly::add_markers(size = I(5)) %>%
-    plotly::layout(scene = list(xaxis = list(title = x), yaxis = list(title = y), zaxis = list(title = "U")))
+    plotly::layout(scene = list(xaxis = list(title = x), yaxis = list(title = y), zaxis = list(title = "U"))) %>%
+  	plotly::animation_slider(
+    	currentvalue = list(prefix = paste0(fr, ": "))
+    )
   message("Done!")
 
   message("Making the 2d plot...")
@@ -70,7 +73,8 @@ make_3d_animation_multisim <- function(bs, x, y, fr, zmax = 5, n = 200, lims = c
   	ggplot2::geom_raster(ggplot2::aes(fill=pmin(-log(z), zmax))) +
   	ggplot2::scale_fill_viridis_c() +
   	ggplot2::labs(x = x, y = y, fill = "U") +
-  	gganimate::transition_states(df_multichannel_collect[,fr])
+  	gganimate::transition_states(df_multichannel_collect$fr) +
+  	ggplot2::labs(subtitle = paste0(fr, ": {closest_state}"))
   message("Done!")
 
   if(mat_3d){
@@ -79,8 +83,8 @@ make_3d_animation_multisim <- function(bs, x, y, fr, zmax = 5, n = 200, lims = c
   	message("Done!")
   }
 
-  result <- list(df = df_multichannel, df_collect = df_multichannel_collect, plot = p, plot_2 = p2, mat_3d = mat_3d, x = x, y = y, fr = fr)
-  class(result) <- c("3d_animation_multichain_landscape", "landscape")
+  result <- list(dist_raw = df_multichannel, dist = df_multichannel_collect, plot = p, plot_2 = p2, mat_3d = mat_3d, x = x, y = y, fr = fr)
+  class(result) <- c("3d_animation_landscape", "landscape")
   return(result)
 }
 
@@ -129,7 +133,7 @@ make_2d_matrix <- function(bs, x, rows = NULL, cols, adjust = 50, from = -0.1, t
 	}
 	message("Done!")
 
-	result <- list(dist1 = df_multichannel, dist2 = df_all, plot = p, x = x, rows = rows, cols = cols)
+	result <- list(dist_raw = df_multichannel, dist = df_all, plot = p, x = x, rows = rows, cols = cols)
 	class(result) <- c("2d_matrix_landscape", "landscape")
 	return(result)
 }
@@ -145,7 +149,7 @@ make_2d_matrix <- function(bs, x, rows = NULL, cols, adjust = 50, from = -0.1, t
 #' @param n,lims,h,kde_fun Passed to \code{\link{make_kernel_dist}}
 #'
 #' @export
-make_3d_matrix <- function(bs, x, y, rows = NULL, cols, zmax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 1e-3, kde_fun = "ks"){
+make_3d_matrix <- function(bs, x, y, rows = NULL, cols, zmax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 1e-3, kde_fun = "ks", individual_landscape = FALSE){
 	if(is.null(rows)){
 		df_multichannel <- bs %>%
 			dplyr::mutate(output2 = purrr::pmap(list(output, bs[,cols]), function(out, sample_var1){
@@ -165,6 +169,12 @@ make_3d_matrix <- function(bs, x, y, rows = NULL, cols, zmax = 5, n = 200, lims 
 			}))
 	}
 
+	if(individual_landscape){
+		df_multichannel <- df_multichannel %>%
+			dplyr::mutate(
+				l = purrr::map(output, make_3d_static, x = x, y = y, zmax = zmax, n = n, lims = lims, h = h, kde_fun = kde_fun)
+			)
+	}
 
 	df_all <- do.call(rbind, df_multichannel$output2)
 
@@ -183,7 +193,7 @@ make_3d_matrix <- function(bs, x, y, rows = NULL, cols, zmax = 5, n = 200, lims 
 	}
 	message("Done!")
 
-	result <- list(dist1 = df_multichannel, dist2 = df_all, plot = p, x = x, y = y, rows = rows, cols = cols)
+	result <- list(dist_raw = df_multichannel, dist = df_all, plot = p, x = x, y = y, rows = rows, cols = cols)
 	class(result) <- c("3d_matrix_landscape", "landscape")
 	return(result)
 }

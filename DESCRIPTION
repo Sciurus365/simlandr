@@ -29,3 +29,10 @@ Imports:
 RoxygenNote: 7.1.1
 URL: https://github.com/Sciurus365/simlandr
 BugReports: https://github.com/Sciurus365/simlandr/issues
+Config/reticulate:
+  list(
+    packages = list(
+      list(package = "numpy"),
+      list(package = "pqdict")
+    )
+  )

@@ -9,12 +9,16 @@
 #' @export
 make_2d_density <- function(output, x, adjust = 50, from = -0.1, to = 1, zmax = 5) {
   d <- stats::density(output[, x], adjust = adjust, from = from, to = to)
-  data.frame(x = d$x, y = d$y, U = pmin(-log(d$y), zmax)) %>%
+  p <- data.frame(x = d$x, y = d$y, U = pmin(-log(d$y), zmax)) %>%
     ggplot2::ggplot(mapping = ggplot2::aes(x = x, y = U)) +
     ggplot2::geom_line() +
     # geom_smooth(se = F) +
     ggplot2::theme_bw() +
     ggplot2::xlab(x)
+
+  result <- list(dist = d, plot = p)
+  class(result) <- c("2d_density_landscape", "landscape")
+  return(result)
 }
 
 #' A function for reversed log transformation

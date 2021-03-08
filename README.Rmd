@@ -99,8 +99,10 @@ knitr::include_graphics("man/figures/README-example-l2.png")
 
 plot(l2, 2) # the heatmap version
 
+calculate_barrier(l2, start_location_value = c(-2.5, -2), start_r = 0.5, end_location_value = c(2.5, 0), end_r = 0.5)
+
 ## 3. 3d landscape animation with a changing parameter
-l3 <- make_3d_animation_multisim(batch_test_result, x = "out1", y = "out2", fr = "var3", zmax = 10, lims = c(-3,3,-3,3), h = 0.2)
+l3 <- make_3d_animation(batch_test_result, x = "out1", y = "out2", fr = "var3", zmax = 10, lims = c(-3,3,-3,3), h = 0.2)
 # plot(l3)
 plotly::orca(plot(l3), file = "man/figures/README-example-l3.png")
 knitr::include_graphics("man/figures/README-example-l3.png")
