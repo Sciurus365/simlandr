@@ -28,7 +28,7 @@ check_conv <- function(output, vars, sample_perc = 0.2){
 
 		data_all <- do.call(rbind, stage_list) %>% dplyr::mutate(stage = forcats::fct_relevel(stage, "initial", "middle", "final"))
 
-		p <- ggplot2::ggplot(data_all, mapping = ggplot2::aes(x = !!ggplot2::sym(i), fill = stage)) +
+		p <- ggplot2::ggplot(data_all, mapping = ggplot2::aes(x = !!rlang::sym(i), fill = stage)) +
 			ggplot2::stat_bin(position = "dodge") +
 			ggplot2::labs(x = i)
 		result_list[[i]] <- p

@@ -5,7 +5,7 @@
 #' @param adjust,from,to Passed to \code{density}.
 #' @param zmax The maximum displayed value of potential.
 #'
-#' @return A \code{ggplot} graph.
+#' @return A \code{2d_density_landscape} object.
 #' @export
 make_2d_density <- function(output, x, adjust = 50, from = -0.1, to = 1, zmax = 5) {
   d <- stats::density(output[, x], adjust = adjust, from = from, to = to)
@@ -16,7 +16,7 @@ make_2d_density <- function(output, x, adjust = 50, from = -0.1, to = 1, zmax = 
     ggplot2::theme_bw() +
     ggplot2::xlab(x)
 
-  result <- list(dist = d, plot = p)
+  result <- list(dist = d, plot = p, x = x, adjust = adjust, from = from, to = to, zmax = zmax)
   class(result) <- c("2d_density_landscape", "landscape")
   return(result)
 }
@@ -102,7 +102,7 @@ make_3d_static <- function(output, x, y, zmax = 5, n = 200, lims = c(-0.1, 1.1, 
     ggplot2::labs(x = x, y = y, fill = "U")
   message("Done!")
 
-  result <- list(dist = out_2d, plot = p, plot_2 = p2, x = x, y = y)
+  result <- list(dist = out_2d, plot = p, plot_2 = p2, x = x, y = y, zmax = zmax, n = n, lims = lims, h = h, kde_fun = kde_fun)
   class(result) <- c("3d_static_landscape", "landscape")
   return(result)
 }

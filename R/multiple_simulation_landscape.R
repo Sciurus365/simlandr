@@ -47,7 +47,7 @@ make_3d_animation <- function(bs, x, y, fr, zmax = 5, n = 200, lims = c(-0.1, 1.
   if (individual_landscape) {
     df_multichannel <- df_multichannel %>%
       dplyr::mutate(
-        l = purrr::map(output, make_3d_static, x = x, y = y, zmax = zmax, n = n, lims = lims, h = h, kde_fun = kde_fun)
+        l_list = purrr::map(output, make_3d_static, x = x, y = y, zmax = zmax, n = n, lims = lims, h = h, kde_fun = kde_fun)
       )
   }
 
@@ -133,7 +133,7 @@ make_2d_matrix <- function(bs, x, rows = NULL, cols, adjust = 50, from = -0.1, t
 	}
 	message("Done!")
 
-	result <- list(dist_raw = df_multichannel, dist = df_all, plot = p, x = x, rows = rows, cols = cols)
+	result <- list(dist_raw = df_multichannel, dist = df_all, plot = p, x = x, rows = rows, cols = cols, adjust = adjust, from = from, to = to, zmax = zmax)
 	class(result) <- c("2d_matrix_landscape", "landscape")
 	return(result)
 }
@@ -147,6 +147,7 @@ make_2d_matrix <- function(bs, x, rows = NULL, cols, adjust = 50, from = -0.1, t
 #' If `rows` is `NULL`, only a vector of graphs will be generated.
 #' @param zmax The maximum displayed value of potential.
 #' @param n,lims,h,kde_fun Passed to \code{\link{make_kernel_dist}}
+#' @param individual_landscape Make individual landscape for each simulation?
 #'
 #' @export
 make_3d_matrix <- function(bs, x, y, rows = NULL, cols, zmax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 1e-3, kde_fun = "ks", individual_landscape = FALSE){
@@ -172,7 +173,7 @@ make_3d_matrix <- function(bs, x, y, rows = NULL, cols, zmax = 5, n = 200, lims 
 	if(individual_landscape){
 		df_multichannel <- df_multichannel %>%
 			dplyr::mutate(
-				l = purrr::map(output, make_3d_static, x = x, y = y, zmax = zmax, n = n, lims = lims, h = h, kde_fun = kde_fun)
+				l_list = purrr::map(output, make_3d_static, x = x, y = y, zmax = zmax, n = n, lims = lims, h = h, kde_fun = kde_fun)
 			)
 	}
 
@@ -193,7 +194,7 @@ make_3d_matrix <- function(bs, x, y, rows = NULL, cols, zmax = 5, n = 200, lims 
 	}
 	message("Done!")
 
-	result <- list(dist_raw = df_multichannel, dist = df_all, plot = p, x = x, y = y, rows = rows, cols = cols)
+	result <- list(dist_raw = df_multichannel, dist = df_all, plot = p, x = x, y = y, rows = rows, cols = cols, zmax = zmax, n = n, lims = lims, h = h, kde_fun = kde_fun)
 	class(result) <- c("3d_matrix_landscape", "landscape")
 	return(result)
 }

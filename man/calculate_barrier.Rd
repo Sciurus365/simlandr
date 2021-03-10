@@ -2,26 +2,48 @@
 % Please edit documentation in R/barrier.R
 \name{calculate_barrier}
 \alias{calculate_barrier}
-\title{Calculate barrier from a 2D distribution}
+\alias{calculate_barrier.2d_density_landscape}
+\alias{calculate_barrier.density}
+\alias{calculate_barrier.3d_static_landscape}
+\alias{calculate_barrier.list}
+\alias{calculate_barrier.3d_animation_landscape}
+\alias{calculate_barrier.3d_matrix_landscape}
+\alias{plot.barrier_landscape}
+\title{General function for calculating energy barrier}
 \usage{
-calculate_barrier(
-  d,
-  start_location_value = c(0, 0),
-  start_r = 0.1,
-  end_location_value = c(0.7, 0.6),
-  end_r = 0.15,
-  base = exp(1)
-)
+calculate_barrier(l, ...)
+
+\method{calculate_barrier}{`2d_density_landscape`}(l, ...)
+
+\method{calculate_barrier}{density}(l, ...)
+
+\method{calculate_barrier}{`2d_density_landscape`}(l, ...)
+
+\method{calculate_barrier}{`3d_static_landscape`}(l, ...)
+
+\method{calculate_barrier}{list}(l, ...)
+
+\method{calculate_barrier}{`3d_animation_landscape`}(l, ...)
+
+\method{calculate_barrier}{`3d_matrix_landscape`}(l, ...)
+
+\method{plot}{barrier_landscape}(x, ...)
 }
 \arguments{
-\item{d}{A \code{3d_static_landscape} object or a \code{kde2d} distribution.}
+\item{l}{A {landscape} or related project.}
 
-\item{start_location_value, end_location_value}{The initial position (in value) for searching the start/end point.}
+\item{...}{Not in use.}
 
-\item{start_r, end_r}{The searching radius for searching the start/end point.}
-
-\item{base}{The base of the log function.}
+\item{x}{A `barrier_landscape` object.}
 }
 \description{
-Calculate barrier from a 2D distribution
+General function for calculating energy barrier
+}
+\section{Methods (by class)}{
+\itemize{
+\item \code{barrier_landscape}: Plot a `barrier_landscape`
+}}
+
+\seealso{
+\code{\link{calculate_barrier_2d}}, \code{\link{calculate_barrier_3d}}, \code{\link{calculate_barrier_3d_batch}}
 }

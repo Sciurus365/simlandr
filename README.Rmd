@@ -99,10 +99,8 @@ knitr::include_graphics("man/figures/README-example-l2.png")
 
 plot(l2, 2) # the heatmap version
 
-calculate_barrier(l2, start_location_value = c(-2.5, -2), start_r = 0.5, end_location_value = c(2.5, 0), end_r = 0.5)
-
 ## 3. 3d landscape animation with a changing parameter
-l3 <- make_3d_animation(batch_test_result, x = "out1", y = "out2", fr = "var3", zmax = 10, lims = c(-3,3,-3,3), h = 0.2)
+l3 <- make_3d_animation(batch_test_result, x = "out1", y = "out2", fr = "var3", zmax = 20, lims = c(-3,3,-3,3), h = 0.002, individual_landscape = TRUE)
 # plot(l3)
 plotly::orca(plot(l3), file = "man/figures/README-example-l3.png")
 knitr::include_graphics("man/figures/README-example-l3.png")
@@ -122,6 +120,17 @@ plot(l5)
 
 l5_1 <- make_3d_matrix(batch_test_result, x = "out1", y = "out2", cols = "var3", lims = c(-3,3,-3,3), h = 0.01, kde_fun = "ks", zmax = 10)
 plot(l5_1)
+
+
+# Calculate energy barriers
+b1 <- calculate_barrier(l1, start_location_value = -2, end_location_value = 2, start_r = 0.3, end_r = 0.3)
+plot(l1) + get_geom(b1)
+
+b2 <- calculate_barrier(l2, start_location_value = c(-2.5,-2), end_location_value = c(2.5, 0), start_r = 0.3, end_r = 0.3)
+plot(l2, 2) + get_geom(b2)
+
+b3 <- calculate_barrier(l3, start_location_value = c(0,0), end_location_value = c(2, 1), start_r = 0.3, end_r = 0.6)
+plot(l3, 3) + get_geom(b3)
 ```
 
 <!-- devtools::build_readme() -->
