@@ -51,6 +51,8 @@ make_3d_animation <- function(bs, x, y, fr, zmax = 5, n = 200, lims = c(-0.1, 1.
       )
   }
 
+  df_multichannel$output <- NULL
+
   df_multichannel_tidy <- df_multichannel %>%
     dplyr::mutate(tidy_dist = purrr::map2(dist, df_multichannel[,fr], make_tidy_dist, var_name = "fr"))
 
@@ -99,23 +101,24 @@ make_3d_animation <- function(bs, x, y, fr, zmax = 5, n = 200, lims = c(-0.1, 1.
 make_2d_matrix <- function(bs, x, rows = NULL, cols, adjust = 50, from = -0.1, to = 1, zmax = 5){
 	if(is.null(rows)){
 		df_multichannel <- bs %>%
-			dplyr::mutate(output2 = purrr::pmap(list(output, bs[,cols]), function(out, sample_var1){
+			dplyr::mutate(dist = purrr::map2(output, !!rlang::sym(cols), function(out, sample_var1){
 				d <- stats::density(out[,x], adjust = adjust, from = from, to = to)
-				df <- data.frame(x = d$x, y = d$y, U = pmin(-log(d$y), zmax)) %>%
-					dplyr::mutate(cols = sample_var1)
+				df <- data.frame(x = d$x, y = d$y, U = pmin(-log(d$y), zmax))
+				df$cols <- sample_var1
 				df
 			}))
 	}else{
 		df_multichannel <- bs %>%
-			dplyr::mutate(output2 = purrr::pmap(list(output, bs[,rows], bs[,cols]), function(out, sample_var1, sample_var2){
+			dplyr::mutate(dist = purrr::pmap(list(output, !!rlang::sym(rows), !!rlang::sym(cols)), function(out, sample_var1, sample_var2){
 				d <- stats::density(out[,x], adjust = adjust, from = from, to = to)
-				df <- data.frame(x = d$x, y = d$y, U = pmin(-log(d$y), zmax)) %>%
-					dplyr::mutate(rows = sample_var1, cols = sample_var2)
+				df <- data.frame(x = d$x, y = d$y, U = pmin(-log(d$y), zmax))
+				df$rows <- sample_var1
+				df$cols <- sample_var2
 				df
 			}))
 	}
-
-	df_all <- do.call(rbind, df_multichannel$output2)
+	df_multichannel$output <- NULL
+	df_all <- do.call(rbind, df_multichannel$dist)
 
 	message("Making the plot...")
 	rows_labeller <- function(x) paste0(rows, ": ", x)
@@ -153,7 +156,7 @@ make_2d_matrix <- function(bs, x, rows = NULL, cols, adjust = 50, from = -0.1, t
 make_3d_matrix <- function(bs, x, y, rows = NULL, cols, zmax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 1e-3, kde_fun = "ks", individual_landscape = FALSE){
 	if(is.null(rows)){
 		df_multichannel <- bs %>%
-			dplyr::mutate(output2 = purrr::pmap(list(output, bs[,cols]), function(out, sample_var1){
+			dplyr::mutate(dist = purrr::pmap(list(output, bs[,cols]), function(out, sample_var1){
 				d <- make_kernel_dist(out, x, y, n, lims, h, kde_fun)
 				df <- make_tidy_dist(d)
 				df$cols <- sample_var1
@@ -161,7 +164,7 @@ make_3d_matrix <- function(bs, x, y, rows = NULL, cols, zmax = 5, n = 200, lims 
 			}))
 	}else{
 		df_multichannel <- bs %>%
-			dplyr::mutate(output2 = purrr::pmap(list(output, bs[,rows], bs[,cols]), function(out, sample_var1, sample_var2){
+			dplyr::mutate(dist = purrr::pmap(list(output, bs[,rows], bs[,cols]), function(out, sample_var1, sample_var2){
 				d <- make_kernel_dist(out, x, y, n, lims, h, kde_fun)
 				df <- make_tidy_dist(d)
 				df$rows <- sample_var1
@@ -176,8 +179,8 @@ make_3d_matrix <- function(bs, x, y, rows = NULL, cols, zmax = 5, n = 200, lims 
 				l_list = purrr::map(output, make_3d_static, x = x, y = y, zmax = zmax, n = n, lims = lims, h = h, kde_fun = kde_fun)
 			)
 	}
-
-	df_all <- do.call(rbind, df_multichannel$output2)
+	df_multichannel$output <- NULL
+	df_all <- do.call(rbind, df_multichannel$dist)
 
 	message("Making the 2d plot...")
 	rows_labeller <- function(x) paste0(rows, ": ", x)

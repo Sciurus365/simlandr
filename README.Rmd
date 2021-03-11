@@ -64,7 +64,7 @@ batch_test_result <- batch_simulation(batch_test_grid, sim_fun_test,
 batch_test_result
 batch_test_result <- attach_all_matrices(batch_test_result)
 
-# WARNING if you are using bigmemory: Due to a bug of RStudio(https://github.com/rstudio/rstudio/issues/8923), its variable inspector cannot handle objects with null external pointers. Work around: Turn off "automatically load workspace image"; change the variable inspector to "Manual refresh only", and then load the image and use attach_all_matrices for all batch simulations. After that, you can safely use the variable inspector. #
+# WARNING if you are using bigmemory: Due to a bug of RStudio (https://github.com/rstudio/rstudio/issues/8923), its variable inspector cannot handle objects with null external pointers. Work around: Turn off "automatically load workspace image"; change the variable inspector to "Manual refresh only", and then load the image and use attach_all_matrices for all batch simulations. After that, you can safely use the variable inspector. #
 
 # Batch simulation with two parameters
 
