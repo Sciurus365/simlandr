@@ -53,23 +53,29 @@ make_kernel_dist <- function(output, x, y, n = 200, lims = c(-0.1, 1.1, -0.1, 1.
   if (any(!is.finite(output[, x])) || any(!is.finite(output[, y]))) {
     return(NULL)
   }
-  if(kde_fun == "MASS")  return(MASS::kde2d(x = output[, x], y = output[, y], n = n, lims = lims, h = h))
-  else if(kde_fun == "ks"){
+  if (kde_fun == "MASS") {
+    return(MASS::kde2d(x = output[, x], y = output[, y], n = n, lims = lims, h = h))
+  } else if (kde_fun == "ks") {
     # prepare the parameters for ks::kde
-    output_x <- output[,c(x,y)]
-    if(!missing(h)) H <- diag(h, 2, 2)
+    output_x <- output[, c(x, y)]
+    if (!missing(h)) H <- diag(h, 2, 2)
     gridsize <- rep(n, 2)
-    xmin <- lims[c(1,3)]
-    xmax <- lims[c(2,4)]
+    xmin <- lims[c(1, 3)]
+    xmax <- lims[c(2, 4)]
 
     # calculate the result using ks::kde
-    if(!missing(h)) result <- ks::kde(output_x, H = H, gridsize = gridsize, xmin = xmin, xmax = xmax, compute.cont=FALSE, approx.cont=FALSE)
-    else result <- ks::kde(output_x, gridsize = gridsize, xmin = xmin, xmax = xmax, compute.cont=FALSE, approx.cont=FALSE)
+    if (!missing(h)) {
+      result <- ks::kde(output_x, H = H, gridsize = gridsize, xmin = xmin, xmax = xmax, compute.cont = FALSE, approx.cont = FALSE)
+    } else {
+      result <- ks::kde(output_x, gridsize = gridsize, xmin = xmin, xmax = xmax, compute.cont = FALSE, approx.cont = FALSE)
+    }
     # reformat the result to the format of MASS::kde2d
     result <- list(x = result$eval.points[[1]], y = result$eval.points[[2]], z = pmax(result$estimate, 0)) # different result??
     return(result)
   }
-  else stop('Wrong input for `kde_fun`. Please choose from "MASS" and "ks".')
+  else {
+    stop('Wrong input for `kde_fun`. Please choose from "MASS" and "ks".')
+  }
 }
 
 
@@ -97,7 +103,7 @@ make_3d_static <- function(output, x, y, zmax = 5, n = 200, lims = c(-0.1, 1.1, 
 
   message("Making the 2d plot...")
   p2 <- ggplot2::ggplot(make_tidy_dist(out_2d), ggplot2::aes(x = x, y = y)) +
-    ggplot2::geom_raster(ggplot2::aes(fill=pmin(-log(z), zmax))) +
+    ggplot2::geom_raster(ggplot2::aes(fill = pmin(-log(z), zmax))) +
     ggplot2::scale_fill_viridis_c() +
     ggplot2::labs(x = x, y = y, fill = "U")
   message("Done!")

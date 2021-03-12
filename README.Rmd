@@ -38,8 +38,10 @@ library(simlandr)
 
 # Single simulation
 
-single_test <- sim_fun_test(par1 = list(var1 = 1), 
-														par2 = list(var2 = 1, var3 = 0))
+single_test <- sim_fun_test(
+  par1 = list(var1 = 1),
+  par2 = list(var2 = 1, var3 = 0)
+)
 
 # Batch simulation: simulate a set of models with different parameter values
 
@@ -48,7 +50,7 @@ batch_test <- new_var_set()
 
 ## Step 2: add variable and its range to the set
 batch_test <- batch_test %>%
-	add_var("par2", "var3", 0, 0.5, 0.1)
+  add_var("par2", "var3", 0, 0.5, 0.1)
 
 ## Step 3: make variable grids
 batch_test_grid <- make_var_grid(batch_test)
@@ -74,7 +76,8 @@ batch_test2 <- batch_test2 %>%
   add_var("par2", "var2", -0.2, 0.2, 0.2)
 batch_test_grid2 <- make_var_grid(batch_test2)
 
-batch_test_result2 <- batch_simulation(batch_test_grid2, sim_fun_test, bigmemory = FALSE,
+batch_test_result2 <- batch_simulation(batch_test_grid2, sim_fun_test,
+  bigmemory = FALSE,
   default_list = list(
     par1 = list(var1 = 0),
     par2 = list(var2 = 0, var3 = 0)
@@ -90,7 +93,7 @@ plot(l1)
 
 ## 2. 3d static interactive landscape
 
-l2 <- make_3d_static(single_test, x = "out1", y = "out2", lims = c(-3,3,-3,3), h = 0.01, kde_fun = "ks")
+l2 <- make_3d_static(single_test, x = "out1", y = "out2", lims = c(-3, 3, -3, 3), h = 0.01, kde_fun = "ks")
 
 # l2 <- make_3d_static(single_test, x = "out1", y = "out2", lims = c(-3,3,-3,3), h = 0.5, kde_fun = "MASS") # If you want to use kernel smooth function from MASS
 # plot(l2) # Markdown cannot render interactive plots. You can try to run this command at your device.
@@ -100,7 +103,7 @@ knitr::include_graphics("man/figures/README-example-l2.png")
 plot(l2, 2) # the heatmap version
 
 ## 3. 3d landscape animation with a changing parameter
-l3 <- make_3d_animation(batch_test_result, x = "out1", y = "out2", fr = "var3", zmax = 20, lims = c(-3,3,-3,3), h = 0.002, individual_landscape = TRUE)
+l3 <- make_3d_animation(batch_test_result, x = "out1", y = "out2", fr = "var3", zmax = 20, lims = c(-3, 3, -3, 3), h = 0.002, individual_landscape = TRUE)
 # plot(l3)
 plotly::orca(plot(l3), file = "man/figures/README-example-l3.png")
 knitr::include_graphics("man/figures/README-example-l3.png")
@@ -108,29 +111,57 @@ knitr::include_graphics("man/figures/README-example-l3.png")
 plot(l3, 3)
 
 ## 4. 2d density matrix with two changing parameters
-l4 <- make_2d_matrix(batch_test_result2, x = "out1", rows = "var1", cols = "var2", from = -3, to = 3)
+l4 <- make_2d_matrix(batch_test_result2, x = "out1", rows = "var1", cols = "var2", from = -1, to = 1, adjust = 0.1, individual_landscape = TRUE)
 plot(l4)
 
 l4_1 <- make_2d_matrix(batch_test_result, x = "out1", cols = "var3", from = -3, to = 3)
 plot(l4_1)
 
 ## 5. 3d (including color dimension) heatplot matrix with two changing parameters
-l5 <- make_3d_matrix(batch_test_result2, x = "out1", y = "out2", rows = "var1", cols = "var2", lims = c(-3,3,-3,3), h = 0.01, kde_fun = "ks", zmax = 10)
+l5 <- make_3d_matrix(batch_test_result2, x = "out1", y = "out2", rows = "var1", cols = "var2", lims = c(-3, 3, -3, 3), h = 0.01, kde_fun = "ks", zmax = 10)
 plot(l5)
 
-l5_1 <- make_3d_matrix(batch_test_result, x = "out1", y = "out2", cols = "var3", lims = c(-3,3,-3,3), h = 0.01, kde_fun = "ks", zmax = 10)
+l5_1 <- make_3d_matrix(batch_test_result, x = "out1", y = "out2", cols = "var3", lims = c(-3, 3, -3, 3), h = 0.01, kde_fun = "ks", zmax = 10)
 plot(l5_1)
 
 
 # Calculate energy barriers
-b1 <- calculate_barrier(l1, start_location_value = -2, end_location_value = 2, start_r = 0.3, end_r = 0.3)
+b1 <- calculate_barrier_2d(l1, start_location_value = -2, end_location_value = 2, start_r = 0.3, end_r = 0.3)
 plot(l1) + get_geom(b1)
 
-b2 <- calculate_barrier(l2, start_location_value = c(-2.5,-2), end_location_value = c(2.5, 0), start_r = 0.3, end_r = 0.3)
+b2 <- calculate_barrier_3d(l2, start_location_value = c(-2.5, -2), end_location_value = c(2.5, 0), start_r = 0.3, end_r = 0.3)
 plot(l2, 2) + get_geom(b2)
 
-b3 <- calculate_barrier(l3, start_location_value = c(0,0), end_location_value = c(2, 1), start_r = 0.3, end_r = 0.6)
+# b3 <- calculate_barrier(l3, start_location_value = c(0,0), end_location_value = c(2, 1), start_r = 0.3, end_r = 0.6)
+# b3 <- calculate_barrier(l3, make_barrier_grid_2d(batch_test_grid, start_location_value = c(0,0), end_location_value = c(2, 1), start_r = 0.3, end_r = 0.6))
+# make_barrier_grid(batch_test_grid, start_location_value = c(0,0), end_location_value = c(2, 1), start_r = 0.3, end_r = 0.6, print_template = TRUE)
+b3 <- calculate_barrier_3d_batch(
+  l3,
+  make_barrier_grid_3d(batch_test_grid,
+    df =
+      structure(list(start_location_value = list(
+        c(0, 0), c(0, 0),
+        c(0, 0), c(0, 0), c(0, 0), c(0, 0)
+      ), start_r = c(
+        0.1, 0.2,
+        0.2, 0.3, 0.3, 0.3
+      ), end_location_value = list(c(0, 0), c(
+        1,
+        0.5
+      ), c(1, 0.5), c(1.8, 0.8), c(2, 1), c(2, 1)), end_r = c(
+        0.6, 0.6,
+        0.6, 0.6, 0.6, 0.6
+      )), row.names = c(NA, -6L), class = c(
+        "var_grid",
+        "data.frame"
+      ))
+  )
+)
+
 plot(l3, 3) + get_geom(b3)
+
+b4 <- calculate_barrier_2d_batch(l4, start_location_value = -0.25, end_location_value = 0.25, start_r = 0.2, end_r = 0.2)
+plot(l4) + get_geom(b4)
 ```
 
 <!-- devtools::build_readme() -->

@@ -131,7 +131,7 @@ print.var_grid <- function(x, detail = FALSE, ...) {
   cat(
     sprintf(
       "A `var_grid` with %d parameter(s), %d variable(s), and %d condition(s)",
-      npar(x), nvar(x), nrow(x$var_grid)
+      npar(x), nvar(x), length(x$var_list)
     )
   )
 }
@@ -148,7 +148,7 @@ modified_simulation <- function(sim_fun, var_list, default_list, bigmemory = TRU
   }
   result <- do.call(sim_fun, sim_fun_list)
 
-  if(bigmemory & is.matrix(result)) result <- as.hash_big.matrix(result)
+  if (bigmemory & is.matrix(result)) result <- as.hash_big.matrix(result)
   return(result)
 }
 
@@ -170,8 +170,8 @@ sim_fun_test <- function(par1, par2, length = 1000) {
   colnames(output) <- c("out1", "out2")
   output[1, ] <- c(par1$var1, par2$var2)
   for (i in 2:length) {
-    output[i, 1] <- 0.5*output[i - 1, 1] + output[i - 1, 2] + par2$var3 + par1$var1*par2$var2
-    output[i, 2] <- -0.5*output[i - 1, 1] + output[i - 1, 2] + par2$var3
+    output[i, 1] <- 0.5 * output[i - 1, 1] + output[i - 1, 2] + par2$var3 + par1$var1 * par2$var2
+    output[i, 2] <- -0.5 * output[i - 1, 1] + output[i - 1, 2] + par2$var3
   }
   return(output)
 }
@@ -233,8 +233,8 @@ print.batch_simulation <- function(x, detail = FALSE, ...) {
 #' @param bs A \code{\link{batch_simulation}} object.
 #' @param backingpath Passed to \code{\link[bigmemory]{as.big.matrix}}.
 #' @export
-attach_all_matrices <- function(bs, backingpath = "bp"){
-  if(!"batch_simulation" %in% class(bs)) stop("Wrong input class. bs should be a `batch_simulation`.")
+attach_all_matrices <- function(bs, backingpath = "bp") {
+  if (!"batch_simulation" %in% class(bs)) stop("Wrong input class. bs should be a `batch_simulation`.")
   bs <- bs %>%
     dplyr::mutate(output = purrr::map(output, attach.hash_big.matrix, backingpath = backingpath))
   return(bs)

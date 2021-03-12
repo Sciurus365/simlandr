@@ -8,9 +8,11 @@
 #'
 #' @export
 plot.landscape <- function(x, index = 1, ...) {
-	if(index == 1) x$plot
-	else if(index == 2) x$plot_2
-	else if(index == "mat_3d" | index == 3) plot(x$mat_3d)
+  if (index == 1) {
+    x$plot
+  } else if (index == 2) {
+    x$plot_2
+  } else if (index == "mat_3d" | index == 3) plot(x$mat_3d)
 }
 
 #' Save landscape plots
@@ -21,17 +23,21 @@ plot.landscape <- function(x, index = 1, ...) {
 #' @param ... Other parameters passed to \code{\link[htmlwidgets]{saveWidget}}
 #' or \code{\link[ggplot2]{ggsave}}
 #' @export
-save_landscape <- function(l, path = NULL, selfcontained = F, ...){
-	p <- l$plot
-	message("Saving the plot...")
-	if(is.null(path)){
-		if(!is.null(l$fr)) path <- paste(getwd(), "/pics/", l$x, "_", l$y, "_", l$fr, ".html", sep = "")
-		else path <- paste(getwd(), "/pics/", l$x, "_", l$y, sep = "")
-	}
+save_landscape <- function(l, path = NULL, selfcontained = F, ...) {
+  p <- l$plot
+  message("Saving the plot...")
+  if (is.null(path)) {
+    if (!is.null(l$fr)) {
+      path <- paste(getwd(), "/pics/", l$x, "_", l$y, "_", l$fr, ".html", sep = "")
+    } else {
+      path <- paste(getwd(), "/pics/", l$x, "_", l$y, sep = "")
+    }
+  }
 
-	if("plotly" %in% class(p)) htmlwidgets::saveWidget(p, paste(path, ".html", sep = ""), selfcontained = selfcontained, ...)
-	else{
-		if("ggplot" %in% class(p)) ggplot2::ggsave(paste(path, ".png", sep = ""), p, ...)
-	}
-	message("Done!")
+  if ("plotly" %in% class(p)) {
+    htmlwidgets::saveWidget(p, paste(path, ".html", sep = ""), selfcontained = selfcontained, ...)
+  } else {
+    if ("ggplot" %in% class(p)) ggplot2::ggsave(paste(path, ".png", sep = ""), p, ...)
+  }
+  message("Done!")
 }
