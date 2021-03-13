@@ -115,22 +115,31 @@ calculate_barrier_2d <- function(l, start_location_value = 0, start_r = 0.1, end
 #' @param dist An \code{kde2d} distribution object.
 #' @param localmin Starting value of finding local minimum.
 #' @param r Searching (L1) radius.
+#' @param zmax The highest possible value of the potential function.
+#' @param first_called Is this function first called by another function?
 #'
 #' @export
-find_local_min_3d <- function(dist, localmin, r) {
+find_local_min_3d <- function(dist, localmin, r, zmax, first_called = TRUE) {
   if (!is.matrix(dist$z)) stop("Wrong input. `dist` should be a list with x, y, and z, and z should be a matrix.")
   x1 <- localmin[1]
   y1 <- localmin[2]
+  if(length(r) == 1) r <- rep(r, 2)
   effective_dist <- dist$z[
-    dist$x > x1 - r & dist$x < x1 + r,
-    dist$y > y1 - r & dist$y < y1 + r
+    dist$x > x1 - r[1] & dist$x < x1 + r[1],
+    dist$y > y1 - r[2] & dist$y < y1 + r[2]
   ]
   max_dist <- max(effective_dist)
   min_U <- -log(max_dist)
+
+  if(min_U > zmax){
+    if(first_called) message("The U in this range is too high. Searching range expanded...")
+    return(find_local_min_3d(dist, localmin, c(r[1] + dist$x[2] - dist$x[1], r[2] + dist$y[2] - dist$y[1]), zmax, first_called = FALSE))
+  }
   location_index <- which(dist$z == max_dist, arr.ind = TRUE) %>% apply(2, function(x) as.integer(median(x)))
   location_value <- c(dist$x[location_index[1]], dist$y[location_index[2]])
   location <- c(location_index, location_value)
   names(location) <- c("x_index", "y_index", "x_value", "y_value")
+  if(!first_called) message(paste0("r = c(", r[1], ",", r[2], ")"))
   return(list(U = min_U, location = location))
 }
 
@@ -139,18 +148,21 @@ find_local_min_3d <- function(dist, localmin, r) {
 #' @param l A \code{3d_static_landscape} object (recommended) or a \code{kde2d} distribution.
 #' @param start_location_value,end_location_value The initial position (in value) for searching the start/end point.
 #' @param start_r,end_r The searching (L1) radius for searching the start/end point.
+#' @param zmax The highest possible value of the potential function.
 #' @param base The base of the log function.
 #'
 #' @export
-calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.1, end_location_value = c(0.7, 0.6), end_r = 0.15, base = exp(1)) {
+calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.1, end_location_value = c(0.7, 0.6), end_r = 0.15, zmax, base = exp(1)) {
   if ("3d_static_landscape" %in% class(l)) {
     d <- l$dist
   } else {
     d <- l
   }
 
-  local_min_start <- find_local_min_3d(d, start_location_value, start_r)
-  local_min_end <- find_local_min_3d(d, end_location_value, end_r)
+  if(missing(zmax)) zmax <- l$zmax
+
+  local_min_start <- find_local_min_3d(d, start_location_value, start_r, zmax)
+  local_min_end <- find_local_min_3d(d, end_location_value, end_r, zmax)
 
   reticulate::source_python(file = system.file("python/dijkstra.py", package = "simlandr"))
 

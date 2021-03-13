@@ -142,12 +142,15 @@ make_barrier_grid_3d <- function(vg, start_location_value = c(0, 0), start_r = 0
   if (!"var_grid" %in% class(vg)) stop("`vg` should be a var_grid object")
   result <- vg
 
+  if(length(start_r) == 1) start_r <- rep(start_r, 2)
+  if(length(end_r) == 1) end_r <- rep(end_r, 2)
+
   if (is.null(df)) {
     result <- result %>% dplyr::mutate(
       start_location_value = list(start_location_value),
-      start_r = start_r,
+      start_r = list(start_r),
       end_location_value = list(end_location_value),
-      end_r = end_r
+      end_r = list(end_r)
     )
   } else {
     result <- cbind(result, df %>% dplyr::select((ncol(.) - 3):ncol(.)))
@@ -167,10 +170,11 @@ make_barrier_grid_3d <- function(vg, start_location_value = c(0, 0), start_r = 0
 #' @param bg A \code{barrier_grid_3d} object if you want to use different parameters for each condition. Otherwise \code{NULL}.
 #' @param start_location_value,end_location_value The initial position (in value) for searching the start/end point.
 #' @param start_r,end_r The searching (L1) radius for searching the start/end point.
+#' @param zmax The highest possible value of the potential function.
 #' @param base The base of the log function.
 #'
 #' @export
-calculate_barrier_3d_batch <- function(l, bg = NULL, start_location_value = c(0, 0), start_r = 0.1, end_location_value = c(0.7, 0.6), end_r = 0.15, base = exp(1)) {
+calculate_barrier_3d_batch <- function(l, bg = NULL, start_location_value = c(0, 0), start_r = 0.1, end_location_value = c(0.7, 0.6), end_r = 0.15, zmax, base = exp(1)) {
   if (!any(c("3d_animation_landscape", "3d_matrix_landscape") %in% class(l))) {
     stop("l should be `3d_animation_multichain_landscape` or `3d_matrix_landscape` object.")
   }
@@ -178,11 +182,12 @@ calculate_barrier_3d_batch <- function(l, bg = NULL, start_location_value = c(0,
   if (!"l_list" %in% colnames(d)) {
     stop("l must contain a list of individual landscapes. Use individual_landscape = TRUE in `make_3d_animation` or `make_3d_matrix")
   }
+  if(missing(zmax)) zmax <- l$zmax
 
   if (is.null(bg)) {
     d <- d %>%
       dplyr::rowwise() %>%
-      dplyr::mutate(b = list(calculate_barrier_3d(l_list, start_location_value, start_r, end_location_value, end_r, base)))
+      dplyr::mutate(b = list(calculate_barrier_3d(l_list, start_location_value, start_r, end_location_value, end_r, zmax, base)))
   } else {
     if (!"barrier_grid_3d" %in% class(bg)) stop("`bg` should be a `barrier_grid_3d`.")
     d <- d %>%

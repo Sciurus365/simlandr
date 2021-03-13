@@ -114,14 +114,14 @@ plot(l3, 3)
 l4 <- make_2d_matrix(batch_test_result2, x = "out1", rows = "var1", cols = "var2", from = -1, to = 1, adjust = 0.1, individual_landscape = TRUE)
 plot(l4)
 
-l4_1 <- make_2d_matrix(batch_test_result, x = "out1", cols = "var3", from = -3, to = 3)
+l4_1 <- make_2d_matrix(batch_test_result, x = "out1", cols = "var3", from = -3, to = 3, adjust = 0.1)
 plot(l4_1)
 
 ## 5. 3d (including color dimension) heatplot matrix with two changing parameters
-l5 <- make_3d_matrix(batch_test_result2, x = "out1", y = "out2", rows = "var1", cols = "var2", lims = c(-3, 3, -3, 3), h = 0.01, kde_fun = "ks", zmax = 10)
+l5 <- make_3d_matrix(batch_test_result2, x = "out1", y = "out2", rows = "var1", cols = "var2", lims = c(-3, 3, -3, 3), h = 0.001, kde_fun = "ks", zmax = 10, individual_landscape = TRUE)
 plot(l5)
 
-l5_1 <- make_3d_matrix(batch_test_result, x = "out1", y = "out2", cols = "var3", lims = c(-3, 3, -3, 3), h = 0.01, kde_fun = "ks", zmax = 10)
+l5_1 <- make_3d_matrix(batch_test_result, x = "out1", y = "out2", cols = "var3", lims = c(-3, 3, -3, 3), h = 0.001, kde_fun = "ks", zmax = 10)
 plot(l5_1)
 
 
@@ -134,7 +134,7 @@ plot(l2, 2) + get_geom(b2)
 
 # b3 <- calculate_barrier(l3, start_location_value = c(0,0), end_location_value = c(2, 1), start_r = 0.3, end_r = 0.6)
 # b3 <- calculate_barrier(l3, make_barrier_grid_2d(batch_test_grid, start_location_value = c(0,0), end_location_value = c(2, 1), start_r = 0.3, end_r = 0.6))
-# make_barrier_grid(batch_test_grid, start_location_value = c(0,0), end_location_value = c(2, 1), start_r = 0.3, end_r = 0.6, print_template = TRUE)
+# make_barrier_grid_3d(batch_test_grid, start_location_value = c(0,0), end_location_value = c(2, 1), start_r = 0.3, end_r = 0.6, print_template = TRUE)
 b3 <- calculate_barrier_3d_batch(
   l3,
   make_barrier_grid_3d(batch_test_grid,
@@ -142,10 +142,13 @@ b3 <- calculate_barrier_3d_batch(
       structure(list(start_location_value = list(
         c(0, 0), c(0, 0),
         c(0, 0), c(0, 0), c(0, 0), c(0, 0)
-      ), start_r = c(
-        0.1, 0.2,
-        0.2, 0.3, 0.3, 0.3
-      ), end_location_value = list(c(0, 0), c(
+      ), start_r = list(c(
+      0.1,
+      0.1
+    ), c(0.2, 0.2), c(0.2, 0.2), c(0.3, 0.3), c(0.3, 0.3), c(
+      0.3,
+      0.3
+    )), end_location_value = list(c(0, 0), c(
         1,
         0.5
       ), c(1, 0.5), c(1.8, 0.8), c(2, 1), c(2, 1)), end_r = c(
@@ -161,7 +164,11 @@ b3 <- calculate_barrier_3d_batch(
 plot(l3, 3) + get_geom(b3)
 
 b4 <- calculate_barrier_2d_batch(l4, start_location_value = -0.25, end_location_value = 0.25, start_r = 0.2, end_r = 0.2)
+
 plot(l4) + get_geom(b4)
+
+b5 <- calculate_barrier_3d_batch(l5, start_location_value = c(-1,-1), end_location_value = c(1, 1), start_r = 0.3, end_r = 0.3)
+plot(l5) + get_geom(b5)
 ```
 
 <!-- devtools::build_readme() -->

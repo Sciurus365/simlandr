@@ -4,7 +4,7 @@
 \alias{find_local_min_3d}
 \title{Find local minimum of a 3d distribution}
 \usage{
-find_local_min_3d(dist, localmin, r)
+find_local_min_3d(dist, localmin, r, zmax, first_called = TRUE)
 }
 \arguments{
 \item{dist}{An \code{kde2d} distribution object.}
@@ -12,6 +12,10 @@ find_local_min_3d(dist, localmin, r)
 \item{localmin}{Starting value of finding local minimum.}
 
 \item{r}{Searching (L1) radius.}
+
+\item{zmax}{The highest possible value of the potential function.}
+
+\item{first_called}{Is this function first called by another function?}
 }
 \description{
 Find local minimum of a 3d distribution

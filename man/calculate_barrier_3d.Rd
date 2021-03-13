@@ -10,6 +10,7 @@ calculate_barrier_3d(
   start_r = 0.1,
   end_location_value = c(0.7, 0.6),
   end_r = 0.15,
+  zmax,
   base = exp(1)
 )
 }
@@ -19,6 +20,8 @@ calculate_barrier_3d(
 \item{start_location_value, end_location_value}{The initial position (in value) for searching the start/end point.}
 
 \item{start_r, end_r}{The searching (L1) radius for searching the start/end point.}
+
+\item{zmax}{The highest possible value of the potential function.}
 
 \item{base}{The base of the log function.}
 }

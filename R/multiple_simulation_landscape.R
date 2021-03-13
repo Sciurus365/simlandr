@@ -40,21 +40,23 @@ make_tidy_dist <- function(dist_2d, value = NULL, var_name = NULL) {
 make_3d_animation <- function(bs, x, y, fr, zmax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 1e-3, kde_fun = "ks", individual_landscape = FALSE, mat_3d = TRUE) {
   message("Wrangling data...")
   df_multichannel <- bs %>%
+    dplyr::rowwise() %>%
     dplyr::mutate(
-      dist = purrr::map(output, make_kernel_dist, x, y, n, lims, h, kde_fun = kde_fun)
+      dist = list(make_kernel_dist(output, x, y, n, lims, h, kde_fun = kde_fun))
     )
 
   if (individual_landscape) {
     df_multichannel <- df_multichannel %>%
       dplyr::mutate(
-        l_list = purrr::map(output, make_3d_static, x = x, y = y, zmax = zmax, n = n, lims = lims, h = h, kde_fun = kde_fun)
+        l_list = list(purrr::quietly(make_3d_static)(output, x = x, y = y, zmax = zmax, n = n, lims = lims, h = h, kde_fun = kde_fun)$result)
       )
   }
 
   df_multichannel$output <- NULL
 
   df_multichannel_tidy <- df_multichannel %>%
-    dplyr::mutate(tidy_dist = purrr::map2(dist, df_multichannel[, fr], make_tidy_dist, var_name = "fr"))
+    dplyr::mutate(tidy_dist = list(make_tidy_dist(dist, !!rlang::sym(fr), var_name = "fr"))) %>%
+    dplyr::ungroup()
 
   df_multichannel_collect <- do.call(rbind, df_multichannel_tidy$tidy_dist)
   message("Done!")
@@ -85,7 +87,7 @@ make_3d_animation <- function(bs, x, y, fr, zmax = 5, n = 200, lims = c(-0.1, 1.
     message("Done!")
   }
 
-  result <- list(dist_raw = df_multichannel, dist = df_multichannel_collect, plot = p, plot_2 = p2, mat_3d = mat_3d, x = x, y = y, fr = fr)
+  result <- list(dist_raw = df_multichannel, dist = df_multichannel_collect, plot = p, plot_2 = p2, mat_3d = mat_3d, x = x, y = y, fr = fr, zmax = zmax, n = n, lims = lims, h = h, kde_fun = kde_fun)
   class(result) <- c("3d_animation_landscape", "landscape")
   return(result)
 }
@@ -183,9 +185,11 @@ make_3d_matrix <- function(bs, x, y, rows = NULL, cols, zmax = 5, n = 200, lims 
 
   if (individual_landscape) {
     df_multichannel <- df_multichannel %>%
+      dplyr::rowwise() %>%
       dplyr::mutate(
-        l_list = purrr::map(output, make_3d_static, x = x, y = y, zmax = zmax, n = n, lims = lims, h = h, kde_fun = kde_fun)
-      )
+        l_list = list(purrr::quietly(make_3d_static)(output, x = x, y = y, zmax = zmax, n = n, lims = lims, h = h, kde_fun = kde_fun)$result)
+      ) %>%
+      dplyr::ungroup()
   }
   df_multichannel$output <- NULL
   df_all <- do.call(rbind, df_multichannel$dist)
