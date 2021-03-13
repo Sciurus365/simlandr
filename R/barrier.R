@@ -123,7 +123,7 @@ find_local_min_3d <- function(dist, localmin, r, zmax, first_called = TRUE) {
   if (!is.matrix(dist$z)) stop("Wrong input. `dist` should be a list with x, y, and z, and z should be a matrix.")
   x1 <- localmin[1]
   y1 <- localmin[2]
-  if(length(r) == 1) r <- rep(r, 2)
+  if (length(r) == 1) r <- rep(r, 2)
   effective_dist <- dist$z[
     dist$x > x1 - r[1] & dist$x < x1 + r[1],
     dist$y > y1 - r[2] & dist$y < y1 + r[2]
@@ -131,15 +131,15 @@ find_local_min_3d <- function(dist, localmin, r, zmax, first_called = TRUE) {
   max_dist <- max(effective_dist)
   min_U <- -log(max_dist)
 
-  if(min_U > zmax){
-    if(first_called) message("The U in this range is too high. Searching range expanded...")
+  if (min_U > zmax) {
+    if (first_called) message("The U in this range is too high. Searching range expanded...")
     return(find_local_min_3d(dist, localmin, c(r[1] + dist$x[2] - dist$x[1], r[2] + dist$y[2] - dist$y[1]), zmax, first_called = FALSE))
   }
   location_index <- which(dist$z == max_dist, arr.ind = TRUE) %>% apply(2, function(x) as.integer(median(x)))
   location_value <- c(dist$x[location_index[1]], dist$y[location_index[2]])
   location <- c(location_index, location_value)
   names(location) <- c("x_index", "y_index", "x_value", "y_value")
-  if(!first_called) message(paste0("r = c(", r[1], ",", r[2], ")"))
+  if (!first_called) message(paste0("r = c(", r[1], ",", r[2], ")"))
   return(list(U = min_U, location = location))
 }
 
@@ -159,7 +159,7 @@ calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.
     d <- l
   }
 
-  if(missing(zmax)) zmax <- l$zmax
+  if (missing(zmax)) zmax <- l$zmax
 
   local_min_start <- find_local_min_3d(d, start_location_value, start_r, zmax)
   local_min_end <- find_local_min_3d(d, end_location_value, end_r, zmax)

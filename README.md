@@ -208,12 +208,12 @@ b3 <- calculate_barrier_3d_batch(
         c(0, 0), c(0, 0),
         c(0, 0), c(0, 0), c(0, 0), c(0, 0)
       ), start_r = list(c(
-      0.1,
-      0.1
-    ), c(0.2, 0.2), c(0.2, 0.2), c(0.3, 0.3), c(0.3, 0.3), c(
-      0.3,
-      0.3
-    )), end_location_value = list(c(0, 0), c(
+        0.1,
+        0.1
+      ), c(0.2, 0.2), c(0.2, 0.2), c(0.3, 0.3), c(0.3, 0.3), c(
+        0.3,
+        0.3
+      )), end_location_value = list(c(0, 0), c(
         1,
         0.5
       ), c(1, 0.5), c(1.8, 0.8), c(2, 1), c(2, 1)), end_r = c(
@@ -242,7 +242,7 @@ plot(l4) + get_geom(b4)
 <img src="man/figures/README-example-13.png" width="100%" />
 
 ``` r
-b5 <- calculate_barrier_3d_batch(l5, start_location_value = c(-1,-1), end_location_value = c(1, 1), start_r = 0.3, end_r = 0.3)
+b5 <- calculate_barrier_3d_batch(l5, start_location_value = c(-1, -1), end_location_value = c(1, 1), start_r = 0.3, end_r = 0.3)
 #> The U in this range is too high. Searching range expanded...
 #> r = c(0.691959798994974,0.691959798994974)
 #> The U in this range is too high. Searching range expanded...

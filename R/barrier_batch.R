@@ -142,8 +142,8 @@ make_barrier_grid_3d <- function(vg, start_location_value = c(0, 0), start_r = 0
   if (!"var_grid" %in% class(vg)) stop("`vg` should be a var_grid object")
   result <- vg
 
-  if(length(start_r) == 1) start_r <- rep(start_r, 2)
-  if(length(end_r) == 1) end_r <- rep(end_r, 2)
+  if (length(start_r) == 1) start_r <- rep(start_r, 2)
+  if (length(end_r) == 1) end_r <- rep(end_r, 2)
 
   if (is.null(df)) {
     result <- result %>% dplyr::mutate(
@@ -182,7 +182,7 @@ calculate_barrier_3d_batch <- function(l, bg = NULL, start_location_value = c(0,
   if (!"l_list" %in% colnames(d)) {
     stop("l must contain a list of individual landscapes. Use individual_landscape = TRUE in `make_3d_animation` or `make_3d_matrix")
   }
-  if(missing(zmax)) zmax <- l$zmax
+  if (missing(zmax)) zmax <- l$zmax
 
   if (is.null(bg)) {
     d <- d %>%
