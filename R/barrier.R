@@ -239,6 +239,7 @@ get_barrier_height <- function(b) {
 #' @describeIn calculate_barrier Plot a `barrier`
 #' @param x A `barrier` object.
 #' @param ... Not in use.
+#' @export
 plot.barrier <- function(x, ...) {
   x$plot
 }
