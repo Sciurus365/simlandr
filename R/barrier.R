@@ -104,7 +104,8 @@ calculate_barrier_2d <- function(l, start_location_value = 0, start_r = 0.1, end
       ggplot2::geom_point(mapping = ggplot2::aes(x = d$x[s_location_x_index], y = s_U), color = "red"),
       ggplot2::geom_point(mapping = ggplot2::aes(x = local_min_start$location["x_value"], y = local_min_start$U), color = "white"),
       ggplot2::geom_point(mapping = ggplot2::aes(x = local_min_end$location["x_value"], y = local_min_end$U), color = "white")
-    )
+    ),
+    x = l$x, zmax = l$zmax
   )
   class(result) <- c("barrier_2d", "barrier")
   return(result)
@@ -221,20 +222,31 @@ calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.
       ggplot2::geom_point(ggplot2::aes(x = local_min_start$location["x_value"], y = local_min_start$location["y_value"]), color = "white"),
       ggplot2::geom_point(ggplot2::aes(x = local_min_end$location["x_value"], y = local_min_end$location["y_value"]), color = "white"),
       ggplot2::geom_point(ggplot2::aes(x = saddle_point$location["x_value"], y = saddle_point$location["y_value"]), color = "red")
-    )
+    ),
+    x = l$x, y = l$y, zmax = l$zmax
   )
   class(result) <- c("barrier_3d", "barrier")
   return(result)
 }
 
 
-#' @describeIn calculate_barrier_2d Get the barrier height.
-#' @param b A \code{barrier_landscape} object.
+#' Get the barrier height from a `barrier` object.
+#' @param b A \code{barrier} object.
 #'
 #' @export
 get_barrier_height <- function(b) {
-  c(b$delta_U_start, b$delta_U_end)
+  if(any(c("barrier_2d", "barrier_3d") %in% class(b))){
+    result <- c(b$delta_U_start, b$delta_U_end)
+    names(result) <- c("delta_U_start", "delta_U_end")
+    return(result)
+  }else if(any(c("barrier_2d_batch", "barrier_3d_batch") %in% class(b))){
+    result <- b$point_all %>%
+      mutate(delta_U_start = saddle_U - start_U,
+             delta_U_end = saddle_U - end_U)
+    return(result)
+  }
 }
+
 
 #' @describeIn calculate_barrier Plot a `barrier`
 #' @param x A `barrier` object.

@@ -2,7 +2,6 @@
 % Please edit documentation in R/barrier.R
 \name{calculate_barrier_2d}
 \alias{calculate_barrier_2d}
-\alias{get_barrier_height}
 \title{Calculate barrier from a 2D landscape}
 \usage{
 calculate_barrier_2d(
@@ -13,8 +12,6 @@ calculate_barrier_2d(
   end_r = 0.15,
   base = exp(1)
 )
-
-get_barrier_height(b)
 }
 \arguments{
 \item{l}{A \code{2d_density_landscape} object (recommended) or a \code{density} distribution.}
@@ -24,14 +21,7 @@ get_barrier_height(b)
 \item{start_r, end_r}{The searching radius for searching the start/end point.}
 
 \item{base}{The base of the log function.}
-
-\item{b}{A \code{barrier_landscape} object.}
 }
 \description{
 Calculate barrier from a 2D landscape
 }
-\section{Functions}{
-\itemize{
-\item \code{get_barrier_height}: Get the barrier height.
-}}
-

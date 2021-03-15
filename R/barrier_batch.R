@@ -121,7 +121,8 @@ calculate_barrier_2d_batch <- function(l, bg = NULL, start_location_value = 0, s
     dist_raw = d,
     point_all = point_all,
     plot = p,
-    geom = geom
+    geom = geom,
+    x = l$x, rows = l$rows, cols = ifelse(is.null(l$cols), l$fr, l$cols)
   )
 
   class(result) <- c("barrier_2d_batch", "barrier")
@@ -261,7 +262,8 @@ calculate_barrier_3d_batch <- function(l, bg = NULL, start_location_value = c(0,
     min_path_all = min_path_all,
     point_all = point_all,
     plot = p,
-    geom = geom
+    geom = geom,
+    x = l$x, y = l$y, rows = l$rows, cols = ifelse(is.null(l$cols), l$fr, l$cols)
   )
 
   class(result) <- c("barrier_3d_batch", "barrier")
