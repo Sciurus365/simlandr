@@ -12,7 +12,8 @@ make_2d_matrix(
   adjust = 50,
   from = -0.1,
   to = 1,
-  zmax = 5
+  zmax = 5,
+  individual_landscape = FALSE
 )
 }
 \arguments{
@@ -24,6 +25,8 @@ If `rows` is `NULL`, only a vector of graphs will be generated.}
 \item{adjust, from, to}{Passed to \code{density}.}
 
 \item{zmax}{The maximum displayed value of potential.}
+
+\item{individual_landscape}{Make individual landscape for each simulation?}
 }
 \description{
 Make a matrix of 2d graphs for two parameters

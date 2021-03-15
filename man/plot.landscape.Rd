@@ -9,7 +9,8 @@
 \arguments{
 \item{x}{A landscape object}
 
-\item{index}{Default is 1. For some landscape objects, there is a second plot (usually 2d heatmaps for 3d landscapes).
+\item{index}{Default is 1. For some landscape objects, there is a second plot (usually 2d heatmaps for 3d landscapes)
+or a third plot (usually 3d matrices for 3d animations).
 Use `index = 2` to plot that one.}
 
 \item{...}{Not in use.}

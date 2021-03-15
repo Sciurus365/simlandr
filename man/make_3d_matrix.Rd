@@ -14,7 +14,8 @@ make_3d_matrix(
   n = 200,
   lims = c(-0.1, 1.1, -0.1, 1.1),
   h = 0.001,
-  kde_fun = "ks"
+  kde_fun = "ks",
+  individual_landscape = FALSE
 )
 }
 \arguments{
@@ -26,6 +27,8 @@ If `rows` is `NULL`, only a vector of graphs will be generated.}
 \item{zmax}{The maximum displayed value of potential.}
 
 \item{n, lims, h, kde_fun}{Passed to \code{\link{make_kernel_dist}}}
+
+\item{individual_landscape}{Make individual landscape for each simulation?}
 }
 \description{
 (Note: a matrix of interactive maps is currently not supported.)

@@ -3,13 +3,13 @@
 \name{calculate_barrier_2d}
 \alias{calculate_barrier_2d}
 \alias{get_barrier_height}
-\title{Calculate barrier from a 2D distribution}
+\title{Calculate barrier from a 2D landscape}
 \usage{
 calculate_barrier_2d(
-  d,
-  start_location = c(0, 0),
+  l,
+  start_location_value = 0,
   start_r = 0.1,
-  end_location = c(0.7, 0.6),
+  end_location_value = 0.7,
   end_r = 0.15,
   base = exp(1)
 )
@@ -17,9 +17,9 @@ calculate_barrier_2d(
 get_barrier_height(b)
 }
 \arguments{
-\item{d}{A \code{3d_static_landscape} object or a \code{kde2d} distribution.}
+\item{l}{A \code{2d_density_landscape} object (recommended) or a \code{density} distribution.}
 
-\item{start_location, end_location}{The initial position for searching the start/end point.}
+\item{start_location_value, end_location_value}{The initial position (in value) for searching the start/end point.}
 
 \item{start_r, end_r}{The searching radius for searching the start/end point.}
 
@@ -28,7 +28,7 @@ get_barrier_height(b)
 \item{b}{A \code{barrier_landscape} object.}
 }
 \description{
-Calculate barrier from a 2D distribution
+Calculate barrier from a 2D landscape
 }
 \section{Functions}{
 \itemize{

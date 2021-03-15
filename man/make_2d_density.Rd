@@ -16,7 +16,7 @@ make_2d_density(output, x, adjust = 50, from = -0.1, to = 1, zmax = 5)
 \item{zmax}{The maximum displayed value of potential.}
 }
 \value{
-A \code{ggplot} graph.
+A \code{2d_density_landscape} object.
 }
 \description{
 Make 2D density-based landscape plot for a single simulation output
