@@ -11,6 +11,7 @@ calculate_barrier_3d(
   end_location_value = c(0.7, 0.6),
   end_r = 0.15,
   zmax,
+  expand = TRUE,
   base = exp(1)
 )
 }
@@ -22,6 +23,8 @@ calculate_barrier_3d(
 \item{start_r, end_r}{The searching (L1) radius for searching the start/end point.}
 
 \item{zmax}{The highest possible value of the potential function.}
+
+\item{expand}{If the values in the range all equal to \code{zmax}, expand the range or not?}
 
 \item{base}{The base of the log function.}
 }

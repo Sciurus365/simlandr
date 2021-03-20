@@ -97,7 +97,7 @@ make_3d_static <- function(output, x, y, zmax = 5, n = 200, lims = c(-0.1, 1.1, 
   message("Done!")
 
   message("Making the plot...")
-  p <- plotly::plot_ly(x = out_2d$x, y = out_2d$y, z = pmin(-log(out_2d$z %>% t), zmax), type = "surface")
+  p <- plotly::plot_ly(x = out_2d$x, y = out_2d$y, z = pmin(-log(out_2d$z %>% t()), zmax), type = "surface")
   p <- plotly::layout(p, scene = list(xaxis = list(title = x), yaxis = list(title = y), zaxis = list(title = "U")))
   message("Done!")
 

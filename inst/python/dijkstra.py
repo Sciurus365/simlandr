@@ -1,3 +1,15 @@
+# This implementation is from https://math.stackexchange.com/questions/3088292/finding-lowest-elevation-path-between-two-points
+# @MISC {3092082,
+#     TITLE = {Finding Lowest Elevation Path Between Two Points},
+#     AUTHOR = {BBSysDyn (https://math.stackexchange.com/users/6786/bbsysdyn)},
+#     HOWPUBLISHED = {Mathematics Stack Exchange},
+#     NOTE = {URL:https://math.stackexchange.com/q/3092082 (version: 2019-01-31)},
+#     EPRINT = {https://math.stackexchange.com/q/3092082},
+#     URL = {https://math.stackexchange.com/q/3092082}
+# }
+# According to the terms of stack exchange, this content is distributed under the terms of CC BY-SA 4.0.
+# https://creativecommons.org/licenses/by-sa/4.0/
+
 from pqdict import pqdict
 import numpy as np
 

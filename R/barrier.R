@@ -117,10 +117,11 @@ calculate_barrier_2d <- function(l, start_location_value = 0, start_r = 0.1, end
 #' @param localmin Starting value of finding local minimum.
 #' @param r Searching (L1) radius.
 #' @param zmax The highest possible value of the potential function.
+#' @param expand If the values in the range all equal to \code{zmax}, expand the range or not?
 #' @param first_called Is this function first called by another function?
 #'
 #' @export
-find_local_min_3d <- function(dist, localmin, r, zmax, first_called = TRUE) {
+find_local_min_3d <- function(dist, localmin, r, zmax, expand = TRUE, first_called = TRUE) {
   if (!is.matrix(dist$z)) stop("Wrong input. `dist` should be a list with x, y, and z, and z should be a matrix.")
   x1 <- localmin[1]
   y1 <- localmin[2]
@@ -133,10 +134,17 @@ find_local_min_3d <- function(dist, localmin, r, zmax, first_called = TRUE) {
   min_U <- -log(max_dist)
 
   if (min_U > zmax) {
-    if (first_called) message("The U in this range is too high. Searching range expanded...")
-    return(find_local_min_3d(dist, localmin, c(r[1] + dist$x[2] - dist$x[1], r[2] + dist$y[2] - dist$y[1]), zmax, first_called = FALSE))
+    if (expand) {
+      if (first_called) message("The U in this range is too high. Searching range expanded...")
+      return(find_local_min_3d(dist, localmin, c(r[1] + dist$x[2] - dist$x[1], r[2] + dist$y[2] - dist$y[1]), zmax, first_called = FALSE))
+    } else {
+      return(list(U = NA, location = rep(NA, 4) %>% {
+        names(.) <- c("x_index", "y_index", "x_value", "y_value")
+        .
+      }))
+    }
   }
-  location_index <- which(dist$z == max_dist, arr.ind = TRUE) %>% apply(2, function(x) as.integer(median(x)))
+  location_index <- which(dist$z == max_dist, arr.ind = TRUE) %>% apply(2, function(x) as.integer(stats::median(x)))
   location_value <- c(dist$x[location_index[1]], dist$y[location_index[2]])
   location <- c(location_index, location_value)
   names(location) <- c("x_index", "y_index", "x_value", "y_value")
@@ -150,10 +158,11 @@ find_local_min_3d <- function(dist, localmin, r, zmax, first_called = TRUE) {
 #' @param start_location_value,end_location_value The initial position (in value) for searching the start/end point.
 #' @param start_r,end_r The searching (L1) radius for searching the start/end point.
 #' @param zmax The highest possible value of the potential function.
+#' @param expand If the values in the range all equal to \code{zmax}, expand the range or not?
 #' @param base The base of the log function.
 #'
 #' @export
-calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.1, end_location_value = c(0.7, 0.6), end_r = 0.15, zmax, base = exp(1)) {
+calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.1, end_location_value = c(0.7, 0.6), end_r = 0.15, zmax, expand = TRUE, base = exp(1)) {
   if ("3d_static_landscape" %in% class(l)) {
     d <- l$dist
   } else {
@@ -162,46 +171,61 @@ calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.
 
   if (missing(zmax)) zmax <- l$zmax
 
-  local_min_start <- find_local_min_3d(d, start_location_value, start_r, zmax)
-  local_min_end <- find_local_min_3d(d, end_location_value, end_r, zmax)
+  local_min_start <- find_local_min_3d(d, start_location_value, start_r, zmax, expand = expand)
+  local_min_end <- find_local_min_3d(d, end_location_value, end_r, zmax, expand = expand)
 
-  reticulate::source_python(file = system.file("python/dijkstra.py", package = "simlandr"))
+  if (is.na(local_min_start$U) | is.na(local_min_end$U)) {
+    min_path <- data.frame(
+      x_index = NA,
+      y_index = NA,
+      x_value = NA,
+      y_value = NA,
+      U = NA
+    )
+    saddle_point <- list(U = NA, location = rep(NA, 4) %>% {
+      names(.) <- c("x_index", "y_index", "x_value", "y_value")
+      .
+    })
+  } else {
+    reticulate::source_python(file = system.file("python/dijkstra.py", package = "simlandr"))
 
-  min_path_index <- reticulate::py$dijkstra(
-    log(d$z, base = base), # result-=1 because python start from 0
-    (local_min_start$location[1:2] - 1) %>%
-      as.integer() %>%
+    min_path_index <- reticulate::py$dijkstra(
+      log(d$z, base = base), # result-=1 because python start from 0
+      (local_min_start$location[1:2] - 1) %>%
+        as.integer() %>%
+        {
+          reticulate::tuple(.[1], .[2])
+        },
+      (local_min_end$location[1:2] - 1) %>%
+        as.integer() %>% {
+          reticulate::tuple(.[1], .[2])
+        }
+    )
+
+    min_path <- min_path_index %>%
+      unlist() %>%
+      matrix(ncol = 2, byrow = T) %>%
+      as.data.frame() %>%
       {
-        reticulate::tuple(.[1], .[2])
-      },
-    (local_min_end$location[1:2] - 1) %>%
-      as.integer() %>% {
-        reticulate::tuple(.[1], .[2])
-      }
-  )
+        colnames(.) <- c("x_index", "y_index")
+        . + 1
+      } %>%
+      dplyr::rowwise() %>%
+      dplyr::mutate(x_value = d$x[x_index], y_value = d$y[y_index]) %>%
+      dplyr::mutate(U = -log(d$z[x_index, y_index], base = base)) %>%
+      dplyr::ungroup()
 
-  min_path <- min_path_index %>%
-    unlist() %>%
-    matrix(ncol = 2, byrow = T) %>%
-    as.data.frame() %>%
-    {
-      colnames(.) <- c("x_index", "y_index")
-      . + 1
-    } %>%
-    dplyr::rowwise() %>%
-    dplyr::mutate(x_value = d$x[x_index], y_value = d$y[y_index]) %>%
-    dplyr::mutate(U = -log(d$z[x_index, y_index], base = base)) %>%
-    dplyr::ungroup()
+    s_U <- max(min_path$U)
+    s_location_path_index <- as.integer(stats::median(which(min_path$U == s_U)))
+    s_location <- c(s_location_path_index, as.numeric(min_path[s_location_path_index[1], 1:4]))
+    names(s_location) <- c("path_index", "x_index", "y_index", "x_value", "y_value")
 
-  s_U <- max(min_path$U)
-  s_location_path_index <- as.integer(median(which(min_path$U == s_U)))
-  s_location <- c(s_location_path_index, as.numeric(min_path[s_location_path_index[1], 1:4]))
-  names(s_location) <- c("path_index", "x_index", "y_index", "x_value", "y_value")
+    saddle_point <- list(
+      U = s_U,
+      location = s_location
+    )
+  }
 
-  saddle_point <- list(
-    U = s_U,
-    location = s_location
-  )
 
   p <- ggplot2::ggplot() +
     ggplot2::geom_path(data = min_path, mapping = ggplot2::aes(x = x_value, y = y_value)) +
@@ -235,14 +259,16 @@ calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.
 #'
 #' @export
 get_barrier_height <- function(b) {
-  if(any(c("barrier_2d", "barrier_3d") %in% class(b))){
+  if (any(c("barrier_2d", "barrier_3d") %in% class(b))) {
     result <- c(b$delta_U_start, b$delta_U_end)
     names(result) <- c("delta_U_start", "delta_U_end")
     return(result)
-  }else if(any(c("barrier_2d_batch", "barrier_3d_batch") %in% class(b))){
+  } else if (any(c("barrier_2d_batch", "barrier_3d_batch") %in% class(b))) {
     result <- b$point_all %>%
-      mutate(delta_U_start = saddle_U - start_U,
-             delta_U_end = saddle_U - end_U)
+      mutate(
+        delta_U_start = saddle_U - start_U,
+        delta_U_end = saddle_U - end_U
+      )
     return(result)
   }
 }

@@ -64,7 +64,7 @@ make_3d_animation <- function(bs, x, y, fr, zmax = 5, n = 200, lims = c(-0.1, 1.
   message("Making the plot...")
   p <-
     df_multichannel_collect %>%
-    plotly::plot_ly(x = ~x, y = ~y, z = pmin(-log(.$z %>% t), zmax), color = pmin(-log(.$z %>% t), zmax), frame = ~fr) %>%
+    plotly::plot_ly(x = ~x, y = ~y, z = pmin(-log(.$z %>% t()), zmax), color = pmin(-log(.$z %>% t()), zmax), frame = ~fr) %>%
     plotly::add_markers(size = I(5)) %>%
     plotly::layout(scene = list(xaxis = list(title = x), yaxis = list(title = y), zaxis = list(title = "U"))) %>%
     plotly::animation_slider(
