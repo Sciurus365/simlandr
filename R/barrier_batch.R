@@ -196,7 +196,7 @@ calculate_barrier_3d_batch <- function(l, bg = NULL, start_location_value = c(0,
       dplyr::ungroup() %>%
       dplyr::left_join(bg %>% dplyr::select(1, (ncol(.) - 3):ncol(.)), by = "var_list") %>%
       dplyr::rowwise() %>%
-      dplyr::mutate(b = list(calculate_barrier_3d(l_list, start_location_value, start_r, end_location_value, end_r, base)))
+      dplyr::mutate(b = list(calculate_barrier_3d(l_list, start_location_value, start_r, end_location_value, end_r, zmax, expand, base)))
   }
 
   d <- d %>%
