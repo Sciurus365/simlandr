@@ -124,6 +124,9 @@ plot(l5)
 l5_1 <- make_3d_matrix(batch_test_result, x = "out1", y = "out2", cols = "var3", lims = c(-3, 3, -3, 3), h = 0.001, kde_fun = "ks", zmax = 10)
 plot(l5_1)
 
+## 6. 4d (including color dimension) landscape
+l6 <- make_4d_static(single_test, x = "out1", y = "out2", z = "out3", lims = c(-3, 3, -3, 3, -3, 3), h = 0.01)
+plot(l6) %>% plotly::layout(scene = list(zaxis=list(range = c(-3,3))))
 
 # Calculate energy barriers
 b1 <- calculate_barrier_2d(l1, start_location_value = -2, end_location_value = 2, start_r = 0.3, end_r = 0.3)

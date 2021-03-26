@@ -226,9 +226,10 @@ make_4d_static <- function(output, x, y, z, Umax = 5, n = 50, lims = c(-0.1, 1.1
   message("Making the plot...")
   p <-
     df_tidy %>%
-    plotly::plot_ly(x = ~x, y = ~y, z = ~z, color = pmin(-log(.$d), Umax)) %>%
-    plotly::add_markers(size = I(5)) %>%
-    plotly::layout(scene = list(xaxis = list(title = x), yaxis = list(title = y), zaxis = list(title = z)))
+    dplyr::filter(-log(.$d) < Umax) %>%
+    plotly::plot_ly(x = ~x, y = ~y, z = ~z, color = -log(.$d)) %>%
+    plotly::add_markers(size = I(5)) # %>%
+    # plotly::layout(scene = list(xaxis = list(title = x), yaxis = list(title = y), zaxis = list(title = z)))
   message("Done!")
 
   result <- list(dist = df_tidy, plot = p, x = x, y = y, z = z, Umax = Umax, n = n, lims = lims, h = h)
