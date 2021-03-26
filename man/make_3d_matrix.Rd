@@ -26,7 +26,7 @@ If `rows` is `NULL`, only a vector of graphs will be generated.}
 
 \item{zmax}{The maximum displayed value of potential.}
 
-\item{n, lims, h, kde_fun}{Passed to \code{\link{make_kernel_dist}}}
+\item{n, lims, h, kde_fun}{Passed to \code{\link{make_2d_kernel_dist}}}
 
 \item{individual_landscape}{Make individual landscape for each simulation?}
 }

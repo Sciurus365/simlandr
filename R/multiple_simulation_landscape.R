@@ -1,38 +1,10 @@
-#' Make a tidy data frame from smooth 2d distribution matrix
-#'
-#' @param dist_2d \code{kde2d} distribution.
-#' @param value The value of the variable of interest.
-#' @param var_name The name of the variable.
-#'
-#' @return A tidy data frame.
-#'
-#' @export
-#'
-make_tidy_dist <- function(dist_2d, value = NULL, var_name = NULL) {
-  df <- cbind(
-    expand.grid(x = dist_2d$x, y = dist_2d$y),
-    expand.grid(
-      x_index = 1:length(dist_2d$x),
-      y_index = 1:length(dist_2d$y)
-    )
-  )
-  z_mat <- dist_2d$z
-  df <- df %>%
-    dplyr::mutate(z = purrr::map2_dbl(x_index, y_index, function(x, y, zm) {
-      zm[x, y]
-    }, zm = z_mat))
-
-  if (!is.null(value) & !is.null(var_name)) df[, var_name] <- value
-  return(df)
-}
-
 #' Make 3d animations from multiple simulations
 #'
 #' @param bs A \code{batch_simulation} object created by \code{\link{batch_simulation}.}
 #' @param x,y,fr The names of the target variables.
 #' \code{fr} corresponds to the \code{frame} parameter in plotly.
 #' @param zmax The maximum displayed value of potential.
-#' @param n,lims,h,kde_fun Passed to \code{make_kernel_dist}
+#' @param n,lims,h,kde_fun Passed to \code{make_2d_kernel_dist}
 #' @param individual_landscape Make individual landscape for each simulation?
 #' @param mat_3d Also make heatmap matrix?
 #'
@@ -42,7 +14,7 @@ make_3d_animation <- function(bs, x, y, fr, zmax = 5, n = 200, lims = c(-0.1, 1.
   df_multichannel <- bs %>%
     dplyr::rowwise() %>%
     dplyr::mutate(
-      dist = list(make_kernel_dist(output, x, y, n, lims, h, kde_fun = kde_fun))
+      dist = list(make_2d_kernel_dist(output, x, y, n, lims, h, kde_fun = kde_fun))
     )
 
   if (individual_landscape) {
@@ -55,7 +27,7 @@ make_3d_animation <- function(bs, x, y, fr, zmax = 5, n = 200, lims = c(-0.1, 1.
   df_multichannel$output <- NULL
 
   df_multichannel_tidy <- df_multichannel %>%
-    dplyr::mutate(tidy_dist = list(make_tidy_dist(dist, !!rlang::sym(fr), var_name = "fr"))) %>%
+    dplyr::mutate(tidy_dist = list(make_2d_tidy_dist(dist, !!rlang::sym(fr), var_name = "fr"))) %>%
     dplyr::ungroup()
 
   df_multichannel_collect <- do.call(rbind, df_multichannel_tidy$tidy_dist)
@@ -159,7 +131,7 @@ make_2d_matrix <- function(bs, x, rows = NULL, cols, adjust = 50, from = -0.1, t
 #' @param x,y,rows,cols The names of the target variables.
 #' If `rows` is `NULL`, only a vector of graphs will be generated.
 #' @param zmax The maximum displayed value of potential.
-#' @param n,lims,h,kde_fun Passed to \code{\link{make_kernel_dist}}
+#' @param n,lims,h,kde_fun Passed to \code{\link{make_2d_kernel_dist}}
 #' @param individual_landscape Make individual landscape for each simulation?
 #'
 #' @export
@@ -167,16 +139,16 @@ make_3d_matrix <- function(bs, x, y, rows = NULL, cols, zmax = 5, n = 200, lims 
   if (is.null(rows)) {
     df_multichannel <- bs %>%
       dplyr::mutate(dist = purrr::pmap(list(output, bs[, cols]), function(out, sample_var1) {
-        d <- make_kernel_dist(out, x, y, n, lims, h, kde_fun)
-        df <- make_tidy_dist(d)
+        d <- make_2d_kernel_dist(out, x, y, n, lims, h, kde_fun)
+        df <- make_2d_tidy_dist(d)
         df$cols <- sample_var1
         df
       }))
   } else {
     df_multichannel <- bs %>%
       dplyr::mutate(dist = purrr::pmap(list(output, bs[, rows], bs[, cols]), function(out, sample_var1, sample_var2) {
-        d <- make_kernel_dist(out, x, y, n, lims, h, kde_fun)
-        df <- make_tidy_dist(d)
+        d <- make_2d_kernel_dist(out, x, y, n, lims, h, kde_fun)
+        df <- make_2d_tidy_dist(d)
         df$rows <- sample_var1
         df$cols <- sample_var2
         df

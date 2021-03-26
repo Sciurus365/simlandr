@@ -22,7 +22,7 @@ make_3d_static(
 
 \item{zmax}{The maximum displayed value of potential.}
 
-\item{n, lims, h, kde_fun}{Passed to \code{\link{make_kernel_dist}}}
+\item{n, lims, h, kde_fun}{Passed to \code{\link{make_2d_kernel_dist}}}
 }
 \value{
 A \code{3d_static_landscape}, \code{landscape} object.
