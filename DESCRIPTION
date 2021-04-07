@@ -37,3 +37,7 @@ Config/reticulate:
       list(package = "pqdict")
     )
   )
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

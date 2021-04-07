@@ -13,14 +13,20 @@ knitr::opts_chunk$set(
 )
 ```
 
-# simlandr
+# `simlandr`: Simulation-based Landscape Construction for Dynamic Systems
 
 
 ![](https://img.shields.io/badge/lifecycle-experimental-orange.svg) [![R-CMD-check](https://github.com/Sciurus365/simlandr/workflows/R-CMD-check/badge.svg)](https://github.com/Sciurus365/simlandr/actions)
 
 
 
-The goal of simlandr is to provide a set of tools for constructing potential landscape function for dynamic systems, especially for psychological formal models.
+`simlandr` provides a set of tools for constructing potential landscape for dynamic systems using Monte-Carlo simulation, especially for psychological formal models. It can help to:
+
+1. Run batch simulations for different parameter values;
+2. Store large simulation outputs into hard drive by reusable `hash_big.matrix` class, and perform out-of-memory calculation;
+3. Check convergence of the simulations;
+4. Construct 2d, 3d, 4d potential landscapes based on the simulation outputs;
+5. Calculate m 
 
 ## Installation
 
@@ -173,5 +179,9 @@ plot(l4) + get_geom(b4)
 b5 <- calculate_barrier_3d_batch(l5, start_location_value = c(-1, -1), end_location_value = c(1, 1), start_r = 0.3, end_r = 0.3)
 plot(l5) + get_geom(b5)
 ```
+
+# Vignettes
+
+Use `browseVignettes("simlandr")` to see more examples and explanations of this package.
 
 <!-- devtools::build_readme() -->
