@@ -3,7 +3,7 @@ title: "Dynamic models and simulations"
 author: "Jingmeng Cui"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Dynamic models and simulations}
+  %\VignetteIndexEntry{1. Dynamic models and simulations}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -47,6 +47,14 @@ single_test <- sim_fun_test(
 head(single_test)
 ```
 
+For Monte-Carlo methods, it is important that the simulation **converges**. In our case, it means the distribution of the system is roughly stable. Only when the distribution estimation is good enough can we construct reasonable landscapes based on that. `simlandr` provides a function `check_conv()` to check if the simulation converges. It takes the initial, middle, and final parts of the simulation result and calculate distributions based on that. If these distributions look similar, we can say the simulation already converges. *A rare exception is that the simulation is so short or the noise of the system is so low that during the whole simulation the system is in one local stable state. A rough knowledge of the system would be enough to rule out this situation.*
+
+```{r}
+check_conv(single_test, c("out1", "out2", "out3"))
+```
+
+From the plots, we can see that variables `out1` and `out2` have converged, but `out3` has not. However, as you might already realize, `out3` is basically a 1d random walk process. Its distribution never converges (so it can provide a good example of non-convergence). Therefore, we will not extend the simulation length.
+
 # Out-of-memory storage of the simulation output
 
 Sometimes the output of the simulation is so large that it cannot be handled properly in the following computation. (Rule of thumb: retain matrices of > 1 GB in memory is likely to produce future problems in a computer with 8 GB memory.) In this case, you can use the `bigmemory` package to put it into your hard drive. `bigmemory` only preserves a pointer in the memory, so it can save the memory space significantly. In most cases, you can treat it as a normal matrix. As far as I have tested, `simlandr` is fully compatible with `bigmemory`.
@@ -57,6 +65,8 @@ single_test <- bigmemory::as.big.matrix(single_test, backingfile = "single_test.
 ```
 
 The pointer only exists in a single session. In other words, if you close the session and reload the workspace image, the pointers will become `NULL`, and `bigmemory` attachment does not restore by itself. In order to use it again, use the following command to attach the file.
+
+*To avoid compatibility problems, this vignette does not run out-of-memory related codes.* 
 
 ```{r eval = FALSE}
 # NOT RUN
@@ -73,7 +83,8 @@ Current work-around before the bug is fixed:
 
 1. Turn off "Restore .RData into workspace at startup" at Tools -> Project Options -> General
 2. Switch the variable inspector to "Manual Refresh Only"
-3. Load the image attach all `bigmemory`-related objects.
+3. Load the workspace image
+4. Attach all `bigmemory`-related objects using `bigmemory::attach.big.matrix()`, `simlandr::attach.hash_big.matrix()` or `simlandr::attach_all_matrices()` (introduced later).
 
 After that, you can safely use/refresh the variable inspector. 
 
@@ -107,37 +118,39 @@ batch_test_grid <- make_var_grid(batch_test)
 
 ```
 
-Then you can run the batch simulation.
+Then you can run the batch simulation. `simlandr` use out-of-memory storage for batch simulations by default because in most times batch simulation will result in very large data objects. In this case, each simulation result is stored in a separate file. Thanks to the `hash-big.matrix` class, you do not have to name each file by yourself.
 
-```{r}
+`simlandr` also provides a `attach_all_matrices()` function to help you attach all the out-of-memory `hash-big.matrix`s related to a batch simulation. Use this if you want to load previous workspace image with (out-of-memory) batch simulation results. Keep in mind that the **WARNING** above also holds for this.
 
-## Step 4: run the batch simulation
+```{r eval = FALSE}
+# NOT RUN
 batch_test_result <- batch_simulation(batch_test_grid, sim_fun_test,
   default_list = list(
     par1 = list(var1 = 0),
     par2 = list(var2 = 0, var3 = 0)
   )
 )
-batch_test_result
+
 batch_test_result <- attach_all_matrices(batch_test_result)
+```
 
-# WARNING if you are using bigmemory: Due to a bug of RStudio (https://github.com/rstudio/rstudio/issues/8923), its variable inspector cannot handle objects with null external pointers. Work around: Turn off "automatically load workspace image"; change the variable inspector to "Manual refresh only", and then load the image and use attach_all_matrices for all batch simulations. After that, you can safely use the variable inspector. #
+If you want to keep all the original data in the memory, you can use `bigmemory = FALSE` to disable this.
 
-# Batch simulation with two parameters
-
-batch_test2 <- new_var_set()
-batch_test2 <- batch_test2 %>%
-  add_var("par1", "var1", -0.2, 0.2, 0.2) %>%
-  add_var("par2", "var2", -0.2, 0.2, 0.2)
-batch_test_grid2 <- make_var_grid(batch_test2)
-
-batch_test_result2 <- batch_simulation(batch_test_grid2, sim_fun_test,
-  bigmemory = FALSE,
+```{r}
+batch_test_result <- batch_simulation(batch_test_grid, sim_fun_test,
   default_list = list(
     par1 = list(var1 = 0),
     par2 = list(var2 = 0, var3 = 0)
-  )
+  ),
+  bigmemory = FALSE
 )
-batch_test_result2
 ```
 
+The output of `batch_simulation()` function is a `batch_simulation` object, which is, basically, a complex `data.frame` with simulation outputs and corresponding parameter values. You can manipulate it as a `data.frame` for your purpose.
+
+```{r}
+print(batch_test_result)
+print(tibble::as_tibble(batch_test_result))
+```
+
+`batch_simulation` objects are also the base for constructing landscapes from multiple simulations. See other vignettes for details.
