@@ -33,8 +33,8 @@ BugReports: https://github.com/Sciurus365/simlandr/issues
 Config/reticulate:
   list(
     packages = list(
-      list(package = "pqdict", pip = TRUE),
-      list(package = "numpy")
+      list(package = "numpy"),
+      list(package = "pqdict", pip = TRUE)
     )
   )
 Suggests: 

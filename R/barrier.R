@@ -187,6 +187,17 @@ calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.
       .
     })
   } else {
+    if(!reticulate::py_module_available("numpy")){
+      message("Installing `numpy`...")
+      reticulate::py_install("numpy", forge = FALSE)
+      message("Done!")
+    }
+    if(!reticulate::py_module_available("pqdict")){
+      message("Installing `pqdict`...")
+      reticulate::py_install("pqdict", pip = TRUE)
+      message("Done!")
+    }
+
     reticulate::source_python(file = system.file("python/dijkstra.py", package = "simlandr"))
 
     min_path_index <- reticulate::py$dijkstra(
