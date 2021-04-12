@@ -160,9 +160,10 @@ find_local_min_3d <- function(dist, localmin, r, zmax, expand = TRUE, first_call
 #' @param zmax The highest possible value of the potential function.
 #' @param expand If the values in the range all equal to \code{zmax}, expand the range or not?
 #' @param base The base of the log function.
+#' @param install_dependency Automatically install all Python dependencies?
 #'
 #' @export
-calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.1, end_location_value = c(0.7, 0.6), end_r = 0.15, zmax, expand = TRUE, base = exp(1)) {
+calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.1, end_location_value = c(0.7, 0.6), end_r = 0.15, zmax, expand = TRUE, base = exp(1), install_dependency = FALSE) {
   if ("3d_static_landscape" %in% class(l)) {
     d <- l$dist
   } else {
@@ -187,15 +188,20 @@ calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.
       .
     })
   } else {
-    if(!reticulate::py_module_available("numpy")){
-      message("Installing `numpy`...")
-      reticulate::py_install("numpy", forge = FALSE)
-      message("Done!")
-    }
-    if(!reticulate::py_module_available("pqdict")){
-      message("Installing `pqdict`...")
-      reticulate::py_install("pqdict", pip = TRUE)
-      message("Done!")
+    if(install_dependency){
+      if(!reticulate::py_available()){
+        reticulate::install_miniconda()
+      }
+      if(!reticulate::py_module_available("numpy")){
+        message("Installing `numpy`...")
+        reticulate::py_install("numpy", forge = FALSE)
+        message("Done!")
+      }
+      if(!reticulate::py_module_available("pqdict")){
+        message("Installing `pqdict`...")
+        reticulate::py_install("pqdict", pip = TRUE)
+        message("Done!")
+      }
     }
 
     reticulate::source_python(file = system.file("python/dijkstra.py", package = "simlandr"))
