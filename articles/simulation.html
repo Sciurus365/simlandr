@@ -125,7 +125,7 @@
 <span class="co">#&gt;     }</span>
 <span class="co">#&gt;     return(output)</span>
 <span class="co">#&gt; }</span>
-<span class="co">#&gt; &lt;bytecode: 0x7f8780aa5430&gt;</span>
+<span class="co">#&gt; &lt;bytecode: 0x7fef69121430&gt;</span>
 <span class="co">#&gt; &lt;environment: namespace:simlandr&gt;</span></code></pre></div>
 </div>
 <div id="single-simulation" class="section level1">
@@ -138,13 +138,13 @@
   par2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>var2 <span class="op">=</span> <span class="fl">1</span>, var3 <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">single_test</span><span class="op">)</span>
-<span class="co">#&gt;          out1     out2        out3</span>
-<span class="co">#&gt; [1,]  1.00000  1.00000 -0.01561391</span>
-<span class="co">#&gt; [2,]  2.50000  0.50000 -0.01515447</span>
-<span class="co">#&gt; [3,]  2.75000 -0.75000 -0.04519070</span>
-<span class="co">#&gt; [4,]  1.62500 -2.12500 -0.05901557</span>
-<span class="co">#&gt; [5,] -0.31250 -2.93750 -0.06504611</span>
-<span class="co">#&gt; [6,] -2.09375 -2.78125 -0.07113925</span></code></pre></div>
+<span class="co">#&gt;          out1     out2       out3</span>
+<span class="co">#&gt; [1,]  1.00000  1.00000 0.01410697</span>
+<span class="co">#&gt; [2,]  2.50000  0.50000 0.02753059</span>
+<span class="co">#&gt; [3,]  2.75000 -0.75000 0.01908933</span>
+<span class="co">#&gt; [4,]  1.62500 -2.12500 0.03321355</span>
+<span class="co">#&gt; [5,] -0.31250 -2.93750 0.04194392</span>
+<span class="co">#&gt; [6,] -2.09375 -2.78125 0.04266644</span></code></pre></div>
 <p>For Monte-Carlo methods, it is important that the simulation <strong>converges</strong>. In our case, it means the distribution of the system is roughly stable. Only when the distribution estimation is good enough can we construct reasonable landscapes based on that. <code>simlandr</code> provides a function <code><a href="../reference/check_conv.html">check_conv()</a></code> to check if the simulation converges. It takes the initial, middle, and final parts of the simulation result and calculate distributions based on that. If these distributions look similar, we can say the simulation already converges. <em>A rare exception is that the simulation is so short or the noise of the system is so low that during the whole simulation the system is in one local stable state. A rough knowledge of the system would be enough to rule out this situation.</em></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/check_conv.html">check_conv</a></span><span class="op">(</span><span class="va">single_test</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"out1"</span>, <span class="st">"out2"</span>, <span class="st">"out3"</span><span class="op">)</span><span class="op">)</span>
