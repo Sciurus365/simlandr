@@ -196,7 +196,7 @@ make_3d_tidy_dist <- function(dist_3d, value = NULL, var_name = NULL) {
   d_mat <- dist_3d$d
   df <- df %>%
     dplyr::rowwise() %>%
-    dplyr::mutate(d = d_mat[x_index,y_index,z_index]) %>%
+    dplyr::mutate(d = d_mat[x_index, y_index, z_index]) %>%
     dplyr::ungroup()
 
   if (!is.null(value) & !is.null(var_name)) df[, var_name] <- value
@@ -221,7 +221,7 @@ make_4d_static <- function(output, x, y, z, Umax = 5, n = 50, lims = c(-0.1, 1.1
   out_3d <- make_3d_kernel_dist(output, x, y, z, n, lims, h)
   message("Done!")
 
-  df_tidy <- out_3d %>% make_3d_tidy_dist
+  df_tidy <- out_3d %>% make_3d_tidy_dist()
 
   message("Making the plot...")
   p <-

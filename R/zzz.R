@@ -1,3 +1,3 @@
 .onLoad <- function(libname, pkgname) {
-	reticulate::configure_environment(pkgname, force = TRUE)
+  reticulate::configure_environment(pkgname, force = TRUE)
 }

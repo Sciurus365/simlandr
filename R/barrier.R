@@ -188,16 +188,16 @@ calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.
       .
     })
   } else {
-    if(install_dependency){
-      if(!reticulate::py_available()){
+    if (install_dependency) {
+      if ((!reticulate::py_available()) & (!dir.exists(reticulate::miniconda_path()))) {
         reticulate::install_miniconda(force = TRUE)
       }
-      if(!reticulate::py_module_available("numpy")){
+      if (!reticulate::py_module_available("numpy")) {
         message("Installing `numpy`...")
         reticulate::py_install("numpy", forge = FALSE)
         message("Done!")
       }
-      if(!reticulate::py_module_available("pqdict")){
+      if (!reticulate::py_module_available("pqdict")) {
         message("Installing `pqdict`...")
         reticulate::py_install("pqdict", pip = TRUE)
         message("Done!")
