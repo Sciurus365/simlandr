@@ -95,6 +95,12 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/barrier.html">Calculate the lowest elevation path and barrier height between stable states</a>
+    </li>
+    <li>
+      <a href="../articles/landscape.html">Construct the potential landscapes from simulation results</a>
+    </li>
+    <li>
       <a href="../articles/simulation.html">Dynamic models and simulations</a>
     </li>
   </ul>
@@ -140,7 +146,8 @@
   end_r <span class='op'>=</span> <span class='fl'>0.15</span>,
   <span class='va'>zmax</span>,
   expand <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  base <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
+  base <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>,
+  install_dependency <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -169,6 +176,10 @@
     <tr>
       <th>base</th>
       <td><p>The base of the log function.</p></td>
+    </tr>
+    <tr>
+      <th>install_dependency</th>
+      <td><p>Automatically install all Python dependencies?</p></td>
     </tr>
     </table>
 

@@ -2,6 +2,8 @@ pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
+  barrier: barrier.html
+  landscape: landscape.html
   simulation: simulation.html
-last_built: 2021-04-07T14:26Z
+last_built: 2021-04-13T03:54Z
 

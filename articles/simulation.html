@@ -54,6 +54,12 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="../articles/barrier.html">Calculate the lowest elevation path and barrier height between stable states</a>
+    </li>
+    <li>
+      <a href="../articles/landscape.html">Construct the potential landscapes from simulation results</a>
+    </li>
+    <li>
       <a href="../articles/simulation.html">Dynamic models and simulations</a>
     </li>
   </ul>
@@ -119,7 +125,7 @@
 <span class="co">#&gt;     }</span>
 <span class="co">#&gt;     return(output)</span>
 <span class="co">#&gt; }</span>
-<span class="co">#&gt; &lt;bytecode: 0x7f99a8765230&gt;</span>
+<span class="co">#&gt; &lt;bytecode: 0x7f8780aa5430&gt;</span>
 <span class="co">#&gt; &lt;environment: namespace:simlandr&gt;</span></code></pre></div>
 </div>
 <div id="single-simulation" class="section level1">
@@ -132,23 +138,37 @@
   par2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>var2 <span class="op">=</span> <span class="fl">1</span>, var3 <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">single_test</span><span class="op">)</span>
-<span class="co">#&gt;          out1     out2         out3</span>
-<span class="co">#&gt; [1,]  1.00000  1.00000 -0.008033143</span>
-<span class="co">#&gt; [2,]  2.50000  0.50000 -0.014677886</span>
-<span class="co">#&gt; [3,]  2.75000 -0.75000 -0.017070636</span>
-<span class="co">#&gt; [4,]  1.62500 -2.12500 -0.020056053</span>
-<span class="co">#&gt; [5,] -0.31250 -2.93750 -0.027710614</span>
-<span class="co">#&gt; [6,] -2.09375 -2.78125  0.003235618</span></code></pre></div>
+<span class="co">#&gt;          out1     out2        out3</span>
+<span class="co">#&gt; [1,]  1.00000  1.00000 -0.01561391</span>
+<span class="co">#&gt; [2,]  2.50000  0.50000 -0.01515447</span>
+<span class="co">#&gt; [3,]  2.75000 -0.75000 -0.04519070</span>
+<span class="co">#&gt; [4,]  1.62500 -2.12500 -0.05901557</span>
+<span class="co">#&gt; [5,] -0.31250 -2.93750 -0.06504611</span>
+<span class="co">#&gt; [6,] -2.09375 -2.78125 -0.07113925</span></code></pre></div>
+<p>For Monte-Carlo methods, it is important that the simulation <strong>converges</strong>. In our case, it means the distribution of the system is roughly stable. Only when the distribution estimation is good enough can we construct reasonable landscapes based on that. <code>simlandr</code> provides a function <code><a href="../reference/check_conv.html">check_conv()</a></code> to check if the simulation converges. It takes the initial, middle, and final parts of the simulation result and calculate distributions based on that. If these distributions look similar, we can say the simulation already converges. <em>A rare exception is that the simulation is so short or the noise of the system is so low that during the whole simulation the system is in one local stable state. A rough knowledge of the system would be enough to rule out this situation.</em></p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/check_conv.html">check_conv</a></span><span class="op">(</span><span class="va">single_test</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"out1"</span>, <span class="st">"out2"</span>, <span class="st">"out3"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></code></pre></div>
+<p><img src="simulation_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
+<pre><code>#&gt; Press &lt;Enter&gt; to see the next plot...
+#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="simulation_files/figure-html/unnamed-chunk-4-2.png" width="700"></p>
+<pre><code>#&gt; Press &lt;Enter&gt; to see the next plot...
+#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="simulation_files/figure-html/unnamed-chunk-4-3.png" width="700"></p>
+<pre><code>#&gt; Press &lt;Enter&gt; to see the next plot...</code></pre>
+<p>From the plots, we can see that variables <code>out1</code> and <code>out2</code> have converged, but <code>out3</code> has not. However, as you might already realize, <code>out3</code> is basically a 1d random walk process. Its distribution never converges (so it can provide a good example of non-convergence). Therefore, we will not extend the simulation length.</p>
 </div>
 <div id="out-of-memory-storage-of-the-simulation-output" class="section level1">
 <h1 class="hasAnchor">
 <a href="#out-of-memory-storage-of-the-simulation-output" class="anchor"></a>Out-of-memory storage of the simulation output</h1>
 <p>Sometimes the output of the simulation is so large that it cannot be handled properly in the following computation. (Rule of thumb: retain matrices of &gt; 1 GB in memory is likely to produce future problems in a computer with 8 GB memory.) In this case, you can use the <code>bigmemory</code> package to put it into your hard drive. <code>bigmemory</code> only preserves a pointer in the memory, so it can save the memory space significantly. In most cases, you can treat it as a normal matrix. As far as I have tested, <code>simlandr</code> is fully compatible with <code>bigmemory</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># NOT RUN</span>
 <span class="va">single_test</span> <span class="op">&lt;-</span> <span class="fu">bigmemory</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/bigmemory/man/big.matrix.html">as.big.matrix</a></span><span class="op">(</span><span class="va">single_test</span>, backingfile <span class="op">=</span> <span class="st">"single_test.bin"</span>, descriptorfile <span class="op">=</span> <span class="st">"single_test.desc"</span><span class="op">)</span></code></pre></div>
 <p>The pointer only exists in a single session. In other words, if you close the session and reload the workspace image, the pointers will become <code>NULL</code>, and <code>bigmemory</code> attachment does not restore by itself. In order to use it again, use the following command to attach the file.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<p><em>To avoid compatibility problems, this vignette does not run out-of-memory related codes.</em></p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># NOT RUN</span>
 <span class="va">single_test</span> <span class="op">&lt;-</span> <span class="fu">bigmemory</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/bigmemory/man/attach.big.matrix.html">attach.big.matrix</a></span><span class="op">(</span><span class="st">"single_test"</span><span class="op">)</span></code></pre></div>
 <hr>
@@ -158,12 +178,13 @@
 <ol style="list-style-type: decimal">
 <li>Turn off “Restore .RData into workspace at startup” at Tools -&gt; Project Options -&gt; General</li>
 <li>Switch the variable inspector to “Manual Refresh Only”</li>
-<li>Load the image attach all <code>bigmemory</code>-related objects.</li>
+<li>Load the workspace image</li>
+<li>Attach all <code>bigmemory</code>-related objects using <code><a href="https://rdrr.io/pkg/bigmemory/man/attach.big.matrix.html">bigmemory::attach.big.matrix()</a></code>, <code><a href="../reference/hash_big.matrix-class.html">simlandr::attach.hash_big.matrix()</a></code> or <code><a href="../reference/attach_all_matrices.html">simlandr::attach_all_matrices()</a></code> (introduced later).</li>
 </ol>
 <p>After that, you can safely use/refresh the variable inspector.</p>
 <hr>
 <p>To reuse these images on a hard drive, <code>big.matrix</code> class in <code>bigmemory</code> requires an explicit file name for each matrix. This can be cumbersome if you need to handle a lot of matrices. (And this is even a bigger problem for batch simulation; see next section.) Therefore, <code>simlandr</code> provides a <code>hash-big.matrix</code> class to solve this problem. The <code>hash-big.matrix</code> class is a modification of <code>big.matrix</code> class in <code>big.memory</code> package, but it automatically generates the file names using the md5 values of the matrices. (For those who are not familiar with md5: it is a hash algorithm that can guarantee to give different names to different matrices in a reasonable simulation context.) The md5 value is also stored in the <code>md5</code> slot of <code>hash-big.matrix</code> objects. Therefore, the file link can also be restored automatically without having to specify a file name. By default, all the backing files of <code>hash-big.matrix</code> objects are in <code>\bp</code> directory.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># NOT RUN</span>
 <span class="va">single_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/hash_big.matrix-class.html">as.hash_big.matrix</a></span><span class="op">(</span><span class="va">single_test</span><span class="op">)</span>
 <span class="va">single_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/hash_big.matrix-class.html">attach.hash_big.matrix</a></span><span class="op">(</span><span class="va">single_test</span><span class="op">)</span></code></pre></div>
@@ -173,7 +194,7 @@
 <a href="#batch-simulation" class="anchor"></a>Batch simulation</h1>
 <p>Sometimes you need to simulate a set of models with different parameter values. <code>simlandr</code> provides several tools to do this easily.</p>
 <p>First, you need to make a <code>var_grid</code> to specify the conditions of these simulations in terms of <code>var</code> values. The following is an example.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Step 1: create a variable set</span>
 <span class="va">batch_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_var_set.html">new_var_set</a></span><span class="op">(</span><span class="op">)</span>
 
@@ -183,39 +204,42 @@
 
 <span class="co">## Step 3: make variable grids</span>
 <span class="va">batch_test_grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_var_grid.html">make_var_grid</a></span><span class="op">(</span><span class="va">batch_test</span><span class="op">)</span></code></pre></div>
-<p>Then you can run the batch simulation.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="co">## Step 4: run the batch simulation</span>
+<p>Then you can run the batch simulation. <code>simlandr</code> use out-of-memory storage for batch simulations by default because in most times batch simulation will result in very large data objects. In this case, each simulation result is stored in a separate file. Thanks to the <code>hash-big.matrix</code> class, you do not have to name each file by yourself.</p>
+<p><code>simlandr</code> also provides a <code><a href="../reference/attach_all_matrices.html">attach_all_matrices()</a></code> function to help you attach all the out-of-memory <code>hash-big.matrix</code>s related to a batch simulation. Use this if you want to load previous workspace image with (out-of-memory) batch simulation results. Keep in mind that the <strong>WARNING</strong> above also holds for this.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># NOT RUN</span>
 <span class="va">batch_test_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/modified_simulation.html">batch_simulation</a></span><span class="op">(</span><span class="va">batch_test_grid</span>, <span class="va">sim_fun_test</span>,
   default_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
     par1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>var1 <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,
     par2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>var2 <span class="op">=</span> <span class="fl">0</span>, var3 <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
   <span class="op">)</span>
 <span class="op">)</span>
-<span class="va">batch_test_result</span>
-<span class="co">#&gt; Output(s) from 6 simulations.</span>
-<span class="va">batch_test_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/attach_all_matrices.html">attach_all_matrices</a></span><span class="op">(</span><span class="va">batch_test_result</span><span class="op">)</span>
 
-<span class="co"># WARNING if you are using bigmemory: Due to a bug of RStudio (https://github.com/rstudio/rstudio/issues/8923), its variable inspector cannot handle objects with null external pointers. Work around: Turn off "automatically load workspace image"; change the variable inspector to "Manual refresh only", and then load the image and use attach_all_matrices for all batch simulations. After that, you can safely use the variable inspector. #</span>
-
-<span class="co"># Batch simulation with two parameters</span>
-
-<span class="va">batch_test2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_var_set.html">new_var_set</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">batch_test2</span> <span class="op">&lt;-</span> <span class="va">batch_test2</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/new_var_set.html">add_var</a></span><span class="op">(</span><span class="st">"par1"</span>, <span class="st">"var1"</span>, <span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/new_var_set.html">add_var</a></span><span class="op">(</span><span class="st">"par2"</span>, <span class="st">"var2"</span>, <span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span><span class="op">)</span>
-<span class="va">batch_test_grid2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_var_grid.html">make_var_grid</a></span><span class="op">(</span><span class="va">batch_test2</span><span class="op">)</span>
-
-<span class="va">batch_test_result2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/modified_simulation.html">batch_simulation</a></span><span class="op">(</span><span class="va">batch_test_grid2</span>, <span class="va">sim_fun_test</span>,
-  bigmemory <span class="op">=</span> <span class="cn">FALSE</span>,
+<span class="va">batch_test_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/attach_all_matrices.html">attach_all_matrices</a></span><span class="op">(</span><span class="va">batch_test_result</span><span class="op">)</span></code></pre></div>
+<p>If you want to keep all the original data in the memory, you can use <code>bigmemory = FALSE</code> to disable this.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">batch_test_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/modified_simulation.html">batch_simulation</a></span><span class="op">(</span><span class="va">batch_test_grid</span>, <span class="va">sim_fun_test</span>,
   default_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
     par1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>var1 <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,
     par2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>var2 <span class="op">=</span> <span class="fl">0</span>, var3 <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">)</span>
-<span class="va">batch_test_result2</span>
-<span class="co">#&gt; Output(s) from 9 simulations.</span></code></pre></div>
+  <span class="op">)</span>,
+  bigmemory <span class="op">=</span> <span class="cn">FALSE</span>
+<span class="op">)</span></code></pre></div>
+<p>The output of <code><a href="../reference/modified_simulation.html">batch_simulation()</a></code> function is a <code>batch_simulation</code> object, which is, basically, a complex <code>data.frame</code> with simulation outputs and corresponding parameter values. You can manipulate it as a <code>data.frame</code> for your purpose.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">batch_test_result</span><span class="op">)</span>
+<span class="co">#&gt; Output(s) from 6 simulations.</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">batch_test_result</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 6 x 3</span>
+<span class="co">#&gt;   var_list        var3 output               </span>
+<span class="co">#&gt;   &lt;list&gt;         &lt;dbl&gt; &lt;list&gt;               </span>
+<span class="co">#&gt; 1 &lt;var_list [1]&gt;   0   &lt;dbl[,3] [1,000 × 3]&gt;</span>
+<span class="co">#&gt; 2 &lt;var_list [1]&gt;   0.1 &lt;dbl[,3] [1,000 × 3]&gt;</span>
+<span class="co">#&gt; 3 &lt;var_list [1]&gt;   0.2 &lt;dbl[,3] [1,000 × 3]&gt;</span>
+<span class="co">#&gt; 4 &lt;var_list [1]&gt;   0.3 &lt;dbl[,3] [1,000 × 3]&gt;</span>
+<span class="co">#&gt; 5 &lt;var_list [1]&gt;   0.4 &lt;dbl[,3] [1,000 × 3]&gt;</span>
+<span class="co">#&gt; 6 &lt;var_list [1]&gt;   0.5 &lt;dbl[,3] [1,000 × 3]&gt;</span></code></pre></div>
+<p><code>batch_simulation</code> objects are also the base for constructing landscapes from multiple simulations. See other vignettes for details.</p>
 </div>
   </div>
 
