@@ -189,8 +189,8 @@ calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.
     })
   } else {
     if(install_dependency){
-      if(!reticulate::py_available(force = TRUE)){
-        reticulate::install_miniconda()
+      if(!reticulate::py_available()){
+        reticulate::install_miniconda(force = TRUE)
       }
       if(!reticulate::py_module_available("numpy")){
         message("Installing `numpy`...")
