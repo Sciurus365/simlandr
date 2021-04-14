@@ -105,7 +105,7 @@ calculate_barrier_2d <- function(l, start_location_value = 0, start_r = 0.1, end
       ggplot2::geom_point(mapping = ggplot2::aes(x = local_min_start$location["x_value"], y = local_min_start$U), color = "white"),
       ggplot2::geom_point(mapping = ggplot2::aes(x = local_min_end$location["x_value"], y = local_min_end$U), color = "white")
     ),
-    x = l$x, zmax = l$zmax
+    x = l$x, Umax = l$Umax
   )
   class(result) <- c("barrier_2d", "barrier")
   return(result)
@@ -116,12 +116,12 @@ calculate_barrier_2d <- function(l, start_location_value = 0, start_r = 0.1, end
 #' @param dist An \code{kde2d} distribution object.
 #' @param localmin Starting value of finding local minimum.
 #' @param r Searching (L1) radius.
-#' @param zmax The highest possible value of the potential function.
-#' @param expand If the values in the range all equal to \code{zmax}, expand the range or not?
+#' @param Umax The highest possible value of the potential function.
+#' @param expand If the values in the range all equal to \code{Umax}, expand the range or not?
 #' @param first_called Is this function first called by another function?
 #'
 #' @export
-find_local_min_3d <- function(dist, localmin, r, zmax, expand = TRUE, first_called = TRUE) {
+find_local_min_3d <- function(dist, localmin, r, Umax, expand = TRUE, first_called = TRUE) {
   if (!is.matrix(dist$z)) stop("Wrong input. `dist` should be a list with x, y, and z, and z should be a matrix.")
   x1 <- localmin[1]
   y1 <- localmin[2]
@@ -133,10 +133,10 @@ find_local_min_3d <- function(dist, localmin, r, zmax, expand = TRUE, first_call
   max_dist <- max(effective_dist)
   min_U <- -log(max_dist)
 
-  if (min_U > zmax) {
+  if (min_U > Umax) {
     if (expand) {
       if (first_called) message("The U in this range is too high. Searching range expanded...")
-      return(find_local_min_3d(dist, localmin, c(r[1] + dist$x[2] - dist$x[1], r[2] + dist$y[2] - dist$y[1]), zmax, first_called = FALSE))
+      return(find_local_min_3d(dist, localmin, c(r[1] + dist$x[2] - dist$x[1], r[2] + dist$y[2] - dist$y[1]), Umax, first_called = FALSE))
     } else {
       return(list(U = NA, location = rep(NA, 4) %>% {
         names(.) <- c("x_index", "y_index", "x_value", "y_value")
@@ -157,23 +157,23 @@ find_local_min_3d <- function(dist, localmin, r, zmax, expand = TRUE, first_call
 #' @param l A \code{3d_static_landscape} object (recommended) or a \code{kde2d} distribution.
 #' @param start_location_value,end_location_value The initial position (in value) for searching the start/end point.
 #' @param start_r,end_r The searching (L1) radius for searching the start/end point.
-#' @param zmax The highest possible value of the potential function.
-#' @param expand If the values in the range all equal to \code{zmax}, expand the range or not?
+#' @param Umax The highest possible value of the potential function.
+#' @param expand If the values in the range all equal to \code{Umax}, expand the range or not?
 #' @param base The base of the log function.
 #' @param install_dependency Automatically install all Python dependencies?
 #'
 #' @export
-calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.1, end_location_value = c(0.7, 0.6), end_r = 0.15, zmax, expand = TRUE, base = exp(1), install_dependency = FALSE) {
+calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.1, end_location_value = c(0.7, 0.6), end_r = 0.15, Umax, expand = TRUE, base = exp(1), install_dependency = FALSE) {
   if ("3d_static_landscape" %in% class(l)) {
     d <- l$dist
   } else {
     d <- l
   }
 
-  if (missing(zmax)) zmax <- l$zmax
+  if (missing(Umax)) Umax <- l$Umax
 
-  local_min_start <- find_local_min_3d(d, start_location_value, start_r, zmax, expand = expand)
-  local_min_end <- find_local_min_3d(d, end_location_value, end_r, zmax, expand = expand)
+  local_min_start <- find_local_min_3d(d, start_location_value, start_r, Umax, expand = expand)
+  local_min_end <- find_local_min_3d(d, end_location_value, end_r, Umax, expand = expand)
 
   if (is.na(local_min_start$U) | is.na(local_min_end$U)) {
     min_path <- data.frame(
@@ -264,7 +264,7 @@ calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.
       ggplot2::geom_point(ggplot2::aes(x = local_min_end$location["x_value"], y = local_min_end$location["y_value"]), color = "white"),
       ggplot2::geom_point(ggplot2::aes(x = saddle_point$location["x_value"], y = saddle_point$location["y_value"]), color = "red")
     ),
-    x = l$x, y = l$y, zmax = l$zmax
+    x = l$x, y = l$y, Umax = l$Umax
   )
   class(result) <- c("barrier_3d", "barrier")
   return(result)

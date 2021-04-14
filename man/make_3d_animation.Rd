@@ -9,7 +9,7 @@ make_3d_animation(
   x,
   y,
   fr,
-  zmax = 5,
+  Umax = 5,
   n = 200,
   lims = c(-0.1, 1.1, -0.1, 1.1),
   h = 0.001,
@@ -24,7 +24,7 @@ make_3d_animation(
 \item{x, y, fr}{The names of the target variables.
 \code{fr} corresponds to the \code{frame} parameter in plotly.}
 
-\item{zmax}{The maximum displayed value of potential.}
+\item{Umax}{The maximum displayed value of potential.}
 
 \item{n, lims, h, kde_fun}{Passed to \code{make_2d_kernel_dist}}
 

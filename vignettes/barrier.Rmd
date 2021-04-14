@@ -24,7 +24,7 @@ You can use the general function `calculate_barrier()` to calculate the barrier 
 
 The `barrier` objects contains the potential function and the position of both states and the saddle point. For 3D landscapes, the lowest elevation path (LEP) is also provided (Python required for calculation; `reticulate` package is used and will help you install dependencies.) `barrier`s can also be calculated for landscapes from multiple simulations. In this case, remember to set `individual_landscape = TRUE` in landscape construction functions.
 
-The local minimums are searched in a square space around a given point. The point with the lowest potential value in the given region is set as the position of the stable state. If all the potential values in the region equal to `zmax` (which represents ~`Inf`), the barrier calculation functions will expand the searching area automatically. Use `expand = FALSE` to disable this feature.
+The local minimums are searched in a square space around a given point. The point with the lowest potential value in the given region is set as the position of the stable state. If all the potential values in the region equal to `Umax` (which represents ~`Inf`), the barrier calculation functions will expand the searching area automatically. Use `expand = FALSE` to disable this feature.
 
 For landscapes from multiple simulations, the searching regions for their starting and end points can be different. `simlandr` provides `make_barrier_grid_2d()` and `make_barrier_grid_3d()` functions to help you put these settings into a data frame with correct format.
 
@@ -69,11 +69,21 @@ batch_test_result2 <- batch_simulation(batch_test_grid2, sim_fun_test,
 )
 
 l_batch_2d_m2 <- make_2d_matrix(batch_test_result2, x = "out1", rows = "var1", cols = "var2", from = -1, to = 1, adjust = 0.1, individual_landscape = TRUE)
-l_batch_3d_m2 <- make_3d_matrix(batch_test_result2, x = "out1", y = "out2", rows = "var1", cols = "var2", lims = c(-3, 3, -3, 3), h = 0.001, kde_fun = "ks", zmax = 10, individual_landscape = TRUE)
-l_batch_3d_a <- make_3d_animation(batch_test_result, x = "out1", y = "out2", fr = "var3", zmax = 20, lims = c(-3, 3, -3, 3), h = 0.002, individual_landscape = TRUE)
+l_batch_3d_m2 <- make_3d_matrix(batch_test_result2, x = "out1", y = "out2", rows = "var1", cols = "var2", lims = c(-3, 3, -3, 3), h = 0.001, kde_fun = "ks", Umax = 10, individual_landscape = TRUE)
+l_batch_3d_a <- make_3d_animation(batch_test_result, x = "out1", y = "out2", fr = "var3", Umax = 20, lims = c(-3, 3, -3, 3), h = 0.002, individual_landscape = TRUE)
 ```
 
 ------
+
+------
+
+Frequently used parameters for the family of barrier functions:
+
+`start_location_value`,`end_location_value`: the initial position (in value) for searching the start/end point;
+`start_r`,`end_r`: the searching (L1) radius for searching the start/end point.
+
+------
+
 
 # Barrier calculation for 2d single landscape
 ```{r}

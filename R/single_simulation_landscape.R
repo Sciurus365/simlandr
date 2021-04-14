@@ -3,20 +3,20 @@
 #' @param output A matrix of simulation output.
 #' @param x The name of the target variable.
 #' @param adjust,from,to Passed to \code{density}.
-#' @param zmax The maximum displayed value of potential.
+#' @param Umax The maximum displayed value of potential.
 #'
 #' @return A \code{2d_density_landscape} object.
 #' @export
-make_2d_density <- function(output, x, adjust = 50, from = -0.1, to = 1, zmax = 5) {
+make_2d_density <- function(output, x, adjust = 50, from = -0.1, to = 1, Umax = 5) {
   d <- stats::density(output[, x], adjust = adjust, from = from, to = to)
-  p <- data.frame(x = d$x, y = d$y, U = pmin(-log(d$y), zmax)) %>%
+  p <- data.frame(x = d$x, y = d$y, U = pmin(-log(d$y), Umax)) %>%
     ggplot2::ggplot(mapping = ggplot2::aes(x = x, y = U)) +
     ggplot2::geom_line() +
     # geom_smooth(se = F) +
     ggplot2::theme_bw() +
     ggplot2::xlab(x)
 
-  result <- list(dist = d, plot = p, x = x, adjust = adjust, from = from, to = to, zmax = zmax)
+  result <- list(dist = d, plot = p, x = x, adjust = adjust, from = from, to = to, Umax = Umax)
   class(result) <- c("2d_density_landscape", "landscape")
   return(result)
 }
@@ -111,13 +111,13 @@ make_2d_kernel_dist <- function(output, x, y, n = 200, lims = c(-0.1, 1.1, -0.1,
 #'
 #' @param output A matrix of simulation output.
 #' @param x,y The name of the target variable.
-#' @param zmax The maximum displayed value of potential.
+#' @param Umax The maximum displayed value of potential.
 #' @param n,lims,h,kde_fun Passed to \code{\link{make_2d_kernel_dist}}
 #'
 #' @return A \code{3d_static_landscape}, \code{landscape} object.
 #'
 #' @export
-make_3d_static <- function(output, x, y, zmax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 1e-3, kde_fun = "ks") {
+make_3d_static <- function(output, x, y, Umax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 1e-3, kde_fun = "ks") {
   if (is.list(output)) output <- unlist(output)
 
   message("Calculating the smooth distribution...")
@@ -125,18 +125,18 @@ make_3d_static <- function(output, x, y, zmax = 5, n = 200, lims = c(-0.1, 1.1, 
   message("Done!")
 
   message("Making the plot...")
-  p <- plotly::plot_ly(x = out_2d$x, y = out_2d$y, z = pmin(-log(out_2d$z %>% t()), zmax), type = "surface")
+  p <- plotly::plot_ly(x = out_2d$x, y = out_2d$y, z = pmin(-log(out_2d$z %>% t()), Umax), type = "surface")
   p <- plotly::layout(p, scene = list(xaxis = list(title = x), yaxis = list(title = y), zaxis = list(title = "U")))
   message("Done!")
 
   message("Making the 2d plot...")
   p2 <- ggplot2::ggplot(make_2d_tidy_dist(out_2d), ggplot2::aes(x = x, y = y)) +
-    ggplot2::geom_raster(ggplot2::aes(fill = pmin(-log(z), zmax))) +
+    ggplot2::geom_raster(ggplot2::aes(fill = pmin(-log(z), Umax))) +
     ggplot2::scale_fill_viridis_c() +
     ggplot2::labs(x = x, y = y, fill = "U")
   message("Done!")
 
-  result <- list(dist = out_2d, plot = p, plot_2 = p2, x = x, y = y, zmax = zmax, n = n, lims = lims, h = h, kde_fun = kde_fun)
+  result <- list(dist = out_2d, plot = p, plot_2 = p2, x = x, y = y, Umax = Umax, n = n, lims = lims, h = h, kde_fun = kde_fun)
   class(result) <- c("3d_static_landscape", "landscape")
   return(result)
 }

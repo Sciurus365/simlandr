@@ -3,13 +3,13 @@
 #' @param bs A \code{batch_simulation} object created by \code{\link{batch_simulation}.}
 #' @param x,y,fr The names of the target variables.
 #' \code{fr} corresponds to the \code{frame} parameter in plotly.
-#' @param zmax The maximum displayed value of potential.
+#' @param Umax The maximum displayed value of potential.
 #' @param n,lims,h,kde_fun Passed to \code{make_2d_kernel_dist}
 #' @param individual_landscape Make individual landscape for each simulation?
 #' @param mat_3d Also make heatmap matrix?
 #'
 #' @export
-make_3d_animation <- function(bs, x, y, fr, zmax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 1e-3, kde_fun = "ks", individual_landscape = FALSE, mat_3d = TRUE) {
+make_3d_animation <- function(bs, x, y, fr, Umax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 1e-3, kde_fun = "ks", individual_landscape = FALSE, mat_3d = TRUE) {
   message("Wrangling data...")
   df_multichannel <- bs %>%
     dplyr::rowwise() %>%
@@ -20,7 +20,7 @@ make_3d_animation <- function(bs, x, y, fr, zmax = 5, n = 200, lims = c(-0.1, 1.
   if (individual_landscape) {
     df_multichannel <- df_multichannel %>%
       dplyr::mutate(
-        l_list = list(purrr::quietly(make_3d_static)(output, x = x, y = y, zmax = zmax, n = n, lims = lims, h = h, kde_fun = kde_fun)$result)
+        l_list = list(purrr::quietly(make_3d_static)(output, x = x, y = y, Umax = Umax, n = n, lims = lims, h = h, kde_fun = kde_fun)$result)
       )
   }
 
@@ -36,7 +36,7 @@ make_3d_animation <- function(bs, x, y, fr, zmax = 5, n = 200, lims = c(-0.1, 1.
   message("Making the plot...")
   p <-
     df_multichannel_collect %>%
-    plotly::plot_ly(x = ~x, y = ~y, z = pmin(-log(.$z %>% t()), zmax), color = pmin(-log(.$z %>% t()), zmax), frame = ~fr) %>%
+    plotly::plot_ly(x = ~x, y = ~y, z = pmin(-log(.$z %>% t()), Umax), color = pmin(-log(.$z %>% t()), Umax), frame = ~fr) %>%
     plotly::add_markers(size = I(5)) %>%
     plotly::layout(scene = list(xaxis = list(title = x), yaxis = list(title = y), zaxis = list(title = "U"))) %>%
     plotly::animation_slider(
@@ -46,7 +46,7 @@ make_3d_animation <- function(bs, x, y, fr, zmax = 5, n = 200, lims = c(-0.1, 1.
 
   message("Making the 2d plot...")
   p2 <- ggplot2::ggplot(df_multichannel_collect, ggplot2::aes(x = x, y = y)) +
-    ggplot2::geom_raster(ggplot2::aes(fill = pmin(-log(z), zmax))) +
+    ggplot2::geom_raster(ggplot2::aes(fill = pmin(-log(z), Umax))) +
     ggplot2::scale_fill_viridis_c() +
     ggplot2::labs(x = x, y = y, fill = "U") +
     gganimate::transition_states(df_multichannel_collect$fr) +
@@ -55,11 +55,11 @@ make_3d_animation <- function(bs, x, y, fr, zmax = 5, n = 200, lims = c(-0.1, 1.
 
   if (mat_3d) {
     message("Making the 3d matrix...")
-    mat_3d <- make_3d_matrix(bs = bs, x = x, y = y, rows = NULL, cols = fr, zmax = zmax, n = n, lims = lims, h = h, kde_fun = kde_fun)
+    mat_3d <- make_3d_matrix(bs = bs, x = x, y = y, rows = NULL, cols = fr, Umax = Umax, n = n, lims = lims, h = h, kde_fun = kde_fun)
     message("Done!")
   }
 
-  result <- list(dist_raw = df_multichannel, dist = df_multichannel_collect, plot = p, plot_2 = p2, mat_3d = mat_3d, x = x, y = y, fr = fr, zmax = zmax, n = n, lims = lims, h = h, kde_fun = kde_fun)
+  result <- list(dist_raw = df_multichannel, dist = df_multichannel_collect, plot = p, plot_2 = p2, mat_3d = mat_3d, x = x, y = y, fr = fr, Umax = Umax, n = n, lims = lims, h = h, kde_fun = kde_fun)
   class(result) <- c("3d_animation_landscape", "landscape")
   return(result)
 }
@@ -69,16 +69,16 @@ make_3d_animation <- function(bs, x, y, fr, zmax = 5, n = 200, lims = c(-0.1, 1.
 #' @param x,rows,cols The names of the target variables.
 #' If `rows` is `NULL`, only a vector of graphs will be generated.
 #' @param adjust,from,to Passed to \code{density}.
-#' @param zmax The maximum displayed value of potential.
+#' @param Umax The maximum displayed value of potential.
 #' @param individual_landscape Make individual landscape for each simulation?
 #'
 #' @export
-make_2d_matrix <- function(bs, x, rows = NULL, cols, adjust = 50, from = -0.1, to = 1, zmax = 5, individual_landscape = FALSE) {
+make_2d_matrix <- function(bs, x, rows = NULL, cols, adjust = 50, from = -0.1, to = 1, Umax = 5, individual_landscape = FALSE) {
   if (is.null(rows)) {
     df_multichannel <- bs %>%
       dplyr::mutate(dist = purrr::map2(output, !!rlang::sym(cols), function(out, sample_var1) {
         d <- stats::density(out[, x], adjust = adjust, from = from, to = to)
-        df <- data.frame(x = d$x, y = d$y, U = pmin(-log(d$y), zmax))
+        df <- data.frame(x = d$x, y = d$y, U = pmin(-log(d$y), Umax))
         df$cols <- sample_var1
         df
       }))
@@ -86,7 +86,7 @@ make_2d_matrix <- function(bs, x, rows = NULL, cols, adjust = 50, from = -0.1, t
     df_multichannel <- bs %>%
       dplyr::mutate(dist = purrr::pmap(list(output, !!rlang::sym(rows), !!rlang::sym(cols)), function(out, sample_var1, sample_var2) {
         d <- stats::density(out[, x], adjust = adjust, from = from, to = to)
-        df <- data.frame(x = d$x, y = d$y, U = pmin(-log(d$y), zmax))
+        df <- data.frame(x = d$x, y = d$y, U = pmin(-log(d$y), Umax))
         df$rows <- sample_var1
         df$cols <- sample_var2
         df
@@ -95,7 +95,7 @@ make_2d_matrix <- function(bs, x, rows = NULL, cols, adjust = 50, from = -0.1, t
   if (individual_landscape) {
     df_multichannel <- df_multichannel %>%
       dplyr::mutate(
-        l_list = purrr::map(output, make_2d_density, x = x, zmax = zmax, adjust = adjust, from = from, to = to)
+        l_list = purrr::map(output, make_2d_density, x = x, Umax = Umax, adjust = adjust, from = from, to = to)
       )
   }
   df_multichannel$output <- NULL
@@ -118,7 +118,7 @@ make_2d_matrix <- function(bs, x, rows = NULL, cols, adjust = 50, from = -0.1, t
   }
   message("Done!")
 
-  result <- list(dist_raw = df_multichannel, dist = df_all, plot = p, x = x, rows = rows, cols = cols, adjust = adjust, from = from, to = to, zmax = zmax)
+  result <- list(dist_raw = df_multichannel, dist = df_all, plot = p, x = x, rows = rows, cols = cols, adjust = adjust, from = from, to = to, Umax = Umax)
   class(result) <- c("2d_matrix_landscape", "landscape")
   return(result)
 }
@@ -130,12 +130,12 @@ make_2d_matrix <- function(bs, x, rows = NULL, cols, adjust = 50, from = -0.1, t
 #' @param bs A \code{batch_simulation} object created by \code{\link{batch_simulation}.}
 #' @param x,y,rows,cols The names of the target variables.
 #' If `rows` is `NULL`, only a vector of graphs will be generated.
-#' @param zmax The maximum displayed value of potential.
+#' @param Umax The maximum displayed value of potential.
 #' @param n,lims,h,kde_fun Passed to \code{\link{make_2d_kernel_dist}}
 #' @param individual_landscape Make individual landscape for each simulation?
 #'
 #' @export
-make_3d_matrix <- function(bs, x, y, rows = NULL, cols, zmax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 1e-3, kde_fun = "ks", individual_landscape = FALSE) {
+make_3d_matrix <- function(bs, x, y, rows = NULL, cols, Umax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 1e-3, kde_fun = "ks", individual_landscape = FALSE) {
   if (is.null(rows)) {
     df_multichannel <- bs %>%
       dplyr::mutate(dist = purrr::pmap(list(output, bs[, cols]), function(out, sample_var1) {
@@ -159,7 +159,7 @@ make_3d_matrix <- function(bs, x, y, rows = NULL, cols, zmax = 5, n = 200, lims 
     df_multichannel <- df_multichannel %>%
       dplyr::rowwise() %>%
       dplyr::mutate(
-        l_list = list(purrr::quietly(make_3d_static)(output, x = x, y = y, zmax = zmax, n = n, lims = lims, h = h, kde_fun = kde_fun)$result)
+        l_list = list(purrr::quietly(make_3d_static)(output, x = x, y = y, Umax = Umax, n = n, lims = lims, h = h, kde_fun = kde_fun)$result)
       ) %>%
       dplyr::ungroup()
   }
@@ -170,7 +170,7 @@ make_3d_matrix <- function(bs, x, y, rows = NULL, cols, zmax = 5, n = 200, lims 
   rows_labeller <- function(x) paste0(rows, ": ", x)
   cols_labeller <- function(x) paste0(cols, ": ", x)
   p <- ggplot2::ggplot(data = df_all, ggplot2::aes(x = x, y = y)) +
-    ggplot2::geom_raster(ggplot2::aes(fill = pmin(-log(z), zmax))) +
+    ggplot2::geom_raster(ggplot2::aes(fill = pmin(-log(z), Umax))) +
     ggplot2::scale_fill_viridis_c() +
     ggplot2::labs(x = x, y = y, fill = "U")
 
@@ -181,7 +181,7 @@ make_3d_matrix <- function(bs, x, y, rows = NULL, cols, zmax = 5, n = 200, lims 
   }
   message("Done!")
 
-  result <- list(dist_raw = df_multichannel, dist = df_all, plot = p, x = x, y = y, rows = rows, cols = cols, zmax = zmax, n = n, lims = lims, h = h, kde_fun = kde_fun)
+  result <- list(dist_raw = df_multichannel, dist = df_all, plot = p, x = x, y = y, rows = rows, cols = cols, Umax = Umax, n = n, lims = lims, h = h, kde_fun = kde_fun)
   class(result) <- c("3d_matrix_landscape", "landscape")
   return(result)
 }

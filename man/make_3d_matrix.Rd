@@ -10,7 +10,7 @@ make_3d_matrix(
   y,
   rows = NULL,
   cols,
-  zmax = 5,
+  Umax = 5,
   n = 200,
   lims = c(-0.1, 1.1, -0.1, 1.1),
   h = 0.001,
@@ -24,7 +24,7 @@ make_3d_matrix(
 \item{x, y, rows, cols}{The names of the target variables.
 If `rows` is `NULL`, only a vector of graphs will be generated.}
 
-\item{zmax}{The maximum displayed value of potential.}
+\item{Umax}{The maximum displayed value of potential.}
 
 \item{n, lims, h, kde_fun}{Passed to \code{\link{make_2d_kernel_dist}}}
 

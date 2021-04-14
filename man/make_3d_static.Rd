@@ -8,7 +8,7 @@ make_3d_static(
   output,
   x,
   y,
-  zmax = 5,
+  Umax = 5,
   n = 200,
   lims = c(-0.1, 1.1, -0.1, 1.1),
   h = 0.001,
@@ -20,7 +20,7 @@ make_3d_static(
 
 \item{x, y}{The name of the target variable.}
 
-\item{zmax}{The maximum displayed value of potential.}
+\item{Umax}{The maximum displayed value of potential.}
 
 \item{n, lims, h, kde_fun}{Passed to \code{\link{make_2d_kernel_dist}}}
 }

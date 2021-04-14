@@ -115,7 +115,6 @@ batch_test <- batch_test %>%
 
 ## Step 3: make variable grids
 batch_test_grid <- make_var_grid(batch_test)
-
 ```
 
 Then you can run the batch simulation. `simlandr` use out-of-memory storage for batch simulations by default because in most times batch simulation will result in very large data objects. In this case, each simulation result is stored in a separate file. Thanks to the `hash-big.matrix` class, you do not have to name each file by yourself.

@@ -4,7 +4,7 @@
 \alias{make_2d_density}
 \title{Make 2D density-based landscape plot for a single simulation output}
 \usage{
-make_2d_density(output, x, adjust = 50, from = -0.1, to = 1, zmax = 5)
+make_2d_density(output, x, adjust = 50, from = -0.1, to = 1, Umax = 5)
 }
 \arguments{
 \item{output}{A matrix of simulation output.}
@@ -13,7 +13,7 @@ make_2d_density(output, x, adjust = 50, from = -0.1, to = 1, zmax = 5)
 
 \item{adjust, from, to}{Passed to \code{density}.}
 
-\item{zmax}{The maximum displayed value of potential.}
+\item{Umax}{The maximum displayed value of potential.}
 }
 \value{
 A \code{2d_density_landscape} object.
