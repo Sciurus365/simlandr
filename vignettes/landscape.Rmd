@@ -1,5 +1,6 @@
 ---
 title: "2. Construct the potential landscapes from simulation results"
+author: "Jingmeng Cui"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{2. Construct the potential landscapes from simulation results}

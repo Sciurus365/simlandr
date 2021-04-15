@@ -1,5 +1,6 @@
 ---
 title: "3. Calculate the lowest elevation path and barrier height between stable states"
+author: "Jingmeng Cui"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{3. Calculate the lowest elevation path and barrier height between stable states}
@@ -22,7 +23,7 @@ An important property of the states in a landscape is their stability, character
 
 You can use the general function `calculate_barrier()` to calculate the barrier for most landscapes. There are also specific `calculate_barrier_*()` functions available. The output of these functions is a `barrier object.
 
-The `barrier` objects contains the potential function and the position of both states and the saddle point. For 3D landscapes, the lowest elevation path (LEP) is also provided (Python required for calculation; `reticulate` package is used and will help you install dependencies.) `barrier`s can also be calculated for landscapes from multiple simulations. In this case, remember to set `individual_landscape = TRUE` in landscape construction functions.
+The `barrier` objects contains the potential function and the position of both states and the saddle point. For 3D landscapes, the lowest elevation path (LEP) is also provided. `barrier`s can also be calculated for landscapes from multiple simulations. In this case, remember to set `individual_landscape = TRUE` in landscape construction functions.
 
 The local minimums are searched in a square space around a given point. The point with the lowest potential value in the given region is set as the position of the stable state. If all the potential values in the region equal to `Umax` (which represents ~`Inf`), the barrier calculation functions will expand the searching area automatically. Use `expand = FALSE` to disable this feature.
 
