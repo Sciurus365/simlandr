@@ -1,5 +1,5 @@
 ---
-title: "Construct the potential landscapes from simulation results"
+title: "2. Construct the potential landscapes from simulation results"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{2. Construct the potential landscapes from simulation results}

@@ -1,11 +1,10 @@
 Package: simlandr
 Type: Package
 Title: Simulation-based Landscape Construction for Dynamic Systems
-Version: 0.0.0.9002
+Version: 0.0.0.9003
 Authors@R: person(given = "Jingmeng", family = "Cui", email = "jingmeng.cui@outlook.com",
 		role = c("aut", "cre"))
-Description: Tools for constructing potential landscape function for
-		dynamic systems, especially for psychological formal models.
+Description: `simlandr` provides a set of tools for constructing potential landscape for dynamic systems using Monte-Carlo simulation, especially for psychological formal models.
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
@@ -19,7 +18,6 @@ Imports:
     MASS,
     plotly,
     htmlwidgets,
-    reticulate,
     bigmemory,
     digest,
     methods,
@@ -30,13 +28,6 @@ Imports:
 RoxygenNote: 7.1.1
 URL: https://github.com/Sciurus365/simlandr
 BugReports: https://github.com/Sciurus365/simlandr/issues
-Config/reticulate:
-  list(
-    packages = list(
-      list(package = "numpy"),
-      list(package = "pqdict", pip = TRUE)
-    )
-  )
 Suggests: 
     knitr,
     rmarkdown

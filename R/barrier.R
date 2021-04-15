@@ -160,10 +160,9 @@ find_local_min_3d <- function(dist, localmin, r, Umax, expand = TRUE, first_call
 #' @param Umax The highest possible value of the potential function.
 #' @param expand If the values in the range all equal to \code{Umax}, expand the range or not?
 #' @param base The base of the log function.
-#' @param install_dependency Automatically install all Python dependencies?
 #'
 #' @export
-calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.1, end_location_value = c(0.7, 0.6), end_r = 0.15, Umax, expand = TRUE, base = exp(1), install_dependency = FALSE) {
+calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.1, end_location_value = c(0.7, 0.6), end_r = 0.15, Umax, expand = TRUE, base = exp(1)) {
   if ("3d_static_landscape" %in% class(l)) {
     d <- l$dist
   } else {
@@ -188,35 +187,10 @@ calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.
       .
     })
   } else {
-    if (install_dependency) {
-      if ((!reticulate::py_available()) & (!dir.exists(reticulate::miniconda_path()))) {
-        reticulate::install_miniconda(force = TRUE)
-      }
-      if (!reticulate::py_module_available("numpy")) {
-        message("Installing `numpy`...")
-        reticulate::py_install("numpy", forge = FALSE)
-        message("Done!")
-      }
-      if (!reticulate::py_module_available("pqdict")) {
-        message("Installing `pqdict`...")
-        reticulate::py_install("pqdict", pip = TRUE)
-        message("Done!")
-      }
-    }
-
-    reticulate::source_python(file = system.file("python/dijkstra.py", package = "simlandr"))
-
-    min_path_index <- reticulate::py$dijkstra(
-      log(d$z, base = base), # result-=1 because python start from 0
-      (local_min_start$location[1:2] - 1) %>%
-        as.integer() %>%
-        {
-          reticulate::tuple(.[1], .[2])
-        },
-      (local_min_end$location[1:2] - 1) %>%
-        as.integer() %>% {
-          reticulate::tuple(.[1], .[2])
-        }
+    min_path_index <- dijkstra(
+      log(d$z, base = base),
+      local_min_start$location[1:2],
+      local_min_end$location[1:2]
     )
 
     min_path <- min_path_index %>%
@@ -225,7 +199,7 @@ calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.
       as.data.frame() %>%
       {
         colnames(.) <- c("x_index", "y_index")
-        . + 1
+        .
       } %>%
       dplyr::rowwise() %>%
       dplyr::mutate(x_value = d$x[x_index], y_value = d$y[y_index]) %>%

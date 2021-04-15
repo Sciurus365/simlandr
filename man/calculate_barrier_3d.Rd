@@ -12,8 +12,7 @@ calculate_barrier_3d(
   end_r = 0.15,
   Umax,
   expand = TRUE,
-  base = exp(1),
-  install_dependency = FALSE
+  base = exp(1)
 )
 }
 \arguments{
@@ -28,8 +27,6 @@ calculate_barrier_3d(
 \item{expand}{If the values in the range all equal to \code{Umax}, expand the range or not?}
 
 \item{base}{The base of the log function.}
-
-\item{install_dependency}{Automatically install all Python dependencies?}
 }
 \description{
 Calculate barrier from a 3D landscape

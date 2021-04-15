@@ -1,5 +1,5 @@
 ---
-title: "Calculate the lowest elevation path and barrier height between stable states"
+title: "3. Calculate the lowest elevation path and barrier height between stable states"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{3. Calculate the lowest elevation path and barrier height between stable states}
@@ -101,7 +101,7 @@ plot(l_single_2d) + get_geom(b_single_2d)
 
 # Barrier calculation for 3d single landscape
 ```{r}
-b_single_3d <- calculate_barrier_3d(l_single_3d, start_location_value = c(-2.5, -2), end_location_value = c(2.5, 0), start_r = 0.3, end_r = 0.3, install_dependency = TRUE)
+b_single_3d <- calculate_barrier_3d(l_single_3d, start_location_value = c(-2.5, -2), end_location_value = c(2.5, 0), start_r = 0.3, end_r = 0.3)
 plot(l_single_3d, 2) + get_geom(b_single_3d)
 ```
 

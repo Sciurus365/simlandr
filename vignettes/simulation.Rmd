@@ -1,5 +1,5 @@
 ---
-title: "Dynamic models and simulations"
+title: "1. Dynamic models and simulations"
 author: "Jingmeng Cui"
 output: rmarkdown::html_vignette
 vignette: >
