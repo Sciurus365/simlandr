@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# `simlandr`: Simulation-based Landscape Construction for Dynamic Systems
+# `simlandr`: Simulation-based Landscape Construction for Dynamic Systems <img src='man/figures/logo.png' align="right" height="138" />
 
 ![](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
 [![R-CMD-check](https://github.com/Sciurus365/simlandr/workflows/R-CMD-check/badge.svg)](https://github.com/Sciurus365/simlandr/actions)
@@ -72,7 +72,7 @@ plot(l_single_2d)
 
 ``` r
 ## Example 2. 3d (x, y, color) plot matrix with two varying parameters
-l_batch_3d_m2 <- make_3d_matrix(batch_test_result2, x = "out1", y = "out2", rows = "var1", cols = "var2", lims = c(-3, 3, -3, 3), h = 0.001, kde_fun = "ks", zmax = 10, individual_landscape = TRUE)
+l_batch_3d_m2 <- make_3d_matrix(batch_test_result2, x = "out1", y = "out2", rows = "var1", cols = "var2", lims = c(-3, 3, -3, 3), h = 0.001, kde_fun = "ks", Umax = 10, individual_landscape = TRUE)
 #> Making the 2d plot...
 #> Done!
 plot(l_batch_3d_m2)
