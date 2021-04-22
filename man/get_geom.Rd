@@ -4,7 +4,7 @@
 \alias{get_geom}
 \title{Get a ggplot2 geom layer that can be added to a ggplot2 landscape plot}
 \usage{
-get_geom(b)
+get_geom(b, path = TRUE)
 }
 \arguments{
 \item{b}{A \code{barrier} object.}

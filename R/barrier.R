@@ -111,6 +111,24 @@ calculate_barrier_2d <- function(l, start_location_value = 0, start_r = 0.1, end
   return(result)
 }
 
+NULL_point <- function() {
+  list(U = NA, location = rep(NA, 4) %>% {
+    names(.) <- c("x_index", "y_index", "x_value", "y_value")
+    .
+  })
+}
+
+NULL_path <- function() {
+  data.frame(
+    x_index = NA,
+    y_index = NA,
+    x_value = NA,
+    y_value = NA,
+    U = NA
+  )
+}
+
+
 #' Find local minimum of a 3d distribution
 #'
 #' @param dist An \code{kde2d} distribution object.
@@ -138,10 +156,7 @@ find_local_min_3d <- function(dist, localmin, r, Umax, expand = TRUE, first_call
       if (first_called) message("The U in this range is too high. Searching range expanded...")
       return(find_local_min_3d(dist, localmin, c(r[1] + dist$x[2] - dist$x[1], r[2] + dist$y[2] - dist$y[1]), Umax, first_called = FALSE))
     } else {
-      return(list(U = NA, location = rep(NA, 4) %>% {
-        names(.) <- c("x_index", "y_index", "x_value", "y_value")
-        .
-      }))
+      return(NULL_point())
     }
   }
   location_index <- which(dist$z == max_dist, arr.ind = TRUE) %>% apply(2, function(x) as.integer(stats::median(x)))
@@ -152,6 +167,7 @@ find_local_min_3d <- function(dist, localmin, r, Umax, expand = TRUE, first_call
   return(list(U = min_U, location = location))
 }
 
+
 #' Calculate barrier from a 3D landscape
 #'
 #' @param l A \code{3d_static_landscape} object (recommended) or a \code{kde2d} distribution.
@@ -159,10 +175,11 @@ find_local_min_3d <- function(dist, localmin, r, Umax, expand = TRUE, first_call
 #' @param start_r,end_r The searching (L1) radius for searching the start/end point.
 #' @param Umax The highest possible value of the potential function.
 #' @param expand If the values in the range all equal to \code{Umax}, expand the range or not?
+#' @param omit_unstable If a state is not stable (the "local minimum" overlaps with the saddle point), omit that state or not?
 #' @param base The base of the log function.
 #'
 #' @export
-calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.1, end_location_value = c(0.7, 0.6), end_r = 0.15, Umax, expand = TRUE, base = exp(1)) {
+calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.1, end_location_value = c(0.7, 0.6), end_r = 0.15, Umax, expand = TRUE, omit_unstable = FALSE, base = exp(1)) {
   if ("3d_static_landscape" %in% class(l)) {
     d <- l$dist
   } else {
@@ -175,17 +192,8 @@ calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.
   local_min_end <- find_local_min_3d(d, end_location_value, end_r, Umax, expand = expand)
 
   if (is.na(local_min_start$U) | is.na(local_min_end$U)) {
-    min_path <- data.frame(
-      x_index = NA,
-      y_index = NA,
-      x_value = NA,
-      y_value = NA,
-      U = NA
-    )
-    saddle_point <- list(U = NA, location = rep(NA, 4) %>% {
-      names(.) <- c("x_index", "y_index", "x_value", "y_value")
-      .
-    })
+    min_path <- NULL_path()
+    saddle_point <- NULL_point()
   } else {
     min_path_index <- dijkstra(
       log(d$z, base = base),
@@ -215,6 +223,17 @@ calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.
       U = s_U,
       location = s_location
     )
+
+    if (omit_unstable & local_min_start$location["x_index"] == saddle_point$location["x_index"] & local_min_start$location["y_index"] == saddle_point$location["y_index"]) {
+      local_min_start <- NULL_point()
+      saddle_point <- NULL_point()
+      min_path <- NULL_path()
+    }
+    if (omit_unstable & local_min_end$location["x_index"] == saddle_point$location["x_index"] & local_min_end$location["y_index"] == saddle_point$location["y_index"]) {
+      local_min_end <- NULL_point()
+      saddle_point <- NULL_point()
+      min_path <- NULL_path()
+    }
   }
 
 
@@ -280,7 +299,13 @@ plot.barrier <- function(x, ...) {
 #' @param b A \code{barrier} object.
 #'
 #' @export
-get_geom <- function(b) {
+get_geom <- function(b, path = TRUE) {
   if (!"barrier" %in% class(b)) stop("b should be a `barrier`")
-  return(b$geom)
+  if (path) {
+    return(b$geom)
+  } else {
+    temp_g <- b$geom
+    temp_g[[1]] <- NULL
+    return(temp_g)
+  }
 }

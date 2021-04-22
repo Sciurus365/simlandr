@@ -173,10 +173,11 @@ make_barrier_grid_3d <- function(vg, start_location_value = c(0, 0), start_r = 0
 #' @param start_r,end_r The searching (L1) radius for searching the start/end point.
 #' @param Umax The highest possible value of the potential function.
 #' @param expand If the values in the range all equal to \code{Umax}, expand the range or not?
+#' @param omit_unstable If a state is not stable (the "local minimum" overlaps with the saddle point), omit that state or not?
 #' @param base The base of the log function.
 #'
 #' @export
-calculate_barrier_3d_batch <- function(l, bg = NULL, start_location_value = c(0, 0), start_r = 0.1, end_location_value = c(0.7, 0.6), end_r = 0.15, Umax, expand = TRUE, base = exp(1)) {
+calculate_barrier_3d_batch <- function(l, bg = NULL, start_location_value = c(0, 0), start_r = 0.1, end_location_value = c(0.7, 0.6), end_r = 0.15, Umax, expand = TRUE, omit_unstable = FALSE, base = exp(1)) {
   if (!any(c("3d_animation_landscape", "3d_matrix_landscape") %in% class(l))) {
     stop("l should be `3d_animation_multichain_landscape` or `3d_matrix_landscape` object.")
   }
@@ -189,14 +190,14 @@ calculate_barrier_3d_batch <- function(l, bg = NULL, start_location_value = c(0,
   if (is.null(bg)) {
     d <- d %>%
       dplyr::rowwise() %>%
-      dplyr::mutate(b = list(calculate_barrier_3d(l_list, start_location_value, start_r, end_location_value, end_r, Umax, expand, base)))
+      dplyr::mutate(b = list(calculate_barrier_3d(l_list, start_location_value, start_r, end_location_value, end_r, Umax, expand, omit_unstable, base)))
   } else {
     if (!"barrier_grid_3d" %in% class(bg)) stop("`bg` should be a `barrier_grid_3d`.")
     d <- d %>%
       dplyr::ungroup() %>%
       dplyr::left_join(bg %>% dplyr::select(1, (ncol(.) - 3):ncol(.)), by = "var_list") %>%
       dplyr::rowwise() %>%
-      dplyr::mutate(b = list(calculate_barrier_3d(l_list, start_location_value, start_r, end_location_value, end_r, Umax, expand, base)))
+      dplyr::mutate(b = list(calculate_barrier_3d(l_list, start_location_value, start_r, end_location_value, end_r, Umax, expand, omit_unstable, base)))
   }
 
   d <- d %>%

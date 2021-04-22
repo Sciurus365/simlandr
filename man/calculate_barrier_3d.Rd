@@ -12,6 +12,7 @@ calculate_barrier_3d(
   end_r = 0.15,
   Umax,
   expand = TRUE,
+  omit_unstable = FALSE,
   base = exp(1)
 )
 }
@@ -25,6 +26,8 @@ calculate_barrier_3d(
 \item{Umax}{The highest possible value of the potential function.}
 
 \item{expand}{If the values in the range all equal to \code{Umax}, expand the range or not?}
+
+\item{omit_unstable}{If a state is not stable (the "local minimum" overlaps with the saddle point), omit that state or not?}
 
 \item{base}{The base of the log function.}
 }
