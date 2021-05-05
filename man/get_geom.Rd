@@ -8,6 +8,8 @@ get_geom(b, path = TRUE)
 }
 \arguments{
 \item{b}{A \code{barrier} object.}
+
+\item{path}{Show the lowest elevation path in the graph?}
 }
 \description{
 This layer can show the saddle point (2d) and the minimal path (3d) on the landscape.
