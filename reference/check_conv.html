@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simlandr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9003</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -146,7 +146,7 @@
     <p>Check density convergence of simulation</p>
     </div>
 
-    <pre class="usage"><span class='fu'>check_conv</span><span class='op'>(</span><span class='va'>output</span>, <span class='va'>vars</span>, sample_perc <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>check_conv</span><span class='op'>(</span><span class='va'>output</span>, <span class='va'>vars</span>, sample_perc <span class='op'>=</span> <span class='fl'>0.2</span>, plot_type <span class='op'>=</span> <span class='st'>"bin"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -162,6 +162,10 @@
     <tr>
       <th>sample_perc</th>
       <td><p>The percentage of data sample for the initial, middle, and final stage of the simulation.</p></td>
+    </tr>
+    <tr>
+      <th>plot_type</th>
+      <td><p>Which type of plots should be generated? ("bin" or "density")</p></td>
     </tr>
     </table>
 

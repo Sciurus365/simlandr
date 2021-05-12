@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simlandr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9003</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -155,6 +155,7 @@
   end_r <span class='op'>=</span> <span class='fl'>0.15</span>,
   <span class='va'>Umax</span>,
   expand <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  omit_unstable <span class='op'>=</span> <span class='cn'>FALSE</span>,
   base <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
@@ -184,6 +185,10 @@
     <tr>
       <th>expand</th>
       <td><p>If the values in the range all equal to <code>Umax</code>, expand the range or not?</p></td>
+    </tr>
+    <tr>
+      <th>omit_unstable</th>
+      <td><p>If a state is not stable (the "local minimum" overlaps with the saddle point), omit that state or not?</p></td>
     </tr>
     <tr>
       <th>base</th>
