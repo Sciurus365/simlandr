@@ -4,7 +4,7 @@
 \alias{check_conv}
 \title{Check density convergence of simulation}
 \usage{
-check_conv(output, vars, sample_perc = 0.2)
+check_conv(output, vars, sample_perc = 0.2, plot_type = "bin")
 }
 \arguments{
 \item{output}{A matrix of simulation output.}
@@ -12,6 +12,8 @@ check_conv(output, vars, sample_perc = 0.2)
 \item{vars}{The names of variables to check.}
 
 \item{sample_perc}{The percentage of data sample for the initial, middle, and final stage of the simulation.}
+
+\item{plot_type}{Which type of plots should be generated? ("bin" or "density")}
 }
 \description{
 Check density convergence of simulation

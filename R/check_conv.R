@@ -10,9 +10,10 @@ add_stage_tag <- function(output, range, var, stage) {
 #' @param output A matrix of simulation output.
 #' @param vars The names of variables to check.
 #' @param sample_perc The percentage of data sample for the initial, middle, and final stage of the simulation.
+#' @param plot_type Which type of plots should be generated? ("bin" or "density")
 #'
 #' @export
-check_conv <- function(output, vars, sample_perc = 0.2) {
+check_conv <- function(output, vars, sample_perc = 0.2, plot_type = "bin") {
   # check convergence of i in vars; init, mid, final, normalized dist, ...
   if (sample_perc > 1 | sample_perc < 0) stop("`sample_perc should be between 0 and 1.")
 
@@ -28,9 +29,18 @@ check_conv <- function(output, vars, sample_perc = 0.2) {
 
     data_all <- do.call(rbind, stage_list) %>% dplyr::mutate(stage = forcats::fct_relevel(stage, "initial", "middle", "final"))
 
-    p <- ggplot2::ggplot(data_all, mapping = ggplot2::aes(x = !!rlang::sym(i), fill = stage)) +
-      ggplot2::stat_bin(position = "dodge") +
-      ggplot2::labs(x = i)
+    if(plot_type == "bin"){
+      p <- ggplot2::ggplot(data_all, mapping = ggplot2::aes(x = !!rlang::sym(i), fill = stage)) +
+        ggplot2::stat_bin(position = "dodge") +
+        ggplot2::labs(x = i)
+    }else if(plot_type == "density"){
+      p <- ggplot2::ggplot(data_all, mapping = ggplot2::aes(x = !!rlang::sym(i), color = stage)) +
+        ggplot2::geom_density() +
+        ggplot2::labs(x = i)
+    }else{
+      stop("'plot_type` should be either 'bin' or 'density'.")
+    }
+
     result_list[[i]] <- p
   }
   class(result_list) <- c("check_conv", "list")
