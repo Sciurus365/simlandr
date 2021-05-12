@@ -297,6 +297,7 @@ plot.barrier <- function(x, ...) {
 #' This layer can show the saddle point (2d) and the minimal path (3d) on the landscape.
 #'
 #' @param b A \code{barrier} object.
+#' @param path Show the lowest elevation path in the graph?
 #'
 #' @export
 get_geom <- function(b, path = TRUE) {
