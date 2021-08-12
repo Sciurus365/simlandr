@@ -29,15 +29,15 @@ check_conv <- function(output, vars, sample_perc = 0.2, plot_type = "bin") {
 
     data_all <- do.call(rbind, stage_list) %>% dplyr::mutate(stage = forcats::fct_relevel(stage, "initial", "middle", "final"))
 
-    if(plot_type == "bin"){
+    if (plot_type == "bin") {
       p <- ggplot2::ggplot(data_all, mapping = ggplot2::aes(x = !!rlang::sym(i), fill = stage)) +
         ggplot2::stat_bin(position = "dodge") +
         ggplot2::labs(x = i)
-    }else if(plot_type == "density"){
+    } else if (plot_type == "density") {
       p <- ggplot2::ggplot(data_all, mapping = ggplot2::aes(x = !!rlang::sym(i), color = stage)) +
         ggplot2::geom_density() +
         ggplot2::labs(x = i)
-    }else{
+    } else {
       stop("'plot_type` should be either 'bin' or 'density'.")
     }
 

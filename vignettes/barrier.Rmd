@@ -19,19 +19,19 @@ knitr::opts_chunk$set(
 library(simlandr)
 ```
 
-An important property of the states in a landscape is their stability, characterized by the barrier height between these states and other adjacent states. `simlandr` also provide tools to calculate the barrier heights from landscapes.
+An important property of the states in a landscape is their stability, characterized by the barrier height between these states and other adjacent states. `simlandr` also provides tools to calculate the barrier heights from landscapes.
 
 You can use the general function `calculate_barrier()` to calculate the barrier for most landscapes. There are also specific `calculate_barrier_*()` functions available. The output of these functions is a `barrier object.
 
-The `barrier` objects contains the potential function and the position of both states and the saddle point. For 3D landscapes, the lowest elevation path (LEP) is also provided. `barrier`s can also be calculated for landscapes from multiple simulations. In this case, remember to set `individual_landscape = TRUE` in landscape construction functions.
+The `barrier` objects contain the potential function and the position of both states and the saddle point. For 3D landscapes, the lowest elevation path (LEP) is also provided. `barrier`s can also be calculated for landscapes from multiple simulations. In this case, remember to set `individual_landscape = TRUE` in landscape construction functions.
 
-The local minimums are searched in a square space around a given point. The point with the lowest potential value in the given region is set as the position of the stable state. If all the potential values in the region equal to `Umax` (which represents ~`Inf`), the barrier calculation functions will expand the searching area automatically. Use `expand = FALSE` to disable this feature.
+The local minimums are searched in a square space around a given point. The point with the lowest potential value in the given region is set as the position of the stable state. If all the potential values in the region are equal to `Umax` (which represents ~`Inf`), the barrier calculation functions will expand the searching area automatically. Use `expand = FALSE` to disable this feature.
 
-For landscapes from multiple simulations, the searching regions for their starting and end points can be different. `simlandr` provides `make_barrier_grid_2d()` and `make_barrier_grid_3d()` functions to help you put these settings into a data frame with correct format.
+For landscapes from multiple simulations, the searching regions for their starting and ending points can be different. `simlandr` provides `make_barrier_grid_2d()` and `make_barrier_grid_3d()` functions to help you put these settings into a data frame with the correct format.
 
 The `barrier` objects also provide a `ggplot` geom object that can be added to the landscape plots to show the starting (white), end (white), and saddle (red) points, as well as the LEP (white line, only for 3d landscapes). Use `get_geom(b)` to access those geoms.
 
-Below are the examples of different barrier calculations. See the help documents of those functions for further details.
+Below are examples of different barrier calculations. See the help documents of those functions for further details.
 
 ------
 

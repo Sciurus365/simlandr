@@ -19,7 +19,7 @@ plot.landscape <- function(x, index = 1, ...) {
 #'
 #' @param l A landscape object
 #' @param path The path to save the output. Default: "/pics/x_y.html".
-#' @param selfcontained For plotly plots, save the output as a selfcontained html file? Default: FALSE.
+#' @param selfcontained For plotly plots, save the output as a self-contained html file? Default: FALSE.
 #' @param ... Other parameters passed to \code{\link[htmlwidgets]{saveWidget}}
 #' or \code{\link[ggplot2]{ggsave}}
 #' @export

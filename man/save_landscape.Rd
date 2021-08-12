@@ -11,7 +11,7 @@ save_landscape(l, path = NULL, selfcontained = F, ...)
 
 \item{path}{The path to save the output. Default: "/pics/x_y.html".}
 
-\item{selfcontained}{For plotly plots, save the output as a selfcontained html file? Default: FALSE.}
+\item{selfcontained}{For plotly plots, save the output as a self-contained html file? Default: FALSE.}
 
 \item{...}{Other parameters passed to \code{\link[htmlwidgets]{saveWidget}}
 or \code{\link[ggplot2]{ggsave}}}

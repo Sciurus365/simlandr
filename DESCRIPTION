@@ -1,11 +1,10 @@
 Package: simlandr
 Type: Package
-Title: Simulation-based Landscape Construction for Dynamic Systems
-Version: 0.1.0
+Title: Simulation-Based Landscape Construction for Dynamical Systems
+Version: 0.1.0.9000
 Authors@R: person(given = "Jingmeng", family = "Cui", email = "jingmeng.cui@outlook.com",
 		role = c("aut", "cre"))
-Description: `simlandr` provides a set of tools for constructing potential landscape for dynamic systems using Monte-Carlo simulation, especially for psychological formal models.
-Year: 2021
+Description: The simlandr package provides a set of tools for constructing potential landscapes for dynamical systems using Monte-Carlo simulation, especially for psychological formal models.
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true

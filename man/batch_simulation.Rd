@@ -46,7 +46,7 @@ test_result <- batch_simulation(test_grid, sim_fun_test,
   default_list = list(
     par1 = list(var1 = 0),
     par2 = list(var2 = 0, var3 = 0)
-  )
+  ), bigmemory = FALSE
 )
 test_result
 }

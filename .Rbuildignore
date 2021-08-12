@@ -8,3 +8,6 @@
 ^pkgdown$
 ^doc$
 ^Meta$
+^bp$
+^.*\.temp\.R$
+^cran-comments\.md$

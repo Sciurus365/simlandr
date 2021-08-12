@@ -2,7 +2,7 @@
 #'
 #' \code{hash_big.matrix} class is a modified class from \code{\link[bigmemory]{big.matrix-class}}. Its purpose is to
 #' help users operate big matrices within hard disk in a reusable way, so that the large matrices do not consume
-#' too much memory, and the matices can be reused for the next time.
+#' too much memory, and the matrices can be reused for the next time.
 #' Comparing with \code{\link[bigmemory]{big.matrix-class}}, the major enhancement of \code{hash_big.matrix} class
 #' is that the backing files are, by default, stored in a permanent place, with the md5 of the object as the file
 #' name. With this explicit name, \code{hash_big.matrix} objects can be easily reloaded into workspace every time.

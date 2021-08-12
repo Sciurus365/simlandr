@@ -23,7 +23,7 @@ library(simlandr)
 
 Here comes the central purpose of `simlandr`: constructing the potential landscapes from simulation results. 
 
-The landscape function is calculated based on the steady state distribution of the system:
+The landscape function is calculated based on the steady-state distribution of the system:
 
 $$U = -\ln P_\textrm{SS}$$
 
@@ -54,11 +54,11 @@ single_test <- sim_fun_test(
 )
 ```
 
-The result of the landscape functions are `landscape` objects, which contains the landscape plot as well as the smooth distributions that are used to calculate the landscapes. Plots without z-axis are built with `ggplot2` package, while plots with z-axis are built with `plotly` package. These plots can also be modified using `ggplot2` or `plotly` functions. 
+The result of the landscape functions is a `landscape` object, which contains the landscape plot as well as the smooth distributions that are used to calculate the landscapes. Plots without z-axis are built with `ggplot2` package, while plots with z-axis are built with `plotly` package. These plots can also be modified using `ggplot2` or `plotly` functions. 
 
 You can use `plot(l)` to access those plots. For some types of `landscape`s, there are multiple types of plots available. Use `plot(l, index = 2)` or `plot(l, index = 3)`, etc. to access those plots.
 
-Below are the examples of available plots. The meaning of the parameters can be found at the helping page of each function.
+Below are the examples of available plots. The meaning of the parameters can be found on the helping page of each function.
 
 ## 2d (x, y) plot
 
@@ -88,7 +88,7 @@ plot(l_single_4d) %>% plotly::layout(scene = list(zaxis = list(range = c(-3, 3))
 
 # Multiple simulation landscape
 
-The landscapes in the section are build from batch simulation results. The following two data sets will be used to illustrate the functions. The difference is that `batch_test_result` only contains one varying parameter, whereas `batch_test_result2` contains two.
+The landscapes in the section are built from batch simulation results. The following two data sets will be used to illustrate the functions. The difference is that `batch_test_result` only contains one varying parameter, whereas `batch_test_result2` contains two.
 
 ```{r}
 batch_test <- new_var_set()
@@ -148,8 +148,8 @@ plot(l_batch_3d_m2)
 
 ## 3d (x, y, z) or (x, y, color) animation and 3d (x, y, color) plot series with one varying parameter
 
-*`gifski` package is needed to show the 3d (x, y, color) animation.*
-```{r}
+*This part is computational and storage expensive thus not evaluated in the released vignette. You can run it on your device to see how the function produces animations. `gifski` package is needed to show the 3d (x, y, color) animation.*
+```{r eval = FALSE}
 l_batch_3d_a <- make_3d_animation(batch_test_result, x = "out1", y = "out2", fr = "var3", Umax = 20, lims = c(-3, 3, -3, 3), h = 0.002)
 
 plot(l_batch_3d_a, 1)

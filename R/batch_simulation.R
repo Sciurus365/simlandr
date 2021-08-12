@@ -203,7 +203,7 @@ sim_fun_test <- function(par1, par2, length = 1000) {
 #'   default_list = list(
 #'     par1 = list(var1 = 0),
 #'     par2 = list(var2 = 0, var3 = 0)
-#'   )
+#'   ), bigmemory = FALSE
 #' )
 #' test_result
 #' @export

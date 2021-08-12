@@ -23,13 +23,13 @@ library(simlandr)
 
 The whole story starts with a dynamic model. 
 
-Formally speaking, a **dynamic model** is a set of equations that specify how all the variables of a system changes over time. It usually takes the form of (stochastic) differential/difference equations. 
+Formally speaking, a **dynamic model** is a set of equations that specify how all the variables of a system change over time. It usually takes the form of (stochastic) differential/difference equations. 
 
-These dynamic models is rather abstract, so they can only be used for computation when they are implemented in a simulation function. A **simulation function** is a function that simulate how the model variables change over time. It takes some parameters as input, and returns a recording of the simulation process.
+These dynamic models are rather abstract, so they can only be used for computation when they are implemented in a simulation function. A **simulation function** is a function that simulates how the model variables change over time. It takes some parameters as input and returns a recording of the simulation process.
 
-Currently, the whole package can only support the simulation function with certain format. It should takes (besides from other parameters) lists of model parameters as input, and give a matrix as the output. If your original simulation function is in another format, maybe some modification is needed.
+Currently, the whole package can only support the simulation function in a certain format. It should take (besides from other parameters) lists of model parameters as input, and give a matrix as the output. If your original simulation function is in another format, maybe some modification is needed.
 
-`simlandr` package provides a simulation function for a simple toy model, which is called `sim_fun_test()`. You can use this as an example of the correct function format. I will also use this function as an example through out this vignette. It takes `par1` and `par2` as parameters: `par1` should be a list containing `var1` and `var2`, and `par2` should be a list containing `var3`. It takes this nested structure because real-life functions often have a bunch of parameters in different categories (e.g., starting values, model parameters, parameters that control the behavior of the simulation function, etc.) To avoid confusions in terms, the package refers to these first-layer parameters as *par*s, and second-layer parameters as *var*s.
+`simlandr` package provides a simulation function for a simple toy model, which is called `sim_fun_test()`. You can use this as an example of the correct function format. I will also use this function as an example throughout this vignette. It takes `par1` and `par2` as parameters: `par1` should be a list containing `var1` and `var2`, and `par2` should be a list containing `var3`. It takes this nested structure because real-life functions often have a bunch of parameters in different categories (e.g., starting values, model parameters, parameters that control the behavior of the simulation function, etc.) To avoid confusion in terms, the package refers to these first-layer parameters as *par*s and second-layer parameters as *var*s.
 
 ```{r}
 sim_fun_test
@@ -37,7 +37,7 @@ sim_fun_test
 
 # Single simulation
 
-For the author of a simulation function, running a single simulation is easy. You can just run the function normally, and assign the output to a variable. (If you are using others' simulation function, please read its documentation or ask the author about how to run it correctly.)
+For the author of a simulation function, running a single simulation is easy. You can just run the function normally, and assign the output to a variable. (If you are using others' simulation functions, please read its documentation or ask the author about how to run it correctly.)
 
 ```{r}
 single_test <- sim_fun_test(
@@ -47,7 +47,7 @@ single_test <- sim_fun_test(
 head(single_test)
 ```
 
-For Monte-Carlo methods, it is important that the simulation **converges**. In our case, it means the distribution of the system is roughly stable. Only when the distribution estimation is good enough can we construct reasonable landscapes based on that. `simlandr` provides a function `check_conv()` to check if the simulation converges. It takes the initial, middle, and final parts of the simulation result and calculate distributions based on that. If these distributions look similar, we can say the simulation already converges. *A rare exception is that the simulation is so short or the noise of the system is so low that during the whole simulation the system is in one local stable state. A rough knowledge of the system would be enough to rule out this situation.*
+For Monte-Carlo methods, it is important that the simulation **converges**. In our case, it means the distribution of the system is roughly stable. Only when the distribution estimation is good enough can we construct reasonable landscapes based on that. `simlandr` provides a function `check_conv()` to check if the simulation converges. It takes the initial, middle, and final parts of the simulation result and calculates distributions based on that. If these distributions look similar, we can say the simulation already converges. *A rare exception is that the simulation is so short or the noise of the system is so low that during the whole simulation the system is in one local stable state. A rough knowledge of the system would be enough to rule out this situation.*
 
 ```{r}
 check_conv(single_test, c("out1", "out2", "out3"))
@@ -77,7 +77,7 @@ single_test <- bigmemory::attach.big.matrix("single_test")
 
 **⚠ WARNING** 
 
-Due to a bug of RStudio (https://github.com/rstudio/rstudio/issues/8923), its variable inspector cannot handle objects with null external pointers. Sometimes it results in a fatal error when loading workspace image with previous `bigmemory`-related objects.
+Due to a bug of RStudio (https://github.com/rstudio/rstudio/issues/8923), its variable inspector cannot handle objects with null external pointers. Sometimes it results in a fatal error when loading workspace images with previous `bigmemory`-related objects.
 
 Current work-around before the bug is fixed: 
 
@@ -115,11 +115,12 @@ batch_test <- batch_test %>%
 
 ## Step 3: make variable grids
 batch_test_grid <- make_var_grid(batch_test)
+
 ```
 
-Then you can run the batch simulation. `simlandr` use out-of-memory storage for batch simulations by default because in most times batch simulation will result in very large data objects. In this case, each simulation result is stored in a separate file. Thanks to the `hash-big.matrix` class, you do not have to name each file by yourself.
+Then you can run the batch simulation. `simlandr` use out-of-memory storage for batch simulations by default because most times batch simulation will result in very large data objects. In this case, each simulation result is stored in a separate file. Thanks to the `hash-big.matrix` class, you do not have to name each file by yourself.
 
-`simlandr` also provides a `attach_all_matrices()` function to help you attach all the out-of-memory `hash-big.matrix`s related to a batch simulation. Use this if you want to load previous workspace image with (out-of-memory) batch simulation results. Keep in mind that the **WARNING** above also holds for this.
+`simlandr` also provides a `attach_all_matrices()` function to help you attach all the out-of-memory `hash-big.matrix`s related to a batch simulation. Use this if you want to load the previous workspace image with (out-of-memory) batch simulation results. Keep in mind that the **WARNING** above also holds for this.
 
 ```{r eval = FALSE}
 # NOT RUN
