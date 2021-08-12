@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simlandr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
       </span>
     </div>
 
@@ -112,10 +112,10 @@
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
 <p>The whole story starts with a dynamic model.</p>
-<p>Formally speaking, a <strong>dynamic model</strong> is a set of equations that specify how all the variables of a system changes over time. It usually takes the form of (stochastic) differential/difference equations.</p>
-<p>These dynamic models is rather abstract, so they can only be used for computation when they are implemented in a simulation function. A <strong>simulation function</strong> is a function that simulate how the model variables change over time. It takes some parameters as input, and returns a recording of the simulation process.</p>
-<p>Currently, the whole package can only support the simulation function with certain format. It should takes (besides from other parameters) lists of model parameters as input, and give a matrix as the output. If your original simulation function is in another format, maybe some modification is needed.</p>
-<p><code>simlandr</code> package provides a simulation function for a simple toy model, which is called <code><a href="../reference/sim_fun_test.html">sim_fun_test()</a></code>. You can use this as an example of the correct function format. I will also use this function as an example through out this vignette. It takes <code>par1</code> and <code>par2</code> as parameters: <code>par1</code> should be a list containing <code>var1</code> and <code>var2</code>, and <code>par2</code> should be a list containing <code>var3</code>. It takes this nested structure because real-life functions often have a bunch of parameters in different categories (e.g., starting values, model parameters, parameters that control the behavior of the simulation function, etc.) To avoid confusions in terms, the package refers to these first-layer parameters as <em>par</em>s, and second-layer parameters as <em>var</em>s.</p>
+<p>Formally speaking, a <strong>dynamic model</strong> is a set of equations that specify how all the variables of a system change over time. It usually takes the form of (stochastic) differential/difference equations.</p>
+<p>These dynamic models are rather abstract, so they can only be used for computation when they are implemented in a simulation function. A <strong>simulation function</strong> is a function that simulates how the model variables change over time. It takes some parameters as input and returns a recording of the simulation process.</p>
+<p>Currently, the whole package can only support the simulation function in a certain format. It should take (besides from other parameters) lists of model parameters as input, and give a matrix as the output. If your original simulation function is in another format, maybe some modification is needed.</p>
+<p><code>simlandr</code> package provides a simulation function for a simple toy model, which is called <code><a href="../reference/sim_fun_test.html">sim_fun_test()</a></code>. You can use this as an example of the correct function format. I will also use this function as an example throughout this vignette. It takes <code>par1</code> and <code>par2</code> as parameters: <code>par1</code> should be a list containing <code>var1</code> and <code>var2</code>, and <code>par2</code> should be a list containing <code>var3</code>. It takes this nested structure because real-life functions often have a bunch of parameters in different categories (e.g., starting values, model parameters, parameters that control the behavior of the simulation function, etc.) To avoid confusion in terms, the package refers to these first-layer parameters as <em>par</em>s and second-layer parameters as <em>var</em>s.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sim_fun_test</span>
 <span class="co">#&gt; function (par1, par2, length = 1000) </span>
@@ -132,13 +132,13 @@
 <span class="co">#&gt;     }</span>
 <span class="co">#&gt;     return(output)</span>
 <span class="co">#&gt; }</span>
-<span class="co">#&gt; &lt;bytecode: 0x7f93b5309560&gt;</span>
+<span class="co">#&gt; &lt;bytecode: 0x7f8eb3423b18&gt;</span>
 <span class="co">#&gt; &lt;environment: namespace:simlandr&gt;</span></code></pre></div>
 </div>
 <div id="single-simulation" class="section level1">
 <h1 class="hasAnchor">
 <a href="#single-simulation" class="anchor"></a>Single simulation</h1>
-<p>For the author of a simulation function, running a single simulation is easy. You can just run the function normally, and assign the output to a variable. (If you are using others’ simulation function, please read its documentation or ask the author about how to run it correctly.)</p>
+<p>For the author of a simulation function, running a single simulation is easy. You can just run the function normally, and assign the output to a variable. (If you are using others’ simulation functions, please read its documentation or ask the author about how to run it correctly.)</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">single_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_fun_test.html">sim_fun_test</a></span><span class="op">(</span>
   par1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>var1 <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
@@ -146,13 +146,13 @@
 <span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">single_test</span><span class="op">)</span>
 <span class="co">#&gt;          out1     out2         out3</span>
-<span class="co">#&gt; [1,]  1.00000  1.00000 -0.005288405</span>
-<span class="co">#&gt; [2,]  2.50000  0.50000  0.003552107</span>
-<span class="co">#&gt; [3,]  2.75000 -0.75000  0.005521993</span>
-<span class="co">#&gt; [4,]  1.62500 -2.12500  0.014273355</span>
-<span class="co">#&gt; [5,] -0.31250 -2.93750 -0.004448924</span>
-<span class="co">#&gt; [6,] -2.09375 -2.78125 -0.006183817</span></code></pre></div>
-<p>For Monte-Carlo methods, it is important that the simulation <strong>converges</strong>. In our case, it means the distribution of the system is roughly stable. Only when the distribution estimation is good enough can we construct reasonable landscapes based on that. <code>simlandr</code> provides a function <code><a href="../reference/check_conv.html">check_conv()</a></code> to check if the simulation converges. It takes the initial, middle, and final parts of the simulation result and calculate distributions based on that. If these distributions look similar, we can say the simulation already converges. <em>A rare exception is that the simulation is so short or the noise of the system is so low that during the whole simulation the system is in one local stable state. A rough knowledge of the system would be enough to rule out this situation.</em></p>
+<span class="co">#&gt; [1,]  1.00000  1.00000 -0.001695456</span>
+<span class="co">#&gt; [2,]  2.50000  0.50000 -0.007963291</span>
+<span class="co">#&gt; [3,]  2.75000 -0.75000 -0.008407002</span>
+<span class="co">#&gt; [4,]  1.62500 -2.12500 -0.006255694</span>
+<span class="co">#&gt; [5,] -0.31250 -2.93750 -0.009413426</span>
+<span class="co">#&gt; [6,] -2.09375 -2.78125 -0.012000690</span></code></pre></div>
+<p>For Monte-Carlo methods, it is important that the simulation <strong>converges</strong>. In our case, it means the distribution of the system is roughly stable. Only when the distribution estimation is good enough can we construct reasonable landscapes based on that. <code>simlandr</code> provides a function <code><a href="../reference/check_conv.html">check_conv()</a></code> to check if the simulation converges. It takes the initial, middle, and final parts of the simulation result and calculates distributions based on that. If these distributions look similar, we can say the simulation already converges. <em>A rare exception is that the simulation is so short or the noise of the system is so low that during the whole simulation the system is in one local stable state. A rough knowledge of the system would be enough to rule out this situation.</em></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/check_conv.html">check_conv</a></span><span class="op">(</span><span class="va">single_test</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"out1"</span>, <span class="st">"out2"</span>, <span class="st">"out3"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></code></pre></div>
@@ -180,7 +180,7 @@
 <span class="va">single_test</span> <span class="op">&lt;-</span> <span class="fu">bigmemory</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/bigmemory/man/attach.big.matrix.html">attach.big.matrix</a></span><span class="op">(</span><span class="st">"single_test"</span><span class="op">)</span></code></pre></div>
 <hr>
 <p><strong>⚠ WARNING</strong></p>
-<p>Due to a bug of RStudio (<a href="https://github.com/rstudio/rstudio/issues/8923" class="uri">https://github.com/rstudio/rstudio/issues/8923</a>), its variable inspector cannot handle objects with null external pointers. Sometimes it results in a fatal error when loading workspace image with previous <code>bigmemory</code>-related objects.</p>
+<p>Due to a bug of RStudio (<a href="https://github.com/rstudio/rstudio/issues/8923" class="uri">https://github.com/rstudio/rstudio/issues/8923</a>), its variable inspector cannot handle objects with null external pointers. Sometimes it results in a fatal error when loading workspace images with previous <code>bigmemory</code>-related objects.</p>
 <p>Current work-around before the bug is fixed:</p>
 <ol style="list-style-type: decimal">
 <li>Turn off “Restore .RData into workspace at startup” at Tools -&gt; Project Options -&gt; General</li>
@@ -211,8 +211,8 @@
 
 <span class="co">## Step 3: make variable grids</span>
 <span class="va">batch_test_grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_var_grid.html">make_var_grid</a></span><span class="op">(</span><span class="va">batch_test</span><span class="op">)</span></code></pre></div>
-<p>Then you can run the batch simulation. <code>simlandr</code> use out-of-memory storage for batch simulations by default because in most times batch simulation will result in very large data objects. In this case, each simulation result is stored in a separate file. Thanks to the <code>hash-big.matrix</code> class, you do not have to name each file by yourself.</p>
-<p><code>simlandr</code> also provides a <code><a href="../reference/attach_all_matrices.html">attach_all_matrices()</a></code> function to help you attach all the out-of-memory <code>hash-big.matrix</code>s related to a batch simulation. Use this if you want to load previous workspace image with (out-of-memory) batch simulation results. Keep in mind that the <strong>WARNING</strong> above also holds for this.</p>
+<p>Then you can run the batch simulation. <code>simlandr</code> use out-of-memory storage for batch simulations by default because most times batch simulation will result in very large data objects. In this case, each simulation result is stored in a separate file. Thanks to the <code>hash-big.matrix</code> class, you do not have to name each file by yourself.</p>
+<p><code>simlandr</code> also provides a <code><a href="../reference/attach_all_matrices.html">attach_all_matrices()</a></code> function to help you attach all the out-of-memory <code>hash-big.matrix</code>s related to a batch simulation. Use this if you want to load the previous workspace image with (out-of-memory) batch simulation results. Keep in mind that the <strong>WARNING</strong> above also holds for this.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># NOT RUN</span>
 <span class="va">batch_test_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/modified_simulation.html">batch_simulation</a></span><span class="op">(</span><span class="va">batch_test_grid</span>, <span class="va">sim_fun_test</span>,
@@ -237,15 +237,15 @@
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">batch_test_result</span><span class="op">)</span>
 <span class="co">#&gt; Output(s) from 6 simulations.</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">batch_test_result</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 6 x 3</span>
-<span class="co">#&gt;   var_list        var3 output               </span>
-<span class="co">#&gt;   &lt;list&gt;         &lt;dbl&gt; &lt;list&gt;               </span>
-<span class="co">#&gt; 1 &lt;var_list [1]&gt;   0   &lt;dbl[,3] [1,000 × 3]&gt;</span>
-<span class="co">#&gt; 2 &lt;var_list [1]&gt;   0.1 &lt;dbl[,3] [1,000 × 3]&gt;</span>
-<span class="co">#&gt; 3 &lt;var_list [1]&gt;   0.2 &lt;dbl[,3] [1,000 × 3]&gt;</span>
-<span class="co">#&gt; 4 &lt;var_list [1]&gt;   0.3 &lt;dbl[,3] [1,000 × 3]&gt;</span>
-<span class="co">#&gt; 5 &lt;var_list [1]&gt;   0.4 &lt;dbl[,3] [1,000 × 3]&gt;</span>
-<span class="co">#&gt; 6 &lt;var_list [1]&gt;   0.5 &lt;dbl[,3] [1,000 × 3]&gt;</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 6 × 3</span>
+<span class="co">#&gt;   var_list        var3 output           </span>
+<span class="co">#&gt;   &lt;list&gt;         &lt;dbl&gt; &lt;list&gt;           </span>
+<span class="co">#&gt; 1 &lt;var_list [1]&gt;   0   &lt;dbl [1,000 × 3]&gt;</span>
+<span class="co">#&gt; 2 &lt;var_list [1]&gt;   0.1 &lt;dbl [1,000 × 3]&gt;</span>
+<span class="co">#&gt; 3 &lt;var_list [1]&gt;   0.2 &lt;dbl [1,000 × 3]&gt;</span>
+<span class="co">#&gt; 4 &lt;var_list [1]&gt;   0.3 &lt;dbl [1,000 × 3]&gt;</span>
+<span class="co">#&gt; 5 &lt;var_list [1]&gt;   0.4 &lt;dbl [1,000 × 3]&gt;</span>
+<span class="co">#&gt; 6 &lt;var_list [1]&gt;   0.5 &lt;dbl [1,000 × 3]&gt;</span></code></pre></div>
 <p><code>batch_simulation</code> objects are also the base for constructing landscapes from multiple simulations. See other vignettes for details.</p>
 </div>
   </div>

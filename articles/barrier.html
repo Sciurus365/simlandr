@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simlandr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
       </span>
     </div>
 
@@ -108,13 +108,13 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Sciurus365/simlandr">simlandr</a></span><span class="op">)</span></code></pre></div>
-<p>An important property of the states in a landscape is their stability, characterized by the barrier height between these states and other adjacent states. <code>simlandr</code> also provide tools to calculate the barrier heights from landscapes.</p>
+<p>An important property of the states in a landscape is their stability, characterized by the barrier height between these states and other adjacent states. <code>simlandr</code> also provides tools to calculate the barrier heights from landscapes.</p>
 <p>You can use the general function <code><a href="../reference/calculate_barrier.html">calculate_barrier()</a></code> to calculate the barrier for most landscapes. There are also specific <code>calculate_barrier_*()</code> functions available. The output of these functions is a `barrier object.</p>
-<p>The <code>barrier</code> objects contains the potential function and the position of both states and the saddle point. For 3D landscapes, the lowest elevation path (LEP) is also provided. <code>barrier</code>s can also be calculated for landscapes from multiple simulations. In this case, remember to set <code>individual_landscape = TRUE</code> in landscape construction functions.</p>
-<p>The local minimums are searched in a square space around a given point. The point with the lowest potential value in the given region is set as the position of the stable state. If all the potential values in the region equal to <code>Umax</code> (which represents ~<code>Inf</code>), the barrier calculation functions will expand the searching area automatically. Use <code>expand = FALSE</code> to disable this feature.</p>
-<p>For landscapes from multiple simulations, the searching regions for their starting and end points can be different. <code>simlandr</code> provides <code><a href="../reference/make_barrier_grid_2d.html">make_barrier_grid_2d()</a></code> and <code><a href="../reference/make_barrier_grid_3d.html">make_barrier_grid_3d()</a></code> functions to help you put these settings into a data frame with correct format.</p>
+<p>The <code>barrier</code> objects contain the potential function and the position of both states and the saddle point. For 3D landscapes, the lowest elevation path (LEP) is also provided. <code>barrier</code>s can also be calculated for landscapes from multiple simulations. In this case, remember to set <code>individual_landscape = TRUE</code> in landscape construction functions.</p>
+<p>The local minimums are searched in a square space around a given point. The point with the lowest potential value in the given region is set as the position of the stable state. If all the potential values in the region are equal to <code>Umax</code> (which represents ~<code>Inf</code>), the barrier calculation functions will expand the searching area automatically. Use <code>expand = FALSE</code> to disable this feature.</p>
+<p>For landscapes from multiple simulations, the searching regions for their starting and ending points can be different. <code>simlandr</code> provides <code><a href="../reference/make_barrier_grid_2d.html">make_barrier_grid_2d()</a></code> and <code><a href="../reference/make_barrier_grid_3d.html">make_barrier_grid_3d()</a></code> functions to help you put these settings into a data frame with the correct format.</p>
 <p>The <code>barrier</code> objects also provide a <code>ggplot</code> geom object that can be added to the landscape plots to show the starting (white), end (white), and saddle (red) points, as well as the LEP (white line, only for 3d landscapes). Use <code><a href="../reference/get_geom.html">get_geom(b)</a></code> to access those geoms.</p>
-<p>Below are the examples of different barrier calculations. See the help documents of those functions for further details.</p>
+<p>Below are examples of different barrier calculations. See the help documents of those functions for further details.</p>
 <hr>
 <p>Prepare data sets and landscapes (see <code><a href="../articles/landscape.html">vignette("landscape")</a></code>)</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
