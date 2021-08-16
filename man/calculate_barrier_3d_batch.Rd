@@ -34,6 +34,9 @@ calculate_barrier_3d_batch(
 
 \item{base}{The base of the log function.}
 }
+\value{
+A \code{barrier_3d_batch} object that contains the batch barrier calculation results.
+}
 \description{
 Calculate barrier from a 3D landscape with multiple simulations
 }

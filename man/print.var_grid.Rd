@@ -2,7 +2,7 @@
 % Please edit documentation in R/batch_simulation.R
 \name{print.var_grid}
 \alias{print.var_grid}
-\title{Print a var_grid}
+\title{Print a \code{var_grid} object}
 \usage{
 \method{print}{var_grid}(x, detail = FALSE, ...)
 }
@@ -13,6 +13,9 @@
 
 \item{...}{Not in use.}
 }
+\value{
+The printed result.
+}
 \description{
-Print a var_grid
+Print a \code{var_grid} object
 }

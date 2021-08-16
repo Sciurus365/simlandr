@@ -6,6 +6,8 @@
 #' Use `index = 2` to plot that one.
 #' @param ... Not in use.
 #'
+#' @return The plot.
+#'
 #' @export
 plot.landscape <- function(x, index = 1, ...) {
   if (index == 1) {
@@ -19,11 +21,13 @@ plot.landscape <- function(x, index = 1, ...) {
 #'
 #' @param l A landscape object
 #' @param path The path to save the output. Default: "/pics/x_y.html".
-#' @param selfcontained For plotly plots, save the output as a self-contained html file? Default: FALSE.
+#' @param selfcontained For 'plotly' plots, save the output as a self-contained html file? Default: FALSE.
 #' @param ... Other parameters passed to \code{\link[htmlwidgets]{saveWidget}}
 #' or \code{\link[ggplot2]{ggsave}}
+#'
+#' @return The function saves the plot to a specific path. It does not have a return value.
 #' @export
-save_landscape <- function(l, path = NULL, selfcontained = F, ...) {
+save_landscape <- function(l, path = NULL, selfcontained = FALSE, ...) {
   p <- l$plot
   message("Saving the plot...")
   if (is.null(path)) {
@@ -40,4 +44,5 @@ save_landscape <- function(l, path = NULL, selfcontained = F, ...) {
     if ("ggplot" %in% class(p)) ggplot2::ggsave(paste(path, ".png", sep = ""), p, ...)
   }
   message("Done!")
+  return(NULL)
 }

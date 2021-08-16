@@ -27,7 +27,7 @@ To get a similar output, the `h` is about 50 to 5000 times smaller for \code{\li
 \item{kde_fun}{Which to use? Choices: "ks" \code{ks::kde} (default; faster and taking less memory); "MASS" \code{MASS::kde2d}.}
 }
 \value{
-A \code{kde2d}-type list.
+A \code{kde2d}-type list of smooth distribution.
 }
 \description{
 Make 2D kernel smooth distribution

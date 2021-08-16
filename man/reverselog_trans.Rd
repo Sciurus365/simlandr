@@ -9,6 +9,9 @@ reverselog_trans(base = exp(1))
 \arguments{
 \item{base}{The base of logarithm}
 }
+\value{
+A \code{trans} scale object from the \code{scales} package.
+}
 \description{
 A function for reversed log transformation
 }

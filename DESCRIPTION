@@ -1,10 +1,13 @@
 Package: simlandr
 Type: Package
 Title: Simulation-Based Landscape Construction for Dynamical Systems
-Version: 0.1.1
+Version: 0.1.1.9000
 Authors@R: person(given = "Jingmeng", family = "Cui", email = "jingmeng.cui@outlook.com",
-		role = c("aut", "cre"))
-Description: A set of tools for constructing potential landscapes for dynamical systems using Monte-Carlo simulation. Especially suitable for psychological formal models.
+		role = c("aut", "cre"), comment = c(ORCID = "0000-0003-3421-8457"))
+Description: A toolbox for constructing potential landscapes for dynamical systems using Monte-Carlo simulation. 
+    The method is based on the generalized potential landscape function by Wang et al. (2008) <doi:10.1073/pnas.0800579105> 
+    (also see Zhou & Li, 2016 <doi:10.1063/1.4943096> for further mathematical discussions). 
+    Especially suitable for psychological formal models.
 License: GPL (>= 3)
 Encoding: UTF-8
 Imports: 
@@ -25,9 +28,10 @@ Imports:
     forcats,
     rlang
 RoxygenNote: 7.1.1
-URL: https://github.com/Sciurus365/simlandr
+URL: https://sciurus365.github.io/simlandr/, https://github.com/Sciurus365/simlandr
 BugReports: https://github.com/Sciurus365/simlandr/issues
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    webshot
 VignetteBuilder: knitr

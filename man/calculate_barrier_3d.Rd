@@ -31,6 +31,9 @@ calculate_barrier_3d(
 
 \item{base}{The base of the log function.}
 }
+\value{
+A \code{barrier_3d} object that contains the barrier calculation result.
+}
 \description{
 Calculate barrier from a 3D landscape
 }

@@ -3,17 +3,11 @@
 \name{new_var_set}
 \alias{new_var_set}
 \alias{add_var}
-\alias{nvar}
-\alias{npar}
 \title{Create and modify variable sets for batch simulation}
 \usage{
 new_var_set()
 
 add_var(var_set, par_name, var_name, start, end, by)
-
-nvar(var_set)
-
-npar(var_set)
 }
 \arguments{
 \item{var_set}{A \code{var_set} object.}
@@ -24,9 +18,12 @@ in the simulation function}
 \item{start, end, by}{The data points where you want to test the variables.
 Passed to \code{seq}.}
 }
+\value{
+A \code{var_set} object.
+}
 \description{
 A variable set contains the descriptions of the relevant variables in a
-batch simulation. Use \code{new_var_set} to create an S3 \code{var_set}
+batch simulation. Use \code{new_var_set} to create a \code{var_set}
 object, and use \code{add_var} to add descriptions of variables.
 }
 \section{Functions}{
@@ -34,10 +31,6 @@ object, and use \code{add_var} to add descriptions of variables.
 \item \code{new_var_set}: Create a \code{var_set}.
 
 \item \code{add_var}: Add a variable to the \code{var_set}.
-
-\item \code{nvar}: The number of variables.
-
-\item \code{npar}: The number of parameters.
 }}
 
 \examples{

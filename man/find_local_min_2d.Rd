@@ -13,6 +13,9 @@ find_local_min_2d(dist, localmin, r)
 
 \item{r}{Searching radius.}
 }
+\value{
+A list with two elements: \code{U}, the potential value of the local minimum, and \code{location}, the position of the local minimum.
+}
 \description{
 Find local minimum of a 2d distribution
 }

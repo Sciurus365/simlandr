@@ -25,7 +25,7 @@ make_4d_static(
 \item{n, lims, h}{Passed to \code{\link{make_3d_kernel_dist}}}
 }
 \value{
-A \code{4d_static_landscape}, \code{landscape} object.
+A \code{4d_static_landscape} object that describes the landscape of the system, including the smoothed distribution and the landscape plot.
 }
 \description{
 Make 4D static space-color plots from simulation output

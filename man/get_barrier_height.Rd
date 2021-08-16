@@ -9,6 +9,9 @@ get_barrier_height(b)
 \arguments{
 \item{b}{A \code{barrier} object.}
 }
+\value{
+A vector (for a single barrier calculation result) or a \code{data.frame} (for batch barrier calculation results) that contains the barrier heights on the landscape.
+}
 \description{
 Get the barrier height from a `barrier` object.
 }

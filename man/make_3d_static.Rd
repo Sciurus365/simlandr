@@ -25,7 +25,7 @@ make_3d_static(
 \item{n, lims, h, kde_fun}{Passed to \code{\link{make_2d_kernel_dist}}}
 }
 \value{
-A \code{3d_static_landscape}, \code{landscape} object.
+A \code{3d_static_landscape} object that describes the landscape of the system, including the smooth distribution and the landscape plot.
 }
 \description{
 Make 3D static landscape plots from simulation output

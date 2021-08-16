@@ -15,6 +15,9 @@ Use `index = 2` to plot that one.}
 
 \item{...}{Not in use.}
 }
+\value{
+The plot.
+}
 \description{
 Make plots from landscape objects
 }

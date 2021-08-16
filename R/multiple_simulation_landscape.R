@@ -2,11 +2,13 @@
 #'
 #' @param bs A \code{batch_simulation} object created by \code{\link{batch_simulation}.}
 #' @param x,y,fr The names of the target variables.
-#' \code{fr} corresponds to the \code{frame} parameter in plotly.
+#' \code{fr} corresponds to the \code{frame} parameter in 'plotly'.
 #' @param Umax The maximum displayed value of potential.
 #' @param n,lims,h,kde_fun Passed to \code{make_2d_kernel_dist}
 #' @param individual_landscape Make individual landscape for each simulation?
 #' @param mat_3d Also make heatmap matrix?
+#'
+#' @return A \code{3d_animation_landscape} object that describes the landscape of the system, including the smoothed distribution and the landscape plot.
 #'
 #' @export
 make_3d_animation <- function(bs, x, y, fr, Umax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 1e-3, kde_fun = "ks", individual_landscape = FALSE, mat_3d = TRUE) {
@@ -72,6 +74,8 @@ make_3d_animation <- function(bs, x, y, fr, Umax = 5, n = 200, lims = c(-0.1, 1.
 #' @param Umax The maximum displayed value of potential.
 #' @param individual_landscape Make individual landscape for each simulation?
 #'
+#' @return A \code{2d_matrix_landscape} object that describes the landscape of the system, including the smoothed distribution and the landscape plot.
+#'
 #' @export
 make_2d_matrix <- function(bs, x, rows = NULL, cols, adjust = 50, from = -0.1, to = 1, Umax = 5, individual_landscape = FALSE) {
   if (is.null(rows)) {
@@ -133,6 +137,8 @@ make_2d_matrix <- function(bs, x, rows = NULL, cols, adjust = 50, from = -0.1, t
 #' @param Umax The maximum displayed value of potential.
 #' @param n,lims,h,kde_fun Passed to \code{\link{make_2d_kernel_dist}}
 #' @param individual_landscape Make individual landscape for each simulation?
+#'
+#' @return A \code{3d_matrix_landscape} object that describes the landscape of the system, including the smoothed distribution and the landscape plot.
 #'
 #' @export
 make_3d_matrix <- function(bs, x, y, rows = NULL, cols, Umax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 1e-3, kde_fun = "ks", individual_landscape = FALSE) {

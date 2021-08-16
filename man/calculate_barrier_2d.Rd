@@ -22,6 +22,9 @@ calculate_barrier_2d(
 
 \item{base}{The base of the log function.}
 }
+\value{
+A \code{barrier_2d} object that contains the barrier calculation result.
+}
 \description{
 Calculate barrier from a 2D landscape
 }

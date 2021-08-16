@@ -15,6 +15,9 @@ check_conv(output, vars, sample_perc = 0.2, plot_type = "bin")
 
 \item{plot_type}{Which type of plots should be generated? ("bin" or "density")}
 }
+\value{
+A \code{check_conv} object that contains the convergence checking result.
+}
 \description{
 Check density convergence of simulation
 }
