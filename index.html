@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Simulation-Based Landscape Construction for Dynamical Systems">
-<meta property="og:description" content="The simlandr package provides a set of tools for constructing potential landscapes for dynamical systems using Monte-Carlo simulation, especially for psychological formal models.">
+<meta property="og:description" content="A set of tools for constructing potential landscapes for dynamical systems using Monte-Carlo simulation. Especially suitable for psychological formal models.">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -97,7 +97,7 @@
 
 <div id="simlandr-simulation-based-landscape-construction-for-dynamical-systems-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#simlandr-simulation-based-landscape-construction-for-dynamical-systems-" class="anchor"></a><code>simlandr</code>: Simulation-based Landscape Construction for Dynamical Systems <img src="reference/figures/logo.png" align="right" height="138">
+<a href="#simlandr-simulation-based-landscape-construction-for-dynamical-systems-" class="anchor"></a><code>simlandr</code>: Simulation-Based Landscape Construction for Dynamical Systems <img src="reference/figures/logo.png" align="right" height="138">
 </h1></div>
 
 <p><code>simlandr</code> provides a set of tools for constructing potential landscape for dynamic systems using Monte-Carlo simulation, especially for psychological formal models. It can help to:</p>
@@ -111,19 +111,16 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the released version of simlandr from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
+<p>You can install the development version from <a href="https://github.com/">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"simlandr"</span><span class="op">)</span></code></pre></div>
-<p>And the development version from <a href="https://github.com/">GitHub</a> with:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"Sciurus365/simlandr"</span><span class="op">)</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"Sciurus365/simlandr"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># Use this command if you want to build vignettes</span></code></pre></div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Sciurus365/simlandr">simlandr</a></span><span class="op">)</span>
 
 <span class="co"># Simulation</span>
@@ -158,14 +155,14 @@
 <span class="va">l_single_2d</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_2d_density.html">make_2d_density</a></span><span class="op">(</span><span class="va">single_test</span>, x <span class="op">=</span> <span class="st">"out1"</span>, from <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>, to <span class="op">=</span> <span class="fl">2</span>, adjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">l_single_2d</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-example-1.png" width="100%"></p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Example 2. 3d (x, y, color) plot matrix with two varying parameters</span>
 <span class="va">l_batch_3d_m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_3d_matrix.html">make_3d_matrix</a></span><span class="op">(</span><span class="va">batch_test_result2</span>, x <span class="op">=</span> <span class="st">"out1"</span>, y <span class="op">=</span> <span class="st">"out2"</span>, rows <span class="op">=</span> <span class="st">"var1"</span>, cols <span class="op">=</span> <span class="st">"var2"</span>, lims <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span>, <span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span>, h <span class="op">=</span> <span class="fl">0.001</span>, kde_fun <span class="op">=</span> <span class="st">"ks"</span>, Umax <span class="op">=</span> <span class="fl">10</span>, individual_landscape <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; Making the 2d plot...</span>
 <span class="co">#&gt; Done!</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">l_batch_3d_m2</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-example-2.png" width="100%"></p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Calculate energy barriers</span>
 <span class="co">## Example 1</span>
 <span class="va">b_single_2d</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calculate_barrier_2d.html">calculate_barrier_2d</a></span><span class="op">(</span><span class="va">l_single_2d</span>, start_location_value <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>, end_location_value <span class="op">=</span> <span class="fl">2</span>, start_r <span class="op">=</span> <span class="fl">0.3</span>, end_r <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span>
@@ -198,7 +195,7 @@
 
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">l_single_2d</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="reference/get_geom.html">get_geom</a></span><span class="op">(</span><span class="va">b_single_2d</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-example-3.png" width="100%"></p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Example 2</span>
 <span class="va">b_batch_3d_m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calculate_barrier_3d_batch.html">calculate_barrier_3d_batch</a></span><span class="op">(</span><span class="va">l_batch_3d_m2</span>, start_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, end_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, start_r <span class="op">=</span> <span class="fl">0.3</span>, end_r <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span>
 <span class="co">#&gt; The U in this range is too high. Searching range expanded...</span>
