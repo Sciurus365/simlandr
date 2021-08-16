@@ -21,11 +21,17 @@ psychological formal models. It can help to:
 
 ## Installation
 
-You can install the development version from
-[GitHub](https://github.com/) with:
+You can install the released version of simlandr from
+[CRAN](https://CRAN.R-project.org) with:
 
 ``` r
-install.packages("devtools")
+install.packages("simlandr")
+```
+
+And the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
 devtools::install_github("Sciurus365/simlandr")
 devtools::install_github("Sciurus365/simlandr", build_vignettes = TRUE) # Use this command if you want to build vignettes
 ```
