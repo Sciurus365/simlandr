@@ -32,6 +32,9 @@ make_3d_animation(
 
 \item{mat_3d}{Also make heatmap matrix?}
 }
+\value{
+A \code{3d_animation_landscape} object that describes the landscape of the system, including the smoothed distribution and the landscape plot.
+}
 \description{
 Make 3d animations from multiple simulations
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/single_simulation_landscape.R
 \name{make_2d_tidy_dist}
 \alias{make_2d_tidy_dist}
-\title{Make a tidy data frame from smooth 2d distribution matrix}
+\title{Make a tidy \code{data.frame} from smooth 2d distribution matrix}
 \usage{
 make_2d_tidy_dist(dist_2d, value = NULL, var_name = NULL)
 }
@@ -14,8 +14,8 @@ make_2d_tidy_dist(dist_2d, value = NULL, var_name = NULL)
 \item{var_name}{The name of the variable.}
 }
 \value{
-A tidy data frame.
+A tidy \code{data.frame}.
 }
 \description{
-Make a tidy data frame from smooth 2d distribution matrix
+Make a tidy \code{data.frame} from smooth 2d distribution matrix
 }

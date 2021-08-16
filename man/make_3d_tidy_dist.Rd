@@ -2,7 +2,7 @@
 % Please edit documentation in R/single_simulation_landscape.R
 \name{make_3d_tidy_dist}
 \alias{make_3d_tidy_dist}
-\title{Make a tidy data frame from smooth 3d distribution matrix}
+\title{Make a tidy \code{data.frame} from smooth 3d distribution matrix}
 \usage{
 make_3d_tidy_dist(dist_3d, value = NULL, var_name = NULL)
 }
@@ -14,8 +14,8 @@ make_3d_tidy_dist(dist_3d, value = NULL, var_name = NULL)
 \item{var_name}{The name of the variable.}
 }
 \value{
-A tidy data frame.
+A tidy \code{data.frame}.
 }
 \description{
-Make a tidy data frame from smooth 3d distribution matrix
+Make a tidy \code{data.frame} from smooth 3d distribution matrix
 }

@@ -11,6 +11,9 @@ get_dist(l, index = 1)
 
 \item{index}{1 to get the distribution in tidy format; 2 or "raw" to get the raw simulation result (\code{batch_simulation}).}
 }
+\value{
+A \code{data.frame} that contains the distribution in the tidy format or the raw simulation result.
+}
 \description{
 Get the probability distribution from a landscape object
 }

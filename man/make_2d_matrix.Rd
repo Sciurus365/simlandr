@@ -28,6 +28,9 @@ If `rows` is `NULL`, only a vector of graphs will be generated.}
 
 \item{individual_landscape}{Make individual landscape for each simulation?}
 }
+\value{
+A \code{2d_matrix_landscape} object that describes the landscape of the system, including the smoothed distribution and the landscape plot.
+}
 \description{
 Make a matrix of 2d graphs for two parameters
 }

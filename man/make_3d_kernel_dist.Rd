@@ -23,7 +23,7 @@ make_3d_kernel_dist(
 For \code{ks::kde}, \code{H = diag(h, 2, 2)}.}
 }
 \value{
-A \code{MASS::kde2d}-type list.
+A \code{MASS::kde2d}-type list of smooth distribution.
 }
 \description{
 Make 3D kernel smooth distribution
