@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# `simlandr`: Simulation-based Landscape Construction for Dynamical Systems <img src='man/figures/logo.png' align="right" height="138" />
+# `simlandr`: Simulation-Based Landscape Construction for Dynamical Systems <img src='man/figures/logo.png' align="right" height="138" />
 
 ![](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
 [![R-CMD-check](https://github.com/Sciurus365/simlandr/workflows/R-CMD-check/badge.svg)](https://github.com/Sciurus365/simlandr/actions)
@@ -21,17 +21,11 @@ psychological formal models. It can help to:
 
 ## Installation
 
-You can install the released version of simlandr from
-[CRAN](https://CRAN.R-project.org) with:
+You can install the development version from
+[GitHub](https://github.com/) with:
 
 ``` r
-install.packages("simlandr")
-```
-
-And the development version from [GitHub](https://github.com/) with:
-
-``` r
-# install.packages("devtools")
+install.packages("devtools")
 devtools::install_github("Sciurus365/simlandr")
 devtools::install_github("Sciurus365/simlandr", build_vignettes = TRUE) # Use this command if you want to build vignettes
 ```
