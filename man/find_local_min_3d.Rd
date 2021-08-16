@@ -19,6 +19,9 @@ find_local_min_3d(dist, localmin, r, Umax, expand = TRUE, first_called = TRUE)
 
 \item{first_called}{Is this function first called by another function?}
 }
+\value{
+A list with two elements: \code{U}, the potential value of the local minimum, and \code{location}, the position of the local minimum.
+}
 \description{
 Find local minimum of a 3d distribution
 }

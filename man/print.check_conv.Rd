@@ -13,6 +13,9 @@
 
 \item{...}{Not in use.}
 }
+\value{
+The printed result.
+}
 \description{
 Print a `check_conv`
 }

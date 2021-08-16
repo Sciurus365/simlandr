@@ -25,6 +25,9 @@ calculate_barrier_2d_batch(
 
 \item{base}{The base of the log function.}
 }
+\value{
+A \code{barrier_2d_batch} object that contains the batch barrier calculation results.
+}
 \description{
 Calculate barrier from a 2D landscape with multiple simulations
 }

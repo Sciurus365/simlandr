@@ -2,7 +2,7 @@
 % Please edit documentation in R/batch_simulation.R
 \name{print.batch_simulation}
 \alias{print.batch_simulation}
-\title{Print a batch_simulation}
+\title{Print a \code{batch_simulation} object}
 \usage{
 \method{print}{batch_simulation}(x, detail = FALSE, ...)
 }
@@ -13,6 +13,9 @@
 
 \item{...}{Not in use.}
 }
+\value{
+The printed result.
+}
 \description{
-Print a batch_simulation
+Print a \code{batch_simulation} object
 }

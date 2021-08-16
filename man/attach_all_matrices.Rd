@@ -11,6 +11,9 @@ attach_all_matrices(bs, backingpath = "bp")
 
 \item{backingpath}{Passed to \code{\link[bigmemory]{as.big.matrix}}.}
 }
+\value{
+A \code{batch_simulation} object with all \code{hash_big.matrix}es attached.
+}
 \description{
 Attach all matrices in a batch simulation
 }

@@ -11,6 +11,9 @@ get_geom(b, path = TRUE)
 
 \item{path}{Show the lowest elevation path in the graph?}
 }
+\value{
+A \code{ggplot2} geom (formally a \code{LayerInstance} object) that can be added to an existing \code{ggplot}.
+}
 \description{
 This layer can show the saddle point (2d) and the minimal path (3d) on the landscape.
 }

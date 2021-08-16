@@ -12,6 +12,8 @@ add_stage_tag <- function(output, range, var, stage) {
 #' @param sample_perc The percentage of data sample for the initial, middle, and final stage of the simulation.
 #' @param plot_type Which type of plots should be generated? ("bin" or "density")
 #'
+#' @return A \code{check_conv} object that contains the convergence checking result.
+#'
 #' @export
 check_conv <- function(output, vars, sample_perc = 0.2, plot_type = "bin") {
   # check convergence of i in vars; init, mid, final, normalized dist, ...
@@ -51,6 +53,8 @@ check_conv <- function(output, vars, sample_perc = 0.2, plot_type = "bin") {
 #' @param x The object.
 #' @param ask Ask to press enter to see the next plot?
 #' @param ... Not in use.
+#'
+#' @return The printed result.
 #' @method print check_conv
 #' @export
 print.check_conv <- function(x, ask = TRUE, ...) {

@@ -3,7 +3,9 @@
 #' @param l A {landscape} or related project.
 #' @param ... Other parameters.
 #'
-#' @seealso \code{\link{calculate_barrier_2d}}, \code{\link{calculate_barrier_3d}}, \code{\link{calculate_barrier_3d_batch}}
+#' @return A \code{barrier} object that contains the (batch) barrier calculation result(s).
+#'
+#' @seealso \code{\link{calculate_barrier_2d}}, \code{\link{calculate_barrier_2d_batch}}, \code{\link{calculate_barrier_3d}}, \code{\link{calculate_barrier_3d_batch}}, \code{\link{plot.barrier}}
 #' @export
 calculate_barrier <- function(l, ...) {
   UseMethod("calculate_barrier", l)
@@ -46,6 +48,8 @@ calculate_barrier.list <- function(l, ...) {
 #' @param localmin Starting value of finding local minimum.
 #' @param r Searching radius.
 #'
+#' @return A list with two elements: \code{U}, the potential value of the local minimum, and \code{location}, the position of the local minimum.
+#'
 #' @export
 find_local_min_2d <- function(dist, localmin, r) {
   if (!"density" %in% class(dist)) stop("Wrong input. `dist` should be a `density` object.")
@@ -66,6 +70,8 @@ find_local_min_2d <- function(dist, localmin, r) {
 #' @param start_location_value,end_location_value The initial position (in value) for searching the start/end point.
 #' @param start_r,end_r The searching radius for searching the start/end point.
 #' @param base The base of the log function.
+#'
+#' @return A \code{barrier_2d} object that contains the barrier calculation result.
 #'
 #' @export
 calculate_barrier_2d <- function(l, start_location_value = 0, start_r = 0.1, end_location_value = 0.7, end_r = 0.15, base = exp(1)) {
@@ -138,6 +144,8 @@ NULL_path <- function() {
 #' @param expand If the values in the range all equal to \code{Umax}, expand the range or not?
 #' @param first_called Is this function first called by another function?
 #'
+#' @return A list with two elements: \code{U}, the potential value of the local minimum, and \code{location}, the position of the local minimum.
+#'
 #' @export
 find_local_min_3d <- function(dist, localmin, r, Umax, expand = TRUE, first_called = TRUE) {
   if (!is.matrix(dist$z)) stop("Wrong input. `dist` should be a list with x, y, and z, and z should be a matrix.")
@@ -178,6 +186,8 @@ find_local_min_3d <- function(dist, localmin, r, Umax, expand = TRUE, first_call
 #' @param omit_unstable If a state is not stable (the "local minimum" overlaps with the saddle point), omit that state or not?
 #' @param base The base of the log function.
 #'
+#' @return A \code{barrier_3d} object that contains the barrier calculation result.
+#'
 #' @export
 calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.1, end_location_value = c(0.7, 0.6), end_r = 0.15, Umax, expand = TRUE, omit_unstable = FALSE, base = exp(1)) {
   if ("3d_static_landscape" %in% class(l)) {
@@ -203,7 +213,7 @@ calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.
 
     min_path <- min_path_index %>%
       unlist() %>%
-      matrix(ncol = 2, byrow = T) %>%
+      matrix(ncol = 2, byrow = TRUE) %>%
       as.data.frame() %>%
       {
         colnames(.) <- c("x_index", "y_index")
@@ -266,6 +276,7 @@ calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.
 
 #' Get the barrier height from a `barrier` object.
 #' @param b A \code{barrier} object.
+#' @return A vector (for a single barrier calculation result) or a \code{data.frame} (for batch barrier calculation results) that contains the barrier heights on the landscape.
 #'
 #' @export
 get_barrier_height <- function(b) {
@@ -284,9 +295,11 @@ get_barrier_height <- function(b) {
 }
 
 
-#' @describeIn calculate_barrier Plot a `barrier`
+#' Plot the result of a \code{barrier} object
 #' @param x A `barrier` object.
 #' @param ... Not in use.
+#'
+#' @return The plot of the local minimums, the saddle point, and the lowest elevation path.
 #' @export
 plot.barrier <- function(x, ...) {
   x$plot
@@ -298,6 +311,8 @@ plot.barrier <- function(x, ...) {
 #'
 #' @param b A \code{barrier} object.
 #' @param path Show the lowest elevation path in the graph?
+#'
+#' @return A \code{ggplot2} geom (formally a \code{LayerInstance} object) that can be added to an existing \code{ggplot}.
 #'
 #' @export
 get_geom <- function(b, path = TRUE) {

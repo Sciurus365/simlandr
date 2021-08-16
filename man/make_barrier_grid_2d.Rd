@@ -23,6 +23,9 @@ make_barrier_grid_2d(
 
 \item{print_template}{Print a template for \code{df}.}
 }
+\value{
+A \code{barrier_grid_2d} object that specifies the condition for each barrier calculation.
+}
 \description{
 Make a grid for calculating barriers for 2d landscapes
 }

@@ -1,5 +1,12 @@
 * This is the first CRAN release for a new package.
 
+## Resubmission
+This is a resubmission. In this version I have:
+
+* Added the reference of the method in the DESCRIPTION.
+* Checked the functions and converted all `T` and `F` to `TRUE` and `FALSE`.
+* Added the `\value` section for all function documents.
+
 ## Test environments
 
 * local R installation in Windows, R 4.0.5

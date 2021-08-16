@@ -6,7 +6,6 @@
 \alias{calculate_barrier.density}
 \alias{calculate_barrier.3d_static_landscape}
 \alias{calculate_barrier.list}
-\alias{plot.barrier}
 \alias{calculate_barrier.3d_animation_landscape}
 \alias{calculate_barrier.3d_matrix_landscape}
 \alias{calculate_barrier.2d_matrix_landscape}
@@ -24,8 +23,6 @@ calculate_barrier(l, ...)
 
 \method{calculate_barrier}{list}(l, ...)
 
-\method{plot}{barrier}(x, ...)
-
 \method{calculate_barrier}{`3d_animation_landscape`}(l, ...)
 
 \method{calculate_barrier}{`3d_matrix_landscape`}(l, ...)
@@ -35,18 +32,14 @@ calculate_barrier(l, ...)
 \arguments{
 \item{l}{A {landscape} or related project.}
 
-\item{...}{Not in use.}
-
-\item{x}{A `barrier` object.}
+\item{...}{Other parameters.}
+}
+\value{
+A \code{barrier} object that contains the (batch) barrier calculation result(s).
 }
 \description{
 General function for calculating energy barrier
 }
-\section{Methods (by class)}{
-\itemize{
-\item \code{barrier}: Plot a `barrier`
-}}
-
 \seealso{
-\code{\link{calculate_barrier_2d}}, \code{\link{calculate_barrier_3d}}, \code{\link{calculate_barrier_3d_batch}}
+\code{\link{calculate_barrier_2d}}, \code{\link{calculate_barrier_2d_batch}}, \code{\link{calculate_barrier_3d}}, \code{\link{calculate_barrier_3d_batch}}, \code{\link{plot.barrier}}
 }

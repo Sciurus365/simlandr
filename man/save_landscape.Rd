@@ -4,7 +4,7 @@
 \alias{save_landscape}
 \title{Save landscape plots}
 \usage{
-save_landscape(l, path = NULL, selfcontained = F, ...)
+save_landscape(l, path = NULL, selfcontained = FALSE, ...)
 }
 \arguments{
 \item{l}{A landscape object}
@@ -15,6 +15,9 @@ save_landscape(l, path = NULL, selfcontained = F, ...)
 
 \item{...}{Other parameters passed to \code{\link[htmlwidgets]{saveWidget}}
 or \code{\link[ggplot2]{ggsave}}}
+}
+\value{
+The function saves the plot to a specific path. It does not have a return value.
 }
 \description{
 Save landscape plots

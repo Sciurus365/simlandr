@@ -5,14 +5,14 @@
 #' @param adjust,from,to Passed to \code{density}.
 #' @param Umax The maximum displayed value of potential.
 #'
-#' @return A \code{2d_density_landscape} object.
+#' @return A \code{2d_density_landscape} object that describes the landscape of the system, including the smooth distribution and the landscape plot.
 #' @export
 make_2d_density <- function(output, x, adjust = 50, from = -0.1, to = 1, Umax = 5) {
   d <- stats::density(output[, x], adjust = adjust, from = from, to = to)
   p <- data.frame(x = d$x, y = d$y, U = pmin(-log(d$y), Umax)) %>%
     ggplot2::ggplot(mapping = ggplot2::aes(x = x, y = U)) +
     ggplot2::geom_line() +
-    # geom_smooth(se = F) +
+    # geom_smooth(se = FALSE) +
     ggplot2::theme_bw() +
     ggplot2::xlab(x)
 
@@ -21,13 +21,13 @@ make_2d_density <- function(output, x, adjust = 50, from = -0.1, to = 1, Umax = 
   return(result)
 }
 
-#' Make a tidy data frame from smooth 2d distribution matrix
+#' Make a tidy \code{data.frame} from smooth 2d distribution matrix
 #'
 #' @param dist_2d \code{kde2d} distribution.
 #' @param value The value of the variable of interest.
 #' @param var_name The name of the variable.
 #'
-#' @return A tidy data frame.
+#' @return A tidy \code{data.frame}.
 #'
 #' @export
 #'
@@ -53,6 +53,8 @@ make_2d_tidy_dist <- function(dist_2d, value = NULL, var_name = NULL) {
 #'
 #' @param base The base of logarithm
 #'
+#' @return A \code{trans} scale object from the \code{scales} package.
+#'
 #' @export
 reverselog_trans <- function(base = exp(1)) {
   force(base)
@@ -74,7 +76,7 @@ reverselog_trans <- function(base = exp(1)) {
 #' To get a similar output, the `h` is about 50 to 5000 times smaller for \code{\link[ks]{kde}} than \code{\link[MASS]{kde2d}}
 #' @param kde_fun Which to use? Choices: "ks" \code{ks::kde} (default; faster and taking less memory); "MASS" \code{MASS::kde2d}.
 #'
-#' @return A \code{kde2d}-type list.
+#' @return A \code{kde2d}-type list of smooth distribution.
 #' @export
 make_2d_kernel_dist <- function(output, x, y, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h, kde_fun = "ks") {
   if (is.list(output)) output <- output[[1]]
@@ -114,7 +116,7 @@ make_2d_kernel_dist <- function(output, x, y, n = 200, lims = c(-0.1, 1.1, -0.1,
 #' @param Umax The maximum displayed value of potential.
 #' @param n,lims,h,kde_fun Passed to \code{\link{make_2d_kernel_dist}}
 #'
-#' @return A \code{3d_static_landscape}, \code{landscape} object.
+#' @return A \code{3d_static_landscape} object that describes the landscape of the system, including the smooth distribution and the landscape plot.
 #'
 #' @export
 make_3d_static <- function(output, x, y, Umax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 1e-3, kde_fun = "ks") {
@@ -149,7 +151,7 @@ make_3d_static <- function(output, x, y, Umax = 5, n = 200, lims = c(-0.1, 1.1, 
 #' @param n,lims,h Passed to \code{\link[ks]{kde}} (but using the format of \code{\link[MASS]{kde2d}} to make it consistent across functions).
 #' For \code{ks::kde}, \code{H = diag(h, 2, 2)}.
 #'
-#' @return A \code{MASS::kde2d}-type list.
+#' @return A \code{MASS::kde2d}-type list of smooth distribution.
 #' @export
 make_3d_kernel_dist <- function(output, x, y, z, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1, -0.1, 1.1), h) {
   if (is.list(output)) output <- output[[1]]
@@ -174,13 +176,13 @@ make_3d_kernel_dist <- function(output, x, y, z, n = 200, lims = c(-0.1, 1.1, -0
   return(result)
 }
 
-#' Make a tidy data frame from smooth 3d distribution matrix
+#' Make a tidy \code{data.frame} from smooth 3d distribution matrix
 #'
 #' @param dist_3d \code{kde2d}-type distribution.
 #' @param value The value of the variable of interest.
 #' @param var_name The name of the variable.
 #'
-#' @return A tidy data frame.
+#' @return A tidy \code{data.frame}.
 #'
 #' @export
 #'
@@ -211,7 +213,7 @@ make_3d_tidy_dist <- function(dist_3d, value = NULL, var_name = NULL) {
 #' @param Umax The maximum displayed value of potential.
 #' @param n,lims,h Passed to \code{\link{make_3d_kernel_dist}}
 #'
-#' @return A \code{4d_static_landscape}, \code{landscape} object.
+#' @return A \code{4d_static_landscape} object that describes the landscape of the system, including the smoothed distribution and the landscape plot.
 #'
 #' @export
 make_4d_static <- function(output, x, y, z, Umax = 5, n = 50, lims = c(-0.1, 1.1, -0.1, 1.1, -0.1, 1.1), h = 1e-3) {

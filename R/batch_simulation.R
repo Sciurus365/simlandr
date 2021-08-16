@@ -1,7 +1,7 @@
 #' Create and modify variable sets for batch simulation
 #'
 #' A variable set contains the descriptions of the relevant variables in a
-#' batch simulation. Use \code{new_var_set} to create an S3 \code{var_set}
+#' batch simulation. Use \code{new_var_set} to create a \code{var_set}
 #' object, and use \code{add_var} to add descriptions of variables.
 #'
 #' @describeIn new_var_set Create a \code{var_set}.
@@ -11,6 +11,8 @@
 #' in the simulation function
 #' @param start,end,by The data points where you want to test the variables.
 #' Passed to \code{seq}.
+#'
+#' @return A \code{var_set} object.
 #'
 #' @examples
 #' test <- new_var_set()
@@ -39,19 +41,24 @@ add_var <- function(var_set, par_name, var_name, start, end, by) {
   return(var_set)
 }
 
-#' @describeIn new_var_set The number of variables.
+#' The number of variables in a \code{var_set}.
+#' @param var_set A \code{var_set} object.
+#' @return An integer.
 #' @export
 nvar <- function(var_set) attr(var_set, "nvar")
 
-#' @describeIn new_var_set The number of parameters.
+#' The number of parameters in a \code{var_set}.
+#' @param var_set A \code{var_set} object.
+#' @return An integer.
 #' @export
 npar <- function(var_set) attr(var_set, "npar")
 
-#' Print a var_set
+#' Print a \code{var_set} object.
 #'
 #' @param x The object.
 #' @param detail Do you want to print the object details as a full list?
 #' @param ... Not in use.
+#' @return The printed result.
 #' @method print var_set
 #' @export
 print.var_set <- function(x, detail = FALSE, ...) {
@@ -68,6 +75,9 @@ print.var_set <- function(x, detail = FALSE, ...) {
 #'
 #' @param vec A vector of values.
 #' @param struct A list with a certain structure.
+#'
+#' @return A \code{var_list} object.
+#' @seealso \code{\link{modified_simulation}}
 #'
 #' @export
 fill_in_struct <- function(vec, struct) {
@@ -121,9 +131,10 @@ make_var_grid <- function(var_set) {
   return(result)
 }
 
-#' Print a var_grid
+#' Print a \code{var_grid} object
 #'
 #' @inheritParams print.var_set
+#' @return The printed result.
 #' @method print var_grid
 #' @export
 print.var_grid <- function(x, detail = FALSE, ...) {
@@ -215,8 +226,9 @@ batch_simulation <- function(var_grid, sim_fun, default_list, bigmemory = TRUE) 
   return(result)
 }
 
-#' Print a batch_simulation
+#' Print a \code{batch_simulation} object
 #' @inheritParams print.var_set
+#' @return The printed result.
 #' @method print batch_simulation
 #' @export
 print.batch_simulation <- function(x, detail = FALSE, ...) {
@@ -233,6 +245,8 @@ print.batch_simulation <- function(x, detail = FALSE, ...) {
 #'
 #' @param bs A \code{\link{batch_simulation}} object.
 #' @param backingpath Passed to \code{\link[bigmemory]{as.big.matrix}}.
+#'
+#' @return A \code{batch_simulation} object with all \code{hash_big.matrix}es attached.
 #' @export
 attach_all_matrices <- function(bs, backingpath = "bp") {
   if (!"batch_simulation" %in% class(bs)) stop("Wrong input class. bs should be a `batch_simulation`.")

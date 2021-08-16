@@ -2,7 +2,7 @@
 % Please edit documentation in R/batch_simulation.R
 \name{print.var_set}
 \alias{print.var_set}
-\title{Print a var_set}
+\title{Print a \code{var_set} object.}
 \usage{
 \method{print}{var_set}(x, detail = FALSE, ...)
 }
@@ -13,6 +13,9 @@
 
 \item{...}{Not in use.}
 }
+\value{
+The printed result.
+}
 \description{
-Print a var_set
+Print a \code{var_set} object.
 }
