@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simlandr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1.9000</span>
       </span>
     </div>
 
@@ -107,7 +107,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Sciurus365/simlandr">simlandr</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://sciurus365.github.io/simlandr/">simlandr</a></span><span class="op">)</span></code></pre></div>
 <p>An important property of the states in a landscape is their stability, characterized by the barrier height between these states and other adjacent states. <code>simlandr</code> also provides tools to calculate the barrier heights from landscapes.</p>
 <p>You can use the general function <code><a href="../reference/calculate_barrier.html">calculate_barrier()</a></code> to calculate the barrier for most landscapes. There are also specific <code>calculate_barrier_*()</code> functions available. The output of these functions is a `barrier object.</p>
 <p>The <code>barrier</code> objects contain the potential function and the position of both states and the saddle point. For 3D landscapes, the lowest elevation path (LEP) is also provided. <code>barrier</code>s can also be calculated for landscapes from multiple simulations. In this case, remember to set <code>individual_landscape = TRUE</code> in landscape construction functions.</p>

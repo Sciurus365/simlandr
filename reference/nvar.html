@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Make a grid for calculating barriers for 2d landscapes — make_barrier_grid_2d • simlandr</title>
+<title>The number of variables in a var_set. — nvar • simlandr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Make a grid for calculating barriers for 2d landscapes — make_barrier_grid_2d" />
-<meta property="og:description" content="Make a grid for calculating barriers for 2d landscapes" />
+<meta property="og:title" content="The number of variables in a var_set. — nvar" />
+<meta property="og:description" content="The number of variables in a var_set." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -137,49 +137,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Make a grid for calculating barriers for 2d landscapes</h1>
-    <small class="dont-index">Source: <a href='https://github.com/Sciurus365/simlandr/blob/master/R/barrier_batch.R'><code>R/barrier_batch.R</code></a></small>
-    <div class="hidden name"><code>make_barrier_grid_2d.Rd</code></div>
+    <h1>The number of variables in a <code>var_set</code>.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/Sciurus365/simlandr/blob/master/R/batch_simulation.R'><code>R/batch_simulation.R</code></a></small>
+    <div class="hidden name"><code>nvar.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Make a grid for calculating barriers for 2d landscapes</p>
+    <p>The number of variables in a <code>var_set</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>make_barrier_grid_2d</span><span class='op'>(</span>
-  <span class='va'>vg</span>,
-  start_location_value <span class='op'>=</span> <span class='fl'>0</span>,
-  start_r <span class='op'>=</span> <span class='fl'>0.1</span>,
-  end_location_value <span class='op'>=</span> <span class='fl'>0.7</span>,
-  end_r <span class='op'>=</span> <span class='fl'>0.15</span>,
-  df <span class='op'>=</span> <span class='cn'>NULL</span>,
-  print_template <span class='op'>=</span> <span class='cn'>FALSE</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>nvar</span><span class='op'>(</span><span class='va'>var_set</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>vg</th>
-      <td><p>A <code>var_grid</code> object.</p></td>
-    </tr>
-    <tr>
-      <th>start_location_value, start_r, end_location_value, end_r</th>
-      <td><p>Default values for finding local minimum. See <code><a href='calculate_barrier_3d_batch.html'>calculate_barrier_3d_batch</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>df</th>
-      <td><p>A data frame for the variables. Use <code>print_template = TRUE</code> to get a template.</p></td>
-    </tr>
-    <tr>
-      <th>print_template</th>
-      <td><p>Print a template for <code>df</code>.</p></td>
+      <th>var_set</th>
+      <td><p>A <code>var_set</code> object.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>barrier_grid_2d</code> object that specifies the condition for each barrier calculation.</p>
+    <p>An integer.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

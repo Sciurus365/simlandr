@@ -48,7 +48,7 @@
 
 <meta property="og:title" content="Create and modify variable sets for batch simulation — new_var_set" />
 <meta property="og:description" content="A variable set contains the descriptions of the relevant variables in a
-batch simulation. Use new_var_set to create an S3 var_set
+batch simulation. Use new_var_set to create a var_set
 object, and use add_var to add descriptions of variables." />
 <meta property="og:image" content="/logo.png" />
 
@@ -82,7 +82,7 @@ object, and use add_var to add descriptions of variables." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simlandr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1.9000</span>
       </span>
     </div>
 
@@ -146,17 +146,13 @@ object, and use add_var to add descriptions of variables." />
 
     <div class="ref-description">
     <p>A variable set contains the descriptions of the relevant variables in a
-batch simulation. Use <code>new_var_set</code> to create an S3 <code>var_set</code>
+batch simulation. Use <code>new_var_set</code> to create a <code>var_set</code>
 object, and use <code>add_var</code> to add descriptions of variables.</p>
     </div>
 
     <pre class="usage"><span class='fu'>new_var_set</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>add_var</span><span class='op'>(</span><span class='va'>var_set</span>, <span class='va'>par_name</span>, <span class='va'>var_name</span>, <span class='va'>start</span>, <span class='va'>end</span>, <span class='va'>by</span><span class='op'>)</span>
-
-<span class='fu'>nvar</span><span class='op'>(</span><span class='va'>var_set</span><span class='op'>)</span>
-
-<span class='fu'>npar</span><span class='op'>(</span><span class='va'>var_set</span><span class='op'>)</span></pre>
+<span class='fu'>add_var</span><span class='op'>(</span><span class='va'>var_set</span>, <span class='va'>par_name</span>, <span class='va'>var_name</span>, <span class='va'>start</span>, <span class='va'>end</span>, <span class='va'>by</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -177,14 +173,15 @@ Passed to <code>seq</code>.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A <code>var_set</code> object.</p>
     <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
     
 <ul>
 <li><p><code>new_var_set</code>: Create a <code>var_set</code>.</p></li>
 <li><p><code>add_var</code>: Add a variable to the <code>var_set</code>.</p></li>
-<li><p><code>nvar</code>: The number of variables.</p></li>
-<li><p><code>npar</code>: The number of parameters.</p></li>
 </ul>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
