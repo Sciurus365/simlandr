@@ -2,7 +2,7 @@
 #'
 #' @param bs A \code{batch_simulation} object created by \code{\link{batch_simulation}.}
 #' @param x,y,fr The names of the target variables.
-#' \code{fr} corresponds to the \code{frame} parameter in plotly.
+#' \code{fr} corresponds to the \code{frame} parameter in 'plotly'.
 #' @param Umax The maximum displayed value of potential.
 #' @param n,lims,h,kde_fun Passed to \code{make_2d_kernel_dist}
 #' @param individual_landscape Make individual landscape for each simulation?

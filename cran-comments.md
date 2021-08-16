@@ -3,9 +3,9 @@
 ## Resubmission
 This is a resubmission. In this version I have:
 
-* Added the reference of the method in the DESCRIPTION.
+* Added some references of the method in the DESCRIPTION.
 * Checked the functions and converted all `T` and `F` to `TRUE` and `FALSE`.
-* Added the `\value` section for all function documents.
+* Added the `\value` section for all exported functions.
 
 ## Test environments
 
