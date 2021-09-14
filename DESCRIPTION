@@ -27,7 +27,7 @@ Imports:
     gganimate,
     forcats,
     rlang
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 URL: https://sciurus365.github.io/simlandr/, https://github.com/Sciurus365/simlandr
 BugReports: https://github.com/Sciurus365/simlandr/issues
 Suggests: 
