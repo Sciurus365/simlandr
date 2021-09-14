@@ -164,30 +164,6 @@ modified_simulation <- function(sim_fun, var_list, default_list, bigmemory = TRU
 }
 
 
-#' A simple simulation function for testing
-#'
-#' @param par1,par2 Two parameters. \code{par1} contains \code{var1};
-#' \code{par2} contains \code{var2} and \code{var3}.
-#' @param length The length of simulation.
-#'
-#' @return A matrix of simulation results.
-#'
-#' @seealso \code{\link{batch_simulation}} for a concrete example.
-#'
-#' @export
-#'
-sim_fun_test <- function(par1, par2, length = 1000) {
-  output <- matrix(nrow = length, ncol = 3)
-  colnames(output) <- c("out1", "out2", "out3")
-  output[1, ] <- c(par1$var1, par2$var2, rnorm(1, sd = 0.01))
-  for (i in 2:length) {
-    output[i, 1] <- 0.5 * output[i - 1, 1] + output[i - 1, 2] + par2$var3 + par1$var1 * par2$var2
-    output[i, 2] <- -0.5 * output[i - 1, 1] + output[i - 1, 2] + par2$var3
-    output[i, 3] <- output[i - 1, 3] + rnorm(1, sd = 0.01)
-  }
-  return(output)
-}
-
 #' Do the batch simulation
 #'
 #' This is the main function for the batch simulation.
