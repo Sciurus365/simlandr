@@ -5,9 +5,9 @@
 \alias{batch_simulation}
 \title{Do the batch simulation}
 \usage{
-modified_simulation(sim_fun, var_list, default_list, bigmemory = TRUE)
+modified_simulation(sim_fun, var_list, default_list, bigmemory = TRUE, ...)
 
-batch_simulation(var_grid, sim_fun, default_list, bigmemory = TRUE)
+batch_simulation(var_grid, sim_fun, default_list, bigmemory = TRUE, ...)
 }
 \arguments{
 \item{sim_fun}{The simulation function. See \code{\link{sim_fun_test}}
@@ -18,6 +18,8 @@ for an example.}
 \item{default_list}{A list of default values for \code{sim_fun}.}
 
 \item{bigmemory}{Use \code{\link{hash_big.matrix-class}} to store large matrices?}
+
+\item{...}{Other parameters passed to \code{sim_fun}}
 
 \item{var_grid}{A \code{var_grid} object. See \code{\link{make_var_grid}}.}
 }

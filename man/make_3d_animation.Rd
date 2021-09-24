@@ -22,7 +22,7 @@ make_3d_animation(
 \item{bs}{A \code{batch_simulation} object created by \code{\link{batch_simulation}.}}
 
 \item{x, y, fr}{The names of the target variables.
-\code{fr} corresponds to the \code{frame} parameter in plotly.}
+\code{fr} corresponds to the \code{frame} parameter in 'plotly'.}
 
 \item{Umax}{The maximum displayed value of potential.}
 
