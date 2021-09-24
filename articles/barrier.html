@@ -131,7 +131,6 @@
 <span class="co">#&gt; Done!</span>
 <span class="co">#&gt; Making the 2d plot...</span>
 <span class="co">#&gt; Done!</span>
-
 <span class="va">batch_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_var_set.html">new_var_set</a></span><span class="op">(</span><span class="op">)</span>
 <span class="va">batch_test</span> <span class="op">&lt;-</span> <span class="va">batch_test</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/new_var_set.html">add_var</a></span><span class="op">(</span><span class="st">"par2"</span>, <span class="st">"var3"</span>, <span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">0.1</span><span class="op">)</span>
@@ -205,11 +204,9 @@
 <span class="co">#&gt; $location</span>
 <span class="co">#&gt;      x_index      x_value </span>
 <span class="co">#&gt; 267.00000000   0.08219178</span>
-
 <span class="fu"><a href="../reference/get_barrier_height.html">get_barrier_height</a></span><span class="op">(</span><span class="va">b_single_2d</span><span class="op">)</span>
 <span class="co">#&gt; delta_U_start   delta_U_end </span>
 <span class="co">#&gt;     0.4459061     0.4442392</span>
-
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">l_single_2d</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/get_geom.html">get_geom</a></span><span class="op">(</span><span class="va">b_single_2d</span><span class="op">)</span></code></pre></div>
 <p><img src="barrier_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 </div>
@@ -287,8 +284,7 @@
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">l_batch_3d_a</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/get_geom.html">get_geom</a></span><span class="op">(</span><span class="va">b_batch_3d_a</span><span class="op">)</span></code></pre></div>
 <p><img src="barrier_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="co">## This barrier calculation doesn't find proper local minimums for several landscapes. Specify the searching parameters per landscape manually.</span>
+<code class="sourceCode R"><span class="co">## This barrier calculation doesn't find proper local minimums for several landscapes. Specify the searching parameters per landscape manually.</span>
 <span class="co">## First, print a template of the data format.</span>
 
 <span class="fu"><a href="../reference/make_barrier_grid_3d.html">make_barrier_grid_3d</a></span><span class="op">(</span><span class="va">batch_test_grid</span>, start_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, end_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>, start_r <span class="op">=</span> <span class="fl">0.3</span>, end_r <span class="op">=</span> <span class="fl">0.6</span>, print_template <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
@@ -306,7 +302,6 @@
 <span class="co">#&gt; 4      0.3  0.3                 0, 0 0.3, 0.3               2, 1 0.6, 0.6</span>
 <span class="co">#&gt; 5      0.4  0.4                 0, 0 0.3, 0.3               2, 1 0.6, 0.6</span>
 <span class="co">#&gt; 6      0.5  0.5                 0, 0 0.3, 0.3               2, 1 0.6, 0.6</span>
-
 <span class="co">## Then, modify the parameters as you want, and send this `barrier_grid` to the barrier calculation function.</span>
 <span class="va">b_batch_3d_a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calculate_barrier_3d_batch.html">calculate_barrier_3d_batch</a></span><span class="op">(</span>
   <span class="va">l_batch_3d_a</span>,
@@ -338,8 +333,7 @@
 <span class="co">#&gt; the group aesthetic?</span></code></pre></div>
 <p><img src="barrier_files/figure-html/unnamed-chunk-7-2.png" width="700"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="co">## Now it works well.</span></code></pre></div>
+<code class="sourceCode R"><span class="co">## Now it works well.</span></code></pre></div>
 </div>
   </div>
 
