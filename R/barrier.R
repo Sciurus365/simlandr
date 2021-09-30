@@ -96,8 +96,8 @@ calculate_barrier_2d <- function(l, start_location_value = 0, start_r = 0.1, end
 
   p <- ggplot2::ggplot() +
     ggplot2::geom_point(mapping = ggplot2::aes(x = d$x[s_location_x_index], y = s_U), color = "red") +
-    ggplot2::geom_point(mapping = ggplot2::aes(x = local_min_start$location["x_value"], y = local_min_start$U)) +
-    ggplot2::geom_point(mapping = ggplot2::aes(x = local_min_end$location["x_value"], y = local_min_end$U)) +
+    ggplot2::geom_point(mapping = ggplot2::aes(x = local_min_start$location["x_value"], y = local_min_start$U), fill = "white", shape = 21) +
+    ggplot2::geom_point(mapping = ggplot2::aes(x = local_min_end$location["x_value"], y = local_min_end$U), fill = "white", shape = 21) +
     ggplot2::labs(x = ifelse(!is.character(l$x), l$x, "x"), y = "U")
   result <- list(
     local_min_start = local_min_start,
@@ -108,8 +108,8 @@ calculate_barrier_2d <- function(l, start_location_value = 0, start_r = 0.1, end
     plot = p,
     geom = list(
       ggplot2::geom_point(mapping = ggplot2::aes(x = d$x[s_location_x_index], y = s_U), color = "red"),
-      ggplot2::geom_point(mapping = ggplot2::aes(x = local_min_start$location["x_value"], y = local_min_start$U), color = "white"),
-      ggplot2::geom_point(mapping = ggplot2::aes(x = local_min_end$location["x_value"], y = local_min_end$U), color = "white")
+      ggplot2::geom_point(mapping = ggplot2::aes(x = local_min_start$location["x_value"], y = local_min_start$U), fill = "white", shape = 21),
+      ggplot2::geom_point(mapping = ggplot2::aes(x = local_min_end$location["x_value"], y = local_min_end$U), fill = "white", shape = 21)
     ),
     x = l$x, Umax = l$Umax
   )

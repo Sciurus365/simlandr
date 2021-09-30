@@ -104,13 +104,13 @@ calculate_barrier_2d_batch <- function(l, bg = NULL, start_location_value = 0, s
 
   p <- ggplot2::ggplot() +
     ggplot2::labs(x = l$x, y = l$y) +
-    ggplot2::geom_point(data = point_all, ggplot2::aes(x = start_x, y = start_U)) +
-    ggplot2::geom_point(data = point_all, ggplot2::aes(x = end_x, y = end_U)) +
+    ggplot2::geom_point(data = point_all, ggplot2::aes(x = start_x, y = start_U), fill = "white", shape = 21) +
+    ggplot2::geom_point(data = point_all, ggplot2::aes(x = end_x, y = end_U), fill = "white", shape = 21) +
     ggplot2::geom_point(data = point_all, ggplot2::aes(x = saddle_x, y = saddle_U), color = "red")
 
   geom <- list(
-    ggplot2::geom_point(data = point_all, ggplot2::aes(x = start_x, y = start_U), color = "white"),
-    ggplot2::geom_point(data = point_all, ggplot2::aes(x = end_x, y = end_U), color = "white"),
+    ggplot2::geom_point(data = point_all, ggplot2::aes(x = start_x, y = start_U), fill = "white", shape = 21),
+    ggplot2::geom_point(data = point_all, ggplot2::aes(x = end_x, y = end_U), fill = "white", shape = 21),
     ggplot2::geom_point(data = point_all, ggplot2::aes(x = saddle_x, y = saddle_U), color = "red")
   )
   rows_labeller <- function(x) paste0(l$rows, ": ", x)
