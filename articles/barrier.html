@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simlandr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
       </span>
     </div>
 
@@ -113,7 +113,7 @@
 <p>The <code>barrier</code> objects contain the potential function and the position of both states and the saddle point. For 3D landscapes, the lowest elevation path (LEP) is also provided. <code>barrier</code>s can also be calculated for landscapes from multiple simulations. In this case, remember to set <code>individual_landscape = TRUE</code> in landscape construction functions.</p>
 <p>The local minimums are searched in a square space around a given point. The point with the lowest potential value in the given region is set as the position of the stable state. If all the potential values in the region are equal to <code>Umax</code> (which represents ~<code>Inf</code>), the barrier calculation functions will expand the searching area automatically. Use <code>expand = FALSE</code> to disable this feature.</p>
 <p>For landscapes from multiple simulations, the searching regions for their starting and ending points can be different. <code>simlandr</code> provides <code><a href="../reference/make_barrier_grid_2d.html">make_barrier_grid_2d()</a></code> and <code><a href="../reference/make_barrier_grid_3d.html">make_barrier_grid_3d()</a></code> functions to help you put these settings into a data frame with the correct format.</p>
-<p>The <code>barrier</code> objects also provide a <code>ggplot</code> geom object that can be added to the landscape plots to show the starting (white), end (white), and saddle (red) points, as well as the LEP (white line, only for 3d landscapes). Use <code><a href="../reference/get_geom.html">get_geom(b)</a></code> to access those geoms.</p>
+<p>The <code>barrier</code> objects also provide a <code>ggplot</code> geom object that can be added to the landscape plots to show the starting (white), end (white), and saddle (red) points, as well as the LEP (white line, only for 3d landscapes). Use <code>get_geom(b)</code> to access those geoms.</p>
 <p>Below are examples of different barrier calculations. See the help documents of those functions for further details.</p>
 <hr>
 <p>Prepare data sets and landscapes (see <code><a href="../articles/landscape.html">vignette("landscape")</a></code>)</p>
@@ -133,7 +133,7 @@
 <span class="co">#&gt; Done!</span>
 
 <span class="va">batch_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_var_set.html">new_var_set</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">batch_test</span> <span class="op">&lt;-</span> <span class="va">batch_test</span> <span class="op">%&gt;%</span>
+<span class="va">batch_test</span> <span class="op">&lt;-</span> <span class="va">batch_test</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/new_var_set.html">add_var</a></span><span class="op">(</span><span class="st">"par2"</span>, <span class="st">"var3"</span>, <span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">0.1</span><span class="op">)</span>
 <span class="va">batch_test_grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_var_grid.html">make_var_grid</a></span><span class="op">(</span><span class="va">batch_test</span><span class="op">)</span>
 <span class="va">batch_test_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/modified_simulation.html">batch_simulation</a></span><span class="op">(</span><span class="va">batch_test_grid</span>, <span class="va">sim_fun_test</span>,
@@ -144,8 +144,8 @@
   bigmemory <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span>
 <span class="va">batch_test2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_var_set.html">new_var_set</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">batch_test2</span> <span class="op">&lt;-</span> <span class="va">batch_test2</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/new_var_set.html">add_var</a></span><span class="op">(</span><span class="st">"par1"</span>, <span class="st">"var1"</span>, <span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">batch_test2</span> <span class="op">&lt;-</span> <span class="va">batch_test2</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/new_var_set.html">add_var</a></span><span class="op">(</span><span class="st">"par1"</span>, <span class="st">"var1"</span>, <span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span><span class="op">)</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/new_var_set.html">add_var</a></span><span class="op">(</span><span class="st">"par2"</span>, <span class="st">"var2"</span>, <span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span><span class="op">)</span>
 <span class="va">batch_test_grid2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_var_grid.html">make_var_grid</a></span><span class="op">(</span><span class="va">batch_test2</span><span class="op">)</span>
 <span class="va">batch_test_result2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/modified_simulation.html">batch_simulation</a></span><span class="op">(</span><span class="va">batch_test_grid2</span>, <span class="va">sim_fun_test</span>,
