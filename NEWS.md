@@ -1,4 +1,4 @@
-# Development version
+# simlandr 0.1.2
 
 -   Improved the manual.
 -   Added `sim_fun_test2` function for testing.

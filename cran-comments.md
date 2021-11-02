@@ -1,18 +1,9 @@
-* This is the first CRAN release for a new package.
-
-## Resubmission
-This is a resubmission. In this version I have:
-
-* Added some references of the method in the DESCRIPTION.
-* Checked the functions and converted all `T` and `F` to `TRUE` and `FALSE`.
-* Added the `\value` section for all exported functions.
-
 ## Test environments
 
-* local R installation in Windows, R 4.0.5
-* windows-latest (release, on Github R-CMD-Check), R 4.1.0
-* macOS-latest (release, on Github R-CMD-Check), R 4.1.0
-* ubuntu-20.04 (release, on Github R-CMD-Check), R 4.1.0
+* local R installation in Windows, R 4.1.1
+* windows-latest (release, on Github R-CMD-Check), R 4.1.1
+* macOS-latest (release, on Github R-CMD-Check), R 4.1.1
+* ubuntu-20.04 (release, on Github R-CMD-Check), R 4.1.1
 * CRAN win-builder, R-devel
 
 ## R CMD check results
@@ -21,7 +12,7 @@ This is a resubmission. In this version I have:
 
 There was 1 NOTE:
 
-* installed size is  6.3Mb
+* installed size is  6.4Mb
   sub-directories of 1Mb or more:
-        doc   5.7Mb
+        doc   5.8Mb
   This is because the vignettes contain several plots. Because producing pictures is a very important utility of this package, it is not feasible to delete the plots.

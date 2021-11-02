@@ -27,7 +27,7 @@ The landscape function is calculated based on the steady-state distribution of t
 
 $$U = -\ln P_\textrm{SS}$$
 
-My colleagues and I are writing a paper about the detail of this method. I will put the link here as soon as we finish that.
+My colleagues and I recently wrote an article about the theoretical background of this method. You can read the preprint at https://psyarxiv.com/49xyg/.
 
 `simlandr` provides a set of tools to construct 2d, 3d, and 4d landscapes from single or multiple simulation results. These methods will be illustrated in the following sections.
 
