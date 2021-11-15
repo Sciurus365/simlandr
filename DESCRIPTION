@@ -26,7 +26,9 @@ Imports:
     ks,
     gganimate,
     forcats,
-    rlang
+    rlang,
+    lifecycle,
+    progress
 RoxygenNote: 7.1.2
 URL: https://sciurus365.github.io/simlandr/, https://github.com/Sciurus365/simlandr
 BugReports: https://github.com/Sciurus365/simlandr/issues
@@ -35,3 +37,4 @@ Suggests:
     rmarkdown,
     webshot
 VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)

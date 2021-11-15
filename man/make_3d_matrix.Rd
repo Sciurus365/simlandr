@@ -19,19 +19,19 @@ make_3d_matrix(
 )
 }
 \arguments{
-\item{bs}{A \code{batch_simulation} object created by \code{\link{batch_simulation}.}}
+\item{bs}{A \code{batch_simulation} object created by \verb{[batch_simulation].}}
 
 \item{x, y, rows, cols}{The names of the target variables.
-If `rows` is `NULL`, only a vector of graphs will be generated.}
+If \code{rows} is \code{NULL}, only a vector of graphs will be generated.}
 
 \item{Umax}{The maximum displayed value of potential.}
 
-\item{n, lims, h, kde_fun}{Passed to \code{\link{make_2d_kernel_dist}}}
+\item{n, lims, h, kde_fun}{Passed to \code{\link[=make_2d_kernel_dist]{make_2d_kernel_dist()}}}
 
 \item{individual_landscape}{Make individual landscape for each simulation?}
 }
 \value{
-A \code{3d_matrix_landscape} object that describes the landscape of the system, including the smoothed distribution and the landscape plot.
+A \verb{3d_matrix_landscape} object that describes the landscape of the system, including the smoothed distribution and the landscape plot.
 }
 \description{
 (Note: a matrix of interactive maps is currently not supported.)

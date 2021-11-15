@@ -18,12 +18,12 @@ calculate_barrier.2d_matrix_landscape <- function(l, ...) {
 
 #' Make a grid for calculating barriers for 2d landscapes
 #'
-#' @param vg A \code{var_grid} object.
-#' @param start_location_value,start_r,end_location_value,end_r Default values for finding local minimum. See \code{\link{calculate_barrier_3d_batch}}.
-#' @param df A data frame for the variables. Use \code{print_template = TRUE} to get a template.
-#' @param print_template Print a template for \code{df}.
+#' @param vg A `var_grid` object.
+#' @param start_location_value,start_r,end_location_value,end_r Default values for finding local minimum. See [calculate_barrier_3d_batch()].
+#' @param df A data frame for the variables. Use `print_template = TRUE` to get a template.
+#' @param print_template Print a template for `df`.
 #'
-#' @return A \code{barrier_grid_2d} object that specifies the condition for each barrier calculation.
+#' @return A `barrier_grid_2d` object that specifies the condition for each barrier calculation.
 #'
 #' @export
 make_barrier_grid_2d <- function(vg, start_location_value = 0, start_r = 0.1, end_location_value = 0.7, end_r = 0.15, df = NULL, print_template = FALSE) {
@@ -51,13 +51,13 @@ make_barrier_grid_2d <- function(vg, start_location_value = 0, start_r = 0.1, en
 
 #' Calculate barrier from a 2D landscape with multiple simulations
 #'
-#' @param l A \code{2d_animation_landscape} (not implemented yet) or a \code{2d_matrix_landscape}.
-#' @param bg A \code{barrier_grid_3d} object if you want to use different parameters for each condition. Otherwise \code{NULL}.
+#' @param l A `2d_animation_landscape` (not implemented yet) or a `2d_matrix_landscape`.
+#' @param bg A `barrier_grid_3d` object if you want to use different parameters for each condition. Otherwise `NULL`.
 #' @param start_location_value,end_location_value The initial position (in value) for searching the start/end point.
 #' @param start_r,end_r The searching (L1) radius for searching the start/end point.
 #' @param base The base of the log function.
 #'
-#' @return A \code{barrier_2d_batch} object that contains the batch barrier calculation results.
+#' @return A `barrier_2d_batch` object that contains the batch barrier calculation results.
 #'
 #' @export
 calculate_barrier_2d_batch <- function(l, bg = NULL, start_location_value = 0, start_r = 0.1, end_location_value = 0.7, end_r = 0.15, base = exp(1)) {
@@ -137,12 +137,12 @@ calculate_barrier_2d_batch <- function(l, bg = NULL, start_location_value = 0, s
 
 #' Make a grid for calculating barriers for 3d landscapes
 #'
-#' @param vg A \code{var_grid} object.
-#' @param start_location_value,start_r,end_location_value,end_r Default values for finding local minimum. See \code{\link{calculate_barrier_3d_batch}}.
-#' @param df A data frame for the variables. Use \code{print_template = TRUE} to get a template.
-#' @param print_template Print a template for \code{df}.
+#' @param vg A `var_grid` object.
+#' @param start_location_value,start_r,end_location_value,end_r Default values for finding local minimum. See [calculate_barrier_3d_batch()].
+#' @param df A data frame for the variables. Use `print_template = TRUE` to get a template.
+#' @param print_template Print a template for `df`.
 #'
-#' @return A \code{barrier_grid_3d} object that specifies the condition for each barrier calculation.
+#' @return A `barrier_grid_3d` object that specifies the condition for each barrier calculation.
 #'
 #' @export
 make_barrier_grid_3d <- function(vg, start_location_value = c(0, 0), start_r = 0.1, end_location_value = c(0.7, 0.6), end_r = 0.15, df = NULL, print_template = FALSE) {
@@ -173,16 +173,16 @@ make_barrier_grid_3d <- function(vg, start_location_value = c(0, 0), start_r = 0
 
 #' Calculate barrier from a 3D landscape with multiple simulations
 #'
-#' @param l A \code{3d_animation_landscape} or a \code{3d_matrix_landscape}.
-#' @param bg A \code{barrier_grid_3d} object if you want to use different parameters for each condition. Otherwise \code{NULL}.
+#' @param l A `3d_animation_landscape` or a `3d_matrix_landscape`.
+#' @param bg A `barrier_grid_3d` object if you want to use different parameters for each condition. Otherwise `NULL`.
 #' @param start_location_value,end_location_value The initial position (in value) for searching the start/end point.
 #' @param start_r,end_r The searching (L1) radius for searching the start/end point.
 #' @param Umax The highest possible value of the potential function.
-#' @param expand If the values in the range all equal to \code{Umax}, expand the range or not?
+#' @param expand If the values in the range all equal to `Umax`, expand the range or not?
 #' @param omit_unstable If a state is not stable (the "local minimum" overlaps with the saddle point), omit that state or not?
 #' @param base The base of the log function.
 #'
-#' @return A \code{barrier_3d_batch} object that contains the batch barrier calculation results.
+#' @return A `barrier_3d_batch` object that contains the batch barrier calculation results.
 #'
 #' @export
 calculate_barrier_3d_batch <- function(l, bg = NULL, start_location_value = c(0, 0), start_r = 0.1, end_location_value = c(0.7, 0.6), end_r = 0.15, Umax, expand = TRUE, omit_unstable = FALSE, base = exp(1)) {

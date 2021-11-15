@@ -2,10 +2,10 @@
 #'
 #' @param output A matrix of simulation output.
 #' @param x The name of the target variable.
-#' @param adjust,from,to Passed to \code{density}.
+#' @param adjust,from,to Passed to `density`.
 #' @param Umax The maximum displayed value of potential.
 #'
-#' @return A \code{2d_density_landscape} object that describes the landscape of the system, including the smooth distribution and the landscape plot.
+#' @return A `2d_density_landscape` object that describes the landscape of the system, including the smooth distribution and the landscape plot.
 #' @export
 make_2d_density <- function(output, x, adjust = 50, from = -0.1, to = 1, Umax = 5) {
   d <- stats::density(output[, x], adjust = adjust, from = from, to = to)
@@ -21,13 +21,13 @@ make_2d_density <- function(output, x, adjust = 50, from = -0.1, to = 1, Umax = 
   return(result)
 }
 
-#' Make a tidy \code{data.frame} from smooth 2d distribution matrix
+#' Make a tidy `data.frame` from smooth 2d distribution matrix
 #'
-#' @param dist_2d \code{kde2d} distribution.
+#' @param dist_2d `kde2d` distribution.
 #' @param value The value of the variable of interest.
 #' @param var_name The name of the variable.
 #'
-#' @return A tidy \code{data.frame}.
+#' @return A tidy `data.frame`.
 #'
 #' @export
 #'
@@ -53,7 +53,7 @@ make_2d_tidy_dist <- function(dist_2d, value = NULL, var_name = NULL) {
 #'
 #' @param base The base of logarithm
 #'
-#' @return A \code{trans} scale object from the \code{scales} package.
+#' @return A `trans` scale object from the `scales` package.
 #'
 #' @export
 reverselog_trans <- function(base = exp(1)) {
@@ -70,13 +70,13 @@ reverselog_trans <- function(base = exp(1)) {
 #'
 #' @param output A matrix of simulation output.
 #' @param x,y The name of the target variable.
-#' @param n,lims,h Passed to \code{\link[ks]{kde}} or \code{\link[MASS]{kde2d}}.
-#' If using \code{ks::kde}, \code{H = diag(h, 2, 2)}.
+#' @param n,lims,h Passed to [ks::kde()] or [MASS::kde2d()].
+#' If using `ks::kde`, `H = diag(h, 2, 2)`.
 #' Note: the definition of bandwidth (`h`) is different in two functions.
-#' To get a similar output, the `h` is about 50 to 5000 times smaller for \code{\link[ks]{kde}} than \code{\link[MASS]{kde2d}}
-#' @param kde_fun Which to use? Choices: "ks" \code{ks::kde} (default; faster and taking less memory); "MASS" \code{MASS::kde2d}.
+#' To get a similar output, the `h` is about 50 to 5000 times smaller for [ks::kde()] than [MASS::kde2d()]
+#' @param kde_fun Which to use? Choices: "ks" `ks::kde` (default; faster and taking less memory); "MASS" `MASS::kde2d`.
 #'
-#' @return A \code{kde2d}-type list of smooth distribution.
+#' @return A `kde2d`-type list of smooth distribution.
 #' @export
 make_2d_kernel_dist <- function(output, x, y, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h, kde_fun = "ks") {
   if (is.list(output)) output <- output[[1]]
@@ -102,8 +102,7 @@ make_2d_kernel_dist <- function(output, x, y, n = 200, lims = c(-0.1, 1.1, -0.1,
     # reformat the result to the format of MASS::kde2d
     result <- list(x = result$eval.points[[1]], y = result$eval.points[[2]], z = pmax(result$estimate, 0)) # different result??
     return(result)
-  }
-  else {
+  } else {
     stop('Wrong input for `kde_fun`. Please choose from "MASS" and "ks".')
   }
 }
@@ -114,9 +113,9 @@ make_2d_kernel_dist <- function(output, x, y, n = 200, lims = c(-0.1, 1.1, -0.1,
 #' @param output A matrix of simulation output.
 #' @param x,y The name of the target variable.
 #' @param Umax The maximum displayed value of potential.
-#' @param n,lims,h,kde_fun Passed to \code{\link{make_2d_kernel_dist}}
+#' @param n,lims,h,kde_fun Passed to [make_2d_kernel_dist()]
 #'
-#' @return A \code{3d_static_landscape} object that describes the landscape of the system, including the smooth distribution and the landscape plot.
+#' @return A `3d_static_landscape` object that describes the landscape of the system, including the smooth distribution and the landscape plot.
 #'
 #' @export
 make_3d_static <- function(output, x, y, Umax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 1e-3, kde_fun = "ks") {
@@ -148,10 +147,10 @@ make_3d_static <- function(output, x, y, Umax = 5, n = 200, lims = c(-0.1, 1.1, 
 #'
 #' @param output A matrix of simulation output.
 #' @param x,y,z The name of the target variable.
-#' @param n,lims,h Passed to \code{\link[ks]{kde}} (but using the format of \code{\link[MASS]{kde2d}} to make it consistent across functions).
-#' For \code{ks::kde}, \code{H = diag(h, 2, 2)}.
+#' @param n,lims,h Passed to [ks::kde()] (but using the format of [MASS::kde2d()] to make it consistent across functions).
+#' For `ks::kde`, `H = diag(h, 2, 2)`.
 #'
-#' @return A \code{MASS::kde2d}-type list of smooth distribution.
+#' @return A `MASS::kde2d`-type list of smooth distribution.
 #' @export
 make_3d_kernel_dist <- function(output, x, y, z, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1, -0.1, 1.1), h) {
   if (is.list(output)) output <- output[[1]]
@@ -176,13 +175,13 @@ make_3d_kernel_dist <- function(output, x, y, z, n = 200, lims = c(-0.1, 1.1, -0
   return(result)
 }
 
-#' Make a tidy \code{data.frame} from smooth 3d distribution matrix
+#' Make a tidy `data.frame` from smooth 3d distribution matrix
 #'
-#' @param dist_3d \code{kde2d}-type distribution.
+#' @param dist_3d `kde2d`-type distribution.
 #' @param value The value of the variable of interest.
 #' @param var_name The name of the variable.
 #'
-#' @return A tidy \code{data.frame}.
+#' @return A tidy `data.frame`.
 #'
 #' @export
 #'
@@ -211,9 +210,9 @@ make_3d_tidy_dist <- function(dist_3d, value = NULL, var_name = NULL) {
 #' @param output A matrix of simulation output.
 #' @param x,y,z The name of the target variable.
 #' @param Umax The maximum displayed value of potential.
-#' @param n,lims,h Passed to \code{\link{make_3d_kernel_dist}}
+#' @param n,lims,h Passed to [make_3d_kernel_dist()]
 #'
-#' @return A \code{4d_static_landscape} object that describes the landscape of the system, including the smoothed distribution and the landscape plot.
+#' @return A `4d_static_landscape` object that describes the landscape of the system, including the smoothed distribution and the landscape plot.
 #'
 #' @export
 make_4d_static <- function(output, x, y, z, Umax = 5, n = 50, lims = c(-0.1, 1.1, -0.1, 1.1, -0.1, 1.1), h = 1e-3) {

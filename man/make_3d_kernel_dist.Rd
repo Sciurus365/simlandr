@@ -19,7 +19,7 @@ make_3d_kernel_dist(
 
 \item{x, y, z}{The name of the target variable.}
 
-\item{n, lims, h}{Passed to \code{\link[ks]{kde}} (but using the format of \code{\link[MASS]{kde2d}} to make it consistent across functions).
+\item{n, lims, h}{Passed to \code{\link[ks:kde]{ks::kde()}} (but using the format of \code{\link[MASS:kde2d]{MASS::kde2d()}} to make it consistent across functions).
 For \code{ks::kde}, \code{H = diag(h, 2, 2)}.}
 }
 \value{

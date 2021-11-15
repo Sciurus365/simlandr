@@ -18,5 +18,5 @@ A \code{var_list} object.
 Fill a vector of values into a structure list.
 }
 \seealso{
-\code{\link{modified_simulation}}
+\code{\link[=modified_simulation]{modified_simulation()}}
 }

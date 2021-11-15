@@ -40,7 +40,7 @@ test <- test \%>\%
   add_var("par2", "var2", 1, 2, 0.1)
 }
 \seealso{
-\code{\link{make_var_grid}} for making grids from variable sets;
-\code{\link{batch_simulation}} for running batch simulation and a
+\code{\link[=make_var_grid]{make_var_grid()}} for making grids from variable sets;
+\code{\link[=batch_simulation]{batch_simulation()}} for running batch simulation and a
 concrete example.
 }

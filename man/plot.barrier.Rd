@@ -7,7 +7,7 @@
 \method{plot}{barrier}(x, ...)
 }
 \arguments{
-\item{x}{A `barrier` object.}
+\item{x}{A \code{barrier} object.}
 
 \item{...}{Not in use.}
 }

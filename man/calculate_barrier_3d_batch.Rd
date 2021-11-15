@@ -18,7 +18,7 @@ calculate_barrier_3d_batch(
 )
 }
 \arguments{
-\item{l}{A \code{3d_animation_landscape} or a \code{3d_matrix_landscape}.}
+\item{l}{A \verb{3d_animation_landscape} or a \verb{3d_matrix_landscape}.}
 
 \item{bg}{A \code{barrier_grid_3d} object if you want to use different parameters for each condition. Otherwise \code{NULL}.}
 

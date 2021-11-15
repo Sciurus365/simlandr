@@ -7,8 +7,8 @@
 make_var_grid(var_set)
 }
 \arguments{
-\item{var_set}{A \code{var_set} object. See \code{\link{new_var_set}}
-and \code{\link{add_var}}.}
+\item{var_set}{A \code{var_set} object. See \code{\link[=new_var_set]{new_var_set()}}
+and \code{\link[=add_var]{add_var()}}.}
 }
 \value{
 A \code{var_grid} object.
@@ -17,5 +17,5 @@ A \code{var_grid} object.
 This is the main function for making the variable grids.
 }
 \seealso{
-\code{\link{batch_simulation}} for a concrete example.
+\code{\link[=batch_simulation]{batch_simulation()}} for a concrete example.
 }

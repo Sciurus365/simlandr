@@ -19,10 +19,10 @@ make_2d_kernel_dist(
 
 \item{x, y}{The name of the target variable.}
 
-\item{n, lims, h}{Passed to \code{\link[ks]{kde}} or \code{\link[MASS]{kde2d}}.
+\item{n, lims, h}{Passed to \code{\link[ks:kde]{ks::kde()}} or \code{\link[MASS:kde2d]{MASS::kde2d()}}.
 If using \code{ks::kde}, \code{H = diag(h, 2, 2)}.
-Note: the definition of bandwidth (`h`) is different in two functions.
-To get a similar output, the `h` is about 50 to 5000 times smaller for \code{\link[ks]{kde}} than \code{\link[MASS]{kde2d}}}
+Note: the definition of bandwidth (\code{h}) is different in two functions.
+To get a similar output, the \code{h} is about 50 to 5000 times smaller for \code{\link[ks:kde]{ks::kde()}} than \code{\link[MASS:kde2d]{MASS::kde2d()}}}
 
 \item{kde_fun}{Which to use? Choices: "ks" \code{ks::kde} (default; faster and taking less memory); "MASS" \code{MASS::kde2d}.}
 }

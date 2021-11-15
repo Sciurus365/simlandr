@@ -41,5 +41,5 @@ A \code{barrier} object that contains the (batch) barrier calculation result(s).
 General function for calculating energy barrier
 }
 \seealso{
-\code{\link{calculate_barrier_2d}}, \code{\link{calculate_barrier_2d_batch}}, \code{\link{calculate_barrier_3d}}, \code{\link{calculate_barrier_3d_batch}}, \code{\link{plot.barrier}}
+\code{\link[=calculate_barrier_2d]{calculate_barrier_2d()}}, \code{\link[=calculate_barrier_2d_batch]{calculate_barrier_2d_batch()}}, \code{\link[=calculate_barrier_3d]{calculate_barrier_3d()}}, \code{\link[=calculate_barrier_3d_batch]{calculate_barrier_3d_batch()}}, \code{\link[=plot.barrier]{plot.barrier()}}
 }

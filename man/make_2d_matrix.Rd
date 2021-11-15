@@ -17,10 +17,10 @@ make_2d_matrix(
 )
 }
 \arguments{
-\item{bs}{A \code{batch_simulation} object created by \code{\link{batch_simulation}.}}
+\item{bs}{A \code{batch_simulation} object created by \verb{[batch_simulation].}}
 
 \item{x, rows, cols}{The names of the target variables.
-If `rows` is `NULL`, only a vector of graphs will be generated.}
+If \code{rows} is \code{NULL}, only a vector of graphs will be generated.}
 
 \item{adjust, from, to}{Passed to \code{density}.}
 
@@ -29,7 +29,7 @@ If `rows` is `NULL`, only a vector of graphs will be generated.}
 \item{individual_landscape}{Make individual landscape for each simulation?}
 }
 \value{
-A \code{2d_matrix_landscape} object that describes the landscape of the system, including the smoothed distribution and the landscape plot.
+A \verb{2d_matrix_landscape} object that describes the landscape of the system, including the smoothed distribution and the landscape plot.
 }
 \description{
 Make a matrix of 2d graphs for two parameters
