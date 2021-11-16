@@ -300,7 +300,7 @@ get_barrier_height <- function(b) {
 #' @param x A `barrier` object.
 #' @param ... Not in use.
 #'
-#' @return The plot of the local minimums, the saddle point, and the lowest elevation path.
+#' @return The plot of the local minimums, the saddle point, and the minimum energy path.
 #' @export
 plot.barrier <- function(x, ...) {
   x$plot
@@ -308,10 +308,10 @@ plot.barrier <- function(x, ...) {
 
 #' Get a ggplot2 geom layer that can be added to a ggplot2 landscape plot
 #'
-#' This layer can show the saddle point (2d) and the minimal path (3d) on the landscape.
+#' This layer can show the saddle point (2d) and the minimal energy path (3d) on the landscape.
 #'
 #' @param b A `barrier` object.
-#' @param path Show the lowest elevation path in the graph?
+#' @param path Show the minimum energy path in the graph?
 #'
 #' @return A `ggplot2` geom (formally a `LayerInstance` object) that can be added to an existing `ggplot`.
 #'
