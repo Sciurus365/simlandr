@@ -41,6 +41,7 @@ make_3d_animation <- function(bs, x, y, fr, Umax = 5, n = 200, lims = c(-0.1, 1.
     plotly::plot_ly(x = ~x, y = ~y, z = pmin(-log(.$z %>% t()), Umax), color = pmin(-log(.$z %>% t()), Umax), frame = ~fr) %>%
     plotly::add_markers(size = I(5)) %>%
     plotly::layout(scene = list(xaxis = list(title = x), yaxis = list(title = y), zaxis = list(title = "U"))) %>%
+    plotly::colorbar(title = "U") %>%
     plotly::animation_slider(
       currentvalue = list(prefix = paste0(fr, ": "))
     )
@@ -51,6 +52,7 @@ make_3d_animation <- function(bs, x, y, fr, Umax = 5, n = 200, lims = c(-0.1, 1.
     ggplot2::geom_raster(ggplot2::aes(fill = pmin(-log(z), Umax))) +
     ggplot2::scale_fill_viridis_c() +
     ggplot2::labs(x = x, y = y, fill = "U") +
+    ggplot2::theme_bw() +
     gganimate::transition_states(df_multichannel_collect$fr) +
     ggplot2::labs(subtitle = paste0(fr, ": {closest_state}"))
   message("Done!")
@@ -178,7 +180,8 @@ make_3d_matrix <- function(bs, x, y, rows = NULL, cols, Umax = 5, n = 200, lims 
   p <- ggplot2::ggplot(data = df_all, ggplot2::aes(x = x, y = y)) +
     ggplot2::geom_raster(ggplot2::aes(fill = pmin(-log(z), Umax))) +
     ggplot2::scale_fill_viridis_c() +
-    ggplot2::labs(x = x, y = y, fill = "U")
+    ggplot2::labs(x = x, y = y, fill = "U") +
+    ggplot2::theme_bw()
 
   if (is.null(rows)) {
     p <- p + ggplot2::facet_wrap(. ~ cols, labeller = ggplot2::labeller(.cols = ggplot2::as_labeller(cols_labeller)))

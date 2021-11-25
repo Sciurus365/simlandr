@@ -2,6 +2,7 @@
 % Please edit documentation in R/barrier.R, R/barrier_batch.R
 \name{calculate_barrier}
 \alias{calculate_barrier}
+\alias{calculate_barrier.2d_static_landscape}
 \alias{calculate_barrier.2d_density_landscape}
 \alias{calculate_barrier.density}
 \alias{calculate_barrier.3d_static_landscape}
@@ -13,11 +14,13 @@
 \usage{
 calculate_barrier(l, ...)
 
+\method{calculate_barrier}{`2d_static_landscape`}(l, ...)
+
 \method{calculate_barrier}{`2d_density_landscape`}(l, ...)
 
 \method{calculate_barrier}{density}(l, ...)
 
-\method{calculate_barrier}{`2d_density_landscape`}(l, ...)
+\method{calculate_barrier}{`2d_static_landscape`}(l, ...)
 
 \method{calculate_barrier}{`3d_static_landscape`}(l, ...)
 

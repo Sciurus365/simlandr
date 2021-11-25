@@ -1,13 +1,13 @@
-#' Make 2D density-based landscape plot for a single simulation output
+#' Make 2D static landscape plot for a single simulation output
 #'
 #' @param output A matrix of simulation output.
 #' @param x The name of the target variable.
 #' @param adjust,from,to Passed to `density`.
 #' @param Umax The maximum displayed value of potential.
 #'
-#' @return A `2d_density_landscape` object that describes the landscape of the system, including the smooth distribution and the landscape plot.
+#' @return A `2d_static_landscape` object that describes the landscape of the system, including the smooth distribution and the landscape plot.
 #' @export
-make_2d_density <- function(output, x, adjust = 50, from = -0.1, to = 1, Umax = 5) {
+make_2d_static <- function(output, x, adjust = 50, from = -0.1, to = 1, Umax = 5) {
   d <- stats::density(output[, x], adjust = adjust, from = from, to = to)
   p <- data.frame(x = d$x, y = d$y, U = pmin(-log(d$y), Umax)) %>%
     ggplot2::ggplot(mapping = ggplot2::aes(x = x, y = U)) +
@@ -17,8 +17,28 @@ make_2d_density <- function(output, x, adjust = 50, from = -0.1, to = 1, Umax = 
     ggplot2::xlab(x)
 
   result <- list(dist = d, plot = p, x = x, adjust = adjust, from = from, to = to, Umax = Umax)
-  class(result) <- c("2d_density_landscape", "landscape")
+  class(result) <- c("2d_static_landscape", "landscape")
   return(result)
+}
+
+
+#' Make 2D density-based landscape plot for a single simulation output
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' This function was deprecated. Use [make_2d_static()] instead.
+#'
+#' @param output A matrix of simulation output.
+#' @param x The name of the target variable.
+#' @param adjust,from,to Passed to `density`.
+#' @param Umax The maximum displayed value of potential.
+#'
+#' @return A `2d_static_landscape` object that describes the landscape of the system, including the smooth distribution and the landscape plot.
+#' @export
+#' @export
+make_2d_density <- function(output, x, adjust = 50, from = -0.1, to = 1, Umax = 5) {
+  lifecycle::deprecate_warn("0.1.3", "make_2d_density()", "make_2d_static()")
+  make_2d_static(output, x, adjust, from, to, Umax)
 }
 
 #' Make a tidy `data.frame` from smooth 2d distribution matrix
@@ -127,14 +147,15 @@ make_3d_static <- function(output, x, y, Umax = 5, n = 200, lims = c(-0.1, 1.1, 
 
   message("Making the plot...")
   p <- plotly::plot_ly(x = out_2d$x, y = out_2d$y, z = pmin(-log(out_2d$z %>% t()), Umax), type = "surface")
-  p <- plotly::layout(p, scene = list(xaxis = list(title = x), yaxis = list(title = y), zaxis = list(title = "U")))
+  p <- plotly::layout(p, scene = list(xaxis = list(title = x), yaxis = list(title = y), zaxis = list(title = "U"))) %>% plotly::colorbar(title = "U")
   message("Done!")
 
   message("Making the 2d plot...")
   p2 <- ggplot2::ggplot(make_2d_tidy_dist(out_2d), ggplot2::aes(x = x, y = y)) +
     ggplot2::geom_raster(ggplot2::aes(fill = pmin(-log(z), Umax))) +
     ggplot2::scale_fill_viridis_c() +
-    ggplot2::labs(x = x, y = y, fill = "U")
+    ggplot2::labs(x = x, y = y, fill = "U") +
+    ggplot2::theme_bw()
   message("Done!")
 
   result <- list(dist = out_2d, plot = p, plot_2 = p2, x = x, y = y, Umax = Umax, n = n, lims = lims, h = h, kde_fun = kde_fun)
@@ -230,7 +251,8 @@ make_4d_static <- function(output, x, y, z, Umax = 5, n = 50, lims = c(-0.1, 1.1
     dplyr::filter(-log(.$d) < Umax) %>%
     plotly::plot_ly(x = ~x, y = ~y, z = ~z, color = -log(.$d)) %>%
     plotly::add_markers(size = I(5)) %>%
-    plotly::layout(scene = list(xaxis = list(title = x), yaxis = list(title = y), zaxis = list(title = z)))
+    plotly::layout(scene = list(xaxis = list(title = x), yaxis = list(title = y), zaxis = list(title = z))) %>%
+    plotly::colorbar(title = "U")
   message("Done!")
 
   result <- list(dist = df_tidy, plot = p, x = x, y = y, z = z, Umax = Umax, n = n, lims = lims, h = h)

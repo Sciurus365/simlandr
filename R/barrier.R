@@ -13,7 +13,14 @@ calculate_barrier <- function(l, ...) {
 
 #' @rdname calculate_barrier
 #' @export
+calculate_barrier.2d_static_landscape <- function(l, ...) {
+  calculate_barrier_2d(l, ...)
+}
+
+#' @rdname calculate_barrier
+#' @export
 calculate_barrier.2d_density_landscape <- function(l, ...) {
+  lifecycle::deprecate_warn("0.1.3", "calculate_barrier(l = 'should be a `2d_static_landscape` object')")
   calculate_barrier_2d(l, ...)
 }
 
@@ -25,7 +32,7 @@ calculate_barrier.density <- function(l, ...) {
 
 #' @rdname calculate_barrier
 #' @export
-calculate_barrier.2d_density_landscape <- function(l, ...) {
+calculate_barrier.2d_static_landscape <- function(l, ...) {
   calculate_barrier_2d(l, ...)
 }
 
@@ -66,7 +73,7 @@ find_local_min_2d <- function(dist, localmin, r) {
 
 #' Calculate barrier from a 2D landscape
 #'
-#' @param l A `2d_density_landscape` object (recommended) or a `density` distribution.
+#' @param l A `2d_static_landscape` object (recommended) or a `density` distribution.
 #' @param start_location_value,end_location_value The initial position (in value) for searching the start/end point.
 #' @param start_r,end_r The searching radius for searching the start/end point.
 #' @param base The base of the log function.
@@ -75,7 +82,7 @@ find_local_min_2d <- function(dist, localmin, r) {
 #'
 #' @export
 calculate_barrier_2d <- function(l, start_location_value = 0, start_r = 0.1, end_location_value = 0.7, end_r = 0.15, base = exp(1)) {
-  if ("2d_density_landscape" %in% class(l)) {
+  if ("2d_static_landscape" %in% class(l)) {
     d <- l$dist
   } else {
     d <- l

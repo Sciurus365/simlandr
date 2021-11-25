@@ -1,1 +1,1 @@
-utils::globalVariables(c(".", "U", "b", "dist", "end_U", "end_x", "end_y", "l_list", "min_path_var", "mutate", "output", "rnorm", "saddle_U", "saddle_x", "saddle_y", "stage", "start_U", "start_x", "start_y", "var_list", "x_index", "x_value", "y_index", "y_value", "z", "z_index"))
+utils::globalVariables(c(".", "U", "b", "dist", "end_U", "end_x", "end_y", "l_list", "min_path_var", "mutate", "output", "rnorm", "saddle_U", "saddle_x", "saddle_y", "stage", "start_U", "start_x", "start_y", "var_list", "ele_list", "x_index", "x_value", "y_index", "y_value", "z", "z_index"))
