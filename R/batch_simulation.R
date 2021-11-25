@@ -201,7 +201,8 @@ modified_simulation <- function(sim_fun, ele_list, default_list, bigmemory = TRU
 #'     parameter = list(a = -4, b = 0, c = 0, sigmasq = 1)
 #'   ),
 #'   length = 1e3,
-#'   seed = 1614
+#'   seed = 1614,
+#'   bigmemory = FALSE
 #' )
 #' print(batch_output_grad)
 #' @export
