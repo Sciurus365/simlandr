@@ -14,7 +14,7 @@ calculate_barrier_2d(
 )
 }
 \arguments{
-\item{l}{A \code{2d_density_landscape} object (recommended) or a \code{density} distribution.}
+\item{l}{A \verb{2d_static_landscape} object (recommended) or a \code{density} distribution.}
 
 \item{start_location_value, end_location_value}{The initial position (in value) for searching the start/end point.}
 

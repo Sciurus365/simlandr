@@ -3,6 +3,7 @@
 .RData
 .Ruserdata
 *.temp.R
+*.RDS
 
 bp/
 docs

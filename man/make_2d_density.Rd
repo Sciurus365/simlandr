@@ -16,8 +16,10 @@ make_2d_density(output, x, adjust = 50, from = -0.1, to = 1, Umax = 5)
 \item{Umax}{The maximum displayed value of potential.}
 }
 \value{
-A \code{2d_density_landscape} object that describes the landscape of the system, including the smooth distribution and the landscape plot.
+A \verb{2d_static_landscape} object that describes the landscape of the system, including the smooth distribution and the landscape plot.
 }
 \description{
-Make 2D density-based landscape plot for a single simulation output
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+This function was deprecated. Use \code{\link[=make_2d_static]{make_2d_static()}} instead.
 }

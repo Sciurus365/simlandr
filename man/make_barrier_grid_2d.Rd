@@ -17,7 +17,7 @@ make_barrier_grid_2d(
 \arguments{
 \item{vg}{A \code{var_grid} object.}
 
-\item{start_location_value, start_r, end_location_value, end_r}{Default values for finding local minimum. See \code{\link{calculate_barrier_3d_batch}}.}
+\item{start_location_value, start_r, end_location_value, end_r}{Default values for finding local minimum. See \code{\link[=calculate_barrier_3d_batch]{calculate_barrier_3d_batch()}}.}
 
 \item{df}{A data frame for the variables. Use \code{print_template = TRUE} to get a template.}
 

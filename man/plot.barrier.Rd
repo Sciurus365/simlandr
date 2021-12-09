@@ -7,12 +7,12 @@
 \method{plot}{barrier}(x, ...)
 }
 \arguments{
-\item{x}{A `barrier` object.}
+\item{x}{A \code{barrier} object.}
 
 \item{...}{Not in use.}
 }
 \value{
-The plot of the local minimums, the saddle point, and the lowest elevation path.
+The plot of the local minimums, the saddle point, and the minimum energy path.
 }
 \description{
 Plot the result of a \code{barrier} object

@@ -12,7 +12,7 @@ add_stage_tag <- function(output, range, var, stage) {
 #' @param sample_perc The percentage of data sample for the initial, middle, and final stage of the simulation.
 #' @param plot_type Which type of plots should be generated? ("bin" or "density")
 #'
-#' @return A \code{check_conv} object that contains the convergence checking result.
+#' @return A `check_conv` object that contains the convergence checking result.
 #'
 #' @export
 check_conv <- function(output, vars, sample_perc = 0.2, plot_type = "bin") {
@@ -34,11 +34,13 @@ check_conv <- function(output, vars, sample_perc = 0.2, plot_type = "bin") {
     if (plot_type == "bin") {
       p <- ggplot2::ggplot(data_all, mapping = ggplot2::aes(x = !!rlang::sym(i), fill = stage)) +
         ggplot2::stat_bin(position = "dodge") +
-        ggplot2::labs(x = i)
+        ggplot2::labs(x = i) +
+        ggplot2::theme_bw()
     } else if (plot_type == "density") {
       p <- ggplot2::ggplot(data_all, mapping = ggplot2::aes(x = !!rlang::sym(i), color = stage)) +
         ggplot2::geom_density() +
-        ggplot2::labs(x = i)
+        ggplot2::labs(x = i) +
+        ggplot2::theme_bw()
     } else {
       stop("'plot_type` should be either 'bin' or 'density'.")
     }

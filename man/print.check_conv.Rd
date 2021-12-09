@@ -2,7 +2,7 @@
 % Please edit documentation in R/check_conv.R
 \name{print.check_conv}
 \alias{print.check_conv}
-\title{Print a `check_conv`}
+\title{Print a \code{check_conv}}
 \usage{
 \method{print}{check_conv}(x, ask = TRUE, ...)
 }
@@ -17,5 +17,5 @@
 The printed result.
 }
 \description{
-Print a `check_conv`
+Print a \code{check_conv}
 }

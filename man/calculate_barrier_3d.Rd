@@ -17,7 +17,7 @@ calculate_barrier_3d(
 )
 }
 \arguments{
-\item{l}{A \code{3d_static_landscape} object (recommended) or a \code{kde2d} distribution.}
+\item{l}{A \verb{3d_static_landscape} object (recommended) or a \code{kde2d} distribution.}
 
 \item{start_location_value, end_location_value}{The initial position (in value) for searching the start/end point.}
 

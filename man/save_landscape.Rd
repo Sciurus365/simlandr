@@ -13,8 +13,8 @@ save_landscape(l, path = NULL, selfcontained = FALSE, ...)
 
 \item{selfcontained}{For 'plotly' plots, save the output as a self-contained html file? Default: FALSE.}
 
-\item{...}{Other parameters passed to \code{\link[htmlwidgets]{saveWidget}}
-or \code{\link[ggplot2]{ggsave}}}
+\item{...}{Other parameters passed to \code{\link[htmlwidgets:saveWidget]{htmlwidgets::saveWidget()}}
+or \code{\link[ggplot2:ggsave]{ggplot2::ggsave()}}}
 }
 \value{
 The function saves the plot to a specific path. It does not have a return value.

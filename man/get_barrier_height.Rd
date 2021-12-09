@@ -2,7 +2,7 @@
 % Please edit documentation in R/barrier.R
 \name{get_barrier_height}
 \alias{get_barrier_height}
-\title{Get the barrier height from a `barrier` object.}
+\title{Get the barrier height from a \code{barrier} object.}
 \usage{
 get_barrier_height(b)
 }
@@ -13,5 +13,5 @@ get_barrier_height(b)
 A vector (for a single barrier calculation result) or a \code{data.frame} (for batch barrier calculation results) that contains the barrier heights on the landscape.
 }
 \description{
-Get the barrier height from a `barrier` object.
+Get the barrier height from a \code{barrier} object.
 }

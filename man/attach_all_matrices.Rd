@@ -7,9 +7,9 @@
 attach_all_matrices(bs, backingpath = "bp")
 }
 \arguments{
-\item{bs}{A \code{\link{batch_simulation}} object.}
+\item{bs}{A \code{\link[=batch_simulation]{batch_simulation()}} object.}
 
-\item{backingpath}{Passed to \code{\link[bigmemory]{as.big.matrix}}.}
+\item{backingpath}{Passed to \code{\link[bigmemory:big.matrix]{bigmemory::as.big.matrix()}}.}
 }
 \value{
 A \code{batch_simulation} object with all \code{hash_big.matrix}es attached.

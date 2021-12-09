@@ -4,35 +4,15 @@
 \alias{sim_fun_test2}
 \title{A simple yet meaningful simulation function for testing}
 \usage{
-sim_fun_test2(
-  initial = list(x = 0, y = 0),
-  parameter = list(a = -4, b = 0, c = 0, sigmasq = 1),
-  length = 1e+05,
-  stepsize = 0.01,
-  seed = NULL
-)
+sim_fun_test2(...)
 }
 \arguments{
-\item{initial, parameter}{Two sets of parameters. \code{initial} contains the initial value of \code{x} and \code{y};
-\code{parameter} contains \code{a,b,c}, which control the shape of the potential landscape,
-and \code{sigmasq}, which is the square of \eqn{\sigma} and controls the amplitude of noise.}
-
-\item{length}{The length of simulation.}
-
-\item{stepsize}{The step size used in the Euler method.}
-
-\item{seed}{The initial seed that will be passed to \code{set.seed()} function.}
-}
-\value{
-A matrix of simulation results.
+\item{...}{Parameters to be passed to \code{\link[=sim_fun_grad]{sim_fun_grad()}}}
 }
 \description{
-This is a toy stochastic gradient system which can have bi-stability in some conditions.
-Model specification:
-\deqn{U = x^4 + y^4 + axy + bx + cy}
-\deqn{dx/dt = - \partial U/ \partial x + \sigma dW/dt = - 4x^3 - ay - b + \sigma dW/dt}
-\deqn{dy/dt = - \partial U/ \partial y + \sigma dW/dt = - 4y^3 - ax - c + \sigma dW/dt}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+\code{sim_fun_test2()} was renamed to \code{sim_fun_grad()} to create a more
+consistent API.
 }
-\seealso{
-\code{\link{sim_fun_test}} and \code{\link{batch_simulation}}.
-}
+\keyword{internal}

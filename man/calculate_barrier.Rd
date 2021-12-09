@@ -2,6 +2,7 @@
 % Please edit documentation in R/barrier.R, R/barrier_batch.R
 \name{calculate_barrier}
 \alias{calculate_barrier}
+\alias{calculate_barrier.2d_static_landscape}
 \alias{calculate_barrier.2d_density_landscape}
 \alias{calculate_barrier.density}
 \alias{calculate_barrier.3d_static_landscape}
@@ -13,11 +14,13 @@
 \usage{
 calculate_barrier(l, ...)
 
+\method{calculate_barrier}{`2d_static_landscape`}(l, ...)
+
 \method{calculate_barrier}{`2d_density_landscape`}(l, ...)
 
 \method{calculate_barrier}{density}(l, ...)
 
-\method{calculate_barrier}{`2d_density_landscape`}(l, ...)
+\method{calculate_barrier}{`2d_static_landscape`}(l, ...)
 
 \method{calculate_barrier}{`3d_static_landscape`}(l, ...)
 
@@ -41,5 +44,5 @@ A \code{barrier} object that contains the (batch) barrier calculation result(s).
 General function for calculating energy barrier
 }
 \seealso{
-\code{\link{calculate_barrier_2d}}, \code{\link{calculate_barrier_2d_batch}}, \code{\link{calculate_barrier_3d}}, \code{\link{calculate_barrier_3d_batch}}, \code{\link{plot.barrier}}
+\code{\link[=calculate_barrier_2d]{calculate_barrier_2d()}}, \code{\link[=calculate_barrier_2d_batch]{calculate_barrier_2d_batch()}}, \code{\link[=calculate_barrier_3d]{calculate_barrier_3d()}}, \code{\link[=calculate_barrier_3d_batch]{calculate_barrier_3d_batch()}}, \code{\link[=plot.barrier]{plot.barrier()}}
 }

@@ -1,72 +1,67 @@
-#' Create and modify variable sets for batch simulation
+#' Create and modify argument sets for batch simulation
 #'
-#' A variable set contains the descriptions of the relevant variables in a
-#' batch simulation. Use \code{new_var_set} to create a \code{var_set}
-#' object, and use \code{add_var} to add descriptions of variables.
+#' An argument set contains the descriptions of the relevant variables in a
+#' batch simulation. Use `new_arg_set` to create an `arg_set`
+#' object, and use the `add` to add descriptions of arguments.
 #'
-#' @describeIn new_var_set Create a \code{var_set}.
+#' @describeIn new_arg_set Create an `arg_set`.
 #'
-#' @param var_set A \code{var_set} object.
-#' @param par_name,var_name The name of the parameter and variable
+#' @param arg_set An `arg_set` object.
+#' @param arg_name,ele_name The name of the argument and its element
 #' in the simulation function
 #' @param start,end,by The data points where you want to test the variables.
-#' Passed to \code{seq}.
+#' Passed to `seq`.
 #'
-#' @return A \code{var_set} object.
+#' @return An `arg_set` object.
 #'
-#' @examples
-#' test <- new_var_set()
-#' test <- test %>%
-#'   add_var("par1", "var1", 1, 2, 0.1) %>%
-#'   add_var("par2", "var2", 1, 2, 0.1)
-#' @seealso \code{\link{make_var_grid}} for making grids from variable sets;
-#' \code{\link{batch_simulation}} for running batch simulation and a
+#' @seealso [make_arg_grid()] for making grids from variable sets;
+#' [batch_simulation()] for running batch simulation and a
 #' concrete example.
 #'
 #' @export
-new_var_set <- function() {
+new_arg_set <- function() {
   result <- list()
-  class(result) <- c("var_set", "list")
-  attr(result, "nvar") <- 0
-  attr(result, "npar") <- 0
+  class(result) <- c("arg_set", "list")
+  attr(result, "nele") <- 0
+  attr(result, "narg") <- 0
   return(result)
 }
 
-#' @describeIn new_var_set Add a variable to the \code{var_set}.
+#' @rdname new_arg_set
 #' @export
-add_var <- function(var_set, par_name, var_name, start, end, by) {
-  var_set[[par_name]][[var_name]] <- tibble::lst(start, end, by) # <U+8FD9><U+91CC>var_name<U+5E94><U+8BE5><U+76F4><U+63A5><U+53D8><U+6210>name<U+5427><U+FF1F>
-  attr(var_set, "nvar") <- attr(var_set, "nvar") + 1
-  attr(var_set, "npar") <- length(var_set)
-  return(var_set)
+add_arg_ele <- function(arg_set, arg_name, ele_name, start, end, by) {
+  arg_set[[arg_name]][[ele_name]] <- tibble::lst(start, end, by)
+  attr(arg_set, "nele") <- attr(arg_set, "nele") + 1
+  attr(arg_set, "narg") <- length(arg_set)
+  return(arg_set)
 }
 
-#' The number of variables in a \code{var_set}.
-#' @param var_set A \code{var_set} object.
+#' The number of elements in an `arg_set`.
+#' @param arg_set An `arg_set` object.
 #' @return An integer.
 #' @export
-nvar <- function(var_set) attr(var_set, "nvar")
+nele <- function(arg_set) attr(arg_set, "nele")
 
-#' The number of parameters in a \code{var_set}.
-#' @param var_set A \code{var_set} object.
+#' The number of arguments in an `arg_set`.
+#' @param arg_set An `arg_set` object.
 #' @return An integer.
 #' @export
-npar <- function(var_set) attr(var_set, "npar")
+narg <- function(arg_set) attr(arg_set, "narg")
 
-#' Print a \code{var_set} object.
+#' Print an `arg_set` object.
 #'
 #' @param x The object.
 #' @param detail Do you want to print the object details as a full list?
 #' @param ... Not in use.
 #' @return The printed result.
-#' @method print var_set
+#' @method print arg_set
 #' @export
-print.var_set <- function(x, detail = FALSE, ...) {
+print.arg_set <- function(x, detail = FALSE, ...) {
   if (detail) {
     print.default(x)
   } else {
     cat(
-      sprintf("A `var_set` with %d parameter(s) and %d variable(s)", npar(x), nvar(x))
+      sprintf("An `arg_set` with %d argument(s) and %d element(s)", narg(x), nele(x))
     )
   }
 }
@@ -76,12 +71,14 @@ print.var_set <- function(x, detail = FALSE, ...) {
 #' @param vec A vector of values.
 #' @param struct A list with a certain structure.
 #'
-#' @return A \code{var_list} object.
-#' @seealso \code{\link{modified_simulation}}
+#' @return A `ele_list` object.
+#' @seealso [modified_simulation()]
 #'
 #' @export
 fill_in_struct <- function(vec, struct) {
-  if (!("var_set" %in% class(struct))) stop("Wrong input class. `struct` should be a `var_set`.")
+  if ("var_set" %in% class(struct)) {
+    lifecycle::deprecate_warn("0.1.3", "fill_in_struct(struct = 'should be an `arg_set`')")
+  } else if (!("arg_set" %in% class(struct))) stop("Wrong input class. `struct` should be an `arg_set`.")
   vec_index <- 1
   for (i in 1:length(struct)) {
     for (j in 1:length(struct[[i]])) {
@@ -89,7 +86,7 @@ fill_in_struct <- function(vec, struct) {
       vec_index <- vec_index + 1
     }
   }
-  class(struct) <- c("var_list", "list")
+  class(struct) <- c("ele_list", "list")
   return(struct)
 }
 
@@ -97,67 +94,76 @@ fill_in_struct <- function(vec, struct) {
 #'
 #' This is the main function for making the variable grids.
 #'
-#' @param var_set A \code{var_set} object. See \code{\link{new_var_set}}
-#' and \code{\link{add_var}}.
+#' @param arg_set An `arg_set` object. See [new_arg_set()]
+#' and [add_var()].
 #'
-#' @return A \code{var_grid} object.
+#' @return An `arg_grid` object.
 #'
-#' @seealso \code{\link{batch_simulation}} for a concrete example.
+#' @seealso [batch_simulation()] for a concrete example.
 #'
 #' @export
-make_var_grid <- function(var_set) {
-  var_set_seq <- list()
-  var_set_par <- list()
-  for (i in names(var_set)) {
-    for (j in names(var_set[[i]])) {
-      var_set_seq[[j]] <- seq(var_set[[i]][[j]]$start, var_set[[i]][[j]]$end, var_set[[i]][[j]]$by)
-      var_set_par[[j]] <- names(var_set)[i]
+make_arg_grid <- function(arg_set) {
+  ele_seq <- list()
+  arg_name <- list()
+  for (i in names(arg_set)) {
+    for (j in names(arg_set[[i]])) {
+      ele_seq[[j]] <- seq(arg_set[[i]][[j]]$start, arg_set[[i]][[j]]$end, arg_set[[i]][[j]]$by)
+      arg_name[[j]] <- names(arg_set)[i]
     }
   }
-  var_grid_num <- expand.grid(var_set_seq)
+  arg_grid_num <- expand.grid(ele_seq)
 
-  var_grid_list <- data.frame(var_list = rep(NA, nrow(var_grid_num)))
+  arg_grid_list <- data.frame(ele_list = rep(NA, nrow(arg_grid_num)))
 
-  var_grid_list$var_list <- apply(var_grid_num, 1, fill_in_struct, var_set)
+  arg_grid_list$ele_list <- apply(arg_grid_num, 1, fill_in_struct, arg_set)
 
-  var_grid <- cbind(var_grid_list, as.data.frame(var_grid_num))
+  arg_grid <- cbind(arg_grid_list, as.data.frame(arg_grid_num))
 
-  result <- var_grid
-  class(result) <- c("var_grid", "data.frame")
-  attr(result, "var_set_seq") <- var_set_seq
-  attr(result, "var_set_par") <- var_set_par
-  attr(result, "nvar") <- nvar(var_set)
-  attr(result, "npar") <- npar(var_set)
+  result <- arg_grid
+  class(result) <- c("arg_grid", "data.frame")
+  attr(result, "ele_seq") <- ele_seq
+  attr(result, "arg_name") <- arg_name
+  attr(result, "nele") <- nele(arg_set)
+  attr(result, "narg") <- narg(arg_set)
   return(result)
 }
 
-#' Print a \code{var_grid} object
+#' Print an `arg_grid` object
 #'
-#' @inheritParams print.var_set
+#' @inheritParams print.arg_set
 #' @return The printed result.
-#' @method print var_grid
+#' @method print arg_grid
 #' @export
-print.var_grid <- function(x, detail = FALSE, ...) {
+print.arg_grid <- function(x, detail = FALSE, ...) {
   if (detail) print.default(x)
   cat(
     sprintf(
-      "A `var_grid` with %d parameter(s), %d variable(s), and %d condition(s)",
-      npar(x), nvar(x), length(x$var_list)
+      "An `arg_grid` with %d argument(s), %d element(s), and %d condition(s)",
+      narg(x), nele(x), length(x$ele_list)
     )
   )
 }
 
 #' @describeIn batch_simulation Modify a single simulation.
-#' @param var_list An \code{var_list} object generated by \code{\link{fill_in_struct}}.
+#' @param ele_list An `ele_list` object generated by [fill_in_struct()].
 #' @export
-modified_simulation <- function(sim_fun, var_list, default_list, bigmemory = TRUE, ...) {
+modified_simulation <- function(sim_fun, ele_list, default_list, bigmemory = TRUE, ...) {
+  ddd <- list(...)
+  if ("var_list" %in% names(ddd)) {
+    lifecycle::deprecate_warn("0.1.3", "modified_simulation(var_list)", "modified_simulation(ele_list)")
+    ele_list <- ddd$var_list
+    ddd$var_list <- NULL
+  }
+  if ("var_grid" %in% names(ddd)) {
+    ddd$var_grid <- NULL
+  }
   sim_fun_list <- default_list
-  for (i in names(var_list)) {
-    for (j in names(var_list[[i]])) {
-      sim_fun_list[[i]][[j]] <- var_list[[i]][[j]]
+  for (i in names(ele_list)) {
+    for (j in names(ele_list[[i]])) {
+      sim_fun_list[[i]][[j]] <- ele_list[[i]][[j]]
     }
   }
-  result <- do.call(sim_fun, append(sim_fun_list, values = list(...)))
+  result <- do.call(sim_fun, append(sim_fun_list, values = ddd))
 
   if (bigmemory & is.matrix(result)) result <- as.hash_big.matrix(result)
   return(result)
@@ -168,43 +174,56 @@ modified_simulation <- function(sim_fun, var_list, default_list, bigmemory = TRU
 #'
 #' This is the main function for the batch simulation.
 #'
-#' @param var_grid A \code{var_grid} object. See \code{\link{make_var_grid}}.
-#' @param sim_fun The simulation function. See \code{\link{sim_fun_test}}
+#' @param arg_grid An `arg_grid` object. See [make_arg_grid()].
+#' @param sim_fun The simulation function. See [sim_fun_test()]
 #' for an example.
-#' @param default_list A list of default values for \code{sim_fun}.
-#' @param bigmemory Use \code{\link{hash_big.matrix-class}} to store large matrices?
-#' @param ... Other parameters passed to \code{sim_fun}
+#' @param default_list A list of default values for `sim_fun`.
+#' @param bigmemory Use [hash_big.matrix-class()] to store large matrices?
+#' @param ... Other parameters passed to `sim_fun`
 #'
-#' @return A \code{batch_simulation} object, also a data frame.
-#' The first column, \code{var}, is a list of
-#' \code{var_list} that contains all the variables; the second to the second
+#' @return A `batch_simulation` object, also a data frame.
+#' The first column, `var`, is a list of
+#' `ele_list` that contains all the variables; the second to the second
 #' last columns are the values of the variables; the last column is the
 #' output of the simulation function.
 #'
 #' @examples
-#' test <- new_var_set()
-#' test <- test %>%
-#'   add_var("par1", "var1", 1, 2, 0.1) %>%
-#'   add_var("par2", "var2", 1, 2, 0.1)
-#' test_grid <- make_var_grid(test)
-#' test_result <- batch_simulation(test_grid, sim_fun_test,
+#' batch_arg_set_grad <- new_arg_set()
+#' batch_arg_set_grad <- batch_arg_set_grad %>%
+#'   add_arg_ele(
+#'     arg_name = "parameter", ele_name = "a",
+#'     start = -6, end = -1, by = 1
+#'   )
+#' batch_grid_grad <- make_arg_grid(batch_arg_set_grad)
+#' batch_output_grad <- batch_simulation(batch_grid_grad, sim_fun_grad,
 #'   default_list = list(
-#'     par1 = list(var1 = 0),
-#'     par2 = list(var2 = 0, var3 = 0)
-#'   ), bigmemory = FALSE
+#'     initial = list(x = 0, y = 0),
+#'     parameter = list(a = -4, b = 0, c = 0, sigmasq = 1)
+#'   ),
+#'   length = 1e3,
+#'   seed = 1614,
+#'   bigmemory = FALSE
 #' )
-#' test_result
+#' print(batch_output_grad)
 #' @export
-batch_simulation <- function(var_grid, sim_fun, default_list, bigmemory = TRUE, ...) {
-  result <- var_grid %>%
-    dplyr::mutate(output = purrr::map(var_list, function(x) modified_simulation(sim_fun, x, default_list, bigmemory, ...)))
+batch_simulation <- function(arg_grid, sim_fun, default_list, bigmemory = TRUE, ...) {
+  ddd <- list(...)
+  if ("var_list" %in% names(ddd)) {
+    lifecycle::deprecate_warn("0.1.3", "modified_simulation(var_grid)", "modified_simulation(arg_grid)")
+    arg_grid <- ddd$var_grid
+    arg_grid$ele_list <- arg_grid$var_list
+  } else if (!"ele_list" %in% names(arg_grid)) {
+    arg_grid$ele_list <- arg_grid$var_list
+  }
+  result <- arg_grid %>%
+    dplyr::mutate(output = purrr::map(ele_list, function(x) modified_simulation(sim_fun = sim_fun, ele_list = x, default_list = default_list, bigmemory = bigmemory, ...)))
   class(result) <- c("batch_simulation", "data.frame")
   attr(result, "sim_fun") <- sim_fun
   return(result)
 }
 
-#' Print a \code{batch_simulation} object
-#' @inheritParams print.var_set
+#' Print a `batch_simulation` object
+#' @inheritParams print.arg_set
 #' @return The printed result.
 #' @method print batch_simulation
 #' @export
@@ -220,10 +239,10 @@ print.batch_simulation <- function(x, detail = FALSE, ...) {
 
 #' Attach all matrices in a batch simulation
 #'
-#' @param bs A \code{\link{batch_simulation}} object.
-#' @param backingpath Passed to \code{\link[bigmemory]{as.big.matrix}}.
+#' @param bs A [batch_simulation()] object.
+#' @param backingpath Passed to [bigmemory::as.big.matrix()].
 #'
-#' @return A \code{batch_simulation} object with all \code{hash_big.matrix}es attached.
+#' @return A `batch_simulation` object with all `hash_big.matrix`es attached.
 #' @export
 attach_all_matrices <- function(bs, backingpath = "bp") {
   if (!"batch_simulation" %in% class(bs)) stop("Wrong input class. bs should be a `batch_simulation`.")

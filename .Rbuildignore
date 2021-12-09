@@ -10,4 +10,5 @@
 ^Meta$
 ^bp$
 ^.*\.temp\.R$
+^.*\.RDS$
 ^cran-comments\.md$

@@ -12,11 +12,11 @@ fill_in_struct(vec, struct)
 \item{struct}{A list with a certain structure.}
 }
 \value{
-A \code{var_list} object.
+A \code{ele_list} object.
 }
 \description{
 Fill a vector of values into a structure list.
 }
 \seealso{
-\code{\link{modified_simulation}}
+\code{\link[=modified_simulation]{modified_simulation()}}
 }

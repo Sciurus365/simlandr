@@ -1,14 +1,14 @@
 #' Make 3d animations from multiple simulations
 #'
-#' @param bs A \code{batch_simulation} object created by \code{\link{batch_simulation}.}
+#' @param bs A `batch_simulation` object created by `[batch_simulation].`
 #' @param x,y,fr The names of the target variables.
-#' \code{fr} corresponds to the \code{frame} parameter in 'plotly'.
+#' `fr` corresponds to the `frame` parameter in 'plotly'.
 #' @param Umax The maximum displayed value of potential.
-#' @param n,lims,h,kde_fun Passed to \code{make_2d_kernel_dist}
+#' @param n,lims,h,kde_fun Passed to `make_2d_kernel_dist`
 #' @param individual_landscape Make individual landscape for each simulation?
 #' @param mat_3d Also make heatmap matrix?
 #'
-#' @return A \code{3d_animation_landscape} object that describes the landscape of the system, including the smoothed distribution and the landscape plot.
+#' @return A `3d_animation_landscape` object that describes the landscape of the system, including the smoothed distribution and the landscape plot.
 #'
 #' @export
 make_3d_animation <- function(bs, x, y, fr, Umax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 1e-3, kde_fun = "ks", individual_landscape = FALSE, mat_3d = TRUE) {
@@ -41,6 +41,7 @@ make_3d_animation <- function(bs, x, y, fr, Umax = 5, n = 200, lims = c(-0.1, 1.
     plotly::plot_ly(x = ~x, y = ~y, z = pmin(-log(.$z %>% t()), Umax), color = pmin(-log(.$z %>% t()), Umax), frame = ~fr) %>%
     plotly::add_markers(size = I(5)) %>%
     plotly::layout(scene = list(xaxis = list(title = x), yaxis = list(title = y), zaxis = list(title = "U"))) %>%
+    plotly::colorbar(title = "U") %>%
     plotly::animation_slider(
       currentvalue = list(prefix = paste0(fr, ": "))
     )
@@ -51,6 +52,7 @@ make_3d_animation <- function(bs, x, y, fr, Umax = 5, n = 200, lims = c(-0.1, 1.
     ggplot2::geom_raster(ggplot2::aes(fill = pmin(-log(z), Umax))) +
     ggplot2::scale_fill_viridis_c() +
     ggplot2::labs(x = x, y = y, fill = "U") +
+    ggplot2::theme_bw() +
     gganimate::transition_states(df_multichannel_collect$fr) +
     ggplot2::labs(subtitle = paste0(fr, ": {closest_state}"))
   message("Done!")
@@ -67,14 +69,14 @@ make_3d_animation <- function(bs, x, y, fr, Umax = 5, n = 200, lims = c(-0.1, 1.
 }
 
 #' Make a matrix of 2d graphs for two parameters
-#' @param bs A \code{batch_simulation} object created by \code{\link{batch_simulation}.}
+#' @param bs A `batch_simulation` object created by `[batch_simulation].`
 #' @param x,rows,cols The names of the target variables.
 #' If `rows` is `NULL`, only a vector of graphs will be generated.
-#' @param adjust,from,to Passed to \code{density}.
+#' @param adjust,from,to Passed to `density`.
 #' @param Umax The maximum displayed value of potential.
 #' @param individual_landscape Make individual landscape for each simulation?
 #'
-#' @return A \code{2d_matrix_landscape} object that describes the landscape of the system, including the smoothed distribution and the landscape plot.
+#' @return A `2d_matrix_landscape` object that describes the landscape of the system, including the smoothed distribution and the landscape plot.
 #'
 #' @export
 make_2d_matrix <- function(bs, x, rows = NULL, cols, adjust = 50, from = -0.1, to = 1, Umax = 5, individual_landscape = FALSE) {
@@ -131,14 +133,14 @@ make_2d_matrix <- function(bs, x, rows = NULL, cols, adjust = 50, from = -0.1, t
 #'
 #' (Note: a matrix of interactive maps is currently not supported.)
 #'
-#' @param bs A \code{batch_simulation} object created by \code{\link{batch_simulation}.}
+#' @param bs A `batch_simulation` object created by `[batch_simulation].`
 #' @param x,y,rows,cols The names of the target variables.
 #' If `rows` is `NULL`, only a vector of graphs will be generated.
 #' @param Umax The maximum displayed value of potential.
-#' @param n,lims,h,kde_fun Passed to \code{\link{make_2d_kernel_dist}}
+#' @param n,lims,h,kde_fun Passed to [make_2d_kernel_dist()]
 #' @param individual_landscape Make individual landscape for each simulation?
 #'
-#' @return A \code{3d_matrix_landscape} object that describes the landscape of the system, including the smoothed distribution and the landscape plot.
+#' @return A `3d_matrix_landscape` object that describes the landscape of the system, including the smoothed distribution and the landscape plot.
 #'
 #' @export
 make_3d_matrix <- function(bs, x, y, rows = NULL, cols, Umax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 1e-3, kde_fun = "ks", individual_landscape = FALSE) {
@@ -178,7 +180,8 @@ make_3d_matrix <- function(bs, x, y, rows = NULL, cols, Umax = 5, n = 200, lims 
   p <- ggplot2::ggplot(data = df_all, ggplot2::aes(x = x, y = y)) +
     ggplot2::geom_raster(ggplot2::aes(fill = pmin(-log(z), Umax))) +
     ggplot2::scale_fill_viridis_c() +
-    ggplot2::labs(x = x, y = y, fill = "U")
+    ggplot2::labs(x = x, y = y, fill = "U") +
+    ggplot2::theme_bw()
 
   if (is.null(rows)) {
     p <- p + ggplot2::facet_wrap(. ~ cols, labeller = ggplot2::labeller(.cols = ggplot2::as_labeller(cols_labeller)))

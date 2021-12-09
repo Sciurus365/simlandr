@@ -22,10 +22,10 @@ make_3d_static(
 
 \item{Umax}{The maximum displayed value of potential.}
 
-\item{n, lims, h, kde_fun}{Passed to \code{\link{make_2d_kernel_dist}}}
+\item{n, lims, h, kde_fun}{Passed to \code{\link[=make_2d_kernel_dist]{make_2d_kernel_dist()}}}
 }
 \value{
-A \code{3d_static_landscape} object that describes the landscape of the system, including the smooth distribution and the landscape plot.
+A \verb{3d_static_landscape} object that describes the landscape of the system, including the smooth distribution and the landscape plot.
 }
 \description{
 Make 3D static landscape plots from simulation output
