@@ -29,6 +29,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -41,18 +43,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">simlandr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.2.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -80,7 +76,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/Sciurus365/simlandr/">
+  <a href="https://github.com/Sciurus365/simlandr/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -98,155 +94,114 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<div id="simlandr-simulation-based-landscape-construction-for-dynamical-systems-" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#simlandr-simulation-based-landscape-construction-for-dynamical-systems-" class="anchor"></a><code>simlandr</code>: Simulation-Based Landscape Construction for Dynamical Systems <img src="reference/figures/logo.png" align="right" height="138">
+<div class="section level1">
+<div class="page-header"><h1 id="simlandr-simulation-based-landscape-construction-for-dynamical-systems-">
+<code>simlandr</code>: Simulation-Based Landscape Construction for Dynamical Systems <img src="reference/figures/logo.png" align="right" height="138"><a class="anchor" aria-label="anchor" href="#simlandr-simulation-based-landscape-construction-for-dynamical-systems-"></a>
 </h1></div>
 
 <p><code>simlandr</code> provides a set of tools for constructing potential landscape for dynamic systems using Monte-Carlo simulation, especially for psychological formal models. It can help to:</p>
-<ol>
+<ol style="list-style-type: decimal">
 <li>Run batch simulations for different parameter values;</li>
-<li>Store large simulation outputs into hard drive by reusable <code>hash_big.matrix</code> class, and perform out-of-memory calculation;</li>
+<li>Store large simulation outputs into hard drive by the reusable <code>hash_big.matrix</code> class, and perform out-of-memory calculation;</li>
 <li>Check convergence of the simulations;</li>
 <li>Construct 2d, 3d, 4d potential landscapes based on the simulation outputs;</li>
-<li>Calculate the lowest elevation path and barrier height for transitions between states.</li>
+<li>Calculate the minimal energy path and barrier height for transitions between states.</li>
 </ol>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the released version of simlandr from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>You can install the development version from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"simlandr"</span><span class="op">)</span></code></pre></div>
-<p>And the development version from <a href="https://github.com/">GitHub</a> with:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"Sciurus365/simlandr"</span><span class="op">)</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"Sciurus365/simlandr"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># Use this command if you want to build vignettes</span></code></pre></div>
 </div>
-<div id="example" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://sciurus365.github.io/simlandr/">simlandr</a></span><span class="op">)</span>
+<div class="section level2">
+<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+</h2>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://sciurus365.github.io/simlandr/" class="external-link">simlandr</a></span><span class="op">)</span>
 
 <span class="co"># Simulation</span>
 
 <span class="co">## Single simulation</span>
 
-<span class="va">single_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sim_fun_test.html">sim_fun_test</a></span><span class="op">(</span>
-  par1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>var1 <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
-  par2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>var2 <span class="op">=</span> <span class="fl">1</span>, var3 <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
-<span class="op">)</span>
+<span class="va">single_output_grad</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sim_fun_grad.html">sim_fun_grad</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fl">1e4</span>, seed <span class="op">=</span> <span class="fl">1614</span><span class="op">)</span>
 
 <span class="co">## Batch simulation: simulate a set of models with different parameter values</span>
-<span class="va">batch_test2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/new_var_set.html">new_var_set</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">batch_test2</span> <span class="op">&lt;-</span> <span class="va">batch_test2</span> <span class="op"><a href="reference/%&gt;%.html">%&gt;%</a></span>
-  <span class="fu"><a href="reference/new_var_set.html">add_var</a></span><span class="op">(</span><span class="st">"par1"</span>, <span class="st">"var1"</span>, <span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span><span class="op">)</span> <span class="op"><a href="reference/%&gt;%.html">%&gt;%</a></span>
-  <span class="fu"><a href="reference/new_var_set.html">add_var</a></span><span class="op">(</span><span class="st">"par2"</span>, <span class="st">"var2"</span>, <span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span><span class="op">)</span>
-<span class="va">batch_test_grid2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_var_grid.html">make_var_grid</a></span><span class="op">(</span><span class="va">batch_test2</span><span class="op">)</span>
-<span class="va">batch_test_result2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/modified_simulation.html">batch_simulation</a></span><span class="op">(</span><span class="va">batch_test_grid2</span>, <span class="va">sim_fun_test</span>,
-  default_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-    par1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>var1 <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,
-    par2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>var2 <span class="op">=</span> <span class="fl">0</span>, var3 <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
-  <span class="op">)</span>,
-  bigmemory <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
+<span class="va">batch_arg_set_grad</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/new_arg_set.html">new_arg_set</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">batch_arg_set_grad</span> <span class="op">&lt;-</span> <span class="va">batch_arg_set_grad</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="reference/new_arg_set.html">add_arg_ele</a></span><span class="op">(</span>
+    arg_name <span class="op">=</span> <span class="st">"parameter"</span>, ele_name <span class="op">=</span> <span class="st">"a"</span>,
+    start <span class="op">=</span> <span class="op">-</span><span class="fl">6</span>, end <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, by <span class="op">=</span> <span class="fl">1</span>
+  <span class="op">)</span>
+<span class="va">batch_grid_grad</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_arg_grid.html">make_arg_grid</a></span><span class="op">(</span><span class="va">batch_arg_set_grad</span><span class="op">)</span>
+<span class="va">batch_output_grad</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/batch_simulation.html">batch_simulation</a></span><span class="op">(</span><span class="va">batch_grid_grad</span>, <span class="va">sim_fun_grad</span>,
+    default_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+      initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,
+      parameter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="op">-</span><span class="fl">4</span>, b <span class="op">=</span> <span class="fl">0</span>, c <span class="op">=</span> <span class="fl">0</span>, sigmasq <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+    <span class="op">)</span>,
+    length <span class="op">=</span> <span class="fl">1e4</span>,
+    seed <span class="op">=</span> <span class="fl">1614</span>,
+    bigmemory <span class="op">=</span> <span class="cn">FALSE</span>
+  <span class="op">)</span>
 
-<span class="va">batch_test_result2</span>
-<span class="co">#&gt; Output(s) from 9 simulations.</span>
+<span class="va">batch_output_grad</span>
+<span class="co">#&gt; Output(s) from 6 simulations.</span>
 
 <span class="co"># Construct landscapes</span>
 
-<span class="co">## Example 1. 2d density landscape</span>
-<span class="va">l_single_2d</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_2d_density.html">make_2d_density</a></span><span class="op">(</span><span class="va">single_test</span>, x <span class="op">=</span> <span class="st">"out1"</span>, from <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>, to <span class="op">=</span> <span class="fl">2</span>, adjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">l_single_2d</span><span class="op">)</span></code></pre></div>
+<span class="co">## Example 1. 2D landscape</span>
+<span class="va">l_single_grad_2d</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_2d_static.html">make_2d_static</a></span><span class="op">(</span><span class="va">single_output_grad</span>,
+  x <span class="op">=</span> <span class="st">"x"</span>,
+  from <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>, to <span class="op">=</span> <span class="fl">2</span>, adjust <span class="op">=</span> <span class="fl">2</span>
+<span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_single_grad_2d</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-example-1.png" width="100%"></p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Example 2. 3d (x, y, color) plot matrix with two varying parameters</span>
-<span class="va">l_batch_3d_m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_3d_matrix.html">make_3d_matrix</a></span><span class="op">(</span><span class="va">batch_test_result2</span>, x <span class="op">=</span> <span class="st">"out1"</span>, y <span class="op">=</span> <span class="st">"out2"</span>, rows <span class="op">=</span> <span class="st">"var1"</span>, cols <span class="op">=</span> <span class="st">"var2"</span>, lims <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span>, <span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span>, h <span class="op">=</span> <span class="fl">0.001</span>, kde_fun <span class="op">=</span> <span class="st">"ks"</span>, Umax <span class="op">=</span> <span class="fl">10</span>, individual_landscape <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Example 2. 3D (x, y, color) plot matrix with two varying parameters</span>
+<span class="va">l_single_grad_3d</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_3d_static.html">make_3d_static</a></span><span class="op">(</span><span class="va">single_output_grad</span>,
+  x <span class="op">=</span> <span class="st">"x"</span>, y <span class="op">=</span> <span class="st">"y"</span>,
+  lims <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="op">-</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, h <span class="op">=</span> <span class="fl">0.05</span>,
+  kde_fun <span class="op">=</span> <span class="st">"ks"</span>
+<span class="op">)</span>
+<span class="co">#&gt; Calculating the smooth distribution...</span>
+<span class="co">#&gt; Done!</span>
+<span class="co">#&gt; Making the plot...</span>
+<span class="co">#&gt; Done!</span>
 <span class="co">#&gt; Making the 2d plot...</span>
 <span class="co">#&gt; Done!</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">l_batch_3d_m2</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_single_grad_3d</span>, <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-example-2.png" width="100%"></p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Calculate energy barriers</span>
-<span class="co">## Example 1</span>
-<span class="va">b_single_2d</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calculate_barrier_2d.html">calculate_barrier_2d</a></span><span class="op">(</span><span class="va">l_single_2d</span>, start_location_value <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>, end_location_value <span class="op">=</span> <span class="fl">2</span>, start_r <span class="op">=</span> <span class="fl">0.3</span>, end_r <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span>
-
-<span class="va">b_single_2d</span><span class="op">$</span><span class="va">local_min_start</span>
-<span class="co">#&gt; $U</span>
-<span class="co">#&gt; [1] 1.722065</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $location</span>
-<span class="co">#&gt; x_index x_value </span>
-<span class="co">#&gt;       1      -2</span>
-<span class="va">b_single_2d</span><span class="op">$</span><span class="va">local_min_end</span>
-<span class="co">#&gt; $U</span>
-<span class="co">#&gt; [1] 1.723732</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $location</span>
-<span class="co">#&gt; x_index x_value </span>
-<span class="co">#&gt;     512       2</span>
-<span class="va">b_single_2d</span><span class="op">$</span><span class="va">saddle_point</span>
-<span class="co">#&gt; $U</span>
-<span class="co">#&gt; [1] 2.167971</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $location</span>
-<span class="co">#&gt;      x_index      x_value </span>
-<span class="co">#&gt; 267.00000000   0.08219178</span>
-
-<span class="fu"><a href="reference/get_barrier_height.html">get_barrier_height</a></span><span class="op">(</span><span class="va">b_single_2d</span><span class="op">)</span>
+<span class="co">## Example 1. Energy barrier for the 2D landscape</span>
+<span class="va">b_single_grad_2d</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calculate_barrier.html">calculate_barrier</a></span><span class="op">(</span><span class="va">l_single_grad_2d</span>,
+  start_location_value <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, end_location_value <span class="op">=</span> <span class="fl">1</span>,
+  start_r <span class="op">=</span> <span class="fl">0.3</span>, end_r <span class="op">=</span> <span class="fl">0.3</span>
+<span class="op">)</span>
+<span class="fu"><a href="reference/get_barrier_height.html">get_barrier_height</a></span><span class="op">(</span><span class="va">b_single_grad_2d</span><span class="op">)</span>
 <span class="co">#&gt; delta_U_start   delta_U_end </span>
-<span class="co">#&gt;     0.4459061     0.4442392</span>
+<span class="co">#&gt;      1.877958      1.771488</span>
 
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">l_single_2d</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="reference/get_geom.html">get_geom</a></span><span class="op">(</span><span class="va">b_single_2d</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_single_grad_2d</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="reference/get_geom.html">get_geom</a></span><span class="op">(</span><span class="va">b_single_grad_2d</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-example-3.png" width="100%"></p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Example 2</span>
-<span class="va">b_batch_3d_m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calculate_barrier_3d_batch.html">calculate_barrier_3d_batch</a></span><span class="op">(</span><span class="va">l_batch_3d_m2</span>, start_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, end_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, start_r <span class="op">=</span> <span class="fl">0.3</span>, end_r <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span>
-<span class="co">#&gt; The U in this range is too high. Searching range expanded...</span>
-<span class="co">#&gt; r = c(0.691959798994974,0.691959798994974)</span>
-<span class="co">#&gt; The U in this range is too high. Searching range expanded...</span>
-<span class="co">#&gt; r = c(0.752261306532662,0.752261306532662)</span>
-<span class="co">#&gt; The U in this range is too high. Searching range expanded...</span>
-<span class="co">#&gt; r = c(0.691959798994974,0.691959798994974)</span>
-<span class="co">#&gt; The U in this range is too high. Searching range expanded...</span>
-<span class="co">#&gt; r = c(0.691959798994974,0.691959798994974)</span>
-<span class="co">#&gt; The U in this range is too high. Searching range expanded...</span>
-<span class="co">#&gt; r = c(0.601507537688441,0.601507537688441)</span>
-<span class="co">#&gt; The U in this range is too high. Searching range expanded...</span>
-<span class="co">#&gt; r = c(0.571356783919597,0.571356783919597)</span>
-<span class="co">#&gt; The U in this range is too high. Searching range expanded...</span>
-<span class="co">#&gt; r = c(0.752261306532662,0.752261306532662)</span>
-<span class="co">#&gt; The U in this range is too high. Searching range expanded...</span>
-<span class="co">#&gt; r = c(0.752261306532662,0.752261306532662)</span>
-<span class="co">#&gt; The U in this range is too high. Searching range expanded...</span>
-<span class="co">#&gt; r = c(0.903015075376882,0.903015075376882)</span>
-<span class="co">#&gt; The U in this range is too high. Searching range expanded...</span>
-<span class="co">#&gt; r = c(0.903015075376882,0.903015075376882)</span>
-<span class="co">#&gt; The U in this range is too high. Searching range expanded...</span>
-<span class="co">#&gt; r = c(0.752261306532662,0.752261306532662)</span>
-<span class="co">#&gt; The U in this range is too high. Searching range expanded...</span>
-<span class="co">#&gt; r = c(0.752261306532662,0.752261306532662)</span>
-<span class="co">#&gt; The U in this range is too high. Searching range expanded...</span>
-<span class="co">#&gt; r = c(0.691959798994974,0.691959798994974)</span>
-<span class="co">#&gt; The U in this range is too high. Searching range expanded...</span>
-<span class="co">#&gt; r = c(0.631658291457285,0.631658291457285)</span>
-<span class="co">#&gt; The U in this range is too high. Searching range expanded...</span>
-<span class="co">#&gt; r = c(0.691959798994974,0.691959798994974)</span>
-<span class="co">#&gt; The U in this range is too high. Searching range expanded...</span>
-<span class="co">#&gt; r = c(0.691959798994974,0.691959798994974)</span>
-<span class="co">#&gt; The U in this range is too high. Searching range expanded...</span>
-<span class="co">#&gt; r = c(0.631658291457285,0.631658291457285)</span>
-<span class="co">#&gt; The U in this range is too high. Searching range expanded...</span>
-<span class="co">#&gt; r = c(0.691959798994974,0.691959798994974)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">l_batch_3d_m2</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="reference/get_geom.html">get_geom</a></span><span class="op">(</span><span class="va">b_batch_3d_m2</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Example 2. Energy barrier for the 3D landscape</span>
+<span class="va">b_single_grad_3d</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calculate_barrier.html">calculate_barrier</a></span><span class="op">(</span><span class="va">l_single_grad_3d</span>,
+  start_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, end_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,
+  start_r <span class="op">=</span> <span class="fl">0.3</span>, end_r <span class="op">=</span> <span class="fl">0.3</span>
+<span class="op">)</span>
+<span class="fu"><a href="reference/get_barrier_height.html">get_barrier_height</a></span><span class="op">(</span><span class="va">b_single_grad_3d</span><span class="op">)</span>
+<span class="co">#&gt; delta_U_start   delta_U_end </span>
+<span class="co">#&gt;      3.182738      3.080433</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_single_grad_3d</span>, <span class="fl">2</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="reference/get_geom.html">get_geom</a></span><span class="op">(</span><span class="va">b_single_grad_3d</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-example-4.png" width="100%"></p>
 </div>
 </div>
-<div id="vignettes" class="section level1">
-<h1 class="hasAnchor">
-<a href="#vignettes" class="anchor"></a>Vignettes</h1>
+<div class="section level1">
+<h1 id="vignettes">Vignettes<a class="anchor" aria-label="anchor" href="#vignettes"></a>
+</h1>
 <p>See the vignettes of this package (<code>browseVignettes("simlandr")</code>) for more examples and explanations.</p>
 <!-- devtools::build_readme() -->
 </div>
@@ -255,46 +210,58 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=simlandr">https://​cloud.r-project.org/​package=simlandr</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/Sciurus365/simlandr/">https://​github.com/​Sciurus365/​simlandr/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/Sciurus365/simlandr/issues">https://​github.com/​Sciurus365/​simlandr/​issues</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=simlandr" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/Sciurus365/simlandr/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/Sciurus365/simlandr/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
 <li><small>GPL (&gt;= 3)</small></li>
 </ul>
 </div>
-<div class="developers">
-<h2>Developers</h2>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li>Jingmeng Cui <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-3421-8457" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html#citation">Citing simlandr</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/Sciurus365/simlandr/actions"><img src="https://github.com/Sciurus365/simlandr/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li>Jingmeng Cui <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-3421-8457" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 </ul>
 </div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://cran.r-project.org/package=simlandr" class="external-link"><img src="https://www.r-pkg.org/badges/version/simlandr" alt="CRAN_Status_Badge"></a></li>
+<li><a href="https://github.com/Sciurus365/simlandr/actions" class="external-link"><img src="https://github.com/Sciurus365/simlandr/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://cran.r-project.org/package=simlandr" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/simlandr"></a></li>
+</ul>
 </div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Jingmeng Cui.</p>
+  <p></p>
+<p>Developed by Jingmeng Cui.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -302,6 +269,8 @@
 
   
 
+
+  
 
   </body>
 </html>

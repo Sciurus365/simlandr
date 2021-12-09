@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,18 +40,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simlandr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.2.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -77,7 +73,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/Sciurus365/simlandr/">
+  <a href="https://github.com/Sciurus365/simlandr/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -96,10 +92,10 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>3. Calculate the lowest elevation path and barrier height between stable states</h1>
-                        <h4 class="author">Jingmeng Cui</h4>
+                        <h4 data-toc-skip class="author">Jingmeng Cui</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/Sciurus365/simlandr/blob/master/vignettes/barrier.Rmd"><code>vignettes/barrier.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Sciurus365/simlandr/blob/HEAD/vignettes/barrier.Rmd" class="external-link"><code>vignettes/barrier.Rmd</code></a></small>
       <div class="hidden name"><code>barrier.Rmd</code></div>
 
     </div>
@@ -107,7 +103,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://sciurus365.github.io/simlandr/">simlandr</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://sciurus365.github.io/simlandr/" class="external-link">simlandr</a></span><span class="op">)</span></code></pre></div>
 <p>An important property of the states in a landscape is their stability, characterized by the barrier height between these states and other adjacent states. <code>simlandr</code> also provides tools to calculate the barrier heights from landscapes.</p>
 <p>You can use the general function <code><a href="../reference/calculate_barrier.html">calculate_barrier()</a></code> to calculate the barrier for most landscapes. There are also specific <code>calculate_barrier_*()</code> functions available. The output of these functions is a `barrier object.</p>
 <p>The <code>barrier</code> objects contain the potential function and the position of both states and the saddle point. For 3D landscapes, the lowest elevation path (LEP) is also provided. <code>barrier</code>s can also be calculated for landscapes from multiple simulations. In this case, remember to set <code>individual_landscape = TRUE</code> in landscape construction functions.</p>
@@ -119,12 +115,16 @@
 <p>Prepare data sets and landscapes (see <code><a href="../articles/landscape.html">vignette("landscape")</a></code>)</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">single_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_fun_test.html">sim_fun_test</a></span><span class="op">(</span>
-  par1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>var1 <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
-  par2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>var2 <span class="op">=</span> <span class="fl">1</span>, var3 <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
+  par1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>var1 <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
+  par2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>var2 <span class="op">=</span> <span class="fl">1</span>, var3 <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
 <span class="op">)</span>
 
 <span class="va">l_single_2d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_2d_density.html">make_2d_density</a></span><span class="op">(</span><span class="va">single_test</span>, x <span class="op">=</span> <span class="st">"out1"</span>, from <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>, to <span class="op">=</span> <span class="fl">2</span>, adjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-<span class="va">l_single_3d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_3d_static.html">make_3d_static</a></span><span class="op">(</span><span class="va">single_test</span>, x <span class="op">=</span> <span class="st">"out1"</span>, y <span class="op">=</span> <span class="st">"out2"</span>, lims <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span>, <span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span>, h <span class="op">=</span> <span class="fl">0.01</span>, kde_fun <span class="op">=</span> <span class="st">"ks"</span><span class="op">)</span>
+<span class="co">#&gt; Warning: `make_2d_density()` was deprecated in simlandr 0.1.3.</span>
+<span class="co">#&gt; Please use `make_2d_static()` instead.</span>
+<span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span>
+<span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span></span>
+<span class="va">l_single_3d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_3d_static.html">make_3d_static</a></span><span class="op">(</span><span class="va">single_test</span>, x <span class="op">=</span> <span class="st">"out1"</span>, y <span class="op">=</span> <span class="st">"out2"</span>, lims <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span>, <span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span>, h <span class="op">=</span> <span class="fl">0.01</span>, kde_fun <span class="op">=</span> <span class="st">"ks"</span><span class="op">)</span>
 <span class="co">#&gt; Calculating the smooth distribution...</span>
 <span class="co">#&gt; Done!</span>
 <span class="co">#&gt; Making the plot...</span>
@@ -133,25 +133,48 @@
 <span class="co">#&gt; Done!</span>
 
 <span class="va">batch_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_var_set.html">new_var_set</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">batch_test</span> <span class="op">&lt;-</span> <span class="va">batch_test</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span>
+<span class="co">#&gt; Warning: `new_var_set()` was deprecated in simlandr 0.1.3.</span>
+<span class="co">#&gt; Please use `new_arg_set()` instead.</span>
+<span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span>
+<span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span></span>
+<span class="va">batch_test</span> <span class="op">&lt;-</span> <span class="va">batch_test</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/new_var_set.html">add_var</a></span><span class="op">(</span><span class="st">"par2"</span>, <span class="st">"var3"</span>, <span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">0.1</span><span class="op">)</span>
+<span class="co">#&gt; Warning: `add_var()` was deprecated in simlandr 0.1.3.</span>
+<span class="co">#&gt; Please use `add.arg_set()` instead.</span>
+<span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span>
+<span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span></span>
 <span class="va">batch_test_grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_var_grid.html">make_var_grid</a></span><span class="op">(</span><span class="va">batch_test</span><span class="op">)</span>
-<span class="va">batch_test_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/modified_simulation.html">batch_simulation</a></span><span class="op">(</span><span class="va">batch_test_grid</span>, <span class="va">sim_fun_test</span>,
-  default_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-    par1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>var1 <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,
-    par2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>var2 <span class="op">=</span> <span class="fl">0</span>, var3 <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
+<span class="co">#&gt; Warning: `make_var_grid()` was deprecated in simlandr 0.1.3.</span>
+<span class="co">#&gt; Please use `make_par_grid()` instead.</span>
+<span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span>
+<span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span></span>
+<span class="co">#&gt; Warning: The `struct` argument of `fill_in_struct()` should be an `arg_set` as of simlandr 0.1.3.</span>
+<span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span>
+<span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span></span>
+<span class="co">#&gt; Warning: `nvar()` was deprecated in simlandr 0.1.3.</span>
+<span class="co">#&gt; Please use `nele()` instead.</span>
+<span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span>
+<span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span></span>
+<span class="co">#&gt; Warning: `npar()` was deprecated in simlandr 0.1.3.</span>
+<span class="co">#&gt; Please use `narg()` instead.</span>
+<span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span>
+<span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span></span>
+<span class="va">batch_test_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/batch_simulation.html">batch_simulation</a></span><span class="op">(</span><span class="va">batch_test_grid</span>, <span class="va">sim_fun_test</span>,
+  default_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+    par1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>var1 <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,
+    par2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>var2 <span class="op">=</span> <span class="fl">0</span>, var3 <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
   <span class="op">)</span>,
   bigmemory <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span>
 <span class="va">batch_test2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_var_set.html">new_var_set</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">batch_test2</span> <span class="op">&lt;-</span> <span class="va">batch_test2</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/new_var_set.html">add_var</a></span><span class="op">(</span><span class="st">"par1"</span>, <span class="st">"var1"</span>, <span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span><span class="op">)</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span>
+<span class="va">batch_test2</span> <span class="op">&lt;-</span> <span class="va">batch_test2</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/new_var_set.html">add_var</a></span><span class="op">(</span><span class="st">"par1"</span>, <span class="st">"var1"</span>, <span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/new_var_set.html">add_var</a></span><span class="op">(</span><span class="st">"par2"</span>, <span class="st">"var2"</span>, <span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span><span class="op">)</span>
 <span class="va">batch_test_grid2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_var_grid.html">make_var_grid</a></span><span class="op">(</span><span class="va">batch_test2</span><span class="op">)</span>
-<span class="va">batch_test_result2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/modified_simulation.html">batch_simulation</a></span><span class="op">(</span><span class="va">batch_test_grid2</span>, <span class="va">sim_fun_test</span>,
-  default_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-    par1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>var1 <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,
-    par2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>var2 <span class="op">=</span> <span class="fl">0</span>, var3 <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
+<span class="va">batch_test_result2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/batch_simulation.html">batch_simulation</a></span><span class="op">(</span><span class="va">batch_test_grid2</span>, <span class="va">sim_fun_test</span>,
+  default_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+    par1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>var1 <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,
+    par2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>var2 <span class="op">=</span> <span class="fl">0</span>, var3 <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
   <span class="op">)</span>,
   bigmemory <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span>
@@ -159,10 +182,10 @@
 <span class="va">l_batch_2d_m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_2d_matrix.html">make_2d_matrix</a></span><span class="op">(</span><span class="va">batch_test_result2</span>, x <span class="op">=</span> <span class="st">"out1"</span>, rows <span class="op">=</span> <span class="st">"var1"</span>, cols <span class="op">=</span> <span class="st">"var2"</span>, from <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, to <span class="op">=</span> <span class="fl">1</span>, adjust <span class="op">=</span> <span class="fl">0.1</span>, individual_landscape <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; Making the plot...</span>
 <span class="co">#&gt; Done!</span>
-<span class="va">l_batch_3d_m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_3d_matrix.html">make_3d_matrix</a></span><span class="op">(</span><span class="va">batch_test_result2</span>, x <span class="op">=</span> <span class="st">"out1"</span>, y <span class="op">=</span> <span class="st">"out2"</span>, rows <span class="op">=</span> <span class="st">"var1"</span>, cols <span class="op">=</span> <span class="st">"var2"</span>, lims <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span>, <span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span>, h <span class="op">=</span> <span class="fl">0.001</span>, kde_fun <span class="op">=</span> <span class="st">"ks"</span>, Umax <span class="op">=</span> <span class="fl">10</span>, individual_landscape <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="va">l_batch_3d_m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_3d_matrix.html">make_3d_matrix</a></span><span class="op">(</span><span class="va">batch_test_result2</span>, x <span class="op">=</span> <span class="st">"out1"</span>, y <span class="op">=</span> <span class="st">"out2"</span>, rows <span class="op">=</span> <span class="st">"var1"</span>, cols <span class="op">=</span> <span class="st">"var2"</span>, lims <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span>, <span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span>, h <span class="op">=</span> <span class="fl">0.001</span>, kde_fun <span class="op">=</span> <span class="st">"ks"</span>, Umax <span class="op">=</span> <span class="fl">10</span>, individual_landscape <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; Making the 2d plot...</span>
 <span class="co">#&gt; Done!</span>
-<span class="va">l_batch_3d_a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_3d_animation.html">make_3d_animation</a></span><span class="op">(</span><span class="va">batch_test_result</span>, x <span class="op">=</span> <span class="st">"out1"</span>, y <span class="op">=</span> <span class="st">"out2"</span>, fr <span class="op">=</span> <span class="st">"var3"</span>, Umax <span class="op">=</span> <span class="fl">20</span>, lims <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span>, <span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span>, h <span class="op">=</span> <span class="fl">0.002</span>, individual_landscape <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="va">l_batch_3d_a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_3d_animation.html">make_3d_animation</a></span><span class="op">(</span><span class="va">batch_test_result</span>, x <span class="op">=</span> <span class="st">"out1"</span>, y <span class="op">=</span> <span class="st">"out2"</span>, fr <span class="op">=</span> <span class="st">"var3"</span>, Umax <span class="op">=</span> <span class="fl">20</span>, lims <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span>, <span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span>, h <span class="op">=</span> <span class="fl">0.002</span>, individual_landscape <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; Wrangling data...</span>
 <span class="co">#&gt; Done!</span>
 <span class="co">#&gt; Making the plot...</span>
@@ -178,9 +201,9 @@
 <p>Frequently used parameters for the family of barrier functions:</p>
 <p><code>start_location_value</code>,<code>end_location_value</code>: the initial position (in value) for searching the start/end point; <code>start_r</code>,<code>end_r</code>: the searching (L1) radius for searching the start/end point.</p>
 <hr>
-<div id="barrier-calculation-for-2d-single-landscape" class="section level1">
-<h1 class="hasAnchor">
-<a href="#barrier-calculation-for-2d-single-landscape" class="anchor"></a>Barrier calculation for 2d single landscape</h1>
+<div class="section level1">
+<h1 id="barrier-calculation-for-2d-single-landscape">Barrier calculation for 2d single landscape<a class="anchor" aria-label="anchor" href="#barrier-calculation-for-2d-single-landscape"></a>
+</h1>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">b_single_2d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calculate_barrier_2d.html">calculate_barrier_2d</a></span><span class="op">(</span><span class="va">l_single_2d</span>, start_location_value <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>, end_location_value <span class="op">=</span> <span class="fl">2</span>, start_r <span class="op">=</span> <span class="fl">0.3</span>, end_r <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span>
 
@@ -210,30 +233,30 @@
 <span class="co">#&gt; delta_U_start   delta_U_end </span>
 <span class="co">#&gt;     0.4459061     0.4442392</span>
 
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">l_single_2d</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/get_geom.html">get_geom</a></span><span class="op">(</span><span class="va">b_single_2d</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_single_2d</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/get_geom.html">get_geom</a></span><span class="op">(</span><span class="va">b_single_2d</span><span class="op">)</span></code></pre></div>
 <p><img src="barrier_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 </div>
-<div id="barrier-calculation-for-3d-single-landscape" class="section level1">
-<h1 class="hasAnchor">
-<a href="#barrier-calculation-for-3d-single-landscape" class="anchor"></a>Barrier calculation for 3d single landscape</h1>
+<div class="section level1">
+<h1 id="barrier-calculation-for-3d-single-landscape">Barrier calculation for 3d single landscape<a class="anchor" aria-label="anchor" href="#barrier-calculation-for-3d-single-landscape"></a>
+</h1>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">b_single_3d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calculate_barrier_3d.html">calculate_barrier_3d</a></span><span class="op">(</span><span class="va">l_single_3d</span>, start_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2.5</span>, <span class="op">-</span><span class="fl">2</span><span class="op">)</span>, end_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.5</span>, <span class="fl">0</span><span class="op">)</span>, start_r <span class="op">=</span> <span class="fl">0.3</span>, end_r <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">l_single_3d</span>, <span class="fl">2</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/get_geom.html">get_geom</a></span><span class="op">(</span><span class="va">b_single_3d</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">b_single_3d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calculate_barrier_3d.html">calculate_barrier_3d</a></span><span class="op">(</span><span class="va">l_single_3d</span>, start_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2.5</span>, <span class="op">-</span><span class="fl">2</span><span class="op">)</span>, end_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.5</span>, <span class="fl">0</span><span class="op">)</span>, start_r <span class="op">=</span> <span class="fl">0.3</span>, end_r <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_single_3d</span>, <span class="fl">2</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/get_geom.html">get_geom</a></span><span class="op">(</span><span class="va">b_single_3d</span><span class="op">)</span></code></pre></div>
 <p><img src="barrier_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 </div>
-<div id="barrier-calculation-for-2d-batch-landscape" class="section level1">
-<h1 class="hasAnchor">
-<a href="#barrier-calculation-for-2d-batch-landscape" class="anchor"></a>Barrier calculation for 2d batch landscape</h1>
+<div class="section level1">
+<h1 id="barrier-calculation-for-2d-batch-landscape">Barrier calculation for 2d batch landscape<a class="anchor" aria-label="anchor" href="#barrier-calculation-for-2d-batch-landscape"></a>
+</h1>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">b_batch_2d_m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calculate_barrier_2d_batch.html">calculate_barrier_2d_batch</a></span><span class="op">(</span><span class="va">l_batch_2d_m2</span>, start_location_value <span class="op">=</span> <span class="op">-</span><span class="fl">0.35</span>, end_location_value <span class="op">=</span> <span class="fl">0.35</span>, start_r <span class="op">=</span> <span class="fl">0.34</span>, end_r <span class="op">=</span> <span class="fl">0.34</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">l_batch_2d_m2</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/get_geom.html">get_geom</a></span><span class="op">(</span><span class="va">b_batch_2d_m2</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_batch_2d_m2</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/get_geom.html">get_geom</a></span><span class="op">(</span><span class="va">b_batch_2d_m2</span><span class="op">)</span></code></pre></div>
 <p><img src="barrier_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 </div>
-<div id="barrier-calculation-for-3d-batch-landscape" class="section level1">
-<h1 class="hasAnchor">
-<a href="#barrier-calculation-for-3d-batch-landscape" class="anchor"></a>Barrier calculation for 3d batch landscape</h1>
+<div class="section level1">
+<h1 id="barrier-calculation-for-3d-batch-landscape">Barrier calculation for 3d batch landscape<a class="anchor" aria-label="anchor" href="#barrier-calculation-for-3d-batch-landscape"></a>
+</h1>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">b_batch_3d_m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calculate_barrier_3d_batch.html">calculate_barrier_3d_batch</a></span><span class="op">(</span><span class="va">l_batch_3d_m2</span>, start_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, end_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, start_r <span class="op">=</span> <span class="fl">0.3</span>, end_r <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">b_batch_3d_m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calculate_barrier_3d_batch.html">calculate_barrier_3d_batch</a></span><span class="op">(</span><span class="va">l_batch_3d_m2</span>, start_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, end_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, start_r <span class="op">=</span> <span class="fl">0.3</span>, end_r <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span>
 <span class="co">#&gt; The U in this range is too high. Searching range expanded...</span>
 <span class="co">#&gt; r = c(0.691959798994974,0.691959798994974)</span>
 <span class="co">#&gt; The U in this range is too high. Searching range expanded...</span>
@@ -270,28 +293,28 @@
 <span class="co">#&gt; r = c(0.631658291457285,0.631658291457285)</span>
 <span class="co">#&gt; The U in this range is too high. Searching range expanded...</span>
 <span class="co">#&gt; r = c(0.691959798994974,0.691959798994974)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">l_batch_3d_m2</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/get_geom.html">get_geom</a></span><span class="op">(</span><span class="va">b_batch_3d_m2</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_batch_3d_m2</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/get_geom.html">get_geom</a></span><span class="op">(</span><span class="va">b_batch_3d_m2</span><span class="op">)</span></code></pre></div>
 <p><img src="barrier_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 </div>
-<div id="set-the-starting-and-end-values-for-each-landscape" class="section level1">
-<h1 class="hasAnchor">
-<a href="#set-the-starting-and-end-values-for-each-landscape" class="anchor"></a>Set the starting and end values for each landscape</h1>
+<div class="section level1">
+<h1 id="set-the-starting-and-end-values-for-each-landscape">Set the starting and end values for each landscape<a class="anchor" aria-label="anchor" href="#set-the-starting-and-end-values-for-each-landscape"></a>
+</h1>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">b_batch_3d_a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calculate_barrier.html">calculate_barrier</a></span><span class="op">(</span><span class="va">l_batch_3d_a</span>, start_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, end_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>, start_r <span class="op">=</span> <span class="fl">0.3</span>, end_r <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">b_batch_3d_a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calculate_barrier.html">calculate_barrier</a></span><span class="op">(</span><span class="va">l_batch_3d_a</span>, start_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, end_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>, start_r <span class="op">=</span> <span class="fl">0.3</span>, end_r <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span>
 <span class="co">#&gt; The U in this range is too high. Searching range expanded...</span>
 <span class="co">#&gt; r = c(1.83618090452261,1.83618090452261)</span>
 <span class="co">#&gt; The U in this range is too high. Searching range expanded...</span>
 <span class="co">#&gt; r = c(1.41407035175879,1.41407035175879)</span>
 <span class="co">#&gt; The U in this range is too high. Searching range expanded...</span>
 <span class="co">#&gt; r = c(1.02211055276382,1.02211055276382)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">l_batch_3d_a</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/get_geom.html">get_geom</a></span><span class="op">(</span><span class="va">b_batch_3d_a</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_batch_3d_a</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/get_geom.html">get_geom</a></span><span class="op">(</span><span class="va">b_batch_3d_a</span><span class="op">)</span></code></pre></div>
 <p><img src="barrier_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co">## This barrier calculation doesn't find proper local minimums for several landscapes. Specify the searching parameters per landscape manually.</span>
 <span class="co">## First, print a template of the data format.</span>
 
-<span class="fu"><a href="../reference/make_barrier_grid_3d.html">make_barrier_grid_3d</a></span><span class="op">(</span><span class="va">batch_test_grid</span>, start_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, end_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>, start_r <span class="op">=</span> <span class="fl">0.3</span>, end_r <span class="op">=</span> <span class="fl">0.6</span>, print_template <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="../reference/make_barrier_grid_3d.html">make_barrier_grid_3d</a></span><span class="op">(</span><span class="va">batch_test_grid</span>, start_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, end_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>, start_r <span class="op">=</span> <span class="fl">0.3</span>, end_r <span class="op">=</span> <span class="fl">0.6</span>, print_template <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; structure(list(start_location_value = list(c(0, 0), c(0, 0), </span>
 <span class="co">#&gt;     c(0, 0), c(0, 0), c(0, 0), c(0, 0)), start_r = list(c(0.3, </span>
 <span class="co">#&gt; 0.3), c(0.3, 0.3), c(0.3, 0.3), c(0.3, 0.3), c(0.3, 0.3), c(0.3, </span>
@@ -312,28 +335,28 @@
   <span class="va">l_batch_3d_a</span>,
   <span class="fu"><a href="../reference/make_barrier_grid_3d.html">make_barrier_grid_3d</a></span><span class="op">(</span><span class="va">batch_test_grid</span>,
     df <span class="op">=</span>
-      <span class="fu"><a href="https://rdrr.io/r/base/structure.html">structure</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>start_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-        <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,
-        <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>
-      <span class="op">)</span>, start_r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+      <span class="fu"><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>start_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+        <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,
+        <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>
+      <span class="op">)</span>, start_r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
         <span class="fl">0.1</span>,
         <span class="fl">0.1</span>
-      <span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+      <span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
         <span class="fl">0.3</span>,
         <span class="fl">0.3</span>
-      <span class="op">)</span><span class="op">)</span>, end_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+      <span class="op">)</span><span class="op">)</span>, end_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
         <span class="fl">1</span>,
         <span class="fl">0.5</span>
-      <span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.8</span>, <span class="fl">0.8</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>, end_r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+      <span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.8</span>, <span class="fl">0.8</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>, end_r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
         <span class="fl">0.6</span>, <span class="fl">0.6</span>,
         <span class="fl">0.6</span>, <span class="fl">0.6</span>, <span class="fl">0.6</span>, <span class="fl">0.6</span>
-      <span class="op">)</span><span class="op">)</span>, row.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="op">-</span><span class="fl">6L</span><span class="op">)</span>, class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+      <span class="op">)</span><span class="op">)</span>, row.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="op">-</span><span class="fl">6L</span><span class="op">)</span>, class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
         <span class="st">"var_grid"</span>,
         <span class="st">"data.frame"</span>
       <span class="op">)</span><span class="op">)</span>
   <span class="op">)</span>
 <span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">l_batch_3d_a</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/get_geom.html">get_geom</a></span><span class="op">(</span><span class="va">b_batch_3d_a</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_batch_3d_a</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/get_geom.html">get_geom</a></span><span class="op">(</span><span class="va">b_batch_3d_a</span><span class="op">)</span>
 <span class="co">#&gt; geom_path: Each group consists of only one observation. Do you need to adjust</span>
 <span class="co">#&gt; the group aesthetic?</span></code></pre></div>
 <p><img src="barrier_files/figure-html/unnamed-chunk-7-2.png" width="700"></p>
@@ -354,11 +377,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Jingmeng Cui.</p>
+  <p></p>
+<p>Developed by Jingmeng Cui.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -366,6 +391,8 @@
 
   
 
+
+  
 
   </body>
 </html>

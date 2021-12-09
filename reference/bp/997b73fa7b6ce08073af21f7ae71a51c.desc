@@ -1,5 +1,0 @@
-new("big.matrix.descriptor", description = list(sharedType = "FileBacked", 
-    filename = "997b73fa7b6ce08073af21f7ae71a51c.bin", dirname = "bp/", 
-    totalRows = 1000L, totalCols = 3L, rowOffset = c(0, 1000), 
-    colOffset = c(0, 3), nrow = 1000, ncol = 3, rowNames = NULL, 
-    colNames = c("out1", "out2", "out3"), type = "double", separated = FALSE))
