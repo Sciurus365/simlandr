@@ -1,0 +1,7 @@
+\documentclass{article}
+\usepackage{pdfpages}
+%\VignetteIndexEntry{simlandr}
+
+\begin{document}
+\includepdf[pages=-, fitpaper=true]{simlandr_manuscript.pdf}
+\end{document}

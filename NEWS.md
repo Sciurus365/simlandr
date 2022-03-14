@@ -1,10 +1,10 @@
-# Development version
+# simlandr 0.2.0
 
 -   Renamed `var` and `par` in batch simulation functions to `arg` (argument) and `ele` (element).
 -   Adjusted the algorithm of calculating minimal energy paths (previously "minimal elevation paths").
 -   Added an nongradient example function `sim_fun_nongrad()`; renamed `sim_fun_test2()` to `sim_fun_grad()`.
 -   Added title for the color bar in `plot_ly` based plots; used `theme_bw()` throughout all `ggplot2` based plots.
--   Improved some documents.
+-   Improved some documentations; included a new vignette.
 
 # simlandr 0.1.2
 
