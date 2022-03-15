@@ -36,5 +36,4 @@ Suggests:
     knitr,
     rmarkdown,
     webshot
-VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
