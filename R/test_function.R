@@ -106,7 +106,7 @@ sim_fun_grad <- function(initial = list(x = 0, y = 0), parameter = list(a = -4, 
 #'
 #' @references
 #' Wang, J., Zhang, K., Xu, L., & Wang, E. (2011). Quantifying the Waddington landscape and biological paths for development and differentiation. Proceedings of the National Academy of Sciences, 108(20), 8257-8262.
-#' <doi:10.1073/pnas.1017017108>
+#' \doi{10.1073/pnas.1017017108}
 #'
 #' @export
 #'

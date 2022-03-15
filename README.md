@@ -126,7 +126,7 @@ plot(l_single_grad_3d, 2) + get_geom(b_single_grad_3d)
 
 # Vignettes
 
-See the vignettes of this package (`browseVignettes("simlandr")`) for
-more examples and explanations.
+See the vignettes of this package (`browseVignettes("simlandr")` or
+<https://psyarxiv.com/pzva3/>) for more examples and explanations.
 
 <!-- devtools::build_readme() -->

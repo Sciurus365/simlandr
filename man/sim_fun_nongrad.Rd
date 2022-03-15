@@ -48,7 +48,7 @@ Model specification:
 }
 \references{
 Wang, J., Zhang, K., Xu, L., & Wang, E. (2011). Quantifying the Waddington landscape and biological paths for development and differentiation. Proceedings of the National Academy of Sciences, 108(20), 8257-8262.
-\url{doi:10.1073/pnas.1017017108}
+\doi{10.1073/pnas.1017017108}
 }
 \seealso{
 \code{\link[=sim_fun_grad]{sim_fun_grad()}} and \code{\link[=batch_simulation]{batch_simulation()}}.
