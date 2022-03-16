@@ -23,7 +23,7 @@ object, and use add_var to add descriptions of variables."><meta property="og:im
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simlandr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
       </span>
     </div>
 
@@ -31,22 +31,9 @@ object, and use add_var to add descriptions of variables."><meta property="og:im
       <ul class="nav navbar-nav"><li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/simulation.html">1. Dynamic models and simulations</a>
-    </li>
-    <li>
-      <a href="../articles/landscape.html">2. Construct the potential landscapes from simulation results</a>
-    </li>
-    <li>
-      <a href="../articles/barrier.html">3. Calculate the lowest elevation path and barrier height between stable states</a>
-    </li>
-  </ul></li>
+<li>
+  <a href="https://psyarxiv.com/pzva3/" class="external-link">Vignette</a>
+</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
@@ -117,15 +104,15 @@ concrete example.</p></div>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">test</span> <span class="op">&lt;-</span> <span class="fu">new_var_set</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`new_var_set()` was deprecated in simlandr 0.1.3.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`new_var_set()` was deprecated in simlandr 0.2.0.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> Please use `new_arg_set()` instead.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span></span>
 <span class="r-in"><span class="va">test</span> <span class="op">&lt;-</span> <span class="va">test</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu">add_var</span><span class="op">(</span><span class="st">"par1"</span>, <span class="st">"var1"</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu">add_var</span><span class="op">(</span><span class="st">"par2"</span>, <span class="st">"var2"</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">0.1</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`add_var()` was deprecated in simlandr 0.1.3.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> Please use `add.arg_set()` instead.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`add_var()` was deprecated in simlandr 0.2.0.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> Please use `add_arg_ele()` instead.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span></span>
 </code></pre></div>
@@ -142,7 +129,7 @@ concrete example.</p></div>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer></div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simlandr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
       </span>
     </div>
 
@@ -25,22 +25,9 @@
       <ul class="nav navbar-nav"><li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/simulation.html">1. Dynamic models and simulations</a>
-    </li>
-    <li>
-      <a href="../articles/landscape.html">2. Construct the potential landscapes from simulation results</a>
-    </li>
-    <li>
-      <a href="../articles/barrier.html">3. Calculate the lowest elevation path and barrier height between stable states</a>
-    </li>
-  </ul></li>
+<li>
+  <a href="https://psyarxiv.com/pzva3/" class="external-link">Vignette</a>
+</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
@@ -63,6 +50,14 @@
       <small>Source: <a href="https://github.com/Sciurus365/simlandr/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.2.0" id="simlandr-020">simlandr 0.2.0<a class="anchor" aria-label="anchor" href="#simlandr-020"></a></h2>
+<ul><li>Renamed <code>var</code> and <code>par</code> in batch simulation functions to <code>arg</code> (argument) and <code>ele</code> (element).</li>
+<li>Adjusted the algorithm of calculating minimal energy paths (previously “minimal elevation paths”).</li>
+<li>Added an nongradient example function <code><a href="../reference/sim_fun_nongrad.html">sim_fun_nongrad()</a></code>; renamed <code><a href="../reference/sim_fun_test2.html">sim_fun_test2()</a></code> to <code><a href="../reference/sim_fun_grad.html">sim_fun_grad()</a></code>.</li>
+<li>Added title for the color bar in <code>plot_ly</code> based plots; used <code>theme_bw()</code> throughout all <code>ggplot2</code> based plots.</li>
+<li>Improved some documentations; included a new vignette.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.2" id="simlandr-012">simlandr 0.1.2<small>2021-11-02</small><a class="anchor" aria-label="anchor" href="#simlandr-012"></a></h2>
 <ul><li>Improved the manual.</li>
@@ -92,7 +87,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer></div>
