@@ -33,7 +33,7 @@
 #' @export
 #' @export
 new_var_set <- function() {
-  lifecycle::deprecate_warn("0.1.3", "new_var_set()", "new_arg_set()")
+  lifecycle::deprecate_warn("0.2.0", "new_var_set()", "new_arg_set()")
   result <- list()
   class(result) <- c("var_set", "list")
   attr(result, "nvar") <- 0
@@ -44,7 +44,7 @@ new_var_set <- function() {
 #' @describeIn new_var_set Add a variable to the `var_set`.
 #' @export
 add_var <- function(var_set, par_name, var_name, start, end, by) {
-  lifecycle::deprecate_warn("0.1.3", "add_var()", "add.arg_set()")
+  lifecycle::deprecate_warn("0.2.0", "add_var()", "add_arg_ele()")
   var_set[[par_name]][[var_name]] <- tibble::lst(start, end, by) # <U+8FD9><U+91CC>var_name<U+5E94><U+8BE5><U+76F4><U+63A5><U+53D8><U+6210>name<U+5427><U+FF1F>
   attr(var_set, "nvar") <- attr(var_set, "nvar") + 1
   attr(var_set, "npar") <- length(var_set)
@@ -62,7 +62,7 @@ add_var <- function(var_set, par_name, var_name, start, end, by) {
 #' @return An integer.
 #' @export
 nvar <- function(var_set) {
-  lifecycle::deprecate_warn("0.1.3", "nvar()", "nele()")
+  lifecycle::deprecate_warn("0.2.0", "nvar()", "nele()")
   attr(var_set, "nvar")
 }
 
@@ -77,7 +77,7 @@ nvar <- function(var_set) {
 #' @return An integer.
 #' @export
 npar <- function(var_set) {
-  lifecycle::deprecate_warn("0.1.3", "npar()", "narg()")
+  lifecycle::deprecate_warn("0.2.0", "npar()", "narg()")
   attr(var_set, "npar")
 }
 
@@ -95,7 +95,7 @@ npar <- function(var_set) {
 #' @method print var_set
 #' @export
 print.var_set <- function(x, detail = FALSE, ...) {
-  lifecycle::deprecate_warn("0.1.3", "print.var_set()", "print.arg_set()")
+  lifecycle::deprecate_warn("0.2.0", "print.var_set()", "print.arg_set()")
   if (detail) {
     print.default(x)
   } else {
@@ -124,7 +124,7 @@ print.var_set <- function(x, detail = FALSE, ...) {
 #'
 #' @export
 make_var_grid <- function(var_set) {
-  lifecycle::deprecate_warn("0.1.3", "make_var_grid()", "make_par_grid()")
+  lifecycle::deprecate_warn("0.2.0", "make_var_grid()", "make_arg_grid()")
   var_set_seq <- list()
   var_set_par <- list()
   for (i in names(var_set)) {
@@ -162,7 +162,7 @@ make_var_grid <- function(var_set) {
 #' @method print var_grid
 #' @export
 print.var_grid <- function(x, detail = FALSE, ...) {
-  lifecycle::deprecate_warn("0.1.3", "print.var_grid()", "print.arg_grid()")
+  lifecycle::deprecate_warn("0.2.0", "print.var_grid()", "print.arg_grid()")
   if (detail) print.default(x)
   cat(
     sprintf(

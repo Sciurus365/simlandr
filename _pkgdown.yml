@@ -1,11 +1,5 @@
 navbar:
   components:
     articles:
-     text: Articles
-     menu:
-     - text: 1. Dynamic models and simulations
-       href: articles/simulation.html
-     - text: 2. Construct the potential landscapes from simulation results
-       href: articles/landscape.html
-     - text: 3. Calculate the lowest elevation path and barrier height between stable states
-       href: articles/barrier.html
+     text: Vignette
+     href: https://psyarxiv.com/pzva3/

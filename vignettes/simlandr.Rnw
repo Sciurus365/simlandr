@@ -1,0 +1,7 @@
+\documentclass{article}
+\usepackage{pdfpages}
+%\VignetteIndexEntry{simlandr: Simulation-Based Landscape Construction for Dynamical Systems}
+%\VignetteKeyword{dynamical systems, potential landscape, Monte Carlo simulation, R}
+\begin{document}
+\includepdf[pages=-, fitpaper=true]{simlandr_manuscript.pdf}
+\end{document}

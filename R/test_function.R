@@ -34,7 +34,7 @@ sim_fun_test <- function(par1, par2, length = 1000) {
 #' @keywords internal
 #' @export
 sim_fun_test2 <- function(...) {
-  lifecycle::deprecate_warn("0.1.3", "sim_fun_test2()", "sim_fun_grad()")
+  lifecycle::deprecate_warn("0.2.0", "sim_fun_test2()", "sim_fun_grad()")
   sim_fun_grad(...)
 }
 
@@ -106,7 +106,7 @@ sim_fun_grad <- function(initial = list(x = 0, y = 0), parameter = list(a = -4, 
 #'
 #' @references
 #' Wang, J., Zhang, K., Xu, L., & Wang, E. (2011). Quantifying the Waddington landscape and biological paths for development and differentiation. Proceedings of the National Academy of Sciences, 108(20), 8257-8262.
-#' <doi:10.1073/pnas.1017017108>
+#' \doi{10.1073/pnas.1017017108}
 #'
 #' @export
 #'

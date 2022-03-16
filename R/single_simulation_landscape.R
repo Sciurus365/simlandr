@@ -37,7 +37,7 @@ make_2d_static <- function(output, x, adjust = 50, from = -0.1, to = 1, Umax = 5
 #' @export
 #' @export
 make_2d_density <- function(output, x, adjust = 50, from = -0.1, to = 1, Umax = 5) {
-  lifecycle::deprecate_warn("0.1.3", "make_2d_density()", "make_2d_static()")
+  lifecycle::deprecate_warn("0.2.0", "make_2d_density()", "make_2d_static()")
   make_2d_static(output, x, adjust, from, to, Umax)
 }
 
