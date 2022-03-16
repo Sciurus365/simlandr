@@ -51,7 +51,7 @@ batch_output_grad <- batch_simulation(batch_grid_grad, sim_fun_grad,
     initial = list(x = 0, y = 0),
     parameter = list(a = -4, b = 0, c = 0, sigmasq = 1)
   ),
-  length = 1e3,
+  length = 1e2,
   seed = 1614,
   bigmemory = FALSE
 )

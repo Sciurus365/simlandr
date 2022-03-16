@@ -20,7 +20,7 @@ calculate_barrier.2d_static_landscape <- function(l, ...) {
 #' @rdname calculate_barrier
 #' @export
 calculate_barrier.2d_density_landscape <- function(l, ...) {
-  lifecycle::deprecate_warn("0.1.3", "calculate_barrier(l = 'should be a `2d_static_landscape` object')")
+  lifecycle::deprecate_warn("0.2.0", "calculate_barrier(l = 'should be a `2d_static_landscape` object')")
   calculate_barrier_2d(l, ...)
 }
 

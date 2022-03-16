@@ -77,7 +77,7 @@ print.arg_set <- function(x, detail = FALSE, ...) {
 #' @export
 fill_in_struct <- function(vec, struct) {
   if ("var_set" %in% class(struct)) {
-    lifecycle::deprecate_warn("0.1.3", "fill_in_struct(struct = 'should be an `arg_set`')")
+    lifecycle::deprecate_warn("0.2.0", "fill_in_struct(struct = 'should be an `arg_set`')")
   } else if (!("arg_set" %in% class(struct))) stop("Wrong input class. `struct` should be an `arg_set`.")
   vec_index <- 1
   for (i in 1:length(struct)) {
@@ -150,7 +150,7 @@ print.arg_grid <- function(x, detail = FALSE, ...) {
 modified_simulation <- function(sim_fun, ele_list, default_list, bigmemory = TRUE, ...) {
   ddd <- list(...)
   if ("var_list" %in% names(ddd)) {
-    lifecycle::deprecate_warn("0.1.3", "modified_simulation(var_list)", "modified_simulation(ele_list)")
+    lifecycle::deprecate_warn("0.2.0", "modified_simulation(var_list)", "modified_simulation(ele_list)")
     ele_list <- ddd$var_list
     ddd$var_list <- NULL
   }
@@ -200,7 +200,7 @@ modified_simulation <- function(sim_fun, ele_list, default_list, bigmemory = TRU
 #'     initial = list(x = 0, y = 0),
 #'     parameter = list(a = -4, b = 0, c = 0, sigmasq = 1)
 #'   ),
-#'   length = 1e3,
+#'   length = 1e2,
 #'   seed = 1614,
 #'   bigmemory = FALSE
 #' )
@@ -209,7 +209,7 @@ modified_simulation <- function(sim_fun, ele_list, default_list, bigmemory = TRU
 batch_simulation <- function(arg_grid, sim_fun, default_list, bigmemory = TRUE, ...) {
   ddd <- list(...)
   if ("var_list" %in% names(ddd)) {
-    lifecycle::deprecate_warn("0.1.3", "modified_simulation(var_grid)", "modified_simulation(arg_grid)")
+    lifecycle::deprecate_warn("0.2.0", "modified_simulation(var_grid)", "modified_simulation(arg_grid)")
     arg_grid <- ddd$var_grid
     arg_grid$ele_list <- arg_grid$var_list
   } else if (!"ele_list" %in% names(arg_grid)) {
