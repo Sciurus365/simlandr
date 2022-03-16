@@ -8,9 +8,14 @@
 [![R-CMD-check](https://github.com/Sciurus365/simlandr/workflows/R-CMD-check/badge.svg)](https://github.com/Sciurus365/simlandr/actions)
 [![](https://cranlogs.r-pkg.org/badges/simlandr)](https://cran.r-project.org/package=simlandr)
 
-`simlandr` provides a set of tools for constructing potential landscape
-for dynamic systems using Monte-Carlo simulation, especially for
-psychological formal models. It can help to:
+A toolbox for constructing potential landscapes for dynamical systems
+using Monte Carlo simulation. The method is based on the potential
+landscape definition by [Wang et
+al. (2008)](https://www.doi.org/10.1073/pnas.0800579105) (also see [Zhou
+& Li, 2016](https://www.doi.org/10.1063/1.4943096), for further
+mathematical discussions) and can be used for a large variety of models.
+
+`simlandr` can help to:
 
 1.  Run batch simulations for different parameter values;
 2.  Store large simulation outputs into hard drive by the reusable

@@ -20,15 +20,19 @@
 There was one NOTE:
 
 Found the following (possibly) invalid URLs:
-    URL: https://doi.org/10.1073/pnas.1017017108
-      From: man/sim_fun_nongrad.Rd
-      Status: 503
-      Message: Service Unavailable
-  
+     URL: https://doi.org/10.1073/pnas.1017017108
+       From: man/sim_fun_nongrad.Rd
+       Status: 503
+       Message: Service Unavailable
+     URL: https://www.doi.org/10.1073/pnas.0800579105
+       From: README.md
+       Status: 503
+       Message: Service Unavailable
+   
 Found the following (possibly) invalid DOIs:
-    DOI: 10.1073/pnas.0800579105
-      From: DESCRIPTION
-      Status: Service Unavailable
-      Message: 503
+     DOI: 10.1073/pnas.0800579105
+       From: DESCRIPTION
+       Status: Service Unavailable
+       Message: 503
 
-I have checked those two DOIs and they are valid. The second DOI is also the same as the previous version of this package but last time this information was not shown. These should be false positives.
+I have checked those DOIs and they are valid. The second DOI is also the same as the previous version of this package but last time this information was not shown. These should be false positives.
