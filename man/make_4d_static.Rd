@@ -22,7 +22,14 @@ make_4d_static(
 
 \item{Umax}{The maximum displayed value of potential.}
 
-\item{n, lims, h}{Passed to \code{\link[=make_3d_kernel_dist]{make_3d_kernel_dist()}}}
+\item{n}{Passed to \code{\link[ks:kde]{ks::kde()}} (but using the format of \code{\link[MASS:kde2d]{MASS::kde2d()}} to make it consistent across functions).
+For \code{ks::kde}, \code{H = diag(h, 2, 2)}.}
+
+\item{lims}{Passed to \code{\link[ks:kde]{ks::kde()}} (but using the format of \code{\link[MASS:kde2d]{MASS::kde2d()}} to make it consistent across functions).
+For \code{ks::kde}, \code{H = diag(h, 2, 2)}.}
+
+\item{h}{Passed to \code{\link[ks:kde]{ks::kde()}} (but using the format of \code{\link[MASS:kde2d]{MASS::kde2d()}} to make it consistent across functions).
+For \code{ks::kde}, \code{H = diag(h, 2, 2)}.}
 }
 \value{
 A \verb{4d_static_landscape} object that describes the landscape of the system, including the smoothed distribution and the landscape plot.

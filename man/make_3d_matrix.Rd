@@ -26,7 +26,22 @@ If \code{rows} is \code{NULL}, only a vector of graphs will be generated.}
 
 \item{Umax}{The maximum displayed value of potential.}
 
-\item{n, lims, h, kde_fun}{Passed to \code{\link[=make_2d_kernel_dist]{make_2d_kernel_dist()}}}
+\item{n}{Passed to \code{\link[ks:kde]{ks::kde()}} or \code{\link[MASS:kde2d]{MASS::kde2d()}}.
+If using \code{ks::kde}, \code{H = diag(h, 2, 2)}.
+Note: the definition of bandwidth (\code{h}) is different in two functions.
+To get a similar output, the \code{h} is about 50 to 5000 times smaller for \code{\link[ks:kde]{ks::kde()}} than \code{\link[MASS:kde2d]{MASS::kde2d()}}}
+
+\item{lims}{Passed to \code{\link[ks:kde]{ks::kde()}} or \code{\link[MASS:kde2d]{MASS::kde2d()}}.
+If using \code{ks::kde}, \code{H = diag(h, 2, 2)}.
+Note: the definition of bandwidth (\code{h}) is different in two functions.
+To get a similar output, the \code{h} is about 50 to 5000 times smaller for \code{\link[ks:kde]{ks::kde()}} than \code{\link[MASS:kde2d]{MASS::kde2d()}}}
+
+\item{h}{Passed to \code{\link[ks:kde]{ks::kde()}} or \code{\link[MASS:kde2d]{MASS::kde2d()}}.
+If using \code{ks::kde}, \code{H = diag(h, 2, 2)}.
+Note: the definition of bandwidth (\code{h}) is different in two functions.
+To get a similar output, the \code{h} is about 50 to 5000 times smaller for \code{\link[ks:kde]{ks::kde()}} than \code{\link[MASS:kde2d]{MASS::kde2d()}}}
+
+\item{kde_fun}{Which to use? Choices: "ks" \code{ks::kde} (default; faster and taking less memory); "MASS" \code{MASS::kde2d}.}
 
 \item{individual_landscape}{Make individual landscape for each simulation?}
 }

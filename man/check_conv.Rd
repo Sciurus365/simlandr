@@ -2,9 +2,12 @@
 % Please edit documentation in R/check_conv.R
 \name{check_conv}
 \alias{check_conv}
+\alias{print.check_conv}
 \title{Check density convergence of simulation}
 \usage{
 check_conv(output, vars, sample_perc = 0.2, plot_type = "bin")
+
+\method{print}{check_conv}(x, ask = TRUE, ...)
 }
 \arguments{
 \item{output}{A matrix of simulation output.}
@@ -14,6 +17,12 @@ check_conv(output, vars, sample_perc = 0.2, plot_type = "bin")
 \item{sample_perc}{The percentage of data sample for the initial, middle, and final stage of the simulation.}
 
 \item{plot_type}{Which type of plots should be generated? ("bin" or "density")}
+
+\item{x}{The object.}
+
+\item{ask}{Ask to press enter to see the next plot?}
+
+\item{...}{Not in use.}
 }
 \value{
 A \code{check_conv} object that contains the convergence checking result.
@@ -21,3 +30,8 @@ A \code{check_conv} object that contains the convergence checking result.
 \description{
 Check density convergence of simulation
 }
+\section{Methods (by generic)}{
+\itemize{
+\item \code{print}: Print a \code{check_conv} object.
+}}
+

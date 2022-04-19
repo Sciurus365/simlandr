@@ -50,3 +50,4 @@ test <- test \%>\%
 \code{\link{batch_simulation}} for running batch simulation and a
 concrete example.
 }
+\keyword{internal}

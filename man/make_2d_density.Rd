@@ -23,3 +23,4 @@ A \verb{2d_static_landscape} object that describes the landscape of the system, 
 
 This function was deprecated. Use \code{\link[=make_2d_static]{make_2d_static()}} instead.
 }
+\keyword{internal}

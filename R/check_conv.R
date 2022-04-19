@@ -51,12 +51,10 @@ check_conv <- function(output, vars, sample_perc = 0.2, plot_type = "bin") {
   return(result_list)
 }
 
-#' Print a `check_conv`
+#' @describeIn check_conv Print a `check_conv` object.
 #' @param x The object.
 #' @param ask Ask to press enter to see the next plot?
 #' @param ... Not in use.
-#'
-#' @return The printed result.
 #' @method print check_conv
 #' @export
 print.check_conv <- function(x, ask = TRUE, ...) {

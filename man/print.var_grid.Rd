@@ -21,3 +21,4 @@ The printed result.
 
 This function was deprecated. See \code{\link[=new_var_set]{new_var_set()}}.
 }
+\keyword{internal}

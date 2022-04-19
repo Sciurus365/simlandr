@@ -24,3 +24,4 @@ This is the main function for making the variable grids.
 \seealso{
 \code{\link[=batch_simulation]{batch_simulation()}} for a concrete example.
 }
+\keyword{internal}

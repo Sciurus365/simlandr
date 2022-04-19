@@ -1,25 +1,7 @@
-#' @rdname calculate_barrier
-#' @export
-calculate_barrier.3d_animation_landscape <- function(l, ...) {
-  calculate_barrier_3d_batch(l, ...)
-}
-
-#' @rdname calculate_barrier
-#' @export
-calculate_barrier.3d_matrix_landscape <- function(l, ...) {
-  calculate_barrier_3d_batch(l, ...)
-}
-
-#' @rdname calculate_barrier
-#' @export
-calculate_barrier.2d_matrix_landscape <- function(l, ...) {
-  calculate_barrier_2d_batch(l, ...)
-}
-
 #' Make a grid for calculating barriers for 2d landscapes
 #'
 #' @param vg A `var_grid` object.
-#' @param start_location_value,start_r,end_location_value,end_r Default values for finding local minimum. See [calculate_barrier_3d_batch()].
+#' @param start_location_value,start_r,end_location_value,end_r Default values for finding local minimum. See [calculate_barrier()].
 #' @param df A data frame for the variables. Use `print_template = TRUE` to get a template.
 #' @param print_template Print a template for `df`.
 #'
@@ -45,25 +27,16 @@ make_barrier_grid_2d <- function(vg, start_location_value = 0, start_r = 0.1, en
     dput(result %>% dplyr::select((ncol(.) - 3):ncol(.)))
   }
 
-  class(result) <- c("barrier_grid_2d", "data.frame")
+  class(result) <- c("2d_barrier_grid", "data.frame")
   return(result)
 }
 
-#' Calculate barrier from a 2D landscape with multiple simulations
-#'
-#' @param l A `2d_animation_landscape` (not implemented yet) or a `2d_matrix_landscape`.
-#' @param bg A `barrier_grid_3d` object if you want to use different parameters for each condition. Otherwise `NULL`.
-#' @param start_location_value,end_location_value The initial position (in value) for searching the start/end point.
-#' @param start_r,end_r The searching (L1) radius for searching the start/end point.
-#' @param base The base of the log function.
-#'
-#' @return A `barrier_2d_batch` object that contains the batch barrier calculation results.
-#'
+#' @rdname calculate_barrier
 #' @export
-calculate_barrier_2d_batch <- function(l, bg = NULL, start_location_value = 0, start_r = 0.1, end_location_value = 0.7, end_r = 0.15, base = exp(1)) {
-  if (!"2d_matrix_landscape" %in% class(l)) {
-    stop("l should be `2d_matrix_landscape` object.")
-  }
+calculate_barrier.2d_landscape_batch <- function(l, bg = NULL,
+																								 start_location_value = 0, start_r = 0.1,
+																								 end_location_value = 0.7, end_r = 0.15,
+																								 base = exp(1), ...) {
   d <- l$dist_raw
   if (!"l_list" %in% colnames(d)) {
     stop("l must contain a list of individual landscapes. Use individual_landscape = TRUE in `make_2d_matrix")
@@ -72,14 +45,14 @@ calculate_barrier_2d_batch <- function(l, bg = NULL, start_location_value = 0, s
   if (is.null(bg)) {
     d <- d %>%
       dplyr::rowwise() %>%
-      dplyr::mutate(b = list(calculate_barrier_2d(l_list, start_location_value, start_r, end_location_value, end_r, base)))
+      dplyr::mutate(b = list(calculate_barrier(l_list, start_location_value, start_r, end_location_value, end_r, base)))
   } else {
-    if (!"barrier_grid_2d" %in% class(bg)) stop("`bg` should be a `barrier_grid_2d`.")
+    if (!"2d_barrier_grid" %in% class(bg)) stop("`bg` should be a `barrier_grid_2d`.")
     d <- d %>%
       dplyr::ungroup() %>%
       dplyr::left_join(bg %>% dplyr::select(1, (ncol(.) - 3):ncol(.)), by = "var_list") %>%
       dplyr::rowwise() %>%
-      dplyr::mutate(b = list(calculate_barrier_2d(l_list, start_location_value, start_r, end_location_value, end_r, base)))
+      dplyr::mutate(b = list(calculate_barrier(l_list, start_location_value, start_r, end_location_value, end_r, base)))
   }
 
   d <- d %>%
@@ -129,7 +102,7 @@ calculate_barrier_2d_batch <- function(l, bg = NULL, start_location_value = 0, s
     x = l$x, rows = l$rows, cols = ifelse(is.null(l$cols), l$fr, l$cols)
   )
 
-  class(result) <- c("barrier_2d_batch", "barrier")
+  class(result) <- c("2d_barrier_batch", "barrier")
 
   return(result)
 }
@@ -138,14 +111,17 @@ calculate_barrier_2d_batch <- function(l, bg = NULL, start_location_value = 0, s
 #' Make a grid for calculating barriers for 3d landscapes
 #'
 #' @param vg A `var_grid` object.
-#' @param start_location_value,start_r,end_location_value,end_r Default values for finding local minimum. See [calculate_barrier_3d_batch()].
+#' @param start_location_value,start_r,end_location_value,end_r Default values for finding local minimum. See [calculate_barrier()].
 #' @param df A data frame for the variables. Use `print_template = TRUE` to get a template.
 #' @param print_template Print a template for `df`.
 #'
 #' @return A `barrier_grid_3d` object that specifies the condition for each barrier calculation.
 #'
 #' @export
-make_barrier_grid_3d <- function(vg, start_location_value = c(0, 0), start_r = 0.1, end_location_value = c(0.7, 0.6), end_r = 0.15, df = NULL, print_template = FALSE) {
+make_barrier_grid_3d <- function(vg, start_location_value = c(0, 0),
+																 start_r = 0.1,
+																 end_location_value = c(0.7, 0.6),
+																 end_r = 0.15, df = NULL, print_template = FALSE) {
   if (!"var_grid" %in% class(vg)) stop("`vg` should be a var_grid object")
   result <- vg
 
@@ -171,24 +147,14 @@ make_barrier_grid_3d <- function(vg, start_location_value = c(0, 0), start_r = 0
   return(result)
 }
 
-#' Calculate barrier from a 3D landscape with multiple simulations
-#'
-#' @param l A `3d_animation_landscape` or a `3d_matrix_landscape`.
-#' @param bg A `barrier_grid_3d` object if you want to use different parameters for each condition. Otherwise `NULL`.
-#' @param start_location_value,end_location_value The initial position (in value) for searching the start/end point.
-#' @param start_r,end_r The searching (L1) radius for searching the start/end point.
-#' @param Umax The highest possible value of the potential function.
-#' @param expand If the values in the range all equal to `Umax`, expand the range or not?
-#' @param omit_unstable If a state is not stable (the "local minimum" overlaps with the saddle point), omit that state or not?
-#' @param base The base of the log function.
-#'
-#' @return A `barrier_3d_batch` object that contains the batch barrier calculation results.
-#'
+#' @rdname calculate_barrier
 #' @export
-calculate_barrier_3d_batch <- function(l, bg = NULL, start_location_value = c(0, 0), start_r = 0.1, end_location_value = c(0.7, 0.6), end_r = 0.15, Umax, expand = TRUE, omit_unstable = FALSE, base = exp(1)) {
-  if (!any(c("3d_animation_landscape", "3d_matrix_landscape") %in% class(l))) {
-    stop("l should be `3d_animation_multichain_landscape` or `3d_matrix_landscape` object.")
-  }
+calculate_barrier.3d_landscape_batch <- function(l, bg = NULL,
+																								 start_location_value = c(0, 0),
+																								 start_r = 0.1,
+																								 end_location_value = c(0.7, 0.6),
+																								 end_r = 0.15, Umax, expand = TRUE,
+																								 omit_unstable = FALSE, base = exp(1), ...) {
   d <- l$dist_raw
   if (!"l_list" %in% colnames(d)) {
     stop("l must contain a list of individual landscapes. Use individual_landscape = TRUE in `make_3d_animation` or `make_3d_matrix")
@@ -198,14 +164,14 @@ calculate_barrier_3d_batch <- function(l, bg = NULL, start_location_value = c(0,
   if (is.null(bg)) {
     d <- d %>%
       dplyr::rowwise() %>%
-      dplyr::mutate(b = list(calculate_barrier_3d(l_list, start_location_value, start_r, end_location_value, end_r, Umax, expand, omit_unstable, base)))
+      dplyr::mutate(b = list(calculate_barrier(l_list, start_location_value, start_r, end_location_value, end_r, Umax, expand, omit_unstable, base)))
   } else {
     if (!"barrier_grid_3d" %in% class(bg)) stop("`bg` should be a `barrier_grid_3d`.")
     d <- d %>%
       dplyr::ungroup() %>%
       dplyr::left_join(bg %>% dplyr::select(1, (ncol(.) - 3):ncol(.)), by = "var_list") %>%
       dplyr::rowwise() %>%
-      dplyr::mutate(b = list(calculate_barrier_3d(l_list, start_location_value, start_r, end_location_value, end_r, Umax, expand, omit_unstable, base)))
+      dplyr::mutate(b = list(calculate_barrier(l_list, start_location_value, start_r, end_location_value, end_r, Umax, expand, omit_unstable, base)))
   }
 
   d <- d %>%
@@ -276,7 +242,7 @@ calculate_barrier_3d_batch <- function(l, bg = NULL, start_location_value = c(0,
     x = l$x, y = l$y, rows = l$rows, cols = ifelse(is.null(l$cols), l$fr, l$cols)
   )
 
-  class(result) <- c("barrier_3d_batch", "barrier")
+  class(result) <- c("3d_barrier_batch", "barrier")
 
   return(result)
 }

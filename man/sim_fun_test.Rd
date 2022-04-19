@@ -19,5 +19,6 @@ A matrix of simulation results.
 A simple simulation function for testing
 }
 \seealso{
-\code{\link[=sim_fun_test2]{sim_fun_test2()}} for a more realistic example. \code{\link[=batch_simulation]{batch_simulation()}} for a concrete example.
+\code{\link[=sim_fun_grad]{sim_fun_grad()}} and \code{\link[=sim_fun_nongrad]{sim_fun_nongrad()}} for more realistic
+examples.
 }

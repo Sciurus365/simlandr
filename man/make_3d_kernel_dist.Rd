@@ -28,3 +28,4 @@ A \code{MASS::kde2d}-type list of smooth distribution.
 \description{
 Make 3D kernel smooth distribution
 }
+\keyword{internal}

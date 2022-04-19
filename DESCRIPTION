@@ -1,7 +1,7 @@
 Package: simlandr
 Type: Package
 Title: Simulation-Based Landscape Construction for Dynamical Systems
-Version: 0.2.0
+Version: 0.2.0.9000
 Authors@R: person(given = "Jingmeng", family = "Cui", email = "jingmeng.cui@outlook.com",
 		role = c("aut", "cre"), comment = c(ORCID = "0000-0003-3421-8457"))
 Description: A toolbox for constructing potential landscapes for dynamical systems using Monte Carlo simulation. 

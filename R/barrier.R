@@ -1,52 +1,23 @@
-#' General function for calculating energy barrier
+#' Functions for calculating energy barrier from landscapes
 #'
-#' @param l A {landscape} or related project.
-#' @param ... Other parameters.
+#' @param l A `landscape` object.
+#' @param bg A `2d_barrier_grid` or `3d_barrier_grid` object if you want to use
+#' different parameters for each condition. Otherwise `NULL` as default.
+#' @param start_location_value,end_location_value The initial position (in value)
+#' for searching the start/end point.
+#' @param start_r,end_r The search radius (in L1 distance) for the start/end point.
+#' @param Umax The highest possible value of the potential function.
+#' @param expand If the values in the range all equal to `Umax`, expand the
+#' range or not?
+#' @param omit_unstable If a state is not stable (the "local minimum" overlaps
+#' with the saddle point), omit that state or not?
+#' @param base The base of the log function.
+#' @param ... Not in use.
 #'
 #' @return A `barrier` object that contains the (batch) barrier calculation result(s).
-#'
-#' @seealso [calculate_barrier_2d()], [calculate_barrier_2d_batch()], [calculate_barrier_3d()], [calculate_barrier_3d_batch()], [plot.barrier()]
 #' @export
 calculate_barrier <- function(l, ...) {
   UseMethod("calculate_barrier", l)
-}
-
-#' @rdname calculate_barrier
-#' @export
-calculate_barrier.2d_static_landscape <- function(l, ...) {
-  calculate_barrier_2d(l, ...)
-}
-
-#' @rdname calculate_barrier
-#' @export
-calculate_barrier.2d_density_landscape <- function(l, ...) {
-  lifecycle::deprecate_warn("0.2.0", "calculate_barrier(l = 'should be a `2d_static_landscape` object')")
-  calculate_barrier_2d(l, ...)
-}
-
-#' @rdname calculate_barrier
-#' @export
-calculate_barrier.density <- function(l, ...) {
-  calculate_barrier_2d(l, ...)
-}
-
-#' @rdname calculate_barrier
-#' @export
-calculate_barrier.2d_static_landscape <- function(l, ...) {
-  calculate_barrier_2d(l, ...)
-}
-
-#' @rdname calculate_barrier
-#' @export
-calculate_barrier.3d_static_landscape <- function(l, ...) {
-  calculate_barrier_3d(l, ...)
-}
-
-#' @rdname calculate_barrier
-#' @export
-calculate_barrier.list <- function(l, ...) {
-  if (!all(c("x", "y", "z") %in% names(l))) stop("Only the lists created by `MASS::kde2d` is supported.")
-  calculate_barrier_3d(l, ...)
 }
 
 #' Find local minimum of a 2d distribution
@@ -56,8 +27,7 @@ calculate_barrier.list <- function(l, ...) {
 #' @param r Searching radius.
 #'
 #' @return A list with two elements: `U`, the potential value of the local minimum, and `location`, the position of the local minimum.
-#'
-#' @export
+#' @noRd
 find_local_min_2d <- function(dist, localmin, r) {
   if (!"density" %in% class(dist)) stop("Wrong input. `dist` should be a `density` object.")
   x1 <- localmin[1]
@@ -71,17 +41,11 @@ find_local_min_2d <- function(dist, localmin, r) {
   return(list(U = min_U, location = location))
 }
 
-#' Calculate barrier from a 2D landscape
-#'
-#' @param l A `2d_static_landscape` object (recommended) or a `density` distribution.
-#' @param start_location_value,end_location_value The initial position (in value) for searching the start/end point.
-#' @param start_r,end_r The searching radius for searching the start/end point.
-#' @param base The base of the log function.
-#'
-#' @return A `barrier_2d` object that contains the barrier calculation result.
-#'
+#' @rdname calculate_barrier
 #' @export
-calculate_barrier_2d <- function(l, start_location_value = 0, start_r = 0.1, end_location_value = 0.7, end_r = 0.15, base = exp(1)) {
+calculate_barrier.2d_landscape <- function(l, start_location_value = 0, start_r = 0.1,
+																					 end_location_value = 0.7, end_r = 0.15, base = exp(1),
+																					 ...) {
   if ("2d_static_landscape" %in% class(l)) {
     d <- l$dist
   } else {
@@ -120,7 +84,7 @@ calculate_barrier_2d <- function(l, start_location_value = 0, start_r = 0.1, end
     ),
     x = l$x, Umax = l$Umax
   )
-  class(result) <- c("barrier_2d", "barrier")
+  class(result) <- c("2d_barrier", "barrier")
   return(result)
 }
 
@@ -153,8 +117,7 @@ NULL_path <- function() {
 #' @param first_called Is this function first called by another function?
 #'
 #' @return A list with two elements: `U`, the potential value of the local minimum, and `location`, the position of the local minimum.
-#'
-#' @export
+#' @noRd
 find_local_min_3d <- function(dist, localmin, r, Umax, expand = TRUE, first_called = TRUE) {
   if (!is.matrix(dist$z)) stop("Wrong input. `dist` should be a list with x, y, and z, and z should be a matrix.")
   x1 <- localmin[1]
@@ -183,26 +146,15 @@ find_local_min_3d <- function(dist, localmin, r, Umax, expand = TRUE, first_call
   return(list(U = min_U, location = location))
 }
 
-
-#' Calculate barrier from a 3D landscape
-#'
-#' @param l A `3d_static_landscape` object (recommended) or a `kde2d` distribution.
-#' @param start_location_value,end_location_value The initial position (in value) for searching the start/end point.
-#' @param start_r,end_r The searching (L1) radius for searching the start/end point.
-#' @param Umax The highest possible value of the potential function.
-#' @param expand If the values in the range all equal to `Umax`, expand the range or not?
-#' @param omit_unstable If a state is not stable (the "local minimum" overlaps with the saddle point), omit that state or not?
-#' @param base The base of the log function.
-#'
-#' @return A `barrier_3d` object that contains the barrier calculation result.
-#'
 #' @export
-calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.1, end_location_value = c(0.7, 0.6), end_r = 0.15, Umax, expand = TRUE, omit_unstable = FALSE, base = exp(1)) {
-  if ("3d_static_landscape" %in% class(l)) {
-    d <- l$dist
-  } else {
-    d <- l
-  }
+#' @rdname calculate_barrier
+calculate_barrier.3d_landscape <- function(l, start_location_value = c(0, 0),
+																					 start_r = 0.1,
+																					 end_location_value = c(0.7, 0.6),
+																					 end_r = 0.15,
+																					 Umax, expand = TRUE, omit_unstable = FALSE,
+																					 base = exp(1), ...) {
+  d <- l$dist
 
   if (missing(Umax)) Umax <- l$Umax
 
@@ -277,7 +229,7 @@ calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.
     ),
     x = l$x, y = l$y, Umax = l$Umax
   )
-  class(result) <- c("barrier_3d", "barrier")
+  class(result) <- c("3d_barrier", "barrier")
   return(result)
 }
 
@@ -288,11 +240,11 @@ calculate_barrier_3d <- function(l, start_location_value = c(0, 0), start_r = 0.
 #'
 #' @export
 get_barrier_height <- function(b) {
-  if (any(c("barrier_2d", "barrier_3d") %in% class(b))) {
+  if (any(c("2d_barrier", "3d_barrier") %in% class(b))) {
     result <- c(b$delta_U_start, b$delta_U_end)
     names(result) <- c("delta_U_start", "delta_U_end")
     return(result)
-  } else if (any(c("barrier_2d_batch", "barrier_3d_batch") %in% class(b))) {
+  } else if (any(c("2d_barrier_batch", "3d_barrier_batch") %in% class(b))) {
     result <- b$point_all %>%
       mutate(
         delta_U_start = saddle_U - start_U,
@@ -302,15 +254,15 @@ get_barrier_height <- function(b) {
   }
 }
 
-
-#' Plot the result of a `barrier` object
-#' @param x A `barrier` object.
-#' @param ... Not in use.
-#'
-#' @return The plot of the local minimums, the saddle point, and the minimum energy path.
 #' @export
 plot.barrier <- function(x, ...) {
   x$plot
+}
+
+#' @export
+#' @method print barrier
+print.barrier <- function(x, ...) {
+	get_barrier_height(x)
 }
 
 #' Get a ggplot2 geom layer that can be added to a ggplot2 landscape plot

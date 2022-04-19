@@ -32,3 +32,4 @@ A \code{kde2d}-type list of smooth distribution.
 \description{
 Make 2D kernel smooth distribution
 }
+\keyword{internal}

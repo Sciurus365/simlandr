@@ -31,7 +31,7 @@
 #' concrete example.
 #'
 #' @export
-#' @export
+#' @keywords internal
 new_var_set <- function() {
   lifecycle::deprecate_warn("0.2.0", "new_var_set()", "new_arg_set()")
   result <- list()
@@ -43,6 +43,7 @@ new_var_set <- function() {
 
 #' @describeIn new_var_set Add a variable to the `var_set`.
 #' @export
+#' @keywords internal
 add_var <- function(var_set, par_name, var_name, start, end, by) {
   lifecycle::deprecate_warn("0.2.0", "add_var()", "add_arg_ele()")
   var_set[[par_name]][[var_name]] <- tibble::lst(start, end, by) # <U+8FD9><U+91CC>var_name<U+5E94><U+8BE5><U+76F4><U+63A5><U+53D8><U+6210>name<U+5427><U+FF1F>
@@ -61,6 +62,7 @@ add_var <- function(var_set, par_name, var_name, start, end, by) {
 #' @param var_set A `var_set` object.
 #' @return An integer.
 #' @export
+#' @keywords internal
 nvar <- function(var_set) {
   lifecycle::deprecate_warn("0.2.0", "nvar()", "nele()")
   attr(var_set, "nvar")
@@ -76,6 +78,7 @@ nvar <- function(var_set) {
 #' @param var_set A `var_set` object.
 #' @return An integer.
 #' @export
+#' @keywords internal
 npar <- function(var_set) {
   lifecycle::deprecate_warn("0.2.0", "npar()", "narg()")
   attr(var_set, "npar")
@@ -94,6 +97,7 @@ npar <- function(var_set) {
 #' @return The printed result.
 #' @method print var_set
 #' @export
+#' @keywords internal
 print.var_set <- function(x, detail = FALSE, ...) {
   lifecycle::deprecate_warn("0.2.0", "print.var_set()", "print.arg_set()")
   if (detail) {
@@ -123,6 +127,7 @@ print.var_set <- function(x, detail = FALSE, ...) {
 #' @seealso [batch_simulation()] for a concrete example.
 #'
 #' @export
+#' @keywords internal
 make_var_grid <- function(var_set) {
   lifecycle::deprecate_warn("0.2.0", "make_var_grid()", "make_arg_grid()")
   var_set_seq <- list()
@@ -161,6 +166,7 @@ make_var_grid <- function(var_set) {
 #' @return The printed result.
 #' @method print var_grid
 #' @export
+#' @keywords internal
 print.var_grid <- function(x, detail = FALSE, ...) {
   lifecycle::deprecate_warn("0.2.0", "print.var_grid()", "print.arg_grid()")
   if (detail) print.default(x)

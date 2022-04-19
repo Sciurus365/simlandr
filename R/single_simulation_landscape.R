@@ -17,7 +17,7 @@ make_2d_static <- function(output, x, adjust = 50, from = -0.1, to = 1, Umax = 5
     ggplot2::xlab(x)
 
   result <- list(dist = d, plot = p, x = x, adjust = adjust, from = from, to = to, Umax = Umax)
-  class(result) <- c("2d_static_landscape", "landscape")
+  class(result) <- c("2d_static_landscape", "2d_landscape", "landscape")
   return(result)
 }
 
@@ -35,7 +35,7 @@ make_2d_static <- function(output, x, adjust = 50, from = -0.1, to = 1, Umax = 5
 #'
 #' @return A `2d_static_landscape` object that describes the landscape of the system, including the smooth distribution and the landscape plot.
 #' @export
-#' @export
+#' @keywords internal
 make_2d_density <- function(output, x, adjust = 50, from = -0.1, to = 1, Umax = 5) {
   lifecycle::deprecate_warn("0.2.0", "make_2d_density()", "make_2d_static()")
   make_2d_static(output, x, adjust, from, to, Umax)
@@ -48,9 +48,7 @@ make_2d_density <- function(output, x, adjust = 50, from = -0.1, to = 1, Umax = 
 #' @param var_name The name of the variable.
 #'
 #' @return A tidy `data.frame`.
-#'
-#' @export
-#'
+#' @noRd
 make_2d_tidy_dist <- function(dist_2d, value = NULL, var_name = NULL) {
   df <- cbind(
     expand.grid(x = dist_2d$x, y = dist_2d$y),
@@ -75,7 +73,7 @@ make_2d_tidy_dist <- function(dist_2d, value = NULL, var_name = NULL) {
 #'
 #' @return A `trans` scale object from the `scales` package.
 #'
-#' @export
+#' @noRd
 reverselog_trans <- function(base = exp(1)) {
   force(base)
   trans <- function(x) -log(x, base)
@@ -97,7 +95,7 @@ reverselog_trans <- function(base = exp(1)) {
 #' @param kde_fun Which to use? Choices: "ks" `ks::kde` (default; faster and taking less memory); "MASS" `MASS::kde2d`.
 #'
 #' @return A `kde2d`-type list of smooth distribution.
-#' @export
+#' @keywords internal
 make_2d_kernel_dist <- function(output, x, y, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h, kde_fun = "ks") {
   if (is.list(output)) output <- output[[1]]
   if (any(!is.finite(output[, x])) || any(!is.finite(output[, y]))) {
@@ -133,7 +131,7 @@ make_2d_kernel_dist <- function(output, x, y, n = 200, lims = c(-0.1, 1.1, -0.1,
 #' @param output A matrix of simulation output.
 #' @param x,y The name of the target variable.
 #' @param Umax The maximum displayed value of potential.
-#' @param n,lims,h,kde_fun Passed to [make_2d_kernel_dist()]
+#' @inheritParams make_2d_kernel_dist
 #'
 #' @return A `3d_static_landscape` object that describes the landscape of the system, including the smooth distribution and the landscape plot.
 #'
@@ -159,7 +157,7 @@ make_3d_static <- function(output, x, y, Umax = 5, n = 200, lims = c(-0.1, 1.1, 
   message("Done!")
 
   result <- list(dist = out_2d, plot = p, plot_2 = p2, x = x, y = y, Umax = Umax, n = n, lims = lims, h = h, kde_fun = kde_fun)
-  class(result) <- c("3d_static_landscape", "landscape")
+  class(result) <- c("3d_static_landscape", "3d_landscape", "landscape")
   return(result)
 }
 
@@ -172,7 +170,7 @@ make_3d_static <- function(output, x, y, Umax = 5, n = 200, lims = c(-0.1, 1.1, 
 #' For `ks::kde`, `H = diag(h, 2, 2)`.
 #'
 #' @return A `MASS::kde2d`-type list of smooth distribution.
-#' @export
+#' @keywords internal
 make_3d_kernel_dist <- function(output, x, y, z, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1, -0.1, 1.1), h) {
   if (is.list(output)) output <- output[[1]]
   if (any(!is.finite(output[, x])) || any(!is.finite(output[, y]))) {
@@ -203,9 +201,7 @@ make_3d_kernel_dist <- function(output, x, y, z, n = 200, lims = c(-0.1, 1.1, -0
 #' @param var_name The name of the variable.
 #'
 #' @return A tidy `data.frame`.
-#'
-#' @export
-#'
+#' @noRd
 make_3d_tidy_dist <- function(dist_3d, value = NULL, var_name = NULL) {
   df <- cbind(
     expand.grid(x = dist_3d$x, y = dist_3d$y, z = dist_3d$z),
@@ -231,7 +227,7 @@ make_3d_tidy_dist <- function(dist_3d, value = NULL, var_name = NULL) {
 #' @param output A matrix of simulation output.
 #' @param x,y,z The name of the target variable.
 #' @param Umax The maximum displayed value of potential.
-#' @param n,lims,h Passed to [make_3d_kernel_dist()]
+#' @inheritParams make_3d_kernel_dist
 #'
 #' @return A `4d_static_landscape` object that describes the landscape of the system, including the smoothed distribution and the landscape plot.
 #'
@@ -256,6 +252,79 @@ make_4d_static <- function(output, x, y, z, Umax = 5, n = 50, lims = c(-0.1, 1.1
   message("Done!")
 
   result <- list(dist = df_tidy, plot = p, x = x, y = y, z = z, Umax = Umax, n = n, lims = lims, h = h)
-  class(result) <- c("4d_static_landscape", "landscape")
+  class(result) <- c("4d_static_landscape", "4d_landscape", "landscape")
   return(result)
+}
+
+
+#' @export
+#' @method print landscape
+print.landscape <- function(x, ...) {
+	print(get_dist(x))
+}
+
+#' Make plots from landscape objects
+#'
+#' @param x A landscape object
+#' @param index Default is 1. For some landscape objects, there is a second plot (usually 2d heatmaps for 3d landscapes)
+#' or a third plot (usually 3d matrices for 3d animations).
+#' Use `index = 2` to plot that one.
+#' @param ... Not in use.
+#'
+#' @return The plot.
+#'
+#' @export
+plot.landscape <- function(x, index = 1, ...) {
+	if (index == 1) {
+		x$plot
+	} else if (index == 2) {
+		x$plot_2
+	} else if (index == "mat_3d" | index == 3) plot(x$mat_3d)
+}
+
+#' Save landscape plots
+#'
+#' @param l A landscape object
+#' @param path The path to save the output. Default: "/pics/x_y.html".
+#' @param selfcontained For 'plotly' plots, save the output as a self-contained html file? Default: FALSE.
+#' @param ... Other parameters passed to [htmlwidgets::saveWidget()]
+#' or [ggplot2::ggsave()]
+#'
+#' @return The function saves the plot to a specific path. It does not have a return value.
+#' @export
+save_landscape <- function(l, path = NULL, selfcontained = FALSE, ...) {
+	p <- l$plot
+	message("Saving the plot...")
+	if (is.null(path)) {
+		if (!is.null(l$fr)) {
+			path <- paste(getwd(), "/pics/", l$x, "_", l$y, "_", l$fr, ".html", sep = "")
+		} else {
+			path <- paste(getwd(), "/pics/", l$x, "_", l$y, sep = "")
+		}
+	}
+
+	if ("plotly" %in% class(p)) {
+		htmlwidgets::saveWidget(p, paste(path, ".html", sep = ""), selfcontained = selfcontained, ...)
+	} else {
+		if ("ggplot" %in% class(p)) ggplot2::ggsave(paste(path, ".png", sep = ""), p, ...)
+	}
+	message("Done!")
+	return(NULL)
+}
+
+#' Get the probability distribution from a landscape object
+#'
+#' @param l A `landscape` project.
+#' @param index 1 to get the distribution in tidy format; 2 or "raw" to get the raw simulation result (`batch_simulation`).
+#'
+#' @return A `data.frame` that contains the distribution in the tidy format or the raw simulation result.
+#' @export
+get_dist <- function(l, index = 1) {
+	if (!"landscape" %in% class(l)) stop("l should be a `landscape`")
+	if (index == 1) {
+		return(l$dist)
+	}
+	if (index == 2 | index == "raw") {
+		return(l$dist_raw)
+	}
 }

@@ -19,7 +19,7 @@ mathematical discussions) and can be used for a large variety of models.
 
 1.  Run batch simulations for different parameter values;
 2.  Store large simulation outputs into hard drive by the reusable
-    `hash_big.matrix` class, and perform out-of-memory calculation;
+    `hash_big_matrix` class, and perform out-of-memory calculation;
 3.  Check convergence of the simulations;
 4.  Construct 2d, 3d, 4d potential landscapes based on the simulation
     outputs;
@@ -28,7 +28,14 @@ mathematical discussions) and can be used for a large variety of models.
 
 ## Installation
 
-You can install the development version from
+You can install the released version of `simlandr` from
+[CRAN](https://cran.r-project.org/) with:
+
+``` r
+install.packages("simlandr")
+```
+
+And you can install the development version from
 [GitHub](https://github.com/) with:
 
 ``` r

@@ -1,3 +1,8 @@
+# Development version
+
+-		Further improved documentations, function and class names, and cleaned unnecessary exported functions; added `print()` and `plot()` methods for several classes.
+-		Renamed `hash_big.matrix` class to `hash_big_matrix` for consistent use of dots; renamed related functions accordingly.
+
 # simlandr 0.2.0
 
 -   Renamed `var` and `par` in batch simulation functions to `arg` (argument) and `ele` (element).

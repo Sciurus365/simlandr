@@ -64,7 +64,7 @@ make_3d_animation <- function(bs, x, y, fr, Umax = 5, n = 200, lims = c(-0.1, 1.
   }
 
   result <- list(dist_raw = df_multichannel, dist = df_multichannel_collect, plot = p, plot_2 = p2, mat_3d = mat_3d, x = x, y = y, fr = fr, Umax = Umax, n = n, lims = lims, h = h, kde_fun = kde_fun)
-  class(result) <- c("3d_animation_landscape", "landscape")
+  class(result) <- c("3d_animation_landscape", "3d_landscape_batch", "landscape")
   return(result)
 }
 
@@ -125,7 +125,7 @@ make_2d_matrix <- function(bs, x, rows = NULL, cols, adjust = 50, from = -0.1, t
   message("Done!")
 
   result <- list(dist_raw = df_multichannel, dist = df_all, plot = p, x = x, rows = rows, cols = cols, adjust = adjust, from = from, to = to, Umax = Umax)
-  class(result) <- c("2d_matrix_landscape", "landscape")
+  class(result) <- c("2d_matrix_landscape", "2d_landscape_batch", "landscape")
   return(result)
 }
 
@@ -137,7 +137,7 @@ make_2d_matrix <- function(bs, x, rows = NULL, cols, adjust = 50, from = -0.1, t
 #' @param x,y,rows,cols The names of the target variables.
 #' If `rows` is `NULL`, only a vector of graphs will be generated.
 #' @param Umax The maximum displayed value of potential.
-#' @param n,lims,h,kde_fun Passed to [make_2d_kernel_dist()]
+#' @inheritParams make_2d_kernel_dist
 #' @param individual_landscape Make individual landscape for each simulation?
 #'
 #' @return A `3d_matrix_landscape` object that describes the landscape of the system, including the smoothed distribution and the landscape plot.
@@ -191,6 +191,6 @@ make_3d_matrix <- function(bs, x, y, rows = NULL, cols, Umax = 5, n = 200, lims 
   message("Done!")
 
   result <- list(dist_raw = df_multichannel, dist = df_all, plot = p, x = x, y = y, rows = rows, cols = cols, Umax = Umax, n = n, lims = lims, h = h, kde_fun = kde_fun)
-  class(result) <- c("3d_matrix_landscape", "landscape")
+  class(result) <- c("3d_matrix_landscape", "3d_landscape_batch", "landscape")
   return(result)
 }
