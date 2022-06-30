@@ -33,6 +33,7 @@ RoxygenNote: 7.1.2
 URL: https://sciurus365.github.io/simlandr/, https://github.com/Sciurus365/simlandr
 BugReports: https://github.com/Sciurus365/simlandr/issues
 Suggests: 
+    coda,
     knitr,
     rmarkdown,
     webshot

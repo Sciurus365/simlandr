@@ -48,7 +48,8 @@ make_2d_density <- function(output, x, adjust = 50, from = -0.1, to = 1, Umax = 
 #' @param var_name The name of the variable.
 #'
 #' @return A tidy `data.frame`.
-#' @noRd
+#' @export
+#' @keywords internal
 make_2d_tidy_dist <- function(dist_2d, value = NULL, var_name = NULL) {
   df <- cbind(
     expand.grid(x = dist_2d$x, y = dist_2d$y),

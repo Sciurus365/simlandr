@@ -2,6 +2,7 @@
 
 -		Further improved documentations, function and class names, and cleaned unnecessary exported functions; added `print()` and `plot()` methods for several classes.
 -		Renamed `hash_big.matrix` class to `hash_big_matrix` for consistent use of dots; renamed related functions accordingly.
+-		Added `coda::cumuplot()` as a possible option for `check_conv()`.
 
 # simlandr 0.2.0
 

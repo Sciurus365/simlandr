@@ -3,7 +3,7 @@
 \name{check_conv}
 \alias{check_conv}
 \alias{print.check_conv}
-\title{Check density convergence of simulation}
+\title{Graphical diagnoses to check if the simulation converges}
 \usage{
 check_conv(output, vars, sample_perc = 0.2, plot_type = "bin")
 
@@ -14,9 +14,9 @@ check_conv(output, vars, sample_perc = 0.2, plot_type = "bin")
 
 \item{vars}{The names of variables to check.}
 
-\item{sample_perc}{The percentage of data sample for the initial, middle, and final stage of the simulation.}
+\item{sample_perc}{The percentage of data sample for the initial, middle, and final stage of the simulation. Not required if \code{plot_type == "cumuplot"}.}
 
-\item{plot_type}{Which type of plots should be generated? ("bin" or "density")}
+\item{plot_type}{Which type of plots should be generated? ("bin", "density", or "cumuplot" which uses \code{\link[coda:cumuplot]{coda::cumuplot()}})}
 
 \item{x}{The object.}
 
@@ -25,10 +25,10 @@ check_conv(output, vars, sample_perc = 0.2, plot_type = "bin")
 \item{...}{Not in use.}
 }
 \value{
-A \code{check_conv} object that contains the convergence checking result.
+A \code{check_conv} object that contains the convergence checking result(for \code{plot_type == "bin"} or \code{plot_type = "density"}), or draw the cumuplot without a return value (for \code{plot_type == cumuplot}).
 }
 \description{
-Check density convergence of simulation
+Compare the distribution of different stages of simulation (for \code{plot_type == "bin"} or \code{plot_type = "density"}), or show how the percentails of the distribution evolve over time (for \code{plot_type == cumuplot}, see \code{\link[coda:cumuplot]{coda::cumuplot()}} for details). More convergence checking methods for MCMC data are available at the \code{coda} package. Be cautious: each convergence checking method has its shortcomings, so do not blindly use any results as the definitive conclusion that a simulation converges or not.
 }
 \section{Methods (by generic)}{
 \itemize{
