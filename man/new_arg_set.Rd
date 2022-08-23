@@ -28,9 +28,9 @@ object, and use the \code{add} to add descriptions of arguments.
 }
 \section{Functions}{
 \itemize{
-\item \code{new_arg_set}: Create an \code{arg_set}.
-}}
+\item \code{new_arg_set()}: Create an \code{arg_set}.
 
+}}
 \seealso{
 \code{\link[=make_arg_grid]{make_arg_grid()}} for making grids from variable sets;
 \code{\link[=batch_simulation]{batch_simulation()}} for running batch simulation and a

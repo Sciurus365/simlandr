@@ -29,11 +29,11 @@ name. With this explicit name, \code{hash_big.matrix} objects can be easily relo
 }
 \section{Functions}{
 \itemize{
-\item \code{as.hash_big.matrix}: Create a \code{hash_big.matrix} object from a matrix.
+\item \code{as.hash_big.matrix()}: Create a \code{hash_big.matrix} object from a matrix.
 
-\item \code{attach.hash_big.matrix}: Attach a \code{hash_big.matrix} object from the backing file to the workspace.
+\item \code{attach.hash_big.matrix()}: Attach a \code{hash_big.matrix} object from the backing file to the workspace.
+
 }}
-
 \section{Slots}{
 
 \describe{

@@ -35,9 +35,9 @@ This is the main function for the batch simulation.
 }
 \section{Functions}{
 \itemize{
-\item \code{modified_simulation}: Modify a single simulation.
-}}
+\item \code{modified_simulation()}: Modify a single simulation.
 
+}}
 \examples{
 batch_arg_set_grad <- new_arg_set()
 batch_arg_set_grad <- batch_arg_set_grad \%>\%

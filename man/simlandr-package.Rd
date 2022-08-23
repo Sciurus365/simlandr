@@ -6,9 +6,9 @@
 \alias{simlandr-package}
 \title{simlandr: Simulation-Based Landscape Construction for Dynamical Systems}
 \description{
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-A toolbox for constructing potential landscapes for dynamical systems using Monte Carlo simulation. The method is based on the potential landscape definition by Wang et al. (2008) <doi:10.1073/pnas.0800579105> (also see Zhou & Li, 2016 <doi:10.1063/1.4943096> for further mathematical discussions) and can be used for a large variety of models.
+A toolbox for constructing potential landscapes for dynamical systems using Monte Carlo simulation. The method is based on the potential landscape definition by Wang et al. (2008) \doi{10.1073/pnas.0800579105} (also see Zhou & Li, 2016 \doi{10.1063/1.4943096} for further mathematical discussions) and can be used for a large variety of models.
 }
 \seealso{
 Useful links:

@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# `simlandr`: Simulation-Based Landscape Construction for Dynamical Systems <img src='man/figures/logo.png' align="right" height="138" />
+# `simlandr`: Simulation-Based Landscape Construction for Dynamical Systems <img src='man/figures/logo.png' style='float: right' height='138' />
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/simlandr)](https://cran.r-project.org/package=simlandr)
 ![](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
@@ -82,6 +82,7 @@ plot(l_single_grad_2d)
 <img src="man/figures/README-example-1.png" width="100%" />
 
 ``` r
+
 ## Example 2. 3D (x, y, color) plot matrix with two varying parameters
 l_single_grad_3d <- make_3d_static(single_output_grad,
   x = "x", y = "y",
@@ -100,6 +101,7 @@ plot(l_single_grad_3d, 2)
 <img src="man/figures/README-example-2.png" width="100%" />
 
 ``` r
+
 # Calculate energy barriers
 ## Example 1. Energy barrier for the 2D landscape
 b_single_grad_2d <- calculate_barrier(l_single_grad_2d,
@@ -116,6 +118,7 @@ plot(l_single_grad_2d) + get_geom(b_single_grad_2d)
 <img src="man/figures/README-example-3.png" width="100%" />
 
 ``` r
+
 ## Example 2. Energy barrier for the 3D landscape
 b_single_grad_3d <- calculate_barrier(l_single_grad_3d,
   start_location_value = c(-1, -1), end_location_value = c(1, 1),
