@@ -32,6 +32,6 @@ Compare the distribution of different stages of simulation (for \code{plot_type 
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{print}: Print a \code{check_conv} object.
-}}
+\item \code{print(check_conv)}: Print a \code{check_conv} object.
 
+}}

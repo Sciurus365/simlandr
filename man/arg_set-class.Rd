@@ -61,21 +61,21 @@ argument grid that can be used directly for running batch simulation.
 }
 \section{Functions}{
 \itemize{
-\item \code{new_arg_set}: Create an \code{arg_set}.
+\item \code{new_arg_set()}: Create an \code{arg_set}.
 
-\item \code{add_arg_ele}: Add an element to an \code{arg_set}.
+\item \code{add_arg_ele()}: Add an element to an \code{arg_set}.
 
-\item \code{nele}: The number of elements in an \code{arg_set}.
+\item \code{nele()}: The number of elements in an \code{arg_set}.
 
-\item \code{narg}: The number of arguments in an \code{arg_set}.
+\item \code{narg()}: The number of arguments in an \code{arg_set}.
 
-\item \code{print.arg_set}: Print an \code{arg_set} object.
+\item \code{print(arg_set)}: Print an \code{arg_set} object.
 
-\item \code{make_arg_grid}: Make an argument grid from an argument set.
+\item \code{make_arg_grid()}: Make an argument grid from an argument set.
 
-\item \code{print.arg_grid}: Print an \code{arg_grid} object
+\item \code{print(arg_grid)}: Print an \code{arg_grid} object
+
 }}
-
 \seealso{
 \code{\link[=batch_simulation]{batch_simulation()}} for running batch simulation and a
 concrete example.
