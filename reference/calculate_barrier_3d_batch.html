@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simlandr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
       </span>
     </div>
 
@@ -56,42 +56,59 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">calculate_barrier_3d_batch</span><span class="op">(</span>
-  <span class="va">l</span>,
-  bg <span class="op">=</span> <span class="cn">NULL</span>,
-  start_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,
-  start_r <span class="op">=</span> <span class="fl">0.1</span>,
-  end_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.7</span>, <span class="fl">0.6</span><span class="op">)</span>,
-  end_r <span class="op">=</span> <span class="fl">0.15</span>,
-  <span class="va">Umax</span>,
-  expand <span class="op">=</span> <span class="cn">TRUE</span>,
-  omit_unstable <span class="op">=</span> <span class="cn">FALSE</span>,
-  base <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calculate_barrier_3d_batch</span><span class="op">(</span></span>
+<span>  <span class="va">l</span>,</span>
+<span>  bg <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  start_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>  start_r <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>  end_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.7</span>, <span class="fl">0.6</span><span class="op">)</span>,</span>
+<span>  end_r <span class="op">=</span> <span class="fl">0.15</span>,</span>
+<span>  <span class="va">Umax</span>,</span>
+<span>  expand <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  omit_unstable <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  base <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>l</dt>
 <dd><p>A <code>3d_animation_landscape</code> or a <code>3d_matrix_landscape</code>.</p></dd>
+
+
 <dt>bg</dt>
 <dd><p>A <code>barrier_grid_3d</code> object if you want to use different parameters for each condition. Otherwise <code>NULL</code>.</p></dd>
+
+
 <dt>start_location_value, end_location_value</dt>
 <dd><p>The initial position (in value) for searching the start/end point.</p></dd>
+
+
 <dt>start_r, end_r</dt>
 <dd><p>The searching (L1) radius for searching the start/end point.</p></dd>
+
+
 <dt>Umax</dt>
 <dd><p>The highest possible value of the potential function.</p></dd>
+
+
 <dt>expand</dt>
 <dd><p>If the values in the range all equal to <code>Umax</code>, expand the range or not?</p></dd>
+
+
 <dt>omit_unstable</dt>
 <dd><p>If a state is not stable (the "local minimum" overlaps with the saddle point), omit that state or not?</p></dd>
+
+
 <dt>base</dt>
 <dd><p>The base of the log function.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <code>barrier_3d_batch</code> object that contains the batch barrier calculation results.</p>
+    
+
+<p>A <code>barrier_3d_batch</code> object that contains the batch barrier calculation results.</p>
     </div>
 
   </div>
@@ -106,7 +123,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -18,7 +18,7 @@ Model specification:"><meta property="og:image" content="/logo.png"><!-- mathjax
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simlandr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
       </span>
     </div>
 
@@ -58,18 +58,18 @@ Model specification:</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">sim_fun_nongrad</span><span class="op">(</span>
-  initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="fl">0</span>, x2 <span class="op">=</span> <span class="fl">0</span>, a <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
-  parameter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>b <span class="op">=</span> <span class="fl">1</span>, k <span class="op">=</span> <span class="fl">1</span>, S <span class="op">=</span> <span class="fl">0.5</span>, n <span class="op">=</span> <span class="fl">4</span>, lambda <span class="op">=</span> <span class="fl">0.01</span>, sigmasq1 <span class="op">=</span> <span class="fl">8</span>, sigmasq2
-    <span class="op">=</span> <span class="fl">8</span>, sigmasq3 <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,
-  constrain_a <span class="op">=</span> <span class="cn">TRUE</span>,
-  amin <span class="op">=</span> <span class="op">-</span><span class="fl">0.3</span>,
-  amax <span class="op">=</span> <span class="fl">1.8</span>,
-  length <span class="op">=</span> <span class="fl">1e+05</span>,
-  stepsize <span class="op">=</span> <span class="fl">0.01</span>,
-  seed <span class="op">=</span> <span class="cn">NULL</span>,
-  progress <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">sim_fun_nongrad</span><span class="op">(</span></span>
+<span>  initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="fl">0</span>, x2 <span class="op">=</span> <span class="fl">0</span>, a <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  parameter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>b <span class="op">=</span> <span class="fl">1</span>, k <span class="op">=</span> <span class="fl">1</span>, S <span class="op">=</span> <span class="fl">0.5</span>, n <span class="op">=</span> <span class="fl">4</span>, lambda <span class="op">=</span> <span class="fl">0.01</span>, sigmasq1 <span class="op">=</span> <span class="fl">8</span>, sigmasq2 <span class="op">=</span></span>
+<span>    <span class="fl">8</span>, sigmasq3 <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>  constrain_a <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  amin <span class="op">=</span> <span class="op">-</span><span class="fl">0.3</span>,</span>
+<span>  amax <span class="op">=</span> <span class="fl">1.8</span>,</span>
+<span>  length <span class="op">=</span> <span class="fl">1e+05</span>,</span>
+<span>  stepsize <span class="op">=</span> <span class="fl">0.01</span>,</span>
+<span>  seed <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  progress <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -78,22 +78,37 @@ Model specification:</p>
 <dd><p>Two sets of parameters. <code>initial</code> contains the initial value of <code>x1</code>, <code>x2</code>, and <code>a</code>;
 <code>parameter</code> contains <code>b,k,S,n,lambda</code>, which control the model dynamics,
 and <code>sigmasq1,sigmasq2,sigmasq3</code>, which are the squares of \(\sigma_1,\sigma_2,\sigma_3\) and controls the amplitude of noise.</p></dd>
+
+
 <dt>constrain_a</dt>
 <dd><p>Should the value of <code>a</code> be constrained? (<code>TRUE</code> by default).</p></dd>
+
+
 <dt>amin, amax</dt>
 <dd><p>If <code>constrain_a</code>, the minimum and maximum values of a.</p></dd>
+
+
 <dt>length</dt>
 <dd><p>The length of simulation.</p></dd>
+
+
 <dt>stepsize</dt>
 <dd><p>The step size used in the Euler method.</p></dd>
+
+
 <dt>seed</dt>
 <dd><p>The initial seed that will be passed to <code><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed()</a></code> function.</p></dd>
+
+
 <dt>progress</dt>
 <dd><p>Show progress bar of the simulation?</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A matrix of simulation results.</p>
+    
+
+<p>A matrix of simulation results.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -104,7 +119,7 @@ $$\frac {da}{dt} = -\lambda a+ \sigma_3 dW_3/dt$$</p>
     <div id="references">
     <h2>References</h2>
     <p>Wang, J., Zhang, K., Xu, L., &amp; Wang, E. (2011). Quantifying the Waddington landscape and biological paths for development and differentiation. Proceedings of the National Academy of Sciences, 108(20), 8257-8262.
-doi: <a href="https://doi.org/10.1073/pnas.1017017108" class="external-link">10.1073/pnas.1017017108</a></p>
+<a href="https://doi.org/10.1073/pnas.1017017108" class="external-link">doi:10.1073/pnas.1017017108</a></p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -123,7 +138,7 @@ doi: <a href="https://doi.org/10.1073/pnas.1017017108" class="external-link">10.
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simlandr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
       </span>
     </div>
 
@@ -56,34 +56,43 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">make_2d_kernel_dist</span><span class="op">(</span>
-  <span class="va">output</span>,
-  <span class="va">x</span>,
-  <span class="va">y</span>,
-  n <span class="op">=</span> <span class="fl">200</span>,
-  lims <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>, <span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>,
-  <span class="va">h</span>,
-  kde_fun <span class="op">=</span> <span class="st">"ks"</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">make_2d_kernel_dist</span><span class="op">(</span></span>
+<span>  <span class="va">output</span>,</span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">y</span>,</span>
+<span>  n <span class="op">=</span> <span class="fl">200</span>,</span>
+<span>  lims <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>, <span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>,</span>
+<span>  <span class="va">h</span>,</span>
+<span>  kde_fun <span class="op">=</span> <span class="st">"ks"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>output</dt>
 <dd><p>A matrix of simulation output.</p></dd>
+
+
 <dt>x, y</dt>
 <dd><p>The name of the target variable.</p></dd>
+
+
 <dt>n, lims, h</dt>
 <dd><p>Passed to <code><a href="https://rdrr.io/pkg/ks/man/kde.html" class="external-link">ks::kde()</a></code> or <code><a href="https://rdrr.io/pkg/MASS/man/kde2d.html" class="external-link">MASS::kde2d()</a></code>.
 If using <code><a href="https://rdrr.io/pkg/ks/man/kde.html" class="external-link">ks::kde</a></code>, <code>H = diag(h, 2, 2)</code>.
 Note: the definition of bandwidth (<code>h</code>) is different in two functions.
 To get a similar output, the <code>h</code> is about 50 to 5000 times smaller for <code><a href="https://rdrr.io/pkg/ks/man/kde.html" class="external-link">ks::kde()</a></code> than <code><a href="https://rdrr.io/pkg/MASS/man/kde2d.html" class="external-link">MASS::kde2d()</a></code></p></dd>
+
+
 <dt>kde_fun</dt>
 <dd><p>Which to use? Choices: "ks" <code><a href="https://rdrr.io/pkg/ks/man/kde.html" class="external-link">ks::kde</a></code> (default; faster and taking less memory); "MASS" <code><a href="https://rdrr.io/pkg/MASS/man/kde2d.html" class="external-link">MASS::kde2d</a></code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <code>kde2d</code>-type list of smooth distribution.</p>
+    
+
+<p>A <code>kde2d</code>-type list of smooth distribution.</p>
     </div>
 
   </div>
@@ -98,7 +107,7 @@ To get a similar output, the <code>h</code> is about 50 to 5000 times smaller fo
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

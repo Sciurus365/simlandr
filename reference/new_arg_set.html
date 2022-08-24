@@ -19,7 +19,7 @@ object, and use the add to add descriptions of arguments."><meta property="og:im
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simlandr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
       </span>
     </div>
 
@@ -60,30 +60,37 @@ object, and use the <code>add</code> to add descriptions of arguments.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">new_arg_set</span><span class="op">(</span><span class="op">)</span>
-
-<span class="fu">add_arg_ele</span><span class="op">(</span><span class="va">arg_set</span>, <span class="va">arg_name</span>, <span class="va">ele_name</span>, <span class="va">start</span>, <span class="va">end</span>, <span class="va">by</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">new_arg_set</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">add_arg_ele</span><span class="op">(</span><span class="va">arg_set</span>, <span class="va">arg_name</span>, <span class="va">ele_name</span>, <span class="va">start</span>, <span class="va">end</span>, <span class="va">by</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>arg_set</dt>
 <dd><p>An <code>arg_set</code> object.</p></dd>
+
+
 <dt>arg_name, ele_name</dt>
 <dd><p>The name of the argument and its element
 in the simulation function</p></dd>
+
+
 <dt>start, end, by</dt>
 <dd><p>The data points where you want to test the variables.
 Passed to <code>seq</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An <code>arg_set</code> object.</p>
+    
+
+<p>An <code>arg_set</code> object.</p>
     </div>
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>new_arg_set</code>: Create an <code>arg_set</code>.</p></li>
+<ul><li><p><code>new_arg_set()</code>: Create an <code>arg_set</code>.</p></li>
 </ul></div>
     <div id="see-also">
     <h2>See also</h2>
@@ -104,7 +111,7 @@ concrete example.</p></div>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -21,7 +21,7 @@ $$dy/dt = - \partial U/ \partial y + \sigma dW/dt = - 4y^3 - ax - c + \sigma dW/
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simlandr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
       </span>
     </div>
 
@@ -64,13 +64,13 @@ $$dy/dt = - \partial U/ \partial y + \sigma dW/dt = - 4y^3 - ax - c + \sigma dW/
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">sim_fun_grad</span><span class="op">(</span>
-  initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,
-  parameter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="op">-</span><span class="fl">4</span>, b <span class="op">=</span> <span class="fl">0</span>, c <span class="op">=</span> <span class="fl">0</span>, sigmasq <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
-  length <span class="op">=</span> <span class="fl">1e+05</span>,
-  stepsize <span class="op">=</span> <span class="fl">0.01</span>,
-  seed <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">sim_fun_grad</span><span class="op">(</span></span>
+<span>  initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>  parameter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="op">-</span><span class="fl">4</span>, b <span class="op">=</span> <span class="fl">0</span>, c <span class="op">=</span> <span class="fl">0</span>, sigmasq <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  length <span class="op">=</span> <span class="fl">1e+05</span>,</span>
+<span>  stepsize <span class="op">=</span> <span class="fl">0.01</span>,</span>
+<span>  seed <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -79,16 +79,25 @@ $$dy/dt = - \partial U/ \partial y + \sigma dW/dt = - 4y^3 - ax - c + \sigma dW/
 <dd><p>Two sets of parameters. <code>initial</code> contains the initial value of <code>x</code> and <code>y</code>;
 <code>parameter</code> contains <code>a,b,c</code>, which control the shape of the potential landscape,
 and <code>sigmasq</code>, which is the square of \(\sigma\) and controls the amplitude of noise.</p></dd>
+
+
 <dt>length</dt>
 <dd><p>The length of simulation.</p></dd>
+
+
 <dt>stepsize</dt>
 <dd><p>The step size used in the Euler method.</p></dd>
+
+
 <dt>seed</dt>
 <dd><p>The initial seed that will be passed to <code><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed()</a></code> function.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A matrix of simulation results.</p>
+    
+
+<p>A matrix of simulation results.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -107,7 +116,7 @@ and <code>sigmasq</code>, which is the square of \(\sigma\) and controls the amp
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

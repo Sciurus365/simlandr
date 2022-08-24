@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simlandr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
       </span>
     </div>
 
@@ -56,27 +56,40 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">find_local_min_3d</span><span class="op">(</span><span class="va">dist</span>, <span class="va">localmin</span>, <span class="va">r</span>, <span class="va">Umax</span>, expand <span class="op">=</span> <span class="cn">TRUE</span>, first_called <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">find_local_min_3d</span><span class="op">(</span><span class="va">dist</span>, <span class="va">localmin</span>, <span class="va">r</span>, <span class="va">Umax</span>, expand <span class="op">=</span> <span class="cn">TRUE</span>, first_called <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>dist</dt>
 <dd><p>An <code>kde2d</code> distribution object.</p></dd>
+
+
 <dt>localmin</dt>
 <dd><p>Starting value of finding local minimum.</p></dd>
+
+
 <dt>r</dt>
 <dd><p>Searching (L1) radius.</p></dd>
+
+
 <dt>Umax</dt>
 <dd><p>The highest possible value of the potential function.</p></dd>
+
+
 <dt>expand</dt>
 <dd><p>If the values in the range all equal to <code>Umax</code>, expand the range or not?</p></dd>
+
+
 <dt>first_called</dt>
 <dd><p>Is this function first called by another function?</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list with two elements: <code>U</code>, the potential value of the local minimum, and <code>location</code>, the position of the local minimum.</p>
+    
+
+<p>A list with two elements: <code>U</code>, the potential value of the local minimum, and <code>location</code>, the position of the local minimum.</p>
     </div>
 
   </div>
@@ -91,7 +104,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

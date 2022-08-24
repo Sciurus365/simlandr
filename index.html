@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">simlandr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
       </span>
     </div>
 
@@ -81,7 +81,7 @@
 
 <div class="section level1">
 <div class="page-header"><h1 id="simlandr-simulation-based-landscape-construction-for-dynamical-systems-">
-<code>simlandr</code>: Simulation-Based Landscape Construction for Dynamical Systems <img src="reference/figures/logo.png" align="right" height="138"><a class="anchor" aria-label="anchor" href="#simlandr-simulation-based-landscape-construction-for-dynamical-systems-"></a>
+<code>simlandr</code>: Simulation-Based Landscape Construction for Dynamical Systems <img src="reference/figures/logo.png" style="float: right" height="138"><a class="anchor" aria-label="anchor" href="#simlandr-simulation-based-landscape-construction-for-dynamical-systems-"></a>
 </h1></div>
 
 <p>A toolbox for constructing potential landscapes for dynamical systems using Monte Carlo simulation. The method is based on the potential landscape definition by <a href="https://www.doi.org/10.1073/pnas.0800579105" class="external-link">Wang et al. (2008)</a> (also see <a href="https://www.doi.org/10.1063/1.4943096" class="external-link">Zhou &amp; Li, 2016</a>, for further mathematical discussions) and can be used for a large variety of models.</p>
@@ -98,90 +98,93 @@
 </h2>
 <p>You can install the development version from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"Sciurus365/simlandr"</span><span class="op">)</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"Sciurus365/simlandr"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># Use this command if you want to build vignettes</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"Sciurus365/simlandr"</span><span class="op">)</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"Sciurus365/simlandr"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># Use this command if you want to build vignettes</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://sciurus365.github.io/simlandr/" class="external-link">simlandr</a></span><span class="op">)</span>
-
-<span class="co"># Simulation</span>
-
-<span class="co">## Single simulation</span>
-
-<span class="va">single_output_grad</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sim_fun_grad.html">sim_fun_grad</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fl">1e4</span>, seed <span class="op">=</span> <span class="fl">1614</span><span class="op">)</span>
-
-<span class="co">## Batch simulation: simulate a set of models with different parameter values</span>
-<span class="va">batch_arg_set_grad</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/new_arg_set.html">new_arg_set</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">batch_arg_set_grad</span> <span class="op">&lt;-</span> <span class="va">batch_arg_set_grad</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="reference/new_arg_set.html">add_arg_ele</a></span><span class="op">(</span>
-    arg_name <span class="op">=</span> <span class="st">"parameter"</span>, ele_name <span class="op">=</span> <span class="st">"a"</span>,
-    start <span class="op">=</span> <span class="op">-</span><span class="fl">6</span>, end <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, by <span class="op">=</span> <span class="fl">1</span>
-  <span class="op">)</span>
-<span class="va">batch_grid_grad</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_arg_grid.html">make_arg_grid</a></span><span class="op">(</span><span class="va">batch_arg_set_grad</span><span class="op">)</span>
-<span class="va">batch_output_grad</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/batch_simulation.html">batch_simulation</a></span><span class="op">(</span><span class="va">batch_grid_grad</span>, <span class="va">sim_fun_grad</span>,
-    default_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-      initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,
-      parameter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="op">-</span><span class="fl">4</span>, b <span class="op">=</span> <span class="fl">0</span>, c <span class="op">=</span> <span class="fl">0</span>, sigmasq <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-    <span class="op">)</span>,
-    length <span class="op">=</span> <span class="fl">1e4</span>,
-    seed <span class="op">=</span> <span class="fl">1614</span>,
-    bigmemory <span class="op">=</span> <span class="cn">FALSE</span>
-  <span class="op">)</span>
-
-<span class="va">batch_output_grad</span>
-<span class="co">#&gt; Output(s) from 6 simulations.</span>
-
-<span class="co"># Construct landscapes</span>
-
-<span class="co">## Example 1. 2D landscape</span>
-<span class="va">l_single_grad_2d</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_2d_static.html">make_2d_static</a></span><span class="op">(</span><span class="va">single_output_grad</span>,
-  x <span class="op">=</span> <span class="st">"x"</span>,
-  from <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>, to <span class="op">=</span> <span class="fl">2</span>, adjust <span class="op">=</span> <span class="fl">2</span>
-<span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_single_grad_2d</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://sciurus365.github.io/simlandr/" class="external-link">simlandr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Simulation</span></span>
+<span></span>
+<span><span class="co">## Single simulation</span></span>
+<span></span>
+<span><span class="va">single_output_grad</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sim_fun_grad.html">sim_fun_grad</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fl">1e4</span>, seed <span class="op">=</span> <span class="fl">1614</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## Batch simulation: simulate a set of models with different parameter values</span></span>
+<span><span class="va">batch_arg_set_grad</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/new_arg_set.html">new_arg_set</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">batch_arg_set_grad</span> <span class="op">&lt;-</span> <span class="va">batch_arg_set_grad</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/new_arg_set.html">add_arg_ele</a></span><span class="op">(</span></span>
+<span>    arg_name <span class="op">=</span> <span class="st">"parameter"</span>, ele_name <span class="op">=</span> <span class="st">"a"</span>,</span>
+<span>    start <span class="op">=</span> <span class="op">-</span><span class="fl">6</span>, end <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, by <span class="op">=</span> <span class="fl">1</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="va">batch_grid_grad</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_arg_grid.html">make_arg_grid</a></span><span class="op">(</span><span class="va">batch_arg_set_grad</span><span class="op">)</span></span>
+<span><span class="va">batch_output_grad</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/batch_simulation.html">batch_simulation</a></span><span class="op">(</span><span class="va">batch_grid_grad</span>, <span class="va">sim_fun_grad</span>,</span>
+<span>    default_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>      parameter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="op">-</span><span class="fl">4</span>, b <span class="op">=</span> <span class="fl">0</span>, c <span class="op">=</span> <span class="fl">0</span>, sigmasq <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    length <span class="op">=</span> <span class="fl">1e4</span>,</span>
+<span>    seed <span class="op">=</span> <span class="fl">1614</span>,</span>
+<span>    bigmemory <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">batch_output_grad</span></span>
+<span><span class="co">#&gt; Output(s) from 6 simulations.</span></span>
+<span></span>
+<span><span class="co"># Construct landscapes</span></span>
+<span></span>
+<span><span class="co">## Example 1. 2D landscape</span></span>
+<span><span class="va">l_single_grad_2d</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_2d_static.html">make_2d_static</a></span><span class="op">(</span><span class="va">single_output_grad</span>,</span>
+<span>  x <span class="op">=</span> <span class="st">"x"</span>,</span>
+<span>  from <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>, to <span class="op">=</span> <span class="fl">2</span>, adjust <span class="op">=</span> <span class="fl">2</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_single_grad_2d</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example-1.png" width="100%"></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Example 2. 3D (x, y, color) plot matrix with two varying parameters</span>
-<span class="va">l_single_grad_3d</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_3d_static.html">make_3d_static</a></span><span class="op">(</span><span class="va">single_output_grad</span>,
-  x <span class="op">=</span> <span class="st">"x"</span>, y <span class="op">=</span> <span class="st">"y"</span>,
-  lims <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="op">-</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, h <span class="op">=</span> <span class="fl">0.05</span>,
-  kde_fun <span class="op">=</span> <span class="st">"ks"</span>
-<span class="op">)</span>
-<span class="co">#&gt; Calculating the smooth distribution...</span>
-<span class="co">#&gt; Done!</span>
-<span class="co">#&gt; Making the plot...</span>
-<span class="co">#&gt; Done!</span>
-<span class="co">#&gt; Making the 2d plot...</span>
-<span class="co">#&gt; Done!</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_single_grad_3d</span>, <span class="fl">2</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="co">## Example 2. 3D (x, y, color) plot matrix with two varying parameters</span></span>
+<span><span class="va">l_single_grad_3d</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_3d_static.html">make_3d_static</a></span><span class="op">(</span><span class="va">single_output_grad</span>,</span>
+<span>  x <span class="op">=</span> <span class="st">"x"</span>, y <span class="op">=</span> <span class="st">"y"</span>,</span>
+<span>  lims <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="op">-</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, h <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>  kde_fun <span class="op">=</span> <span class="st">"ks"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Calculating the smooth distribution...</span></span>
+<span><span class="co">#&gt; Done!</span></span>
+<span><span class="co">#&gt; Making the plot...</span></span>
+<span><span class="co">#&gt; Done!</span></span>
+<span><span class="co">#&gt; Making the 2d plot...</span></span>
+<span><span class="co">#&gt; Done!</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_single_grad_3d</span>, <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example-2.png" width="100%"></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Calculate energy barriers</span>
-<span class="co">## Example 1. Energy barrier for the 2D landscape</span>
-<span class="va">b_single_grad_2d</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calculate_barrier.html">calculate_barrier</a></span><span class="op">(</span><span class="va">l_single_grad_2d</span>,
-  start_location_value <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, end_location_value <span class="op">=</span> <span class="fl">1</span>,
-  start_r <span class="op">=</span> <span class="fl">0.3</span>, end_r <span class="op">=</span> <span class="fl">0.3</span>
-<span class="op">)</span>
-<span class="fu"><a href="reference/get_barrier_height.html">get_barrier_height</a></span><span class="op">(</span><span class="va">b_single_grad_2d</span><span class="op">)</span>
-<span class="co">#&gt; delta_U_start   delta_U_end </span>
-<span class="co">#&gt;      1.877958      1.771488</span>
-
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_single_grad_2d</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="reference/get_geom.html">get_geom</a></span><span class="op">(</span><span class="va">b_single_grad_2d</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Calculate energy barriers</span></span>
+<span><span class="co">## Example 1. Energy barrier for the 2D landscape</span></span>
+<span><span class="va">b_single_grad_2d</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calculate_barrier.html">calculate_barrier</a></span><span class="op">(</span><span class="va">l_single_grad_2d</span>,</span>
+<span>  start_location_value <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, end_location_value <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  start_r <span class="op">=</span> <span class="fl">0.3</span>, end_r <span class="op">=</span> <span class="fl">0.3</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/get_barrier_height.html">get_barrier_height</a></span><span class="op">(</span><span class="va">b_single_grad_2d</span><span class="op">)</span></span>
+<span><span class="co">#&gt; delta_U_start   delta_U_end </span></span>
+<span><span class="co">#&gt;      1.877958      1.771488</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_single_grad_2d</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="reference/get_geom.html">get_geom</a></span><span class="op">(</span><span class="va">b_single_grad_2d</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example-3.png" width="100%"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Example 2. Energy barrier for the 3D landscape</span>
-<span class="va">b_single_grad_3d</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calculate_barrier.html">calculate_barrier</a></span><span class="op">(</span><span class="va">l_single_grad_3d</span>,
-  start_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, end_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,
-  start_r <span class="op">=</span> <span class="fl">0.3</span>, end_r <span class="op">=</span> <span class="fl">0.3</span>
-<span class="op">)</span>
-<span class="fu"><a href="reference/get_barrier_height.html">get_barrier_height</a></span><span class="op">(</span><span class="va">b_single_grad_3d</span><span class="op">)</span>
-<span class="co">#&gt; delta_U_start   delta_U_end </span>
-<span class="co">#&gt;      3.182738      3.080433</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_single_grad_3d</span>, <span class="fl">2</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="reference/get_geom.html">get_geom</a></span><span class="op">(</span><span class="va">b_single_grad_3d</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="co">## Example 2. Energy barrier for the 3D landscape</span></span>
+<span><span class="va">b_single_grad_3d</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calculate_barrier.html">calculate_barrier</a></span><span class="op">(</span><span class="va">l_single_grad_3d</span>,</span>
+<span>  start_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, end_location_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  start_r <span class="op">=</span> <span class="fl">0.3</span>, end_r <span class="op">=</span> <span class="fl">0.3</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/get_barrier_height.html">get_barrier_height</a></span><span class="op">(</span><span class="va">b_single_grad_3d</span><span class="op">)</span></span>
+<span><span class="co">#&gt; delta_U_start   delta_U_end </span></span>
+<span><span class="co">#&gt;      3.182738      3.080433</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_single_grad_3d</span>, <span class="fl">2</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="reference/get_geom.html">get_geom</a></span><span class="op">(</span><span class="va">b_single_grad_3d</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example-4.png" width="100%"></p>
 </div>
 </div>
@@ -247,7 +250,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
