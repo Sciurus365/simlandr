@@ -4,6 +4,9 @@
 -		Renamed `hash_big.matrix` class to `hash_big_matrix` for consistent use of dots; renamed related functions accordingly.
 -		Added `coda::cumuplot()` as a possible option for `check_conv()`.
 
+# simlandr 0.2.1
+-		Update roxygen2 version to ensure html5 compatibility (>= R 4.2.0).
+
 # simlandr 0.2.0
 
 -   Renamed `var` and `par` in batch simulation functions to `arg` (argument) and `ele` (element).

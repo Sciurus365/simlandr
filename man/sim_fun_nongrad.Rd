@@ -6,8 +6,8 @@
 \usage{
 sim_fun_nongrad(
   initial = list(x1 = 0, x2 = 0, a = 1),
-  parameter = list(b = 1, k = 1, S = 0.5, n = 4, lambda = 0.01, sigmasq1 = 8, sigmasq2
-    = 8, sigmasq3 = 2),
+  parameter = list(b = 1, k = 1, S = 0.5, n = 4, lambda = 0.01, sigmasq1 = 8, sigmasq2 =
+    8, sigmasq3 = 2),
   constrain_a = TRUE,
   amin = -0.3,
   amax = 1.8,

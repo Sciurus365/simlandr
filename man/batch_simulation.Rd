@@ -37,9 +37,9 @@ Perform a batch simulation.
 }
 \section{Functions}{
 \itemize{
-\item \code{batch_simulation}: Perform a batch simulation.
-}}
+\item \code{batch_simulation()}: Perform a batch simulation.
 
+}}
 \examples{
 batch_arg_set_grad <- new_arg_set()
 batch_arg_set_grad <- batch_arg_set_grad \%>\%

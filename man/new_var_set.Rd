@@ -34,11 +34,11 @@ object, and use \code{add_var} to add descriptions of variables.
 }
 \section{Functions}{
 \itemize{
-\item \code{new_var_set}: Create a \code{var_set}.
+\item \code{new_var_set()}: Create a \code{var_set}.
 
-\item \code{add_var}: Add a variable to the \code{var_set}.
+\item \code{add_var()}: Add a variable to the \code{var_set}.
+
 }}
-
 \examples{
 test <- new_var_set()
 test <- test \%>\%
