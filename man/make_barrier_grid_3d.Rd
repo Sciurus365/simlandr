@@ -5,7 +5,7 @@
 \title{Make a grid for calculating barriers for 3d landscapes}
 \usage{
 make_barrier_grid_3d(
-  vg,
+  ag,
   start_location_value = c(0, 0),
   start_r = 0.1,
   end_location_value = c(0.7, 0.6),
@@ -15,7 +15,7 @@ make_barrier_grid_3d(
 )
 }
 \arguments{
-\item{vg}{A \code{var_grid} object.}
+\item{ag}{An \code{arg_grid} object.}
 
 \item{start_location_value, start_r, end_location_value, end_r}{Default values for finding local minimum. See \code{\link[=calculate_barrier]{calculate_barrier()}}.}
 

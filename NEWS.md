@@ -3,6 +3,8 @@
 -		Further improved documentations, function and class names, and cleaned unnecessary exported functions; added `print()` and `plot()` methods for several classes.
 -		Renamed `hash_big.matrix` class to `hash_big_matrix` for consistent use of dots; renamed related functions accordingly.
 -		Added `coda::cumuplot()` as a possible option for `check_conv()`.
+-		For `barrier_batch` objects, rename the column `b` to `barrier` to avoid conflicts. 
+-		Bugfix: Parameter `vg` in `make_barrier_grid_2d()` and `make_barrier_grid_3d()` was changed to `ag` and the class of this parameter was changed from `var_grid` (deprecated) to `arg_grid`. 
 
 # simlandr 0.2.1
 -		Update roxygen2 version to ensure html5 compatibility (>= R 4.2.0).
