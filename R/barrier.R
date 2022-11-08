@@ -44,8 +44,8 @@ find_local_min_2d <- function(dist, localmin, r) {
 #' @rdname calculate_barrier
 #' @export
 calculate_barrier.2d_landscape <- function(l, start_location_value = 0, start_r = 0.1,
-																					 end_location_value = 0.7, end_r = 0.15, base = exp(1),
-																					 ...) {
+                                           end_location_value = 0.7, end_r = 0.15, base = exp(1),
+                                           ...) {
   if ("2d_static_landscape" %in% class(l)) {
     d <- l$dist
   } else {
@@ -149,11 +149,11 @@ find_local_min_3d <- function(dist, localmin, r, Umax, expand = TRUE, first_call
 #' @export
 #' @rdname calculate_barrier
 calculate_barrier.3d_landscape <- function(l, start_location_value = c(0, 0),
-																					 start_r = 0.1,
-																					 end_location_value = c(0.7, 0.6),
-																					 end_r = 0.15,
-																					 Umax, expand = TRUE, omit_unstable = FALSE,
-																					 base = exp(1), ...) {
+                                           start_r = 0.1,
+                                           end_location_value = c(0.7, 0.6),
+                                           end_r = 0.15,
+                                           Umax, expand = TRUE, omit_unstable = FALSE,
+                                           base = exp(1), ...) {
   d <- l$dist
 
   if (missing(Umax)) Umax <- l$Umax
@@ -234,12 +234,15 @@ calculate_barrier.3d_landscape <- function(l, start_location_value = c(0, 0),
 }
 
 
-#' Get the barrier height from a `barrier` object.
-#' @param b A `barrier` object.
+#' Summarize the barrier height from a `barrier` object.
+#' @param object A `barrier` object.
+#' @param ... Not in use.
 #' @return A vector (for a single barrier calculation result) or a `data.frame` (for batch barrier calculation results) that contains the barrier heights on the landscape.
 #'
 #' @export
-get_barrier_height <- function(b) {
+#' @method summary barrier
+summary.barrier <- function(object, ...) {
+  b <- object
   if (any(c("2d_barrier", "3d_barrier") %in% class(b))) {
     result <- c(b$delta_U_start, b$delta_U_end)
     names(result) <- c("delta_U_start", "delta_U_end")
@@ -259,10 +262,11 @@ plot.barrier <- function(x, ...) {
   x$plot
 }
 
+
 #' @export
 #' @method print barrier
 print.barrier <- function(x, ...) {
-	get_barrier_height(x)
+  cat("A barrier object of the class", class(x)[1], "was estimated. Use `plot()` to draw the barrier plot; use `get_geom()` to get a ggplot layer that can be added to the landscape plot; use `summary()` to get the barrier heights.")
 }
 
 #' Get a ggplot2 geom layer that can be added to a ggplot2 landscape plot

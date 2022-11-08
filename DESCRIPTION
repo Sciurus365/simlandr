@@ -28,7 +28,8 @@ Imports:
     forcats,
     rlang,
     lifecycle,
-    progress
+    progress,
+    grDevices
 RoxygenNote: 7.2.1
 URL: https://sciurus365.github.io/simlandr/, https://github.com/Sciurus365/simlandr
 BugReports: https://github.com/Sciurus365/simlandr/issues

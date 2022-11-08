@@ -21,10 +21,10 @@ add_stage_tag <- function(output, range, var, stage) {
 #'
 #' @export
 check_conv <- function(output, vars, sample_perc = 0.2, plot_type = "bin") {
-	if(plot_type == "cumuplot") {
-		rlang::check_installed("coda", reason = "to use `plot_type = `cumuplot`")
-		return(coda::cumuplot(coda::mcmc(output[, vars])))
-	}
+  if (plot_type == "cumuplot") {
+    rlang::check_installed("coda", reason = "to use `plot_type = `cumuplot`")
+    return(coda::cumuplot(coda::mcmc(output[, vars])))
+  }
 
   # check convergence of i in vars; init, mid, final, normalized dist, ...
   if (sample_perc > 1 | sample_perc < 0) stop("`sample_perc should be between 0 and 1.")

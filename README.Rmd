@@ -69,33 +69,45 @@ batch_arg_set_grad <- batch_arg_set_grad %>%
   )
 batch_grid_grad <- make_arg_grid(batch_arg_set_grad)
 batch_output_grad <- batch_simulation(batch_grid_grad, sim_fun_grad,
-    default_list = list(
-      initial = list(x = 0, y = 0),
-      parameter = list(a = -4, b = 0, c = 0, sigmasq = 1)
-    ),
-    length = 1e4,
-    seed = 1614,
-    bigmemory = FALSE
-  )
+  default_list = list(
+    initial = list(x = 0, y = 0),
+    parameter = list(a = -4, b = 0, c = 0, sigmasq = 1)
+  ),
+  length = 1e4,
+  seed = 1614,
+  bigmemory = FALSE
+)
 
 batch_output_grad
 
 # Construct landscapes
 
-## Example 1. 2D landscape
-l_single_grad_2d <- make_2d_static(single_output_grad,
-  x = "x",
-  from = -2, to = 2, adjust = 2
-)
+## Example 1. 2D (x, y as U) landscape
+l_single_grad_2d <- make_2d_static(single_output_grad, x = "x")
 plot(l_single_grad_2d)
 
-## Example 2. 3D (x, y, color) plot matrix with two varying parameters
-l_single_grad_3d <- make_3d_static(single_output_grad,
-  x = "x", y = "y",
-  lims = c(-2, 2, -2, 2), h = 0.05,
-  kde_fun = "ks"
-)
+### To make the landscape smoother
+make_2d_static(single_output_grad, x = "x", adjust = 5) %>% plot()
+
+## Example 2. 3D (x, y, color as U) landscape
+l_single_grad_3d <- make_3d_static(single_output_grad, x = "x", y = "y", adjust = 5)
 plot(l_single_grad_3d, 2)
+
+### plot(l_single_grad_3d) # to show the landscape in 3D (x, y, z)
+
+## Example 3. 4D (x, y, z, color as U) landscape
+set.seed(1614)
+single_output_grad <- matrix(runif(nrow(single_output_grad), min = 0, max = 5), ncol = 1, dimnames = list(NULL, "z")) %>% cbind(single_output_grad)
+l_single_grad_4d <- make_4d_static(single_output_grad, x = "x", y = "y", z = "z", n = 50)
+### plot(l_single_grad_4d) # to show the landscape in 4D (x, y, z, color)
+
+## Example 4. 2D (x, y as U) matrix (by a)
+l_batch_grad_2d <- make_2d_matrix(batch_output_grad, x = "x", cols = "a")
+plot(l_batch_grad_2d)
+
+## Example 5. 3D (x, y, color as U) matrix (by a)
+l_batch_grad_3d <- make_3d_matrix(batch_output_grad, x = "x", y = "y", cols = "a")
+plot(l_batch_grad_3d)
 
 # Calculate energy barriers
 ## Example 1. Energy barrier for the 2D landscape
@@ -114,7 +126,6 @@ b_single_grad_3d <- calculate_barrier(l_single_grad_3d,
 )
 get_barrier_height(b_single_grad_3d)
 plot(l_single_grad_3d, 2) + get_geom(b_single_grad_3d)
-
 ```
 
 # Vignettes

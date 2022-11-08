@@ -2,35 +2,46 @@
 % Please edit documentation in R/multiple_simulation_landscape.R
 \name{make_2d_matrix}
 \alias{make_2d_matrix}
-\title{Make a matrix of 2d graphs for two parameters}
+\title{Make a matrix of 2D static landscape plots for one or two parameters}
 \usage{
 make_2d_matrix(
   bs,
   x,
   rows = NULL,
   cols,
-  adjust = 50,
-  from = -0.1,
-  to = 1,
+  lims,
+  kde_fun = c("ks", "base"),
+  n = 200,
+  h,
+  adjust = 1,
   Umax = 5,
-  individual_landscape = FALSE
+  individual_landscape = TRUE
 )
 }
 \arguments{
-\item{bs}{A \code{batch_simulation} object created by \verb{[batch_simulation].}}
+\item{bs}{A \code{batch_simulation} object created by \verb{[batch_simulation()].}}
 
-\item{x, rows, cols}{The names of the target variables.
-If \code{rows} is \code{NULL}, only a vector of graphs will be generated.}
+\item{x}{The name of the target variable.}
 
-\item{adjust, from, to}{Passed to \code{density}.}
+\item{rows, cols}{The names of the parameters. \code{rows} can be left blank if only one parameter is needed.}
+
+\item{lims}{The limits of the range for the density estimator as \code{c(xl, xu)} for 2D landscapes, \code{c(xl, xu, yl, yu)} for 3D landscapes, \code{c(xl, xu, yl, yu, zl, zu)} for 4D landscapes. If missing, the range of the data extended by 10\% for both sides will be used. For landscapes based on multiple simulations, the largest range of all simulations (which means the lowest lower limit and the highest upper limit) will be used by default.}
+
+\item{kde_fun}{Which kernel estimator to use? Choices: "ks" \code{\link[ks:kde]{ks::kde()}} (default; faster and using less memory); "base" \code{base::density()} (only for 2D landscapes); "MASS" \code{\link[MASS:kde2d]{MASS::kde2d()}} (only for 3D landscapes).}
+
+\item{n}{The number of equally spaced points in each axis, at which the density is to be estimated.}
+
+\item{h}{A number, or possibly a vector for 3D and 4D landscapes, specifying the smoothing bandwidth to be used. If missing, the default value of the kernel estimator will be used (but \code{bw = "SJ"} for \code{base::density()}). Note that the definition of bandwidth might be different for different kernel estimators. For landscapes based on multiple simulations, the largest \code{h} of all simulations will be used by default.}
+
+\item{adjust}{The multiplier to the bandwidth. The bandwidth used is actually \code{adjust * h}. This makes it easy to specify values like "half the default" bandwidth.}
 
 \item{Umax}{The maximum displayed value of potential.}
 
-\item{individual_landscape}{Make individual landscape for each simulation?}
+\item{individual_landscape}{Make individual landscape for each simulation? Default is \code{TRUE} so that it is possible to calculate barriers. Set to \code{FALSE} to save time.}
 }
 \value{
 A \verb{2d_matrix_landscape} object that describes the landscape of the system, including the smoothed distribution and the landscape plot.
 }
 \description{
-Make a matrix of 2d graphs for two parameters
+Make a matrix of 2D static landscape plots for one or two parameters
 }
