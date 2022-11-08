@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# `simlandr`: Simulation-Based Landscape Construction for Dynamical Systems <img src='man/figures/logo.png' style=float:right height=138 />
+# `simlandr`: Simulation-Based Landscape Construction for Dynamical Systems <img src='man/figures/logo.png' align="right" height="138" />
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/simlandr)](https://cran.r-project.org/package=simlandr)
 ![](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
