@@ -8,7 +8,7 @@
 #' @return A `barrier_grid_2d` object that specifies the condition for each barrier calculation.
 #'
 #' @export
-make_barrier_grid_2d <- function(ag, start_location_value = 0, start_r = 0.1, end_location_value = 0.7, end_r = 0.15, df = NULL, print_template = FALSE) {
+make_barrier_grid_2d <- function(ag, start_location_value, start_r, end_location_value, end_r, df = NULL, print_template = FALSE) {
   if (!"arg_grid" %in% class(ag)) stop("`ag` should be an arg_grid object")
   result <- ag
 
@@ -34,8 +34,8 @@ make_barrier_grid_2d <- function(ag, start_location_value = 0, start_r = 0.1, en
 #' @rdname calculate_barrier
 #' @export
 calculate_barrier.2d_landscape_batch <- function(l, bg = NULL,
-                                                 start_location_value = 0, start_r = 0.1,
-                                                 end_location_value = 0.7, end_r = 0.15,
+                                                 start_location_value, start_r,
+                                                 end_location_value, end_r,
                                                  base = exp(1), ...) {
   d <- l$dist_raw
   if (!"l_list" %in% colnames(d)) {
@@ -118,10 +118,10 @@ calculate_barrier.2d_landscape_batch <- function(l, bg = NULL,
 #' @return A `barrier_grid_3d` object that specifies the condition for each barrier calculation.
 #'
 #' @export
-make_barrier_grid_3d <- function(ag, start_location_value = c(0, 0),
-                                 start_r = 0.1,
-                                 end_location_value = c(0.7, 0.6),
-                                 end_r = 0.15, df = NULL, print_template = FALSE) {
+make_barrier_grid_3d <- function(ag, start_location_value,
+                                 start_r,
+                                 end_location_value,
+                                 end_r, df = NULL, print_template = FALSE) {
   if (!"arg_grid" %in% class(ag)) stop("`ag` should be an arg_grid object")
   result <- ag
 
@@ -150,10 +150,10 @@ make_barrier_grid_3d <- function(ag, start_location_value = c(0, 0),
 #' @rdname calculate_barrier
 #' @export
 calculate_barrier.3d_landscape_batch <- function(l, bg = NULL,
-                                                 start_location_value = c(0, 0),
-                                                 start_r = 0.1,
-                                                 end_location_value = c(0.7, 0.6),
-                                                 end_r = 0.15, Umax, expand = TRUE,
+                                                 start_location_value,
+                                                 start_r,
+                                                 end_location_value,
+                                                 end_r, Umax, expand = TRUE,
                                                  omit_unstable = FALSE, base = exp(1), ...) {
   d <- l$dist_raw
   if (!"l_list" %in% colnames(d)) {

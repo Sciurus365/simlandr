@@ -12,20 +12,20 @@ calculate_barrier(l, ...)
 
 \method{calculate_barrier}{`2d_landscape`}(
   l,
-  start_location_value = 0,
-  start_r = 0.1,
-  end_location_value = 0.7,
-  end_r = 0.15,
+  start_location_value,
+  start_r,
+  end_location_value,
+  end_r,
   base = exp(1),
   ...
 )
 
 \method{calculate_barrier}{`3d_landscape`}(
   l,
-  start_location_value = c(0, 0),
-  start_r = 0.1,
-  end_location_value = c(0.7, 0.6),
-  end_r = 0.15,
+  start_location_value,
+  start_r,
+  end_location_value,
+  end_r,
   Umax,
   expand = TRUE,
   omit_unstable = FALSE,
@@ -36,10 +36,10 @@ calculate_barrier(l, ...)
 \method{calculate_barrier}{`2d_landscape_batch`}(
   l,
   bg = NULL,
-  start_location_value = 0,
-  start_r = 0.1,
-  end_location_value = 0.7,
-  end_r = 0.15,
+  start_location_value,
+  start_r,
+  end_location_value,
+  end_r,
   base = exp(1),
   ...
 )
@@ -47,10 +47,10 @@ calculate_barrier(l, ...)
 \method{calculate_barrier}{`3d_landscape_batch`}(
   l,
   bg = NULL,
-  start_location_value = c(0, 0),
-  start_r = 0.1,
-  end_location_value = c(0.7, 0.6),
-  end_r = 0.15,
+  start_location_value,
+  start_r,
+  end_location_value,
+  end_r,
   Umax,
   expand = TRUE,
   omit_unstable = FALSE,

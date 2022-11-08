@@ -37,13 +37,13 @@ make_kernel_dist <- function(output, var_names, lims, kde_fun, n, h, adjust) {
     } else if (length(var_names) == 3) result <- list(x = result_raw$eval.points[[1]], y = result_raw$eval.points[[2]], z = result_raw$eval.points[[3]], d = pmax(result_raw$estimate, 0))
   } else if (kde_fun == "base") {
     if (length(var_names) != 1) stop('kde_fun = "MASS" can only be used for 2D landscapes.')
-  	x <- var_names
+    x <- var_names
     result <- stats::density(output[, x], n = n, bw = h, from = lims[1], to = lims[2])
     result <- list(x = result$x, d = result$y)
   } else if (kde_fun == "MASS") {
     if (length(var_names) != 2) stop('kde_fun = "MASS" can only be used for 3D landscapes.')
-  	x <- var_names[1]
-  	y <- var_names[2]
+    x <- var_names[1]
+    y <- var_names[2]
     result <- MASS::kde2d(x = output[, x], y = output[, y], n = n, lims = lims, h = h)
     result <- list(x = result$x, y = result$y, d = result$z)
   } else {
@@ -55,60 +55,70 @@ make_kernel_dist <- function(output, var_names, lims, kde_fun, n, h, adjust) {
 
 
 determine_h <- function(output, var_names, kde_fun, h, adjust) {
-	if (is.list(output)) output <- output[[1]]
-	if (kde_fun == "ks") {
-		output_x <- output[, var_names]
-		if (length(var_names) == 1) {
-			h <- ifelse(rlang::is_missing(h), ks::hpi(output_x) * adjust, h * adjust)
-		} else if (rlang::is_missing(h)) {
-			h <- ks::Hpi(output_x) * adjust
-		} else if (is.matrix(h)) {
-			h <- h * adjust
-		} else {
-			h <- diag(h, length(var_names), length(var_names)) * adjust
-		}
-	} else if (kde_fun == "MASS") {
-		if (length(var_names) != 2) stop('kde_fun = "MASS" can only be used for 3D landscapes.')
-		x <- var_names[1]
-		y <- var_names[2]
-		if (rlang::is_missing(h)) {
-			h <- c(bandwidth.nrd(output[, x]), bandwidth.nrd(output[, y])) * adjust
-		} else {
-			h <- h * adjust
-		}
-	}
-		else if (kde_fun == "base") {
-			if (length(var_names) != 1) stop('kde_fun = "MASS" can only be used for 2D landscapes.')
-			x <- var_names
-			h <- ifelse(rlang::is_missing(h), bw.SJ(output[, x]), h) * adjust
-		}
+  if (is.list(output)) output <- output[[1]]
+  if (kde_fun == "ks") {
+    output_x <- output[, var_names]
+    if (length(var_names) == 1) {
+      h <- ifelse(rlang::is_missing(h), ks::hpi(output_x) * adjust, h * adjust)
+    } else if (rlang::is_missing(h)) {
+      h <- ks::Hpi(output_x) * adjust
+    } else if (is.matrix(h)) {
+      h <- h * adjust
+    } else {
+      h <- diag(h, length(var_names), length(var_names)) * adjust
+    }
+  } else if (kde_fun == "MASS") {
+    if (length(var_names) != 2) stop('kde_fun = "MASS" can only be used for 3D landscapes.')
+    x <- var_names[1]
+    y <- var_names[2]
+    if (rlang::is_missing(h)) {
+      h <- c(MASS::bandwidth.nrd(output[, x]), MASS::bandwidth.nrd(output[, y])) * adjust
+    } else {
+      h <- h * adjust
+    }
+  } else if (kde_fun == "base") {
+    if (length(var_names) != 1) stop('kde_fun = "MASS" can only be used for 2D landscapes.')
+    x <- var_names
+    h <- ifelse(rlang::is_missing(h), stats::bw.SJ(output[, x]), h) * adjust
+  }
 
-	return(h)
+  return(h)
 }
 
 determine_lims <- function(output, var_names, lims) {
-	if(!rlang::is_missing(lims)) return(lims)
-	if (is.list(output)) output <- output[[1]]
-	if (rlang::is_missing(lims)) return (c(sapply(var_names, function(v) grDevices::extendrange(output[, v], f = 0.1))))
-	if (any(is.infinite(lims))) stop("Non-infinite values found in `lims`.")
+  if (!rlang::is_missing(lims)) {
+    return(lims)
+  }
+  if (is.list(output)) output <- output[[1]]
+  if (rlang::is_missing(lims)) {
+    return(c(sapply(var_names, function(v) grDevices::extendrange(output[, v], f = 0.1))))
+  }
+  if (any(is.infinite(lims))) stop("Non-infinite values found in `lims`.")
 }
 
 
 determine_h_batch <- function(bs, var_names, kde_fun, h, adjust) {
-	h_batch <- lapply(bs$output, determine_h, var_names, kde_fun, h, adjust)
-	h <- do.call(pmax, h_batch)
-	return(h)
+  h_batch <- lapply(bs$output, determine_h, var_names, kde_fun, h, adjust)
+  h <- do.call(pmax, h_batch)
+  return(h)
 }
 
 determine_lims_batch <- function(bs, var_names, lims) {
-	if(!rlang::is_missing(lims)) return(lims)
-	lims_batch <- lapply(bs$output, determine_lims, var_names, lims) %>% unlist %>% matrix(byrow = TRUE, nrow = nrow(bs))
-	lims <- vector("numeric", ncol(lims_batch))
-	for(i in 1:length(lims)) {
-		if(i %% 2 == 1) lims[i] <- min(lims_batch[,i])
-		else lims[i] <- max(lims_batch[,i])
-	}
-	return(lims)
+  if (!rlang::is_missing(lims)) {
+    return(lims)
+  }
+  lims_batch <- lapply(bs$output, determine_lims, var_names, lims) %>%
+    unlist() %>%
+    matrix(byrow = TRUE, nrow = nrow(bs))
+  lims <- vector("numeric", ncol(lims_batch))
+  for (i in 1:length(lims)) {
+    if (i %% 2 == 1) {
+      lims[i] <- min(lims_batch[, i])
+    } else {
+      lims[i] <- max(lims_batch[, i])
+    }
+  }
+  return(lims)
 }
 
 #' Make a tidy `data.frame` from smooth 2d distribution matrix
@@ -122,7 +132,7 @@ determine_lims_batch <- function(bs, var_names, lims) {
 #' @keywords internal
 make_2d_tidy_dist <- function(dist_2d, value = NULL, var_name = NULL) {
   df <- cbind(
-    expand.grid(x = dist_2d$x, y = dist_2d$d),
+    expand.grid(x = dist_2d$x, y = dist_2d$y),
     expand.grid(
       x_index = 1:length(dist_2d$x),
       y_index = 1:length(dist_2d$y)

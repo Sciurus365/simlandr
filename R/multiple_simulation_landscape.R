@@ -8,12 +8,12 @@
 #'
 #' @export
 make_2d_matrix <- function(bs, x, rows = NULL, cols, lims, kde_fun = c("ks", "base"), n = 200, h, adjust = 1, Umax = 5, individual_landscape = TRUE) {
-	kde_fun <- kde_fun[1]
-	var_names <- x
-	h <- determine_h_batch(bs, var_names, kde_fun, h %>% rlang::maybe_missing(), adjust)
-	lims <- determine_lims_batch(bs, var_names, lims %>% rlang::maybe_missing())
+  kde_fun <- kde_fun[1]
+  var_names <- x
+  h <- determine_h_batch(bs, var_names, kde_fun, h %>% rlang::maybe_missing(), adjust)
+  lims <- determine_lims_batch(bs, var_names, lims %>% rlang::maybe_missing())
 
-	message("Wrangling the data...")
+  message("Wrangling the data...")
   if (is.null(rows)) {
     df_nested <- bs %>%
       dplyr::mutate(dist = purrr::map2(output, !!rlang::sym(cols), function(out, par_value1) {
@@ -25,8 +25,8 @@ make_2d_matrix <- function(bs, x, rows = NULL, cols, lims, kde_fun = c("ks", "ba
   } else {
     df_nested <- bs %>%
       dplyr::mutate(dist = purrr::pmap(list(output, !!rlang::sym(rows), !!rlang::sym(cols)), function(out, par_value1, par_value2) {
-      	d <- make_kernel_dist(out, var_names, lims, kde_fun, n, h, adjust)
-      	df <- data.frame(x = d$x, d = d$d, U = pmin(-log(d$d), Umax))
+        d <- make_kernel_dist(out, var_names, lims, kde_fun, n, h, adjust)
+        df <- data.frame(x = d$x, d = d$d, U = pmin(-log(d$d), Umax))
         df$rows <- par_value1
         df$cols <- par_value2
         df
@@ -34,11 +34,11 @@ make_2d_matrix <- function(bs, x, rows = NULL, cols, lims, kde_fun = c("ks", "ba
   }
   if (individual_landscape) {
     df_nested <- df_nested %>%
-    	dplyr::rowwise() %>%
-    	dplyr::mutate(
-    		l_list = list(purrr::quietly(make_2d_static)(output, x, lims, kde_fun, n, h, adjust = 1, Umax)$result)
-    	) %>%
-    	dplyr::ungroup()
+      dplyr::rowwise() %>%
+      dplyr::mutate(
+        l_list = list(purrr::quietly(make_2d_static)(output, x, lims, kde_fun, n, h, adjust = 1, Umax)$result)
+      ) %>%
+      dplyr::ungroup()
   }
   df_nested$output <- NULL
   df_all <- do.call(rbind, df_nested$dist)
@@ -75,11 +75,11 @@ make_2d_matrix <- function(bs, x, rows = NULL, cols, lims, kde_fun = c("ks", "ba
 #'
 #' @export
 make_3d_matrix <- function(bs, x, y, rows = NULL, cols, lims, kde_fun = c("ks", "MASS"), n = 200, h, adjust = 1, Umax = 5, individual_landscape = TRUE) {
-	kde_fun <- kde_fun[1]
-	var_names <- c(x, y)
-	h <- determine_h_batch(bs, var_names, kde_fun, h %>% rlang::maybe_missing(), adjust)
-	lims <- determine_lims_batch(bs, var_names, lims %>% rlang::maybe_missing())
-	message("Wrangling the data...")
+  kde_fun <- kde_fun[1]
+  var_names <- c(x, y)
+  h <- determine_h_batch(bs, var_names, kde_fun, h %>% rlang::maybe_missing(), adjust)
+  lims <- determine_lims_batch(bs, var_names, lims %>% rlang::maybe_missing())
+  message("Wrangling the data...")
   if (is.null(rows)) {
     df_nested <- bs %>%
       dplyr::mutate(dist = purrr::pmap(list(output, bs[, cols]), function(out, par_value1) {
@@ -102,9 +102,9 @@ make_3d_matrix <- function(bs, x, y, rows = NULL, cols, lims, kde_fun = c("ks", 
   if (individual_landscape) {
     df_nested <- df_nested %>%
       dplyr::rowwise() %>%
-    	dplyr::mutate(
-    		l_list = list(purrr::quietly(make_3d_static)(output, x, y, lims, kde_fun, n, h, adjust = 1, Umax)$result)
-    	) %>%
+      dplyr::mutate(
+        l_list = list(purrr::quietly(make_3d_static)(output, x, y, lims, kde_fun, n, h, adjust = 1, Umax)$result)
+      ) %>%
       dplyr::ungroup()
   }
   df_nested$output <- NULL
@@ -141,58 +141,57 @@ make_3d_matrix <- function(bs, x, y, rows = NULL, cols, lims, kde_fun = c("ks", 
 #' @return A `3d_animation_landscape` object that describes the landscape of the system, including the smoothed distribution and the landscape plot.
 #'
 #' @export
-make_3d_animation <- function(bs, x, y, fr, Umax = 5, n = 200, lims = c(-0.1, 1.1, -0.1, 1.1), h = 1e-3, kde_fun = "ks", individual_landscape = TRUE, mat_3d = FALSE) {
-	kde_fun <- kde_fun[1]
-	var_names <- c(x, y)
-	h <- determine_h_batch(bs, var_names, kde_fun, h %>% rlang::maybe_missing(), adjust)
-	lims <- determine_lims_batch(bs, var_names, lims %>% rlang::maybe_missing())
-	message("Wrangling the data...")
-	df_nested <- bs %>%
-		dplyr::rowwise() %>%
-		dplyr::mutate(
-			dist = list(make_kernel_dist(output, var_names, lims, kde_fun, n, h, adjust))
-		)
+make_3d_animation <- function(bs, x, y, fr, lims, kde_fun = c("ks", "MASS"), n = 200, h, adjust = 1, Umax = 5, individual_landscape = TRUE, mat_3d = FALSE) {
+  kde_fun <- kde_fun[1]
+  var_names <- c(x, y)
+  h <- determine_h_batch(bs, var_names, kde_fun, h %>% rlang::maybe_missing(), adjust)
+  lims <- determine_lims_batch(bs, var_names, lims %>% rlang::maybe_missing())
+  message("Wrangling the data...")
+  df_nested <- bs %>%
+    dplyr::rowwise() %>%
+    dplyr::mutate(
+      dist = list(make_kernel_dist(output, var_names, lims, kde_fun, n, h, adjust))
+    )
 
-	if (individual_landscape) {
-		df_nested <- df_nested %>%
-			dplyr::mutate(
-				l_list = list(purrr::quietly(make_3d_static)(output, x, y, lims, kde_fun, n, h, adjust = 1, Umax)$result)
-			)
-	}
+  if (individual_landscape) {
+    df_nested <- df_nested %>%
+      dplyr::mutate(
+        l_list = list(purrr::quietly(make_3d_static)(output, x, y, lims, kde_fun, n, h, adjust = 1, Umax)$result)
+      )
+  }
 
-	df_nested$output <- NULL
+  df_nested$output <- NULL
 
-	df_nested_tidy <- df_nested %>%
-		dplyr::mutate(tidy_dist = list(make_2d_tidy_dist(dist, !!rlang::sym(fr), var_name = "fr"))) %>%
-		dplyr::ungroup()
+  df_nested_tidy <- df_nested %>%
+    dplyr::mutate(tidy_dist = list(make_2d_tidy_dist(dist, !!rlang::sym(fr), var_name = "fr"))) %>%
+    dplyr::ungroup()
 
-	df_nested_collect <- do.call(rbind, df_nested_tidy$tidy_dist)
-	message("Done!")
+  df_nested_collect <- do.call(rbind, df_nested_tidy$tidy_dist)
 
-	message("Making the plots...")
-	p <-
-		df_nested_collect %>%
-		plotly::plot_ly(x = ~x, y = ~y, z = pmin(-log(.$d %>% t()), Umax), color = pmin(-log(.$d %>% t()), Umax), frame = ~fr) %>%
-		plotly::add_markers(size = I(5)) %>%
-		plotly::layout(scene = list(xaxis = list(title = x), yaxis = list(title = y), zaxis = list(title = "U"))) %>%
-		plotly::colorbar(title = "U") %>%
-		plotly::animation_slider(
-			currentvalue = list(prefix = paste0(fr, ": "))
-		)
+  message("Making the plots...")
+  p <-
+    df_nested_collect %>%
+    plotly::plot_ly(x = ~x, y = ~y, z = pmin(-log(.$d %>% t()), Umax), color = pmin(-log(.$d %>% t()), Umax), frame = ~fr) %>%
+    plotly::add_markers(size = I(5)) %>%
+    plotly::layout(scene = list(xaxis = list(title = x), yaxis = list(title = y), zaxis = list(title = "U"))) %>%
+    plotly::colorbar(title = "U") %>%
+    plotly::animation_slider(
+      currentvalue = list(prefix = paste0(fr, ": "))
+    )
 
-	p2 <- ggplot2::ggplot(df_nested_collect, ggplot2::aes(x = x, y = y)) +
-		ggplot2::geom_raster(ggplot2::aes(fill = pmin(-log(d), Umax))) +
-		ggplot2::scale_fill_viridis_c() +
-		ggplot2::labs(x = x, y = y, fill = "U") +
-		ggplot2::theme_bw() +
-		gganimate::transition_states(df_nested_collect$fr) +
-		ggplot2::labs(subtitle = paste0(fr, ": {closest_state}"))
+  p2 <- ggplot2::ggplot(df_nested_collect, ggplot2::aes(x = x, y = y)) +
+    ggplot2::geom_raster(ggplot2::aes(fill = pmin(-log(d), Umax))) +
+    ggplot2::scale_fill_viridis_c() +
+    ggplot2::labs(x = x, y = y, fill = "U") +
+    ggplot2::theme_bw() +
+    gganimate::transition_states(df_nested_collect$fr) +
+    ggplot2::labs(subtitle = paste0(fr, ": {closest_state}"))
 
-	if (mat_3d) {
-		mat_3d <- make_3d_matrix(bs = bs, x = x, y = y, rows = NULL, cols = fr, lims, kde_fun, n, h, adjust, Umax, individual_landscape)
-	}
+  if (mat_3d) {
+    mat_3d <- make_3d_matrix(bs = bs, x = x, y = y, rows = NULL, cols = fr, lims, kde_fun, n, h, adjust, Umax, individual_landscape)
+  }
 
-	result <- list(dist_raw = df_nested, dist = df_nested_collect, plot = p, plot_2 = p2, mat_3d = mat_3d, x = x, y = y, fr = fr, Umax = Umax, n = n, lims = lims, h = h, kde_fun = kde_fun)
-	class(result) <- c("3d_animation_landscape", "3d_landscape_batch", "landscape")
-	return(result)
+  result <- list(dist_raw = df_nested, dist = df_nested_collect, plot = p, plot_2 = p2, mat_3d = mat_3d, x = x, y = y, fr = fr, Umax = Umax, n = n, lims = lims, h = h, kde_fun = kde_fun)
+  class(result) <- c("3d_animation_landscape", "3d_landscape_batch", "landscape")
+  return(result)
 }

@@ -51,7 +51,7 @@ devtools::install_github("Sciurus365/simlandr", build_vignettes = TRUE) # Use th
 
 ## Example
 
-```{r example}
+```{r example, message=FALSE}
 library(simlandr)
 
 # Simulation
@@ -99,15 +99,20 @@ plot(l_single_grad_3d, 2)
 set.seed(1614)
 single_output_grad <- matrix(runif(nrow(single_output_grad), min = 0, max = 5), ncol = 1, dimnames = list(NULL, "z")) %>% cbind(single_output_grad)
 l_single_grad_4d <- make_4d_static(single_output_grad, x = "x", y = "y", z = "z", n = 50)
-### plot(l_single_grad_4d) # to show the landscape in 4D (x, y, z, color)
+### plot(l_single_grad_4d) # to show the landscape in 4D (x, y, z, color as U)
 
 ## Example 4. 2D (x, y as U) matrix (by a)
-l_batch_grad_2d <- make_2d_matrix(batch_output_grad, x = "x", cols = "a")
+l_batch_grad_2d <- make_2d_matrix(batch_output_grad, x = "x", cols = "a", Umax = 8, adjust = 2)
 plot(l_batch_grad_2d)
 
 ## Example 5. 3D (x, y, color as U) matrix (by a)
 l_batch_grad_3d <- make_3d_matrix(batch_output_grad, x = "x", y = "y", cols = "a")
 plot(l_batch_grad_3d)
+
+## Example 6. 3D (x, y, color as U) animation (by a)
+l_batch_grad_3d_animation <- make_3d_animation(batch_output_grad, x = "x", y = "y", fr = "a")
+plot(l_batch_grad_3d_animation, 2)
+### plot(l_single_grad_4d) # to show the landscape in 3D (x, y, z as U)
 
 # Calculate energy barriers
 ## Example 1. Energy barrier for the 2D landscape
@@ -115,7 +120,7 @@ b_single_grad_2d <- calculate_barrier(l_single_grad_2d,
   start_location_value = -1, end_location_value = 1,
   start_r = 0.3, end_r = 0.3
 )
-get_barrier_height(b_single_grad_2d)
+summary(b_single_grad_2d)
 
 plot(l_single_grad_2d) + get_geom(b_single_grad_2d)
 
@@ -124,12 +129,28 @@ b_single_grad_3d <- calculate_barrier(l_single_grad_3d,
   start_location_value = c(-1, -1), end_location_value = c(1, 1),
   start_r = 0.3, end_r = 0.3
 )
-get_barrier_height(b_single_grad_3d)
+summary(b_single_grad_3d)
 plot(l_single_grad_3d, 2) + get_geom(b_single_grad_3d)
+
+## Example 3. Energy barrier for many 2D landscapes
+b_batch_grad_2d <- calculate_barrier(l_batch_grad_2d,
+  start_location_value = -1, end_location_value = 1,
+  start_r = 0.3, end_r = 0.3
+)
+summary(b_batch_grad_2d)
+plot(l_batch_grad_2d) + get_geom(b_batch_grad_2d)
+
+## Example 4. Energy barrier for many 3D landscapes
+b_batch_grad_3d <- calculate_barrier(l_batch_grad_3d,
+  start_location_value = c(-1, -1), end_location_value = c(1, 1),
+  start_r = 0.3, end_r = 0.3
+)
+summary(b_batch_grad_3d)
+plot(l_batch_grad_3d) + get_geom(b_batch_grad_3d)
 ```
 
 # Vignettes
 
-See the vignettes of this package (`browseVignettes("simlandr")` or https://psyarxiv.com/pzva3/) for more examples and explanations.
+See the vignettes of this package (`browseVignettes("simlandr")` or https://psyarxiv.com/pzva3/) for more examples and explanations. Also see https://doi.org/10.1080/00273171.2022.2119927 for our recent work using `simlandr`.
 
 <!-- devtools::build_readme() -->

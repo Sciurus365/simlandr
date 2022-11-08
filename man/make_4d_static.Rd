@@ -2,9 +2,23 @@
 % Please edit documentation in R/single_simulation_landscape.R
 \name{make_4d_static}
 \alias{make_4d_static}
+\alias{make_4d_single}
 \title{Make 4D static space-color plots from simulation output}
 \usage{
 make_4d_static(
+  output,
+  x,
+  y,
+  z,
+  lims,
+  kde_fun = "ks",
+  n = 50,
+  h,
+  adjust = 1,
+  Umax = 5
+)
+
+make_4d_single(
   output,
   x,
   y,

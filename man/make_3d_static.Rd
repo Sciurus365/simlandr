@@ -2,9 +2,22 @@
 % Please edit documentation in R/single_simulation_landscape.R
 \name{make_3d_static}
 \alias{make_3d_static}
+\alias{make_3d_single}
 \title{Make 3D static landscape plots from simulation output}
 \usage{
 make_3d_static(
+  output,
+  x,
+  y,
+  lims,
+  kde_fun = c("ks", "MASS"),
+  n = 200,
+  h,
+  adjust = 1,
+  Umax = 5
+)
+
+make_3d_single(
   output,
   x,
   y,

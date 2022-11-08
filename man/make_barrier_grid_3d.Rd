@@ -6,10 +6,10 @@
 \usage{
 make_barrier_grid_3d(
   ag,
-  start_location_value = c(0, 0),
-  start_r = 0.1,
-  end_location_value = c(0.7, 0.6),
-  end_r = 0.15,
+  start_location_value,
+  start_r,
+  end_location_value,
+  end_r,
   df = NULL,
   print_template = FALSE
 )

@@ -2,9 +2,12 @@
 % Please edit documentation in R/barrier.R
 \name{summary.barrier}
 \alias{summary.barrier}
+\alias{get_barrier_height}
 \title{Summarize the barrier height from a \code{barrier} object.}
 \usage{
 \method{summary}{barrier}(object, ...)
+
+get_barrier_height(object, ...)
 }
 \arguments{
 \item{object}{A \code{barrier} object.}

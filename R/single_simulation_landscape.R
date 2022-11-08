@@ -37,7 +37,7 @@ make_3d_static <- function(output, x, y, lims, kde_fun = c("ks", "MASS"), n = 20
   if (is.list(output)) output <- output[[1]]
   kde_fun <- kde_fun[1]
 
-  var_names <- c(x,y)
+  var_names <- c(x, y)
   h <- determine_h(output, var_names, kde_fun, h %>% rlang::maybe_missing(), adjust)
   lims <- determine_lims(output, var_names, lims)
 
@@ -70,7 +70,7 @@ make_4d_static <- function(output, x, y, z, lims, kde_fun = "ks", n = 50, h, adj
   if (is.list(output)) output <- output[[1]]
   kde_fun <- kde_fun[1]
 
-  var_names <- c(x,y,z)
+  var_names <- c(x, y, z)
   h <- determine_h(output, var_names, kde_fun, h %>% rlang::maybe_missing(), adjust)
   lims <- determine_lims(output, var_names, lims)
 
@@ -90,3 +90,17 @@ make_4d_static <- function(output, x, y, z, lims, kde_fun = "ks", n = 50, h, adj
   class(result) <- c("4d_static_landscape", "4d_landscape", "landscape")
   return(result)
 }
+
+## some alias
+
+#' @rdname make_2d_static
+#' @export
+make_2d_single <- make_2d_static
+
+#' @rdname make_3d_static
+#' @export
+make_3d_single <- make_3d_static
+
+#' @rdname make_4d_static
+#' @export
+make_4d_single <- make_4d_static

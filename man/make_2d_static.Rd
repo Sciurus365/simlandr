@@ -2,9 +2,21 @@
 % Please edit documentation in R/single_simulation_landscape.R
 \name{make_2d_static}
 \alias{make_2d_static}
+\alias{make_2d_single}
 \title{Make 2D static landscape plot for a single simulation output}
 \usage{
 make_2d_static(
+  output,
+  x,
+  lims,
+  kde_fun = c("ks", "base"),
+  n = 200,
+  h,
+  adjust = 1,
+  Umax = 5
+)
+
+make_2d_single(
   output,
   x,
   lims,

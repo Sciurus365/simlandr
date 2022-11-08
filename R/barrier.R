@@ -29,12 +29,11 @@ calculate_barrier <- function(l, ...) {
 #' @return A list with two elements: `U`, the potential value of the local minimum, and `location`, the position of the local minimum.
 #' @noRd
 find_local_min_2d <- function(dist, localmin, r) {
-  if (!"density" %in% class(dist)) stop("Wrong input. `dist` should be a `density` object.")
   x1 <- localmin[1]
-  effective_dist <- dist$y[dist$x > x1 - r & dist$x < x1 + r]
+  effective_dist <- dist$d[dist$x > x1 - r & dist$x < x1 + r]
   max_dist <- max(effective_dist)
   min_U <- -log(max_dist)
-  location_index <- which(dist$y == max_dist, arr.ind = TRUE)
+  location_index <- which(dist$d == max_dist, arr.ind = TRUE)
   location_value <- dist$x[location_index]
   location <- c(location_index, location_value)
   names(location) <- c("x_index", "x_value")
@@ -43,8 +42,8 @@ find_local_min_2d <- function(dist, localmin, r) {
 
 #' @rdname calculate_barrier
 #' @export
-calculate_barrier.2d_landscape <- function(l, start_location_value = 0, start_r = 0.1,
-                                           end_location_value = 0.7, end_r = 0.15, base = exp(1),
+calculate_barrier.2d_landscape <- function(l, start_location_value, start_r,
+                                           end_location_value, end_r, base = exp(1),
                                            ...) {
   if ("2d_static_landscape" %in% class(l)) {
     d <- l$dist
@@ -55,8 +54,8 @@ calculate_barrier.2d_landscape <- function(l, start_location_value = 0, start_r 
   local_min_start <- find_local_min_2d(d, start_location_value, start_r)
   local_min_end <- find_local_min_2d(d, end_location_value, end_r)
 
-  s_U <- max(-log(d$y[local_min_start$location["x_index"]:local_min_end$location["x_index"]], base = base))
-  s_location_x_index <- which(-log(d$y, base) == s_U)
+  s_U <- max(-log(d$d[local_min_start$location["x_index"]:local_min_end$location["x_index"]], base = base))
+  s_location_x_index <- which(-log(d$d, base) == s_U)
   s_location <- c(s_location_x_index, d$x[s_location_x_index])
   names(s_location) <- c("x_index", "x_value")
 
@@ -119,11 +118,11 @@ NULL_path <- function() {
 #' @return A list with two elements: `U`, the potential value of the local minimum, and `location`, the position of the local minimum.
 #' @noRd
 find_local_min_3d <- function(dist, localmin, r, Umax, expand = TRUE, first_called = TRUE) {
-  if (!is.matrix(dist$z)) stop("Wrong input. `dist` should be a list with x, y, and z, and z should be a matrix.")
+  if (!is.matrix(dist$d)) stop("Wrong input. `dist` should be a list with x, y, and d, and d should be a matrix.")
   x1 <- localmin[1]
   y1 <- localmin[2]
   if (length(r) == 1) r <- rep(r, 2)
-  effective_dist <- dist$z[
+  effective_dist <- dist$d[
     dist$x > x1 - r[1] & dist$x < x1 + r[1],
     dist$y > y1 - r[2] & dist$y < y1 + r[2]
   ]
@@ -138,7 +137,7 @@ find_local_min_3d <- function(dist, localmin, r, Umax, expand = TRUE, first_call
       return(NULL_point())
     }
   }
-  location_index <- which(dist$z == max_dist, arr.ind = TRUE) %>% apply(2, function(x) as.integer(stats::median(x)))
+  location_index <- which(dist$d == max_dist, arr.ind = TRUE) %>% apply(2, function(x) as.integer(stats::median(x)))
   location_value <- c(dist$x[location_index[1]], dist$y[location_index[2]])
   location <- c(location_index, location_value)
   names(location) <- c("x_index", "y_index", "x_value", "y_value")
@@ -148,10 +147,10 @@ find_local_min_3d <- function(dist, localmin, r, Umax, expand = TRUE, first_call
 
 #' @export
 #' @rdname calculate_barrier
-calculate_barrier.3d_landscape <- function(l, start_location_value = c(0, 0),
-                                           start_r = 0.1,
-                                           end_location_value = c(0.7, 0.6),
-                                           end_r = 0.15,
+calculate_barrier.3d_landscape <- function(l, start_location_value,
+                                           start_r,
+                                           end_location_value,
+                                           end_r,
                                            Umax, expand = TRUE, omit_unstable = FALSE,
                                            base = exp(1), ...) {
   d <- l$dist
@@ -166,7 +165,7 @@ calculate_barrier.3d_landscape <- function(l, start_location_value = c(0, 0),
     saddle_point <- NULL_point()
   } else {
     min_path_index <- dijkstra(
-      log(d$z, base = base),
+      log(d$d, base = base),
       local_min_start$location[1:2],
       local_min_end$location[1:2]
     )
@@ -181,7 +180,7 @@ calculate_barrier.3d_landscape <- function(l, start_location_value = c(0, 0),
       } %>%
       dplyr::rowwise() %>%
       dplyr::mutate(x_value = d$x[x_index], y_value = d$y[y_index]) %>%
-      dplyr::mutate(U = -log(d$z[x_index, y_index], base = base)) %>%
+      dplyr::mutate(U = -log(d$d[x_index, y_index], base = base)) %>%
       dplyr::ungroup()
 
     s_U <- max(min_path$U)
@@ -249,13 +248,17 @@ summary.barrier <- function(object, ...) {
     return(result)
   } else if (any(c("2d_barrier_batch", "3d_barrier_batch") %in% class(b))) {
     result <- b$point_all %>%
-      mutate(
+      dplyr::mutate(
         delta_U_start = saddle_U - start_U,
         delta_U_end = saddle_U - end_U
       )
     return(result)
   }
 }
+
+#' @rdname summary.barrier
+#' @export
+get_barrier_height <- summary.barrier
 
 #' @export
 plot.barrier <- function(x, ...) {

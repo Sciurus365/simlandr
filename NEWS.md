@@ -1,10 +1,15 @@
 # simlandr 0.3.0
 
-- Further improved documentations, function and class names, and cleaned unnecessary exported functions; made the parameter names of the main functions more consistant; used better default values for landscape functions; added `print()`, `summary()` and `plot()` methods for several classes.
+- Further improved documentations, function and class names, and cleaned unnecessary exported functions. Removed some deprecated functions.
+- Made the parameter names of the landscape functions more consistent; used better default values for landscape functions.
+- For single simulation landscape functions, added `make_*d_single()` alias.
+- Removed some default values for barrier calculation functions (can be misleading).
+- Added `print()`, `summary()` and `plot()` methods for several classes.
 - Renamed `hash_big.matrix` class to `hash_big_matrix` for consistent use of dots; renamed related functions accordingly.
 - Added `coda::cumuplot()` as a possible option for `check_conv()`.
-- For `barrier_batch` objects, renamed the column `b` to `barrier` to avoid conflicts.
-- Removed messages for single simulation landscapes.
+- For `barrier_batch` objects, renamed the column `b` to `barrier` to avoid possible conflicts.
+- Removed some unnecessary messages.
+- Added some examples to `README`.
 - Bugfix: Parameter `vg` in `make_barrier_grid_2d()` and `make_barrier_grid_3d()` was changed to `ag` and the class of this parameter was changed from `var_grid` (deprecated) to `arg_grid`. 
 
 # simlandr 0.2.1
