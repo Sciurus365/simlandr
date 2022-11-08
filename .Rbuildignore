@@ -12,3 +12,4 @@
 ^.*\.temp\.R$
 ^.*\.RDS$
 ^cran-comments\.md$
+^README_cache$

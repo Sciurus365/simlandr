@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# `simlandr`: Simulation-Based Landscape Construction for Dynamical Systems <img src='man/figures/logo.png' style='float: right' height='138' />
+# `simlandr`: Simulation-Based Landscape Construction for Dynamical Systems <img src='man/figures/logo.png' style=float:right height=138 />
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/simlandr)](https://cran.r-project.org/package=simlandr)
 ![](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
@@ -75,7 +75,9 @@ batch_output_grad <- batch_simulation(batch_grid_grad, sim_fun_grad,
 
 batch_output_grad
 #> Output(s) from 6 simulations.
+```
 
+``` r
 # Construct landscapes
 
 ## Example 1. 2D (x, y as U) landscape
@@ -83,7 +85,7 @@ l_single_grad_2d <- make_2d_static(single_output_grad, x = "x")
 plot(l_single_grad_2d)
 ```
 
-<img src="man/figures/README-example-2.png" width="100%" />
+<img src="man/figures/README-example2-2.png" width="100%" />
 
 ``` r
 
@@ -91,7 +93,7 @@ plot(l_single_grad_2d)
 make_2d_static(single_output_grad, x = "x", adjust = 5) %>% plot()
 ```
 
-<img src="man/figures/README-example-3.png" width="100%" />
+<img src="man/figures/README-example2-3.png" width="100%" />
 
 ``` r
 
@@ -100,7 +102,7 @@ l_single_grad_3d <- make_3d_static(single_output_grad, x = "x", y = "y", adjust 
 plot(l_single_grad_3d, 2)
 ```
 
-<img src="man/figures/README-example-4.png" width="100%" />
+<img src="man/figures/README-example2-4.png" width="100%" />
 
 ``` r
 
@@ -117,7 +119,7 @@ l_batch_grad_2d <- make_2d_matrix(batch_output_grad, x = "x", cols = "a", Umax =
 plot(l_batch_grad_2d)
 ```
 
-<img src="man/figures/README-example-5.png" width="100%" />
+<img src="man/figures/README-example2-5.png" width="100%" />
 
 ``` r
 
@@ -126,7 +128,7 @@ l_batch_grad_3d <- make_3d_matrix(batch_output_grad, x = "x", y = "y", cols = "a
 plot(l_batch_grad_3d)
 ```
 
-<img src="man/figures/README-example-6.png" width="100%" />
+<img src="man/figures/README-example2-6.png" width="100%" />
 
 ``` r
 
@@ -135,11 +137,13 @@ l_batch_grad_3d_animation <- make_3d_animation(batch_output_grad, x = "x", y = "
 plot(l_batch_grad_3d_animation, 2)
 ```
 
-<img src="man/figures/README-example-1.gif" width="100%" />
+<img src="man/figures/README-example2-1.gif" width="100%" />
 
 ``` r
 ### plot(l_single_grad_4d) # to show the landscape in 3D (x, y, z as U)
+```
 
+``` r
 # Calculate energy barriers
 ## Example 1. Energy barrier for the 2D landscape
 b_single_grad_2d <- calculate_barrier(l_single_grad_2d,
@@ -153,7 +157,7 @@ summary(b_single_grad_2d)
 plot(l_single_grad_2d) + get_geom(b_single_grad_2d)
 ```
 
-<img src="man/figures/README-example-8.png" width="100%" />
+<img src="man/figures/README-example3-1.png" width="100%" />
 
 ``` r
 
@@ -168,7 +172,7 @@ summary(b_single_grad_3d)
 plot(l_single_grad_3d, 2) + get_geom(b_single_grad_3d)
 ```
 
-<img src="man/figures/README-example-9.png" width="100%" />
+<img src="man/figures/README-example3-2.png" width="100%" />
 
 ``` r
 
@@ -190,7 +194,7 @@ summary(b_batch_grad_2d)
 plot(l_batch_grad_2d) + get_geom(b_batch_grad_2d)
 ```
 
-<img src="man/figures/README-example-10.png" width="100%" />
+<img src="man/figures/README-example3-3.png" width="100%" />
 
 ``` r
 
@@ -213,11 +217,13 @@ summary(b_batch_grad_3d)
 plot(l_batch_grad_3d) + get_geom(b_batch_grad_3d)
 ```
 
-<img src="man/figures/README-example-11.png" width="100%" />
+<img src="man/figures/README-example3-4.png" width="100%" />
 
 # Vignettes
 
 See the vignettes of this package (`browseVignettes("simlandr")` or
-<https://psyarxiv.com/pzva3/>) for more examples and explanations.
+<https://psyarxiv.com/pzva3/>) for more examples and explanations. Also
+see <https://doi.org/10.1080/00273171.2022.2119927> for our recent work
+using `simlandr`.
 
 <!-- devtools::build_readme() -->

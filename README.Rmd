@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# `simlandr`: Simulation-Based Landscape Construction for Dynamical Systems <img src='man/figures/logo.png' style='float: right' height='138' />
+# `simlandr`: Simulation-Based Landscape Construction for Dynamical Systems <img src='man/figures/logo.png' style=float:right height=138 />
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/simlandr)](https://cran.r-project.org/package=simlandr)
 ![](https://img.shields.io/badge/lifecycle-experimental-orange.svg) [![R-CMD-check](https://github.com/Sciurus365/simlandr/workflows/R-CMD-check/badge.svg)](https://github.com/Sciurus365/simlandr/actions)
@@ -51,7 +51,7 @@ devtools::install_github("Sciurus365/simlandr", build_vignettes = TRUE) # Use th
 
 ## Example
 
-```{r example, message=FALSE}
+```{r example1, message=FALSE, cache=TRUE}
 library(simlandr)
 
 # Simulation
@@ -79,7 +79,9 @@ batch_output_grad <- batch_simulation(batch_grid_grad, sim_fun_grad,
 )
 
 batch_output_grad
+```
 
+```{r example2, message=FALSE, cache=TRUE}
 # Construct landscapes
 
 ## Example 1. 2D (x, y as U) landscape
@@ -113,7 +115,9 @@ plot(l_batch_grad_3d)
 l_batch_grad_3d_animation <- make_3d_animation(batch_output_grad, x = "x", y = "y", fr = "a")
 plot(l_batch_grad_3d_animation, 2)
 ### plot(l_single_grad_4d) # to show the landscape in 3D (x, y, z as U)
+```
 
+```{r example3, message=FALSE, cache=TRUE}
 # Calculate energy barriers
 ## Example 1. Energy barrier for the 2D landscape
 b_single_grad_2d <- calculate_barrier(l_single_grad_2d,
