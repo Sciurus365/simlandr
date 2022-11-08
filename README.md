@@ -5,7 +5,7 @@
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/simlandr)](https://cran.r-project.org/package=simlandr)
 ![](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
-[![R-CMD-check](https://github.com/Sciurus365/simlandr/workflows/R-CMD-check/badge.svg)](https://github.com/Sciurus365/simlandr/actions)
+[![R-CMD-check](https://github.com/Sciurus365/simlandr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Sciurus365/simlandr/actions/workflows/R-CMD-check.yaml)
 [![](https://cranlogs.r-pkg.org/badges/simlandr)](https://cran.r-project.org/package=simlandr)
 
 A toolbox for constructing potential landscapes for dynamical systems
