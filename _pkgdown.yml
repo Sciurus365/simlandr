@@ -1,5 +1,4 @@
-navbar:
-  components:
-    articles:
-     text: Vignette
-     href: https://psyarxiv.com/pzva3/
+url: https://sciurus365.github.io/simlandr/
+template:
+  bootstrap: 5
+
