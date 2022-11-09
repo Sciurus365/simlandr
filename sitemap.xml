@@ -1,177 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/404.html</loc>
   </url>
   <url>
-    <loc>/LICENSE.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/index.html</loc>
   </url>
   <url>
-    <loc>/news/index.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/attach_all_matrices.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/arg_set-class.html</loc>
   </url>
   <url>
-    <loc>/reference/batch_simulation.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/attach_all_matrices.html</loc>
   </url>
   <url>
-    <loc>/reference/calculate_barrier.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/batch_simulation.html</loc>
   </url>
   <url>
-    <loc>/reference/calculate_barrier_2d.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/calculate_barrier.html</loc>
   </url>
   <url>
-    <loc>/reference/calculate_barrier_2d_batch.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/check_conv.html</loc>
   </url>
   <url>
-    <loc>/reference/calculate_barrier_3d.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/fill_in_struct.html</loc>
   </url>
   <url>
-    <loc>/reference/calculate_barrier_3d_batch.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/get_dist.html</loc>
   </url>
   <url>
-    <loc>/reference/check_conv.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/get_geom.html</loc>
   </url>
   <url>
-    <loc>/reference/fill_in_struct.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/hash_big_matrix-class.html</loc>
   </url>
   <url>
-    <loc>/reference/find_local_min_2d.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/find_local_min_3d.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/make_2d_matrix.html</loc>
   </url>
   <url>
-    <loc>/reference/get_barrier_height.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/make_2d_static.html</loc>
   </url>
   <url>
-    <loc>/reference/get_dist.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/make_2d_tidy_dist.html</loc>
   </url>
   <url>
-    <loc>/reference/get_geom.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/make_3d_animation.html</loc>
   </url>
   <url>
-    <loc>/reference/hash_big.matrix-class.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/make_3d_matrix.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/make_3d_static.html</loc>
   </url>
   <url>
-    <loc>/reference/make_2d_density.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/make_4d_static.html</loc>
   </url>
   <url>
-    <loc>/reference/make_2d_kernel_dist.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/make_barrier_grid_2d.html</loc>
   </url>
   <url>
-    <loc>/reference/make_2d_matrix.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/make_barrier_grid_3d.html</loc>
   </url>
   <url>
-    <loc>/reference/make_2d_static.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/make_kernel_dist.html</loc>
   </url>
   <url>
-    <loc>/reference/make_2d_tidy_dist.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/modified_simulation.html</loc>
   </url>
   <url>
-    <loc>/reference/make_3d_animation.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/pipe.html</loc>
   </url>
   <url>
-    <loc>/reference/make_3d_kernel_dist.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/plot.landscape.html</loc>
   </url>
   <url>
-    <loc>/reference/make_3d_matrix.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/save_landscape.html</loc>
   </url>
   <url>
-    <loc>/reference/make_3d_static.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/sim_fun_grad.html</loc>
   </url>
   <url>
-    <loc>/reference/make_3d_tidy_dist.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/sim_fun_nongrad.html</loc>
   </url>
   <url>
-    <loc>/reference/make_4d_static.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/sim_fun_test.html</loc>
   </url>
   <url>
-    <loc>/reference/make_arg_grid.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/sim_fun_test2.html</loc>
   </url>
   <url>
-    <loc>/reference/make_barrier_grid_2d.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/simlandr-package.html</loc>
   </url>
   <url>
-    <loc>/reference/make_barrier_grid_3d.html</loc>
-  </url>
-  <url>
-    <loc>/reference/make_var_grid.html</loc>
-  </url>
-  <url>
-    <loc>/reference/narg.html</loc>
-  </url>
-  <url>
-    <loc>/reference/nele.html</loc>
-  </url>
-  <url>
-    <loc>/reference/new_arg_set.html</loc>
-  </url>
-  <url>
-    <loc>/reference/new_var_set.html</loc>
-  </url>
-  <url>
-    <loc>/reference/npar.html</loc>
-  </url>
-  <url>
-    <loc>/reference/nvar.html</loc>
-  </url>
-  <url>
-    <loc>/reference/pipe.html</loc>
-  </url>
-  <url>
-    <loc>/reference/plot.barrier.html</loc>
-  </url>
-  <url>
-    <loc>/reference/plot.landscape.html</loc>
-  </url>
-  <url>
-    <loc>/reference/print.arg_grid.html</loc>
-  </url>
-  <url>
-    <loc>/reference/print.arg_set.html</loc>
-  </url>
-  <url>
-    <loc>/reference/print.batch_simulation.html</loc>
-  </url>
-  <url>
-    <loc>/reference/print.check_conv.html</loc>
-  </url>
-  <url>
-    <loc>/reference/print.var_grid.html</loc>
-  </url>
-  <url>
-    <loc>/reference/print.var_set.html</loc>
-  </url>
-  <url>
-    <loc>/reference/reverselog_trans.html</loc>
-  </url>
-  <url>
-    <loc>/reference/save_landscape.html</loc>
-  </url>
-  <url>
-    <loc>/reference/sim_fun_grad.html</loc>
-  </url>
-  <url>
-    <loc>/reference/sim_fun_nongrad.html</loc>
-  </url>
-  <url>
-    <loc>/reference/sim_fun_test.html</loc>
-  </url>
-  <url>
-    <loc>/reference/sim_fun_test2.html</loc>
-  </url>
-  <url>
-    <loc>/reference/simlandr-package.html</loc>
+    <loc>https://sciurus365.github.io/simlandr/reference/summary.barrier.html</loc>
   </url>
 </urlset>
