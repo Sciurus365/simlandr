@@ -46,6 +46,11 @@ jobs:
 
       - uses: r-lib/actions/setup-tinytex@v2
       - run: tlmgr --version
+      
+      - name: Install additional LaTeX packages
+        run: |
+          tlmgr install ae amscls amsfonts amsmath atbegshi atveryend auxhook babel bibtex bigintcalc bitset booktabs caption changepage cm colortbl ctablestack dehyph dvipdfmx dvips ec epstopdf-pkg eso-pic etex etexcmds etoolbox euenc everyshi fancyhdr fancyvrb filehook firstaid float fontspec forarray framed geometry gettitlestring glyphlist graphics graphics-cfg graphics-def grfext grffile helvetic hycolor hyperref hyph-utf8 hyphen-base iftex inconsolata infwarerr intcalc jknapltx knuth-lib kpathsea kvdefinekeys kvoptions kvsetkeys l3backend l3kernel l3packages lastpage latex latex-amsmath-dev latex-bin latex-fonts latex-tools-dev latexconfig latexdiff latexmk letltxmacro lineno lm lm-math ltxcmds lua-alt-getopt lua-uni-algos luahbtex lualatex-math lualibs luaotfload luatex luatexbase makeindex marvosym mdwtools metafont mfware microtype modes natbib oberdiek pdfescape pdflscape pdfpages pdftex pdftexcmds plain psnfss refcount rerunfilecheck rsfs scheme-infraonly selnolig stringenc symbol tex tex-ini-files texlive-scripts texlive.infra thumbpdf times tipa tlgs tlperl tools ucs ulem unicode-data unicode-math uniquecounter url xcolor xetex xetexconfig xkeyval xstring xunicode zapfchan zapfding
+          tlmgr list --only-installed
 
       - uses: r-lib/actions/check-r-package@v2
         with:
