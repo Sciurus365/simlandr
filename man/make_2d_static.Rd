@@ -2,16 +2,45 @@
 % Please edit documentation in R/single_simulation_landscape.R
 \name{make_2d_static}
 \alias{make_2d_static}
+\alias{make_2d_single}
 \title{Make 2D static landscape plot for a single simulation output}
 \usage{
-make_2d_static(output, x, adjust = 50, from = -0.1, to = 1, Umax = 5)
+make_2d_static(
+  output,
+  x,
+  lims,
+  kde_fun = c("ks", "base"),
+  n = 200,
+  h,
+  adjust = 1,
+  Umax = 5
+)
+
+make_2d_single(
+  output,
+  x,
+  lims,
+  kde_fun = c("ks", "base"),
+  n = 200,
+  h,
+  adjust = 1,
+  Umax = 5
+)
 }
 \arguments{
 \item{output}{A matrix of simulation output.}
 
 \item{x}{The name of the target variable.}
 
-\item{adjust, from, to}{Passed to \code{density}.}
+\item{lims}{The limits of the range for the density estimator as \code{c(xl, xu)} for 2D landscapes, \code{c(xl, xu, yl, yu)} for 3D landscapes, \code{c(xl, xu, yl, yu, zl, zu)} for 4D landscapes. If missing, the range of the data extended by 10\% for both sides will be used. For landscapes based on multiple simulations, the largest range of all simulations (which means the lowest lower limit and the highest upper limit) will be used by default.}
+
+\item{kde_fun}{Which kernel estimator to use? Choices: "ks" \code{\link[ks:kde]{ks::kde()}} (default; faster and using less memory); "base" \code{base::density()} (only for 2D landscapes); "MASS" \code{\link[MASS:kde2d]{MASS::kde2d()}} (only for 3D landscapes).}
+
+\item{n}{The number of equally spaced points in each axis, at which the density is to be estimated.}
+
+\item{h}{A number, or possibly a vector for 3D and 4D landscapes, specifying the smoothing bandwidth to be used. If missing, the default value of the kernel estimator will be used (but \code{bw = "SJ"} for \code{base::density()}). Note that the definition of bandwidth might be different for different kernel estimators. For landscapes based on multiple simulations, the largest \code{h} of all simulations will be used by default.}
+
+\item{adjust}{The multiplier to the bandwidth. The bandwidth used is actually \code{adjust * h}. This makes it easy to specify values like "half the default" bandwidth.}
 
 \item{Umax}{The maximum displayed value of potential.}
 }

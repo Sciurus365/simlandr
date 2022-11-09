@@ -9,28 +9,38 @@ make_3d_animation(
   x,
   y,
   fr,
-  Umax = 5,
+  lims,
+  kde_fun = c("ks", "MASS"),
   n = 200,
-  lims = c(-0.1, 1.1, -0.1, 1.1),
-  h = 0.001,
-  kde_fun = "ks",
-  individual_landscape = FALSE,
-  mat_3d = TRUE
+  h,
+  adjust = 1,
+  Umax = 5,
+  individual_landscape = TRUE,
+  mat_3d = FALSE
 )
 }
 \arguments{
-\item{bs}{A \code{batch_simulation} object created by \verb{[batch_simulation].}}
+\item{bs}{A \code{batch_simulation} object created by \verb{[batch_simulation()].}}
 
-\item{x, y, fr}{The names of the target variables.
-\code{fr} corresponds to the \code{frame} parameter in 'plotly'.}
+\item{x, y}{The names of the target variables.}
+
+\item{fr}{The names of the parameters used to represent frames in the animation.}
+
+\item{lims}{The limits of the range for the density estimator as \code{c(xl, xu)} for 2D landscapes, \code{c(xl, xu, yl, yu)} for 3D landscapes, \code{c(xl, xu, yl, yu, zl, zu)} for 4D landscapes. If missing, the range of the data extended by 10\% for both sides will be used. For landscapes based on multiple simulations, the largest range of all simulations (which means the lowest lower limit and the highest upper limit) will be used by default.}
+
+\item{kde_fun}{Which kernel estimator to use? Choices: "ks" \code{\link[ks:kde]{ks::kde()}} (default; faster and using less memory); "base" \code{base::density()} (only for 2D landscapes); "MASS" \code{\link[MASS:kde2d]{MASS::kde2d()}} (only for 3D landscapes).}
+
+\item{n}{The number of equally spaced points in each axis, at which the density is to be estimated.}
+
+\item{h}{A number, or possibly a vector for 3D and 4D landscapes, specifying the smoothing bandwidth to be used. If missing, the default value of the kernel estimator will be used (but \code{bw = "SJ"} for \code{base::density()}). Note that the definition of bandwidth might be different for different kernel estimators. For landscapes based on multiple simulations, the largest \code{h} of all simulations will be used by default.}
+
+\item{adjust}{The multiplier to the bandwidth. The bandwidth used is actually \code{adjust * h}. This makes it easy to specify values like "half the default" bandwidth.}
 
 \item{Umax}{The maximum displayed value of potential.}
 
-\item{n, lims, h, kde_fun}{Passed to \code{make_2d_kernel_dist}}
+\item{individual_landscape}{Make individual landscape for each simulation? Default is \code{TRUE} so that it is possible to calculate barriers. Set to \code{FALSE} to save time.}
 
-\item{individual_landscape}{Make individual landscape for each simulation?}
-
-\item{mat_3d}{Also make heatmap matrix?}
+\item{mat_3d}{Also make the matrix by \code{\link[=make_3d_matrix]{make_3d_matrix()}}? If so, the matrix can be drawn with \verb{plot(<landscape>, 3)}.}
 }
 \value{
 A \verb{3d_animation_landscape} object that describes the landscape of the system, including the smoothed distribution and the landscape plot.

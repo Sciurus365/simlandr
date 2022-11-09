@@ -5,17 +5,27 @@ add_stage_tag <- function(output, range, var, stage) {
   return(output)
 }
 
-#' Check density convergence of simulation
+#' Graphical diagnoses to check if the simulation converges
+#'
+#' Compare the distribution of different stages of simulation (for `plot_type == "bin"` or `plot_type = "density"`), or show how the percentails of the distribution evolve over time (for `plot_type == cumuplot`, see [coda::cumuplot()] for details). More convergence checking methods for MCMC data are available at the `coda` package. Be cautious: each convergence checking method has its shortcomings, so do not blindly use any results as the definitive conclusion that a simulation converges or not.
+#'
+#'
 #'
 #' @param output A matrix of simulation output.
 #' @param vars The names of variables to check.
-#' @param sample_perc The percentage of data sample for the initial, middle, and final stage of the simulation.
-#' @param plot_type Which type of plots should be generated? ("bin" or "density")
+#' @param sample_perc The percentage of data sample for the initial, middle, and final stage of the simulation. Not required if `plot_type == "cumuplot"`.
+#' @param plot_type Which type of plots should be generated? ("bin", "density", or "cumuplot" which uses [coda::cumuplot()])
+#' @param ... Other parameters to be passed to [coda::cumuplot()].
 #'
-#' @return A `check_conv` object that contains the convergence checking result.
+#' @return A `check_conv` object that contains the convergence checking result(for `plot_type == "bin"` or `plot_type = "density"`), or draw the cumuplot without a return value (for `plot_type == cumuplot`).
 #'
 #' @export
 check_conv <- function(output, vars, sample_perc = 0.2, plot_type = "bin") {
+  if (plot_type == "cumuplot") {
+    rlang::check_installed("coda", reason = "to use `plot_type = `cumuplot`")
+    return(coda::cumuplot(coda::mcmc(output[, vars])))
+  }
+
   # check convergence of i in vars; init, mid, final, normalized dist, ...
   if (sample_perc > 1 | sample_perc < 0) stop("`sample_perc should be between 0 and 1.")
 
@@ -51,12 +61,10 @@ check_conv <- function(output, vars, sample_perc = 0.2, plot_type = "bin") {
   return(result_list)
 }
 
-#' Print a `check_conv`
+#' @describeIn check_conv Print a `check_conv` object.
 #' @param x The object.
 #' @param ask Ask to press enter to see the next plot?
 #' @param ... Not in use.
-#'
-#' @return The printed result.
 #' @method print check_conv
 #' @export
 print.check_conv <- function(x, ask = TRUE, ...) {

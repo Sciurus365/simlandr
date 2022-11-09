@@ -2,27 +2,49 @@
 % Please edit documentation in R/single_simulation_landscape.R
 \name{make_3d_static}
 \alias{make_3d_static}
+\alias{make_3d_single}
 \title{Make 3D static landscape plots from simulation output}
 \usage{
 make_3d_static(
   output,
   x,
   y,
-  Umax = 5,
+  lims,
+  kde_fun = c("ks", "MASS"),
   n = 200,
-  lims = c(-0.1, 1.1, -0.1, 1.1),
-  h = 0.001,
-  kde_fun = "ks"
+  h,
+  adjust = 1,
+  Umax = 5
+)
+
+make_3d_single(
+  output,
+  x,
+  y,
+  lims,
+  kde_fun = c("ks", "MASS"),
+  n = 200,
+  h,
+  adjust = 1,
+  Umax = 5
 )
 }
 \arguments{
 \item{output}{A matrix of simulation output.}
 
-\item{x, y}{The name of the target variable.}
+\item{x, y}{The names of the target variables.}
+
+\item{lims}{The limits of the range for the density estimator as \code{c(xl, xu)} for 2D landscapes, \code{c(xl, xu, yl, yu)} for 3D landscapes, \code{c(xl, xu, yl, yu, zl, zu)} for 4D landscapes. If missing, the range of the data extended by 10\% for both sides will be used. For landscapes based on multiple simulations, the largest range of all simulations (which means the lowest lower limit and the highest upper limit) will be used by default.}
+
+\item{kde_fun}{Which kernel estimator to use? Choices: "ks" \code{\link[ks:kde]{ks::kde()}} (default; faster and using less memory); "base" \code{base::density()} (only for 2D landscapes); "MASS" \code{\link[MASS:kde2d]{MASS::kde2d()}} (only for 3D landscapes).}
+
+\item{n}{The number of equally spaced points in each axis, at which the density is to be estimated.}
+
+\item{h}{A number, or possibly a vector for 3D and 4D landscapes, specifying the smoothing bandwidth to be used. If missing, the default value of the kernel estimator will be used (but \code{bw = "SJ"} for \code{base::density()}). Note that the definition of bandwidth might be different for different kernel estimators. For landscapes based on multiple simulations, the largest \code{h} of all simulations will be used by default.}
+
+\item{adjust}{The multiplier to the bandwidth. The bandwidth used is actually \code{adjust * h}. This makes it easy to specify values like "half the default" bandwidth.}
 
 \item{Umax}{The maximum displayed value of potential.}
-
-\item{n, lims, h, kde_fun}{Passed to \code{\link[=make_2d_kernel_dist]{make_2d_kernel_dist()}}}
 }
 \value{
 A \verb{3d_static_landscape} object that describes the landscape of the system, including the smooth distribution and the landscape plot.

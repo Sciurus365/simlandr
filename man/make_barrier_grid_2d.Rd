@@ -5,19 +5,19 @@
 \title{Make a grid for calculating barriers for 2d landscapes}
 \usage{
 make_barrier_grid_2d(
-  vg,
-  start_location_value = 0,
-  start_r = 0.1,
-  end_location_value = 0.7,
-  end_r = 0.15,
+  ag,
+  start_location_value,
+  start_r,
+  end_location_value,
+  end_r,
   df = NULL,
   print_template = FALSE
 )
 }
 \arguments{
-\item{vg}{A \code{var_grid} object.}
+\item{ag}{An \code{arg_grid} object.}
 
-\item{start_location_value, start_r, end_location_value, end_r}{Default values for finding local minimum. See \code{\link[=calculate_barrier_3d_batch]{calculate_barrier_3d_batch()}}.}
+\item{start_location_value, start_r, end_location_value, end_r}{Default values for finding local minimum. See \code{\link[=calculate_barrier]{calculate_barrier()}}.}
 
 \item{df}{A data frame for the variables. Use \code{print_template = TRUE} to get a template.}
 

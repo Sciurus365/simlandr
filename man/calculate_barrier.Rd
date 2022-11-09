@@ -2,47 +2,88 @@
 % Please edit documentation in R/barrier.R, R/barrier_batch.R
 \name{calculate_barrier}
 \alias{calculate_barrier}
-\alias{calculate_barrier.2d_static_landscape}
-\alias{calculate_barrier.2d_density_landscape}
-\alias{calculate_barrier.density}
-\alias{calculate_barrier.3d_static_landscape}
-\alias{calculate_barrier.list}
-\alias{calculate_barrier.3d_animation_landscape}
-\alias{calculate_barrier.3d_matrix_landscape}
-\alias{calculate_barrier.2d_matrix_landscape}
-\title{General function for calculating energy barrier}
+\alias{calculate_barrier.2d_landscape}
+\alias{calculate_barrier.3d_landscape}
+\alias{calculate_barrier.2d_landscape_batch}
+\alias{calculate_barrier.3d_landscape_batch}
+\title{Functions for calculating energy barrier from landscapes}
 \usage{
 calculate_barrier(l, ...)
 
-\method{calculate_barrier}{`2d_static_landscape`}(l, ...)
+\method{calculate_barrier}{`2d_landscape`}(
+  l,
+  start_location_value,
+  start_r,
+  end_location_value,
+  end_r,
+  base = exp(1),
+  ...
+)
 
-\method{calculate_barrier}{`2d_density_landscape`}(l, ...)
+\method{calculate_barrier}{`3d_landscape`}(
+  l,
+  start_location_value,
+  start_r,
+  end_location_value,
+  end_r,
+  Umax,
+  expand = TRUE,
+  omit_unstable = FALSE,
+  base = exp(1),
+  ...
+)
 
-\method{calculate_barrier}{density}(l, ...)
+\method{calculate_barrier}{`2d_landscape_batch`}(
+  l,
+  bg = NULL,
+  start_location_value,
+  start_r,
+  end_location_value,
+  end_r,
+  base = exp(1),
+  ...
+)
 
-\method{calculate_barrier}{`2d_static_landscape`}(l, ...)
-
-\method{calculate_barrier}{`3d_static_landscape`}(l, ...)
-
-\method{calculate_barrier}{list}(l, ...)
-
-\method{calculate_barrier}{`3d_animation_landscape`}(l, ...)
-
-\method{calculate_barrier}{`3d_matrix_landscape`}(l, ...)
-
-\method{calculate_barrier}{`2d_matrix_landscape`}(l, ...)
+\method{calculate_barrier}{`3d_landscape_batch`}(
+  l,
+  bg = NULL,
+  start_location_value,
+  start_r,
+  end_location_value,
+  end_r,
+  Umax,
+  expand = TRUE,
+  omit_unstable = FALSE,
+  base = exp(1),
+  ...
+)
 }
 \arguments{
-\item{l}{A {landscape} or related project.}
+\item{l}{A \code{landscape} object.}
 
-\item{...}{Other parameters.}
+\item{...}{Not in use.}
+
+\item{start_location_value, end_location_value}{The initial position (in value)
+for searching the start/end point.}
+
+\item{start_r, end_r}{The search radius (in L1 distance) for the start/end point.}
+
+\item{base}{The base of the log function.}
+
+\item{Umax}{The highest possible value of the potential function.}
+
+\item{expand}{If the values in the range all equal to \code{Umax}, expand the
+range or not?}
+
+\item{omit_unstable}{If a state is not stable (the "local minimum" overlaps
+with the saddle point), omit that state or not?}
+
+\item{bg}{A \verb{2d_barrier_grid} or \verb{3d_barrier_grid} object if you want to use
+different parameters for each condition. Otherwise \code{NULL} as default.}
 }
 \value{
 A \code{barrier} object that contains the (batch) barrier calculation result(s).
 }
 \description{
-General function for calculating energy barrier
-}
-\seealso{
-\code{\link[=calculate_barrier_2d]{calculate_barrier_2d()}}, \code{\link[=calculate_barrier_2d_batch]{calculate_barrier_2d_batch()}}, \code{\link[=calculate_barrier_3d]{calculate_barrier_3d()}}, \code{\link[=calculate_barrier_3d_batch]{calculate_barrier_3d_batch()}}, \code{\link[=plot.barrier]{plot.barrier()}}
+Functions for calculating energy barrier from landscapes
 }

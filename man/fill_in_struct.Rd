@@ -20,3 +20,4 @@ Fill a vector of values into a structure list.
 \seealso{
 \code{\link[=modified_simulation]{modified_simulation()}}
 }
+\keyword{internal}

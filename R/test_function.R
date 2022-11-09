@@ -6,7 +6,8 @@
 #'
 #' @return A matrix of simulation results.
 #'
-#' @seealso [sim_fun_test2()] for a more realistic example. [batch_simulation()] for a concrete example.
+#' @seealso [sim_fun_grad()] and [sim_fun_nongrad()] for more realistic
+#' examples.
 #'
 #' @export
 #'

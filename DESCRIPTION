@@ -1,7 +1,7 @@
 Package: simlandr
 Type: Package
 Title: Simulation-Based Landscape Construction for Dynamical Systems
-Version: 0.2.1
+Version: 0.2.1.9000
 Authors@R: person(given = "Jingmeng", family = "Cui", email = "jingmeng.cui@outlook.com",
 		role = c("aut", "cre"), comment = c(ORCID = "0000-0003-3421-8457"))
 Description: A toolbox for constructing potential landscapes for dynamical systems using Monte Carlo simulation. 
@@ -16,7 +16,6 @@ Imports:
     purrr,
     tibble,
     ggplot2,
-    scales,
     MASS,
     plotly,
     htmlwidgets,
@@ -28,11 +27,14 @@ Imports:
     forcats,
     rlang,
     lifecycle,
-    progress
+    progress,
+    grDevices
 RoxygenNote: 7.2.1
-URL: https://sciurus365.github.io/simlandr/, https://github.com/Sciurus365/simlandr
+URL: https://sciurus365.github.io/simlandr/,
+    https://github.com/Sciurus365/simlandr
 BugReports: https://github.com/Sciurus365/simlandr/issues
 Suggests: 
+    coda,
     knitr,
     rmarkdown,
     webshot
