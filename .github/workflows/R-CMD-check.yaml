@@ -49,9 +49,10 @@ jobs:
 
       - name: Install additional LaTeX packages
         run: |
-          tlmgr install pdfpages pdflscape
+          tlmgr install pdfpages pdflscape ae
           tlmgr list --only-installed
 
       - uses: r-lib/actions/check-r-package@v2
         with:
+          args: 'c("--no-manual", "--as-cran", "--compact-vignettes=both")'
           upload-snapshots: true
