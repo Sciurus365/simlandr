@@ -1,6 +1,6 @@
 # simlandr 0.3.0
 
-- Further improved documentations, function and class names, and cleaned unnecessary exported functions. Removed some deprecated functions.
+- Further improved documentation, function, and class names, and cleaned unnecessary exported functions. Removed some deprecated functions.
 - Made the parameter names of the landscape functions more consistent; used better default values for landscape functions.
 - For single simulation landscape functions, added `make_*d_single()` alias.
 - Removed some default values for barrier calculation functions (they are often not suitable and can be misleading).
@@ -23,9 +23,9 @@
 
 - Renamed `var` and `par` in batch simulation functions to `arg` (argument) and `ele` (element).
 - Adjusted the algorithm of calculating minimal energy paths (previously "minimal elevation paths").
-- Added an nongradient example function `sim_fun_nongrad()`; renamed `sim_fun_test2()` to `sim_fun_grad()`.
+- Added an non-gradient example function `sim_fun_nongrad()`; renamed `sim_fun_test2()` to `sim_fun_grad()`.
 - Added title for the color bar in `plot_ly` based plots; used `theme_bw()` throughout all `ggplot2` based plots.
-- Improved some documentations; included a new vignette.
+- Improved some documentation; included a new vignette.
 
 # simlandr 0.1.2
 

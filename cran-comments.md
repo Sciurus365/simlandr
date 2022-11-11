@@ -1,4 +1,4 @@
-## Changes of simlandr 0.2.1
+## Changes of simlandr 0.3.0
 
 - Further improved documentations, function and class names, and cleaned unnecessary exported functions. Removed some deprecated functions.
 - Made the parameter names of the landscape functions more consistent; used better default values for landscape functions.
