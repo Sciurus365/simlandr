@@ -125,10 +125,9 @@ make_barrier_grid_3d <- function(ag, start_location_value,
   if (!"arg_grid" %in% class(ag)) stop("`ag` should be an arg_grid object")
   result <- ag
 
-  if (length(start_r) == 1) start_r <- rep(start_r, 2)
-  if (length(end_r) == 1) end_r <- rep(end_r, 2)
-
   if (is.null(df)) {
+    if (length(start_r) == 1) start_r <- rep(start_r, 2)
+    if (length(end_r) == 1) end_r <- rep(end_r, 2)
     result <- result %>% dplyr::mutate(
       start_location_value = list(start_location_value),
       start_r = list(start_r),

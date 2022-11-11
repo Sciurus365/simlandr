@@ -233,7 +233,7 @@ calculate_barrier.3d_landscape <- function(l, start_location_value,
 }
 
 
-#' Summarize the barrier height from a `barrier` object.
+#' Summarize the barrier height from a `barrier` object
 #' @param object A `barrier` object.
 #' @param ... Not in use.
 #' @return A vector (for a single barrier calculation result) or a `data.frame` (for batch barrier calculation results) that contains the barrier heights on the landscape.
@@ -256,9 +256,19 @@ summary.barrier <- function(object, ...) {
   }
 }
 
-#' @rdname summary.barrier
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' This function was deprecated. Use [summary()] instead. (See [summary.barrier()].)
+#'
+#' @inherit summary.barrier
+#'
 #' @export
-get_barrier_height <- summary.barrier
+#' @keywords internal
+get_barrier_height <- function(object, ...) {
+  lifecycle::deprecate_warn("0.3.0", "summary()")
+  summary.barrier(object, ...)
+}
 
 #' @export
 plot.barrier <- function(x, ...) {
@@ -269,26 +279,43 @@ plot.barrier <- function(x, ...) {
 #' @export
 #' @method print barrier
 print.barrier <- function(x, ...) {
-  cat("A barrier object of the class", class(x)[1], "was estimated. Use `plot()` to draw the barrier plot; use `get_geom()` to get a ggplot layer that can be added to the landscape plot; use `summary()` to get the barrier heights.")
+  cat("A barrier object of the class", class(x)[1], "was estimated. Use `plot()` to draw the barrier plot; use `autolayer()` to get a ggplot layer that can be added to the landscape plot; use `summary()` to get the barrier heights.")
 }
 
-#' Get a ggplot2 geom layer that can be added to a ggplot2 landscape plot
+#' Get a ggplot2 layer from a barrier object
 #'
 #' This layer can show the saddle point (2d) and the minimal energy path (3d) on the landscape.
 #'
-#' @param b A `barrier` object.
+#' @param object A `barrier` object.
 #' @param path Show the minimum energy path in the graph?
+#' @param ... Not in use.
 #'
-#' @return A `ggplot2` geom (formally a `LayerInstance` object) that can be added to an existing `ggplot`.
+#' @return A `ggplot2` layer that can be added to an existing landscape plot.
 #'
 #' @export
-get_geom <- function(b, path = TRUE) {
-  if (!"barrier" %in% class(b)) stop("b should be a `barrier`")
+autolayer.barrier <- function(object, path = TRUE, ...) {
   if (path) {
-    return(b$geom)
+    return(object$geom)
   } else {
-    temp_g <- b$geom
+    temp_g <- object$geom
     temp_g[[1]] <- NULL
     return(temp_g)
   }
+}
+
+
+
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' This function was deprecated. Use [autolayer()] instead. (See [autolayer.barrier()].)
+#'
+#' @inherit autolayer.barrier
+#'
+#'
+#' @export
+#' @keywords internal
+get_geom <- function(object, ...) {
+  lifecycle::deprecate_warn("0.3.0", "autolayer()")
+  autolayer(object, ...)
 }

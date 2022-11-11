@@ -154,7 +154,7 @@ summary(b_single_grad_2d)
 #> delta_U_start   delta_U_end 
 #>      2.896270      2.806378
 
-plot(l_single_grad_2d) + get_geom(b_single_grad_2d)
+plot(l_single_grad_2d) + autolayer(b_single_grad_2d)
 ```
 
 <img src="man/figures/README-example3-1.png" width="100%" />
@@ -169,7 +169,7 @@ b_single_grad_3d <- calculate_barrier(l_single_grad_3d,
 summary(b_single_grad_3d)
 #> delta_U_start   delta_U_end 
 #>      3.491516      3.360399
-plot(l_single_grad_3d, 2) + get_geom(b_single_grad_3d)
+plot(l_single_grad_3d, 2) + autolayer(b_single_grad_3d)
 ```
 
 <img src="man/figures/README-example3-2.png" width="100%" />
@@ -191,7 +191,7 @@ summary(b_batch_grad_2d)
 #> 4  -0.808   0.530 0.807  0.572   0.0205    1.62     -3         1.09       1.05  
 #> 5  -0.702   0.710 0.700  0.659   0.0205    0.884    -2         0.174      0.225 
 #> 6  -0.702   0.895 0.700  0.834  -0.702     0.895    -1         0          0.0613
-plot(l_batch_grad_2d) + get_geom(b_batch_grad_2d)
+plot(l_batch_grad_2d) + autolayer(b_batch_grad_2d)
 ```
 
 <img src="man/figures/README-example3-3.png" width="100%" />
@@ -214,7 +214,7 @@ summary(b_batch_grad_3d)
 #> 5  -0.702  -0.712  0.608  0.700 0.712  0.466 -0.000710  0.0866       1.33    -2
 #> 6  -0.702  -0.712  1.12   0.700 0.712  1.11  -0.702    -0.712        1.12    -1
 #> # … with 2 more variables: delta_U_start <dbl>, delta_U_end <dbl>
-plot(l_batch_grad_3d) + get_geom(b_batch_grad_3d)
+plot(l_batch_grad_3d) + autolayer(b_batch_grad_3d)
 ```
 
 <img src="man/figures/README-example3-4.png" width="100%" />

@@ -126,7 +126,7 @@ b_single_grad_2d <- calculate_barrier(l_single_grad_2d,
 )
 summary(b_single_grad_2d)
 
-plot(l_single_grad_2d) + get_geom(b_single_grad_2d)
+plot(l_single_grad_2d) + autolayer(b_single_grad_2d)
 
 ## Example 2. Energy barrier for the 3D landscape
 b_single_grad_3d <- calculate_barrier(l_single_grad_3d,
@@ -134,7 +134,7 @@ b_single_grad_3d <- calculate_barrier(l_single_grad_3d,
   start_r = 0.3, end_r = 0.3
 )
 summary(b_single_grad_3d)
-plot(l_single_grad_3d, 2) + get_geom(b_single_grad_3d)
+plot(l_single_grad_3d, 2) + autolayer(b_single_grad_3d)
 
 ## Example 3. Energy barrier for many 2D landscapes
 b_batch_grad_2d <- calculate_barrier(l_batch_grad_2d,
@@ -142,7 +142,7 @@ b_batch_grad_2d <- calculate_barrier(l_batch_grad_2d,
   start_r = 0.3, end_r = 0.3
 )
 summary(b_batch_grad_2d)
-plot(l_batch_grad_2d) + get_geom(b_batch_grad_2d)
+plot(l_batch_grad_2d) + autolayer(b_batch_grad_2d)
 
 ## Example 4. Energy barrier for many 3D landscapes
 b_batch_grad_3d <- calculate_barrier(l_batch_grad_3d,
@@ -150,7 +150,7 @@ b_batch_grad_3d <- calculate_barrier(l_batch_grad_3d,
   start_r = 0.3, end_r = 0.3
 )
 summary(b_batch_grad_3d)
-plot(l_batch_grad_3d) + get_geom(b_batch_grad_3d)
+plot(l_batch_grad_3d) + autolayer(b_batch_grad_3d)
 ```
 
 # Vignettes
