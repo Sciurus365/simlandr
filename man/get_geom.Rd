@@ -17,6 +17,6 @@ A \code{ggplot2} layer that can be added to an existing landscape plot.
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-This function was deprecated. Use \code{\link[=autolayer]{autolayer()}} instead.
+This function was deprecated. Use \code{\link[=autolayer]{autolayer()}} instead. (See \code{\link[=autolayer.barrier]{autolayer.barrier()}}.)
 }
 \keyword{internal}

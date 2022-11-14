@@ -1,3 +1,5 @@
+- This is a re-submission, in which the size of the package was reduced to meet the CRAN standard.
+
 ## Changes of simlandr 0.3.0
 
 - Further improved documentations, function and class names, and cleaned unnecessary exported functions. Removed some deprecated functions.

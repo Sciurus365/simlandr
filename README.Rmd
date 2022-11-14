@@ -111,10 +111,10 @@ plot(l_batch_grad_2d)
 l_batch_grad_3d <- make_3d_matrix(batch_output_grad, x = "x", y = "y", cols = "a")
 plot(l_batch_grad_3d)
 
-## Example 6. 3D (x, y, color as U) animation (by a)
+## Example 6. 3D (x, y, z/color as U) animation (by a)
 l_batch_grad_3d_animation <- make_3d_animation(batch_output_grad, x = "x", y = "y", fr = "a")
-plot(l_batch_grad_3d_animation, 2)
-### plot(l_single_grad_4d) # to show the landscape in 3D (x, y, z as U)
+### plot(l_batch_grad_3d_animation) # to show the landscape animation in 3D (x, y, z as U)
+### plot(l_batch_grad_3d_animation, 2) # to show the landscape animation in 3D (x, y, color as U)
 ```
 
 ```{r example3, message=FALSE, cache=TRUE}

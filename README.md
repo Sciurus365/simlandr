@@ -85,7 +85,7 @@ l_single_grad_2d <- make_2d_static(single_output_grad, x = "x")
 plot(l_single_grad_2d)
 ```
 
-<img src="man/figures/README-example2-2.png" width="100%" />
+<img src="man/figures/README-example2-1.png" width="100%" />
 
 ``` r
 
@@ -93,7 +93,7 @@ plot(l_single_grad_2d)
 make_2d_static(single_output_grad, x = "x", adjust = 5) %>% plot()
 ```
 
-<img src="man/figures/README-example2-3.png" width="100%" />
+<img src="man/figures/README-example2-2.png" width="100%" />
 
 ``` r
 
@@ -102,7 +102,7 @@ l_single_grad_3d <- make_3d_static(single_output_grad, x = "x", y = "y", adjust 
 plot(l_single_grad_3d, 2)
 ```
 
-<img src="man/figures/README-example2-4.png" width="100%" />
+<img src="man/figures/README-example2-3.png" width="100%" />
 
 ``` r
 
@@ -119,7 +119,7 @@ l_batch_grad_2d <- make_2d_matrix(batch_output_grad, x = "x", cols = "a", Umax =
 plot(l_batch_grad_2d)
 ```
 
-<img src="man/figures/README-example2-5.png" width="100%" />
+<img src="man/figures/README-example2-4.png" width="100%" />
 
 ``` r
 
@@ -128,19 +128,14 @@ l_batch_grad_3d <- make_3d_matrix(batch_output_grad, x = "x", y = "y", cols = "a
 plot(l_batch_grad_3d)
 ```
 
-<img src="man/figures/README-example2-6.png" width="100%" />
+<img src="man/figures/README-example2-5.png" width="100%" />
 
 ``` r
 
-## Example 6. 3D (x, y, color as U) animation (by a)
+## Example 6. 3D (x, y, z/color as U) animation (by a)
 l_batch_grad_3d_animation <- make_3d_animation(batch_output_grad, x = "x", y = "y", fr = "a")
-plot(l_batch_grad_3d_animation, 2)
-```
-
-<img src="man/figures/README-example2-1.gif" width="100%" />
-
-``` r
-### plot(l_single_grad_4d) # to show the landscape in 3D (x, y, z as U)
+### plot(l_batch_grad_3d_animation) # to show the landscape animation in 3D (x, y, z as U)
+### plot(l_batch_grad_3d_animation, 2) # to show the landscape animation in 3D (x, y, color as U)
 ```
 
 ``` r
