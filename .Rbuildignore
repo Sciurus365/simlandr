@@ -13,3 +13,4 @@
 ^.*\.RDS$
 ^cran-comments\.md$
 ^README_cache$
+^CRAN-SUBMISSION$
