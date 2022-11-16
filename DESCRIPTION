@@ -1,41 +1,44 @@
-Package: simlandr
 Type: Package
+Package: simlandr
 Title: Simulation-Based Landscape Construction for Dynamical Systems
-Version: 0.2.1.9000
-Authors@R: person(given = "Jingmeng", family = "Cui", email = "jingmeng.cui@outlook.com",
-		role = c("aut", "cre"), comment = c(ORCID = "0000-0003-3421-8457"))
-Description: A toolbox for constructing potential landscapes for dynamical systems using Monte Carlo simulation. 
-    The method is based on the potential landscape definition by Wang et al. (2008) <doi:10.1073/pnas.0800579105> 
-    (also see Zhou & Li, 2016 <doi:10.1063/1.4943096> for further mathematical discussions) and can be used for 
-    a large variety of models.
+Version: 0.3.0
+Authors@R: 
+    person("Jingmeng", "Cui", , "jingmeng.cui@outlook.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0003-3421-8457"))
+Description: A toolbox for constructing potential landscapes for dynamical
+    systems using Monte Carlo simulation.  The method is based on the
+    potential landscape definition by Wang et al. (2008)
+    <doi:10.1073/pnas.0800579105> (also see Zhou & Li, 2016
+    <doi:10.1063/1.4943096> for further mathematical discussions) and can
+    be used for a large variety of models.
 License: GPL (>= 3)
-Encoding: UTF-8
-Imports: 
-    dplyr,
-    magrittr,
-    purrr,
-    tibble,
-    ggplot2,
-    MASS,
-    plotly,
-    htmlwidgets,
-    bigmemory,
-    digest,
-    methods,
-    ks,
-    gganimate,
-    forcats,
-    rlang,
-    lifecycle,
-    progress,
-    grDevices
-RoxygenNote: 7.2.1
 URL: https://sciurus365.github.io/simlandr/,
     https://github.com/Sciurus365/simlandr
 BugReports: https://github.com/Sciurus365/simlandr/issues
+Imports: 
+    bigmemory,
+    digest,
+    dplyr,
+    forcats,
+    gganimate,
+    ggplot2,
+    grDevices,
+    htmlwidgets,
+    ks,
+    lifecycle,
+    magrittr,
+    MASS,
+    methods,
+    plotly,
+    progress,
+    purrr,
+    rlang,
+    tibble
 Suggests: 
     coda,
     knitr,
     rmarkdown,
     webshot
+Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1

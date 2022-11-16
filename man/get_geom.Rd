@@ -2,18 +2,21 @@
 % Please edit documentation in R/barrier.R
 \name{get_geom}
 \alias{get_geom}
-\title{Get a ggplot2 geom layer that can be added to a ggplot2 landscape plot}
+\title{Get a ggplot2 layer from a barrier object}
 \usage{
-get_geom(b, path = TRUE)
+get_geom(object, ...)
 }
 \arguments{
-\item{b}{A \code{barrier} object.}
+\item{object}{A \code{barrier} object.}
 
-\item{path}{Show the minimum energy path in the graph?}
+\item{...}{Not in use.}
 }
 \value{
-A \code{ggplot2} geom (formally a \code{LayerInstance} object) that can be added to an existing \code{ggplot}.
+A \code{ggplot2} layer that can be added to an existing landscape plot.
 }
 \description{
-This layer can show the saddle point (2d) and the minimal energy path (3d) on the landscape.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+This function was deprecated. Use \code{\link[=autolayer]{autolayer()}} instead. (See \code{\link[=autolayer.barrier]{autolayer.barrier()}}.)
 }
+\keyword{internal}
