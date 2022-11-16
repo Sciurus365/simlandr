@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">simlandr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,18 +45,21 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.3.0" id="simlandr-030">simlandr 0.3.0<a class="anchor" aria-label="anchor" href="#simlandr-030"></a></h2>
-<ul><li>Further improved documentations, function and class names, and cleaned unnecessary exported functions. Removed some deprecated functions.</li>
+<h2 class="pkg-version" data-toc-text="0.3.0" id="simlandr-030">simlandr 0.3.0<a class="anchor" aria-label="anchor" href="#simlandr-030"></a></h2><p class="text-muted">CRAN release: 2022-11-15</p>
+<ul><li>Further improved documentation, function, and class names, and cleaned unnecessary exported functions. Removed some deprecated functions.</li>
 <li>Made the parameter names of the landscape functions more consistent; used better default values for landscape functions.</li>
 <li>For single simulation landscape functions, added <code>make_*d_single()</code> alias.</li>
-<li>Removed some default values for barrier calculation functions (can be misleading).</li>
+<li>Removed some default values for barrier calculation functions (they are often not suitable and can be misleading).</li>
 <li>Added <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code>, <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> and <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> methods for several classes.</li>
+<li>Replaced <code><a href="../reference/get_geom.html">get_geom()</a></code> with a method of the <code><a href="../reference/autolayer.html">autolayer()</a></code> generic function from <code>ggplot2</code>. <code><a href="../reference/get_geom.html">get_geom()</a></code> is now deprecated.</li>
+<li>Replaced <code><a href="../reference/get_barrier_height.html">get_barrier_height()</a></code> with a method of the <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> generic function. <code><a href="../reference/get_barrier_height.html">get_barrier_height()</a></code> is now deprecated.</li>
 <li>Renamed <code>hash_big.matrix</code> class to <code>hash_big_matrix</code> for consistent use of dots; renamed related functions accordingly.</li>
 <li>Added <code><a href="https://rdrr.io/pkg/coda/man/cumuplot.html" class="external-link">coda::cumuplot()</a></code> as a possible option for <code><a href="../reference/check_conv.html">check_conv()</a></code>.</li>
 <li>For <code>barrier_batch</code> objects, renamed the column <code>b</code> to <code>barrier</code> to avoid possible conflicts.</li>
 <li>Removed some unnecessary messages.</li>
 <li>Added some examples to <code>README</code>.</li>
-<li>Bugfix: Parameter <code>vg</code> in <code><a href="../reference/make_barrier_grid_2d.html">make_barrier_grid_2d()</a></code> and <code><a href="../reference/make_barrier_grid_3d.html">make_barrier_grid_3d()</a></code> was changed to <code>ag</code> and the class of this parameter was changed from <code>var_grid</code> (deprecated) to <code>arg_grid</code>.</li>
+<li>Updated the vignette: updated some function, object, and parameter names; removed some references that we are now questioning.</li>
+<li>Bug fix: Parameter <code>vg</code> in <code><a href="../reference/make_barrier_grid_2d.html">make_barrier_grid_2d()</a></code> and <code><a href="../reference/make_barrier_grid_3d.html">make_barrier_grid_3d()</a></code> was changed to <code>ag</code> and the class of this parameter was changed from <code>var_grid</code> (deprecated) to <code>arg_grid</code>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.1" id="simlandr-021">simlandr 0.2.1<a class="anchor" aria-label="anchor" href="#simlandr-021"></a></h2><p class="text-muted">CRAN release: 2022-08-24</p>
@@ -66,9 +69,9 @@
 <h2 class="pkg-version" data-toc-text="0.2.0" id="simlandr-020">simlandr 0.2.0<a class="anchor" aria-label="anchor" href="#simlandr-020"></a></h2><p class="text-muted">CRAN release: 2022-03-16</p>
 <ul><li>Renamed <code>var</code> and <code>par</code> in batch simulation functions to <code>arg</code> (argument) and <code>ele</code> (element).</li>
 <li>Adjusted the algorithm of calculating minimal energy paths (previously “minimal elevation paths”).</li>
-<li>Added an nongradient example function <code><a href="../reference/sim_fun_nongrad.html">sim_fun_nongrad()</a></code>; renamed <code><a href="../reference/sim_fun_test2.html">sim_fun_test2()</a></code> to <code><a href="../reference/sim_fun_grad.html">sim_fun_grad()</a></code>.</li>
+<li>Added an non-gradient example function <code><a href="../reference/sim_fun_nongrad.html">sim_fun_nongrad()</a></code>; renamed <code><a href="../reference/sim_fun_test2.html">sim_fun_test2()</a></code> to <code><a href="../reference/sim_fun_grad.html">sim_fun_grad()</a></code>.</li>
 <li>Added title for the color bar in <code>plot_ly</code> based plots; used <code>theme_bw()</code> throughout all <code>ggplot2</code> based plots.</li>
-<li>Improved some documentations; included a new vignette.</li>
+<li>Improved some documentation; included a new vignette.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.2" id="simlandr-012">simlandr 0.1.2<a class="anchor" aria-label="anchor" href="#simlandr-012"></a></h2><p class="text-muted">CRAN release: 2021-11-02</p>

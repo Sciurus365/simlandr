@@ -22,6 +22,12 @@
     <loc>https://sciurus365.github.io/simlandr/reference/attach_all_matrices.html</loc>
   </url>
   <url>
+    <loc>https://sciurus365.github.io/simlandr/reference/autolayer.barrier.html</loc>
+  </url>
+  <url>
+    <loc>https://sciurus365.github.io/simlandr/reference/autolayer.html</loc>
+  </url>
+  <url>
     <loc>https://sciurus365.github.io/simlandr/reference/batch_simulation.html</loc>
   </url>
   <url>
@@ -32,6 +38,9 @@
   </url>
   <url>
     <loc>https://sciurus365.github.io/simlandr/reference/fill_in_struct.html</loc>
+  </url>
+  <url>
+    <loc>https://sciurus365.github.io/simlandr/reference/get_barrier_height.html</loc>
   </url>
   <url>
     <loc>https://sciurus365.github.io/simlandr/reference/get_dist.html</loc>
