@@ -1,5 +1,6 @@
 #' Make 2D static landscape plot for a single simulation output
 #' @param x The name of the target variable.
+#' @param Umax The maximum displayed value of potential.
 #' @inheritParams make_kernel_dist
 #' @return A `2d_static_landscape` object that describes the landscape of the system, including the smooth distribution and the landscape plot.
 #' @export
@@ -29,6 +30,7 @@ make_2d_static <- function(output, x, lims, kde_fun = c("ks", "base"), n = 200, 
 #'
 #' @param x,y The names of the target variables.
 #' @inheritParams make_kernel_dist
+#' @inheritParams make_2d_static
 #'
 #' @return A `3d_static_landscape` object that describes the landscape of the system, including the smooth distribution and the landscape plot.
 #'
@@ -62,6 +64,7 @@ make_3d_static <- function(output, x, y, lims, kde_fun = c("ks", "MASS"), n = 20
 #'
 #' @param x,y,z The names of the target variables.
 #' @inheritParams make_kernel_dist
+#' @inheritParams make_2d_static
 #'
 #' @return A `4d_static_landscape` object that describes the landscape of the system, including the smoothed distribution and the landscape plot.
 #'

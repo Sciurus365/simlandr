@@ -14,3 +14,4 @@
 ^cran-comments\.md$
 ^README_cache$
 ^CRAN-SUBMISSION$
+^submit_cran\.R$
