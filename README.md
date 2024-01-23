@@ -217,8 +217,8 @@ plot(l_batch_grad_3d) + autolayer(b_batch_grad_3d)
 # Vignettes
 
 See the vignettes of this package (`browseVignettes("simlandr")` or
-<https://psyarxiv.com/pzva3/>) for more examples and explanations. Also
-see <https://doi.org/10.1080/00273171.2022.2119927> for our recent work
-using `simlandr`.
+<https://doi.org/10.31234/osf.io/pzva3>) for more examples and
+explanations. Also see <https://doi.org/10.1080/00273171.2022.2119927>
+for our recent work using `simlandr`.
 
 <!-- devtools::build_readme() -->

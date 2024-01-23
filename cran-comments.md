@@ -1,3 +1,5 @@
+- This is a re-submission, in which a permanently moved website in README was updated.
+
 ## Changes of simlandr 0.3.1
 
 - Removed unused parameter `Umax` from the documentation of `make_kernel_dist()` (an internal function). 
@@ -18,16 +20,12 @@
 Maintainer: 'Jingmeng Cui <jingmeng.cui@outlook.com>'
   
   Found the following (possibly) invalid URLs:
-    URL: https://psyarxiv.com/pzva3/ (moved to https://osf.io/preprints/psyarxiv/pzva3/)
-      From: README.md
-      Status: 200
-      Message: OK
     URL: https://www.doi.org/10.1073/pnas.0800579105
       From: README.md
       Status: 403
       Message: Forbidden
       
-I have checked the URLs and they are all valid. Those notes may come from the delayed response of the servers, or maybe they are not accessible from the checking server.
+I have checked the URL and it is valid. This note may come from the delayed response of the servers, or maybe it is not accessible from the checking server. It has also happened in previous submissions.
 
 ## revdepcheck results
 
