@@ -1,3 +1,7 @@
+# simlandr 0.3.1
+
+- Removed unused parameter `Umax` from the documentation of `make_kernel_dist()` (an internal function).
+
 # simlandr 0.3.0
 
 - Further improved documentation, function, and class names, and cleaned unnecessary exported functions. Removed some deprecated functions.

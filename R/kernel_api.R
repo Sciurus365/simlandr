@@ -7,7 +7,6 @@
 #' @param n The number of equally spaced points in each axis, at which the density is to be estimated.
 #' @param h A number, or possibly a vector for 3D and 4D landscapes, specifying the smoothing bandwidth to be used. If missing, the default value of the kernel estimator will be used (but `bw = "SJ"` for `base::density()`). Note that the definition of bandwidth might be different for different kernel estimators. For landscapes based on multiple simulations, the largest `h` of all simulations will be used by default.
 #' @param adjust The multiplier to the bandwidth. The bandwidth used is actually `adjust * h`. This makes it easy to specify values like "half the default" bandwidth.
-#' @param Umax The maximum displayed value of potential.
 #' @return A list of the smooth distribution.
 #' @keywords internal
 make_kernel_dist <- function(output, var_names, lims, kde_fun, n, h, adjust) {

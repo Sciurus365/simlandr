@@ -20,8 +20,6 @@ make_kernel_dist(output, var_names, lims, kde_fun, n, h, adjust)
 \item{h}{A number, or possibly a vector for 3D and 4D landscapes, specifying the smoothing bandwidth to be used. If missing, the default value of the kernel estimator will be used (but \code{bw = "SJ"} for \code{base::density()}). Note that the definition of bandwidth might be different for different kernel estimators. For landscapes based on multiple simulations, the largest \code{h} of all simulations will be used by default.}
 
 \item{adjust}{The multiplier to the bandwidth. The bandwidth used is actually \code{adjust * h}. This makes it easy to specify values like "half the default" bandwidth.}
-
-\item{Umax}{The maximum displayed value of potential.}
 }
 \value{
 A list of the smooth distribution.
