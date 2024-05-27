@@ -7,7 +7,7 @@ add_stage_tag <- function(output, range, var, stage) {
 
 #' Graphical diagnoses to check if the simulation converges
 #'
-#' Compare the distribution of different stages of simulation (for `plot_type == "bin"` or `plot_type = "density"`), or show how the percentails of the distribution evolve over time (for `plot_type == cumuplot`, see [coda::cumuplot()] for details). More convergence checking methods for MCMC data are available at the `coda` package. Be cautious: each convergence checking method has its shortcomings, so do not blindly use any results as the definitive conclusion that a simulation converges or not.
+#' Compare the distribution of different stages of simulation (for `plot_type == "bin"` or `plot_type = "density"`), or show how the percentiles of the distribution evolve over time (for `plot_type == cumuplot`, see [coda::cumuplot()] for details). More convergence checking methods for MCMC data are available at the `coda` package. Be cautious: each convergence checking method has its shortcomings, so do not blindly use any results as the definitive conclusion that a simulation converges or not.
 #'
 #'
 #'

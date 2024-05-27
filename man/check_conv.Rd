@@ -28,7 +28,7 @@ check_conv(output, vars, sample_perc = 0.2, plot_type = "bin")
 A \code{check_conv} object that contains the convergence checking result(for \code{plot_type == "bin"} or \code{plot_type = "density"}), or draw the cumuplot without a return value (for \code{plot_type == cumuplot}).
 }
 \description{
-Compare the distribution of different stages of simulation (for \code{plot_type == "bin"} or \code{plot_type = "density"}), or show how the percentails of the distribution evolve over time (for \code{plot_type == cumuplot}, see \code{\link[coda:cumuplot]{coda::cumuplot()}} for details). More convergence checking methods for MCMC data are available at the \code{coda} package. Be cautious: each convergence checking method has its shortcomings, so do not blindly use any results as the definitive conclusion that a simulation converges or not.
+Compare the distribution of different stages of simulation (for \code{plot_type == "bin"} or \code{plot_type = "density"}), or show how the percentiles of the distribution evolve over time (for \code{plot_type == cumuplot}, see \code{\link[coda:cumuplot]{coda::cumuplot()}} for details). More convergence checking methods for MCMC data are available at the \code{coda} package. Be cautious: each convergence checking method has its shortcomings, so do not blindly use any results as the definitive conclusion that a simulation converges or not.
 }
 \section{Methods (by generic)}{
 \itemize{
