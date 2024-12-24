@@ -7,7 +7,7 @@
 make_kernel_dist(output, var_names, lims, kde_fun, n, h, adjust)
 }
 \arguments{
-\item{output}{A matrix of simulation output.}
+\item{output}{A matrix of simulation output, or a \code{mcmc}, \code{mcmc.list} object (see \code{\link[coda:mcmc]{coda::mcmc()}}).}
 
 \item{var_names}{The names of the target variables.}
 

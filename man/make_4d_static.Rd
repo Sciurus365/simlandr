@@ -32,7 +32,7 @@ make_4d_single(
 )
 }
 \arguments{
-\item{output}{A matrix of simulation output.}
+\item{output}{A matrix of simulation output, or a \code{mcmc}, \code{mcmc.list} object (see \code{\link[coda:mcmc]{coda::mcmc()}}).}
 
 \item{x, y, z}{The names of the target variables.}
 

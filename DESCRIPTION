@@ -17,9 +17,11 @@ URL: https://sciurus365.github.io/simlandr/,
 BugReports: https://github.com/Sciurus365/simlandr/issues
 Imports: 
     bigmemory,
+    coda,
     digest,
     dplyr,
     forcats,
+    furrr,
     gganimate,
     ggplot2,
     grDevices,
@@ -34,12 +36,12 @@ Imports:
     purrr,
     rlang,
     Sim.DiffProc,
-    tibble
+    tibble,
+    tidyr
 Suggests: 
-    coda,
     knitr,
     rmarkdown,
     webshot
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.0
+RoxygenNote: 7.3.2

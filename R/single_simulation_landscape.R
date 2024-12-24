@@ -5,6 +5,7 @@
 #' @return A `2d_static_landscape` object that describes the landscape of the system, including the smooth distribution and the landscape plot.
 #' @export
 make_2d_static <- function(output, x, lims, kde_fun = c("ks", "base"), n = 200, h, adjust = 1, Umax = 5) {
+  output <- transform_from_mcmc(output)
   if (is.list(output)) output <- output[[1]]
   kde_fun <- kde_fun[1]
 
@@ -36,6 +37,7 @@ make_2d_static <- function(output, x, lims, kde_fun = c("ks", "base"), n = 200, 
 #'
 #' @export
 make_3d_static <- function(output, x, y, lims, kde_fun = c("ks", "MASS"), n = 200, h, adjust = 1, Umax = 5) {
+  output <- transform_from_mcmc(output)
   if (is.list(output)) output <- output[[1]]
   kde_fun <- kde_fun[1]
 
@@ -70,6 +72,7 @@ make_3d_static <- function(output, x, y, lims, kde_fun = c("ks", "MASS"), n = 20
 #'
 #' @export
 make_4d_static <- function(output, x, y, z, lims, kde_fun = "ks", n = 50, h, adjust = 1, Umax = 5) {
+  output <- transform_from_mcmc(output)
   if (is.list(output)) output <- output[[1]]
   kde_fun <- kde_fun[1]
 
@@ -107,3 +110,16 @@ make_3d_single <- make_3d_static
 #' @rdname make_4d_static
 #' @export
 make_4d_single <- make_4d_static
+
+
+
+transform_from_mcmc <- function(output) {
+  if (is.list(output) && (coda::is.mcmc.list(output[[1]]) || coda::is.mcmc(output[[1]]))) {
+    output <- output[[1]]
+  }
+  if (coda::is.mcmc.list(output) || coda::is.mcmc(output)) {
+    output <- as.matrix(output)
+  }
+
+  return(output)
+}

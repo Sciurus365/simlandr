@@ -28,7 +28,7 @@ make_2d_single(
 )
 }
 \arguments{
-\item{output}{A matrix of simulation output.}
+\item{output}{A matrix of simulation output, or a \code{mcmc}, \code{mcmc.list} object (see \code{\link[coda:mcmc]{coda::mcmc()}}).}
 
 \item{x}{The name of the target variable.}
 

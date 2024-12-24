@@ -11,7 +11,7 @@ add_stage_tag <- function(output, range, var, stage) {
 #'
 #'
 #'
-#' @param output A matrix of simulation output.
+#' @param output A matrix of simulation output, or a `multi_sim` object generated from [multi_sim()].
 #' @param vars The names of variables to check.
 #' @param sample_perc The percentage of data sample for the initial, middle, and final stage of the simulation. Not required if `plot_type == "cumuplot"`.
 #' @param plot_type Which type of plots should be generated? ("bin", "density", or "cumuplot" which uses [coda::cumuplot()])

@@ -30,7 +30,7 @@ make_3d_single(
 )
 }
 \arguments{
-\item{output}{A matrix of simulation output.}
+\item{output}{A matrix of simulation output, or a \code{mcmc}, \code{mcmc.list} object (see \code{\link[coda:mcmc]{coda::mcmc()}}).}
 
 \item{x, y}{The names of the target variables.}
 

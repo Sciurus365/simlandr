@@ -1,6 +1,6 @@
 #' Calculate 1D, 2D, or 3D kernel smooth distribution
 #'
-#' @param output A matrix of simulation output.
+#' @param output A matrix of simulation output, or a `mcmc`, `mcmc.list` object (see [coda::mcmc()]).
 #' @param var_names The names of the target variables.
 #' @param lims The limits of the range for the density estimator as `c(xl, xu)` for 2D landscapes, `c(xl, xu, yl, yu)` for 3D landscapes, `c(xl, xu, yl, yu, zl, zu)` for 4D landscapes. If missing, the range of the data extended by 10% for both sides will be used. For landscapes based on multiple simulations, the largest range of all simulations (which means the lowest lower limit and the highest upper limit) will be used by default.
 #' @param kde_fun Which kernel estimator to use? Choices: "ks" [ks::kde()] (default; faster and using less memory); "base" `base::density()` (only for 2D landscapes); "MASS" [MASS::kde2d()] (only for 3D landscapes).
@@ -10,6 +10,7 @@
 #' @return A list of the smooth distribution.
 #' @keywords internal
 make_kernel_dist <- function(output, var_names, lims, kde_fun, n, h, adjust) {
+  output <- transform_from_mcmc(output)
   if (is.list(output)) output <- output[[1]]
   if (any(!is.finite(output[, var_names]))) {
     return(NULL)
