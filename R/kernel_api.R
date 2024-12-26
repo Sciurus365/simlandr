@@ -2,6 +2,7 @@
 #'
 #' @param output A matrix of simulation output, or a `mcmc`, `mcmc.list` object (see [coda::mcmc()]).
 #' @param var_names The names of the target variables.
+#' @param weight_var The name of the weight variable, in case the weight of each observation is different. This may be useful when a weighted MC (e.g., importance sampling) is used. Only effective for `kde_fun = "ks"`.
 #' @param lims The limits of the range for the density estimator as `c(xl, xu)` for 2D landscapes, `c(xl, xu, yl, yu)` for 3D landscapes, `c(xl, xu, yl, yu, zl, zu)` for 4D landscapes. If missing, the range of the data extended by 10% for both sides will be used. For landscapes based on multiple simulations, the largest range of all simulations (which means the lowest lower limit and the highest upper limit) will be used by default.
 #' @param kde_fun Which kernel estimator to use? Choices: "ks" [ks::kde()] (default; faster and using less memory); "base" `base::density()` (only for 2D landscapes); "MASS" [MASS::kde2d()] (only for 3D landscapes).
 #' @param n The number of equally spaced points in each axis, at which the density is to be estimated.
@@ -9,9 +10,9 @@
 #' @param adjust The multiplier to the bandwidth. The bandwidth used is actually `adjust * h`. This makes it easy to specify values like "half the default" bandwidth.
 #' @return A list of the smooth distribution.
 #' @keywords internal
-make_kernel_dist <- function(output, var_names, lims, kde_fun, n, h, adjust) {
+make_kernel_dist <- function(output, var_names, lims, kde_fun, n, h, adjust, weight_var = NULL) {
   output <- transform_from_mcmc(output)
-  if (is.list(output)) output <- output[[1]]
+  if (methods::is(output, "list")) output <- output[[1]]
   if (any(!is.finite(output[, var_names]))) {
     return(NULL)
   }
@@ -24,9 +25,17 @@ make_kernel_dist <- function(output, var_names, lims, kde_fun, n, h, adjust) {
     xmax <- lims[seq(from = 2, by = 2, length = length(var_names))]
     # calculate the result using ks::kde
     if (length(var_names) == 1) {
-      result_raw <- ks::kde(output_x, h = h, gridsize = gridsize, xmin = xmin, xmax = xmax, compute.cont = FALSE, approx.cont = FALSE)
+    	if (is.null(weight_var)) {
+        result_raw <- ks::kde(output_x, h = h, gridsize = gridsize, xmin = xmin, xmax = xmax, compute.cont = FALSE, approx.cont = FALSE)
+      } else {
+        result_raw <- ks::kde(output_x, h = h, gridsize = gridsize, xmin = xmin, xmax = xmax, w = output[, weight_var], compute.cont = FALSE, approx.cont = FALSE)
+      }
     } else {
-      result_raw <- ks::kde(output_x, H = h, gridsize = gridsize, xmin = xmin, xmax = xmax, compute.cont = FALSE, approx.cont = FALSE)
+    	if (is.null(weight_var)) {
+        result_raw <- ks::kde(output_x, H = h, gridsize = gridsize, xmin = xmin, xmax = xmax, compute.cont = FALSE, approx.cont = FALSE)
+      } else {
+      result_raw <- ks::kde(output_x, H = h, gridsize = gridsize, xmin = xmin, xmax = xmax,  w = output[, weight_var], compute.cont = FALSE, approx.cont = FALSE)
+    	}
     }
     # reformat the result
 
@@ -55,7 +64,7 @@ make_kernel_dist <- function(output, var_names, lims, kde_fun, n, h, adjust) {
 
 
 determine_h <- function(output, var_names, kde_fun, h, adjust) {
-  if (is.list(output)) output <- output[[1]]
+  if (methods::is(output, "list")) output <- output[[1]]
   if (kde_fun == "ks") {
     output_x <- output[, var_names]
     if (length(var_names) == 1) {
@@ -89,7 +98,7 @@ determine_lims <- function(output, var_names, lims) {
   if (!rlang::is_missing(lims)) {
     return(lims)
   }
-  if (is.list(output)) output <- output[[1]]
+  if (methods::is(output, "list")) output <- output[[1]]
   if (rlang::is_missing(lims)) {
     return(c(sapply(var_names, function(v) grDevices::extendrange(output[, v], f = 0.1))))
   }

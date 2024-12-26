@@ -62,5 +62,7 @@ mu <- 4
 sigma <- 0.1
 fx <- expression(y, (mu * (1 - x^2) * y - x))
 gx <- expression(0, 2 * sigma)
-mod2d <- sim_SDE(drift = fx, diffusion = gx, N = 10000, Dt = 0.01, x0 = c(0, 0), type = "str", method = "rk1", M = 2, keep_full = FALSE)
+mod2d <- sim_SDE(drift = fx, diffusion = gx, N = 10000,
+Dt = 0.01, x0 = c(0, 0), type = "str", method = "rk1",
+M = 2, keep_full = FALSE)
 }

@@ -46,9 +46,14 @@ sigma <- 0.1
 fx <- expression(y, (mu * (1 - x^2) * y - x))
 gx <- expression(0, 2 * sigma)
 
-multiple_mod2d <- multi_sim(sim_SDE, range_x0 = c(-3, 3, -10, 10), R = 3, sample_mode = "grid", drift = fx, diffusion = gx, N = 10000, Dt = 0.01, type = "str", method = "rk1", keep_full = FALSE, M = 2)
+multiple_mod2d <- multi_sim(sim_SDE, range_x0 = c(-3, 3, -10, 10),
+R = 3, sample_mode = "grid", drift = fx, diffusion = gx,
+N = 10000, Dt = 0.01, type = "str", method = "rk1",
+keep_full = FALSE, M = 2)
 
-# The output is a mcmc.list object. You can use the functions in the coda package to modify it and perform convergence check, for example,
+# The output is a mcmc.list object. You can use the functions
+# in the coda package to modify it and perform convergence check,
+# for example,
 
 library(coda)
 plot(multiple_mod2d)

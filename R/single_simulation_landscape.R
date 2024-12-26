@@ -4,16 +4,16 @@
 #' @inheritParams make_kernel_dist
 #' @return A `2d_static_landscape` object that describes the landscape of the system, including the smooth distribution and the landscape plot.
 #' @export
-make_2d_static <- function(output, x, lims, kde_fun = c("ks", "base"), n = 200, h, adjust = 1, Umax = 5) {
+make_2d_static <- function(output, x, lims, kde_fun = c("ks", "base"), n = 200, h, adjust = 1, Umax = 5, weight_var = NULL) {
   output <- transform_from_mcmc(output)
-  if (is.list(output)) output <- output[[1]]
+  if (methods::is(output, "list")) output <- output[[1]]
   kde_fun <- kde_fun[1]
 
   var_names <- x
   h <- determine_h(output, var_names, kde_fun, h %>% rlang::maybe_missing(), adjust)
   lims <- determine_lims(output, var_names, lims)
 
-  d <- make_kernel_dist(output, var_names, lims, kde_fun, n, h, adjust)
+  d <- make_kernel_dist(output, var_names, lims, kde_fun, n, h, adjust, weight_var = weight_var)
 
   p <- data.frame(x = d$x, y = d$d, U = pmin(-log(d$d), Umax)) %>%
     ggplot2::ggplot(mapping = ggplot2::aes(x = x, y = U)) +
@@ -36,16 +36,16 @@ make_2d_static <- function(output, x, lims, kde_fun = c("ks", "base"), n = 200, 
 #' @return A `3d_static_landscape` object that describes the landscape of the system, including the smooth distribution and the landscape plot.
 #'
 #' @export
-make_3d_static <- function(output, x, y, lims, kde_fun = c("ks", "MASS"), n = 200, h, adjust = 1, Umax = 5) {
+make_3d_static <- function(output, x, y, lims, kde_fun = c("ks", "MASS"), n = 200, h, adjust = 1, Umax = 5, weight_var = NULL) {
   output <- transform_from_mcmc(output)
-  if (is.list(output)) output <- output[[1]]
+  if (methods::is(output, "list")) output <- output[[1]]
   kde_fun <- kde_fun[1]
 
   var_names <- c(x, y)
   h <- determine_h(output, var_names, kde_fun, h %>% rlang::maybe_missing(), adjust)
   lims <- determine_lims(output, var_names, lims)
 
-  out_2d <- make_kernel_dist(output, var_names, lims, kde_fun, n, h, adjust)
+  out_2d <- make_kernel_dist(output, var_names, lims, kde_fun, n, h, adjust, weight_var = weight_var)
 
   p <- plotly::plot_ly(x = out_2d$x, y = out_2d$y, z = pmin(-log(out_2d$d %>% t()), Umax), type = "surface")
   p <- plotly::layout(p, scene = list(xaxis = list(title = x), yaxis = list(title = y), zaxis = list(title = "U"))) %>% plotly::colorbar(title = "U")
@@ -71,16 +71,16 @@ make_3d_static <- function(output, x, y, lims, kde_fun = c("ks", "MASS"), n = 20
 #' @return A `4d_static_landscape` object that describes the landscape of the system, including the smoothed distribution and the landscape plot.
 #'
 #' @export
-make_4d_static <- function(output, x, y, z, lims, kde_fun = "ks", n = 50, h, adjust = 1, Umax = 5) {
+make_4d_static <- function(output, x, y, z, lims, kde_fun = "ks", n = 50, h, adjust = 1, Umax = 5, weight_var = NULL) {
   output <- transform_from_mcmc(output)
-  if (is.list(output)) output <- output[[1]]
+  if (methods::is(output, "list")) output <- output[[1]]
   kde_fun <- kde_fun[1]
 
   var_names <- c(x, y, z)
   h <- determine_h(output, var_names, kde_fun, h %>% rlang::maybe_missing(), adjust)
   lims <- determine_lims(output, var_names, lims)
 
-  out_3d <- make_kernel_dist(output, var_names, lims, kde_fun, n, h, adjust)
+  out_3d <- make_kernel_dist(output, var_names, lims, kde_fun, n, h, adjust, weight_var = weight_var)
 
   df_tidy <- out_3d %>% make_3d_tidy_dist()
 
@@ -114,10 +114,10 @@ make_4d_single <- make_4d_static
 
 
 transform_from_mcmc <- function(output) {
-  if (is.list(output) && (coda::is.mcmc.list(output[[1]]) || coda::is.mcmc(output[[1]]))) {
+  if (methods::is(output, "list") && (coda::is.mcmc.list(output[[1]]) || coda::is.mcmc(output[[1]]))) {
     output <- output[[1]]
   }
-  if (coda::is.mcmc.list(output) || coda::is.mcmc(output)) {
+  if (coda::is.mcmc.list(output) || coda::is.mcmc(output) || is.data.frame(output)) {
     output <- as.matrix(output)
   }
 

@@ -5,7 +5,13 @@
 \alias{print.batch_simulation}
 \title{Perform a batch simulation.}
 \usage{
-batch_simulation(arg_grid, sim_fun, default_list, bigmemory = TRUE, ...)
+batch_simulation(
+  arg_grid,
+  sim_fun,
+  default_list = list(),
+  bigmemory = TRUE,
+  ...
+)
 
 \method{print}{batch_simulation}(x, detail = FALSE, ...)
 }

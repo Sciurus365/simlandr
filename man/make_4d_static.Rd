@@ -15,7 +15,8 @@ make_4d_static(
   n = 50,
   h,
   adjust = 1,
-  Umax = 5
+  Umax = 5,
+  weight_var = NULL
 )
 
 make_4d_single(
@@ -28,7 +29,8 @@ make_4d_single(
   n = 50,
   h,
   adjust = 1,
-  Umax = 5
+  Umax = 5,
+  weight_var = NULL
 )
 }
 \arguments{
@@ -47,6 +49,8 @@ make_4d_single(
 \item{adjust}{The multiplier to the bandwidth. The bandwidth used is actually \code{adjust * h}. This makes it easy to specify values like "half the default" bandwidth.}
 
 \item{Umax}{The maximum displayed value of potential.}
+
+\item{weight_var}{The name of the weight variable, in case the weight of each observation is different. This may be useful when a weighted MC (e.g., importance sampling) is used. Only effective for \code{kde_fun = "ks"}.}
 }
 \value{
 A \verb{4d_static_landscape} object that describes the landscape of the system, including the smoothed distribution and the landscape plot.
