@@ -10,7 +10,7 @@ check_conv(output, vars, sample_perc = 0.2, plot_type = "bin")
 \method{print}{check_conv}(x, ask = TRUE, ...)
 }
 \arguments{
-\item{output}{A matrix of simulation output, or a \code{multi_sim} object generated from \code{\link[=multi_sim]{multi_sim()}}.}
+\item{output}{A matrix of simulation output, or a \code{multi_init_simulation} object generated from \code{\link[=multi_init_simulation]{multi_init_simulation()}}.}
 
 \item{vars}{The names of variables to check.}
 
