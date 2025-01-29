@@ -1,7 +1,7 @@
 #' A simple simulation function for testing
 #'
-#' @param par1,par2 Two parameters. `par1` contains `var1`;
-#' `par2` contains `var2` and `var3`.
+#' @param arg1,arg2 Two parameters. `arg1` contains `ele1`;
+#' `arg2` contains `ele2` and `ele3`.
 #' @param length The length of simulation.
 #'
 #' @return A matrix of simulation results.
@@ -11,13 +11,13 @@
 #'
 #' @export
 #'
-sim_fun_test <- function(par1, par2, length = 1000) {
+sim_fun_test <- function(arg1, arg2, length = 1000) {
   output <- matrix(nrow = length, ncol = 3)
   colnames(output) <- c("out1", "out2", "out3")
-  output[1, ] <- c(par1$var1, par2$var2, rnorm(1, sd = 0.01))
+  output[1, ] <- c(arg1$ele1, arg2$ele2, rnorm(1, sd = 0.01))
   for (i in 2:length) {
-    output[i, 1] <- 0.5 * output[i - 1, 1] + output[i - 1, 2] + par2$var3 + par1$var1 * par2$var2
-    output[i, 2] <- -0.5 * output[i - 1, 1] + output[i - 1, 2] + par2$var3
+    output[i, 1] <- 0.5 * output[i - 1, 1] + output[i - 1, 2] + arg2$ele3 + arg1$ele1 * arg2$ele2
+    output[i, 2] <- -0.5 * output[i - 1, 1] + output[i - 1, 2] + arg2$ele3
     output[i, 3] <- output[i - 1, 3] + rnorm(1, sd = 0.01)
   }
   return(output)

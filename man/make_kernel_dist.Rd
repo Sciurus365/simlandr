@@ -4,10 +4,19 @@
 \alias{make_kernel_dist}
 \title{Calculate 1D, 2D, or 3D kernel smooth distribution}
 \usage{
-make_kernel_dist(output, var_names, lims, kde_fun, n, h, adjust)
+make_kernel_dist(
+  output,
+  var_names,
+  lims,
+  kde_fun,
+  n,
+  h,
+  adjust,
+  weight_var = NULL
+)
 }
 \arguments{
-\item{output}{A matrix of simulation output.}
+\item{output}{A matrix of simulation output, or a \code{mcmc}, \code{mcmc.list} object (see \code{\link[coda:mcmc]{coda::mcmc()}}).}
 
 \item{var_names}{The names of the target variables.}
 
@@ -20,6 +29,8 @@ make_kernel_dist(output, var_names, lims, kde_fun, n, h, adjust)
 \item{h}{A number, or possibly a vector for 3D and 4D landscapes, specifying the smoothing bandwidth to be used. If missing, the default value of the kernel estimator will be used (but \code{bw = "SJ"} for \code{base::density()}). Note that the definition of bandwidth might be different for different kernel estimators. For landscapes based on multiple simulations, the largest \code{h} of all simulations will be used by default.}
 
 \item{adjust}{The multiplier to the bandwidth. The bandwidth used is actually \code{adjust * h}. This makes it easy to specify values like "half the default" bandwidth.}
+
+\item{weight_var}{The name of the weight variable, in case the weight of each observation is different. This may be useful when a weighted MC (e.g., importance sampling) is used. Only effective for \code{kde_fun = "ks"}.}
 }
 \value{
 A list of the smooth distribution.

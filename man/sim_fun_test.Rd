@@ -4,11 +4,11 @@
 \alias{sim_fun_test}
 \title{A simple simulation function for testing}
 \usage{
-sim_fun_test(par1, par2, length = 1000)
+sim_fun_test(arg1, arg2, length = 1000)
 }
 \arguments{
-\item{par1, par2}{Two parameters. \code{par1} contains \code{var1};
-\code{par2} contains \code{var2} and \code{var3}.}
+\item{arg1, arg2}{Two parameters. \code{arg1} contains \code{ele1};
+\code{arg2} contains \code{ele2} and \code{ele3}.}
 
 \item{length}{The length of simulation.}
 }

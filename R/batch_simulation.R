@@ -201,7 +201,7 @@ modified_simulation <- function(sim_fun, ele_list, default_list, bigmemory = TRU
 #' )
 #' print(batch_output_grad)
 #' @export
-batch_simulation <- function(arg_grid, sim_fun, default_list, bigmemory = TRUE, ...) {
+batch_simulation <- function(arg_grid, sim_fun, default_list = list(), bigmemory = TRUE, ...) {
   ddd <- list(...)
   if ("var_list" %in% names(ddd)) {
     lifecycle::deprecate_warn("0.2.0", "modified_simulation(var_grid)", "modified_simulation(arg_grid)")

@@ -14,7 +14,8 @@ make_3d_static(
   n = 200,
   h,
   adjust = 1,
-  Umax = 5
+  Umax = 5,
+  weight_var = NULL
 )
 
 make_3d_single(
@@ -26,11 +27,12 @@ make_3d_single(
   n = 200,
   h,
   adjust = 1,
-  Umax = 5
+  Umax = 5,
+  weight_var = NULL
 )
 }
 \arguments{
-\item{output}{A matrix of simulation output.}
+\item{output}{A matrix of simulation output, or a \code{mcmc}, \code{mcmc.list} object (see \code{\link[coda:mcmc]{coda::mcmc()}}).}
 
 \item{x, y}{The names of the target variables.}
 
@@ -45,6 +47,8 @@ make_3d_single(
 \item{adjust}{The multiplier to the bandwidth. The bandwidth used is actually \code{adjust * h}. This makes it easy to specify values like "half the default" bandwidth.}
 
 \item{Umax}{The maximum displayed value of potential.}
+
+\item{weight_var}{The name of the weight variable, in case the weight of each observation is different. This may be useful when a weighted MC (e.g., importance sampling) is used. Only effective for \code{kde_fun = "ks"}.}
 }
 \value{
 A \verb{3d_static_landscape} object that describes the landscape of the system, including the smooth distribution and the landscape plot.
