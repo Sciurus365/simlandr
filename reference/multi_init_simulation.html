@@ -11,7 +11,7 @@ If you are uncertain whether there are unknown stable states of the system that 
 
     <a class="navbar-brand me-2" href="../index.html">simlandr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -111,7 +111,7 @@ If you are uncertain whether there are unknown stable states of the system that 
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">multiple_mod2d</span> <span class="op">&lt;-</span> <span class="fu">multi_init_simulation</span><span class="op">(</span><span class="va">sim_SDE</span>, range_x0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span>, <span class="op">-</span><span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>R <span class="op">=</span> <span class="fl">3</span>, sample_mode <span class="op">=</span> <span class="st">"grid"</span>, drift <span class="op">=</span> <span class="va">fx</span>, diffusion <span class="op">=</span> <span class="va">gx</span>,</span></span>
-<span class="r-in"><span>N <span class="op">=</span> <span class="fl">10000</span>, Dt <span class="op">=</span> <span class="fl">0.01</span>, type <span class="op">=</span> <span class="st">"str"</span>, method <span class="op">=</span> <span class="st">"rk1"</span>,</span></span>
+<span class="r-in"><span>N <span class="op">=</span> <span class="fl">1000</span>, Dt <span class="op">=</span> <span class="fl">0.01</span>, type <span class="op">=</span> <span class="st">"str"</span>, method <span class="op">=</span> <span class="st">"rk1"</span>,</span></span>
 <span class="r-in"><span>keep_full <span class="op">=</span> <span class="cn">FALSE</span>, M <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in (function (.l, .f, ..., .progress = FALSE) {    pmap_("list", .l, .f, ..., .progress = .progress)})(.l = list(dim1 = c(-3, -3, -3, 0, 0, 0, 3, 3, 3), dim2 = c(-10, 0, 10, -10, 0, 10, -10, 0, 10)), .f = function (...) {    {        ...furrr_chunk_seeds_i &lt;- ...furrr_chunk_seeds_env[["i"]]        ...furrr_chunk_seeds_env[["i"]] &lt;- ...furrr_chunk_seeds_i +             1L        assign(x = ".Random.seed", value = ...furrr_chunk_seeds[[...furrr_chunk_seeds_i]],             envir = globalenv(), inherits = FALSE)    }    NULL    ...furrr_out &lt;- ...furrr_fn(...)    ...furrr_out}):</span> <span style="color: #00BBBB;">ℹ</span> In index: 1.</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error:</span></span>
@@ -124,7 +124,7 @@ If you are uncertain whether there are unknown stable states of the system that 
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">coda</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">multiple_mod2d</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'multiple_mod2d' not found</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/window.html" class="external-link">window</a></span><span class="op">(</span><span class="va">multiple_mod2d</span>, start <span class="op">=</span> <span class="fl">2000</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/window.html" class="external-link">window</a></span><span class="op">(</span><span class="va">multiple_mod2d</span>, start <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'multiple_mod2d' not found</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/coda/man/effectiveSize.html" class="external-link">effectiveSize</a></span><span class="op">(</span><span class="va">multiple_mod2d</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'multiple_mod2d' not found</span>

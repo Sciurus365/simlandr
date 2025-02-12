@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">simlandr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,6 +37,13 @@
       <small>Source: <a href="https://github.com/Sciurus365/simlandr/blob/master/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.4.0" id="simlandr-040">simlandr 0.4.0<a class="anchor" aria-label="anchor" href="#simlandr-040"></a></h2>
+<ul><li>Added simulation helper functions <code><a href="../reference/sim_SDE.html">sim_SDE()</a></code> and <code><a href="../reference/multi_init_simulation.html">multi_init_simulation()</a></code> for simulating stochastic differential equations (SDEs) and multiple initial conditions, respectively.</li>
+<li>Added <code><a href="../reference/as.mcmc.list.html">as.mcmc.list()</a></code> method for lists of simulation outputs. The added simulation functions also have the option to return the output as an <code>mcmc</code> or <code>mcmc.list</code> object, so that they can be used with <code>coda</code> functions.</li>
+<li>The landscape estimation functions now get a new parameter <code>weight_var</code> to specify the variable that contains the weight of each sample point. This may be useful if user applies importance sampling.</li>
+<li>Added vignettes and more examples.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.1" id="simlandr-031">simlandr 0.3.1<a class="anchor" aria-label="anchor" href="#simlandr-031"></a></h2><p class="text-muted">CRAN release: 2024-01-23</p>
 <ul><li>Removed unused parameter <code>Umax</code> from the documentation of <code><a href="../reference/make_kernel_dist.html">make_kernel_dist()</a></code> (an internal function).</li>
