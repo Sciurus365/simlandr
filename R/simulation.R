@@ -96,7 +96,7 @@ sim_SDE <- function(N = 1000, M = 1, x0, t0 = 0, T = 1, Dt = rlang::missing_arg(
 #'
 #' multiple_mod2d <- multi_init_simulation(sim_SDE, range_x0 = c(-3, 3, -10, 10),
 #' R = 3, sample_mode = "grid", drift = fx, diffusion = gx,
-#' N = 10000, Dt = 0.01, type = "str", method = "rk1",
+#' N = 1000, Dt = 0.01, type = "str", method = "rk1",
 #' keep_full = FALSE, M = 2)
 #'
 #' # The output is a mcmc.list object. You can use the functions
@@ -105,7 +105,7 @@ sim_SDE <- function(N = 1000, M = 1, x0, t0 = 0, T = 1, Dt = rlang::missing_arg(
 #'
 #' library(coda)
 #' plot(multiple_mod2d)
-#' window(multiple_mod2d, start = 2000)
+#' window(multiple_mod2d, start = 500)
 #' effectiveSize(multiple_mod2d)
 #'
 multi_init_simulation <- function(sim_fun, R = 10, range_x0, sample_mode = c("grid", "random"), ..., .furrr_options = list(.options = furrr::furrr_options(seed = TRUE)), return_object = c("mcmc.list", "raw")) {

@@ -49,7 +49,7 @@ gx <- expression(0, 2 * sigma)
 
 multiple_mod2d <- multi_init_simulation(sim_SDE, range_x0 = c(-3, 3, -10, 10),
 R = 3, sample_mode = "grid", drift = fx, diffusion = gx,
-N = 10000, Dt = 0.01, type = "str", method = "rk1",
+N = 1000, Dt = 0.01, type = "str", method = "rk1",
 keep_full = FALSE, M = 2)
 
 # The output is a mcmc.list object. You can use the functions
@@ -58,7 +58,7 @@ keep_full = FALSE, M = 2)
 
 library(coda)
 plot(multiple_mod2d)
-window(multiple_mod2d, start = 2000)
+window(multiple_mod2d, start = 500)
 effectiveSize(multiple_mod2d)
 
 }

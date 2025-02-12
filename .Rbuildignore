@@ -7,10 +7,8 @@
 ^docs$
 ^pkgdown$
 ^doc$
-^Meta$
 ^bp$
 ^.*\.temp\.R$
-^.*\.RDS$
 ^cran-comments\.md$
 ^README_cache$
 ^CRAN-SUBMISSION$
