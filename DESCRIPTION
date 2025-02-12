@@ -15,6 +15,7 @@ License: GPL (>= 3)
 URL: https://sciurus365.github.io/simlandr/,
     https://github.com/Sciurus365/simlandr
 BugReports: https://github.com/Sciurus365/simlandr/issues
+Depends: R (>= 4.1.0)
 Imports: 
     bigmemory,
     coda,
