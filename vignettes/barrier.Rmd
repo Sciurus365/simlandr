@@ -1,9 +1,9 @@
 ---
-title: "3. Calculate the lowest elevation path and barrier height between stable states"
+title: "3. Calculate the minimum energy path and barrier height between stable states"
 author: "Jingmeng Cui"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{3. Calculate the lowest elevation path and barrier height between stable states}
+  %\VignetteIndexEntry{3. Calculate the minimum energy path and barrier height between stable states}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
