@@ -13,6 +13,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+is_pkgdown <- identical(Sys.getenv("IN_PKGDOWN"), "true")
 ```
 
 ```{r setup}
@@ -71,16 +72,22 @@ plot(l_single_2d)
 
 ```{r}
 l_single_3d <- make_3d_static(single_test, x = "out1", y = "out2")
+```
 
+```{r eval=is_pkgdown}
+# This chunk will only run when building with pkgdown
 plot(l_single_3d, 1)
+```
 
+```{r}
 plot(l_single_3d, 2)
 ```
 
 
 ## 4d (x, y, z, color) plot
 
-```{r}
+```{r eval=is_pkgdown}
+# This chunk will only run when building with pkgdown
 l_single_4d <- make_4d_static(single_test, x = "out1", y = "out2", z = "out3")
 plot(l_single_4d) %>% plotly::layout(scene = list(zaxis = list(range = c(-3, 3))))
 ```

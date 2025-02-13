@@ -1,3 +1,10 @@
+# simlandr 0.4.0
+
+- Added simulation helper functions `sim_SDE()` and `multi_init_simulation()` for simulating stochastic differential equations (SDEs) and multiple initial conditions, respectively.
+- Added `as.mcmc.list()` method for lists of simulation outputs. The added simulation functions also have the option to return the output as an `mcmc` or `mcmc.list` object, so that they can be used with `coda` functions.
+- The landscape estimation functions now get a new parameter `weight_var` to specify the variable that contains the weight of each sample point. This may be useful if user applies importance sampling.
+- Added vignettes and more examples.
+
 # simlandr 0.3.1
 
 - Removed unused parameter `Umax` from the documentation of `make_kernel_dist()` (an internal function).

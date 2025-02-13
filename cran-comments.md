@@ -1,17 +1,18 @@
-- This is a re-submission, in which a permanently moved website in README was updated.
+## Changes of simlandr 0.4.0
 
-## Changes of simlandr 0.3.1
-
-- Removed unused parameter `Umax` from the documentation of `make_kernel_dist()` (an internal function). 
+- Added simulation helper functions `sim_SDE()` and `multi_init_simulation()` for simulating stochastic differential equations (SDEs) and multiple initial conditions, respectively.
+- Added `as.mcmc.list()` method for lists of simulation outputs. The added simulation functions also have the option to return the output as an `mcmc` or `mcmc.list` object, so that they can be used with `coda` functions.
+- The landscape estimation functions now get a new parameter `weight_var` to specify the variable that contains the weight of each sample point. This may be useful if user applies importance sampling.
+- Added vignettes and more examples.
 
 ## Test environments
 
--   local R installation in Windows R 4.3.2
--   Github R-CMD-check MacOS R 4.3.2
--   Github R-CMD-check Windows R 4.3.2
--   Github R-CMD-check Ubuntu R 4.3.2
--   Github R-CMD-check Ubuntu R-devel
--   Github R-CMD-check Ubuntu R 4.2.3
+- local R installation in Windows R 4.4.2
+- Github R-CMD-check MacOS R 4.4.2
+- Github R-CMD-check Windows R 4.4.2
+- Github R-CMD-check Ubuntu R 4.4.2
+- Github R-CMD-check Ubuntu R-devel
+- Github R-CMD-check Ubuntu R 4.3.3
 
 ## R CMD check results
 
