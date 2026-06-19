@@ -64,7 +64,7 @@ sim_fun_test
 #>     }
 #>     return(output)
 #> }
-#> <bytecode: 0x5556eb9e3808>
+#> <bytecode: 0x55ba587d0b30>
 #> <environment: namespace:simlandr>
 ```
 

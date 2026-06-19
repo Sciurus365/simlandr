@@ -41,6 +41,8 @@
 <h2 class="pkg-version" data-toc-text="0.4.1" id="simlandr-041">simlandr 0.4.1<a class="anchor" aria-label="anchor" href="#simlandr-041"></a></h2>
 <ul><li>Standardized landscape plotting: use <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot()</a></code> for ggplot output and <code><a href="../reference/plotly_ld.html">plotly_ld()</a></code> for interactive plotly output. The previous <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> method remains available with a soft-deprecation warning. <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot()</a></code> is re-exported, so attaching <code>ggplot2</code> separately is not required.</li>
 <li>Modernized user-facing messages, warnings, and errors using <code>cli</code>.</li>
+<li>Used Rcpp for the Dijkstra algorithm to improve performance.</li>
+<li>Improved downstream portability by exporting several internal functions.</li>
 <li>Updated citation information.</li>
 </ul></div>
     <div class="section level2">

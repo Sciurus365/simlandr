@@ -12,6 +12,9 @@
   [`autoplot()`](https://ggplot2.tidyverse.org/reference/autoplot.html)
   is re-exported, so attaching `ggplot2` separately is not required.
 - Modernized user-facing messages, warnings, and errors using `cli`.
+- Used Rcpp for the Dijkstra algorithm to improve performance.
+- Improved downstream portability by exporting several internal
+  functions.
 - Updated citation information.
 
 ## simlandr 0.4.0
