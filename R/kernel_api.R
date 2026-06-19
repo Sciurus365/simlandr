@@ -104,6 +104,17 @@ determine_h <- function(output, var_names, kde_fun, h, adjust) {
   return(h)
 }
 
+#' Determine plot limits from simulated output
+#'
+#' Internal helper used by landscape constructors and downstream packages.
+#'
+#' @param output A matrix of simulation output, or a list containing one.
+#' @param var_names The target variable names.
+#' @param lims User-supplied limits, if any.
+#'
+#' @return A numeric vector of axis limits.
+#' @export
+#' @keywords internal
 determine_lims <- function(output, var_names, lims) {
   if (!rlang::is_missing(lims)) {
     return(lims)

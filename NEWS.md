@@ -1,10 +1,10 @@
 # simlandr 0.4.1
 
-- Standardized landscape plotting: use `autoplot()` for ggplot output and
-  `plotly_ld()` for interactive plotly output. The previous `plot()` method
-  remains available with a soft-deprecation warning. `autoplot()` is
-  re-exported, so attaching `ggplot2` separately is not required.
+- Standardized landscape plotting: use `autoplot()` for ggplot output and `plotly_ld()` for interactive plotly output. The previous `plot()` method
+	remains available with a soft-deprecation warning. `autoplot()` is re-exported, so attaching `ggplot2` separately is not required.
 - Modernized user-facing messages, warnings, and errors using `cli`.
+- Used Rcpp for the Dijkstra algorithm to improve performance.
+- Improved downstream portability by exporting several internal functions.
 - Updated citation information.
 
 # simlandr 0.4.0

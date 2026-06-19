@@ -105,6 +105,21 @@ NULL_path <- function() {
   )
 }
 
+make_barrier_path_df <- function(min_path_index, dist, base) {
+  min_path_index %>%
+    unlist() %>%
+    matrix(ncol = 2, byrow = TRUE) %>%
+    as.data.frame() %>%
+    {
+      colnames(.) <- c("x_index", "y_index")
+      .
+    } %>%
+    dplyr::rowwise() %>%
+    dplyr::mutate(x_value = dist$x[x_index], y_value = dist$y[y_index]) %>%
+    dplyr::mutate(U = -log(dist$d[x_index, y_index], base = base)) %>%
+    dplyr::ungroup()
+}
+
 
 #' Find local minimum of a 3d distribution
 #'
@@ -153,18 +168,28 @@ find_local_min_3d <- function(dist, localmin, r, Umax, expand = TRUE, first_call
   return(list(U = min_U, location = location))
 }
 
+#' Shared 3D barrier core
+#'
+#' Internal helper used by `simlandr` and downstream packages to calculate barrier heights.
+#'
+#' @param d A distribution object with components `x`, `y`, and matrix `d`.
+#' @param x_label,y_label Axis labels for plotting.
+#' @inheritParams calculate_barrier
+#'
+#' @return A `3d_barrier` object.
 #' @export
-#' @rdname calculate_barrier
-calculate_barrier.3d_landscape <- function(l, start_location_value,
-                                           start_r,
-                                           end_location_value,
-                                           end_r,
-                                           Umax, expand = TRUE, omit_unstable = FALSE,
-                                           base = exp(1), ...) {
-  d <- l$dist
-
-  if (missing(Umax)) Umax <- l$Umax
-
+#' @keywords internal
+calculate_barrier_3d_core <- function(d,
+                                      x_label,
+                                      y_label,
+                                      start_location_value,
+                                      start_r,
+                                      end_location_value,
+                                      end_r,
+                                      Umax,
+                                      expand = TRUE,
+                                      omit_unstable = FALSE,
+                                      base = exp(1)) {
   local_min_start <- find_local_min_3d(d, start_location_value, start_r, Umax, expand = expand)
   local_min_end <- find_local_min_3d(d, end_location_value, end_r, Umax, expand = expand)
 
@@ -178,18 +203,7 @@ calculate_barrier.3d_landscape <- function(l, start_location_value,
       local_min_end$location[1:2]
     )
 
-    min_path <- min_path_index %>%
-      unlist() %>%
-      matrix(ncol = 2, byrow = TRUE) %>%
-      as.data.frame() %>%
-      {
-        colnames(.) <- c("x_index", "y_index")
-        .
-      } %>%
-      dplyr::rowwise() %>%
-      dplyr::mutate(x_value = d$x[x_index], y_value = d$y[y_index]) %>%
-      dplyr::mutate(U = -log(d$d[x_index, y_index], base = base)) %>%
-      dplyr::ungroup()
+    min_path <- make_barrier_path_df(min_path_index, d, base)
 
     s_U <- max(min_path$U)
     s_location_path_index <- as.integer(stats::median(which(min_path$U == s_U)))
@@ -213,13 +227,13 @@ calculate_barrier.3d_landscape <- function(l, start_location_value,
     }
   }
 
-
   p <- ggplot2::ggplot() +
     ggplot2::geom_path(data = min_path, mapping = ggplot2::aes(x = x_value, y = y_value)) +
     ggplot2::geom_point(ggplot2::aes(x = local_min_start$location["x_value"], y = local_min_start$location["y_value"]), color = "black") +
     ggplot2::geom_point(ggplot2::aes(x = local_min_end$location["x_value"], y = local_min_end$location["y_value"]), color = "black") +
     ggplot2::geom_point(ggplot2::aes(x = saddle_point$location["x_value"], y = saddle_point$location["y_value"]), color = "red") +
-    ggplot2::labs(x = l$x, y = l$y)
+    ggplot2::labs(x = x_label, y = y_label)
+
   result <- list(
     local_min_start = local_min_start,
     local_min_end = local_min_end,
@@ -234,10 +248,37 @@ calculate_barrier.3d_landscape <- function(l, start_location_value,
       ggplot2::geom_point(ggplot2::aes(x = local_min_end$location["x_value"], y = local_min_end$location["y_value"]), color = "white"),
       ggplot2::geom_point(ggplot2::aes(x = saddle_point$location["x_value"], y = saddle_point$location["y_value"]), color = "red")
     ),
-    x = l$x, y = l$y, Umax = l$Umax
+    x = x_label,
+    y = y_label,
+    Umax = Umax
   )
   class(result) <- c("3d_barrier", "barrier")
-  return(result)
+  result
+}
+
+#' @export
+#' @rdname calculate_barrier
+calculate_barrier.3d_landscape <- function(l, start_location_value,
+                                           start_r,
+                                           end_location_value,
+                                           end_r,
+                                           Umax, expand = TRUE, omit_unstable = FALSE,
+                                           base = exp(1), ...) {
+  if (missing(Umax)) Umax <- l$Umax
+
+  calculate_barrier_3d_core(
+    d = l$dist,
+    x_label = l$x,
+    y_label = l$y,
+    start_location_value = start_location_value,
+    start_r = start_r,
+    end_location_value = end_location_value,
+    end_r = end_r,
+    Umax = Umax,
+    expand = expand,
+    omit_unstable = omit_unstable,
+    base = base
+  )
 }
 
 

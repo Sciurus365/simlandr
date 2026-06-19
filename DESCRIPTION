@@ -39,6 +39,8 @@ Imports:
     Sim.DiffProc,
     tibble,
     tidyr
+LinkingTo:
+    Rcpp
 Suggests: 
     gganimate,
     knitr,

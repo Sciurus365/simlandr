@@ -3,6 +3,7 @@
 
 ## usethis namespace: start
 #' @importFrom lifecycle deprecated
+#' @useDynLib simlandr, .registration = TRUE
 ## usethis namespace: end
 NULL
 
