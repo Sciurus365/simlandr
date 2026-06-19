@@ -13,7 +13,7 @@ make_2d_matrix <- function(bs, x, rows = NULL, cols, lims, kde_fun = c("ks", "ba
   h <- determine_h_batch(bs, var_names, kde_fun, h %>% rlang::maybe_missing(), adjust)
   lims <- determine_lims_batch(bs, var_names, lims %>% rlang::maybe_missing())
 
-  message("Wrangling the data...")
+  cli::cli_inform("Wrangling the data...")
   if (is.null(rows)) {
     df_nested <- bs %>%
       dplyr::mutate(dist = purrr::map2(output, !!rlang::sym(cols), function(out, par_value1) {
@@ -43,7 +43,7 @@ make_2d_matrix <- function(bs, x, rows = NULL, cols, lims, kde_fun = c("ks", "ba
   df_nested$output <- NULL
   df_all <- do.call(rbind, df_nested$dist)
 
-  message("Making the plots...")
+  cli::cli_inform("Making the plots...")
   rows_labeller <- function(x) paste0(rows, ": ", x)
   cols_labeller <- function(x) paste0(cols, ": ", x)
 
@@ -79,7 +79,7 @@ make_3d_matrix <- function(bs, x, y, rows = NULL, cols, lims, kde_fun = c("ks", 
   var_names <- c(x, y)
   h <- determine_h_batch(bs, var_names, kde_fun, h %>% rlang::maybe_missing(), adjust)
   lims <- determine_lims_batch(bs, var_names, lims %>% rlang::maybe_missing())
-  message("Wrangling the data...")
+  cli::cli_inform("Wrangling the data...")
   if (is.null(rows)) {
     df_nested <- bs %>%
       dplyr::mutate(dist = purrr::pmap(list(output, bs[, cols]), function(out, par_value1) {
@@ -110,7 +110,7 @@ make_3d_matrix <- function(bs, x, y, rows = NULL, cols, lims, kde_fun = c("ks", 
   df_nested$output <- NULL
   df_all <- do.call(rbind, df_nested$dist)
 
-  message("Making the plots...")
+  cli::cli_inform("Making the plots...")
   rows_labeller <- function(x) paste0(rows, ": ", x)
   cols_labeller <- function(x) paste0(cols, ": ", x)
   p <- ggplot2::ggplot(data = df_all, ggplot2::aes(x = x, y = y)) +
@@ -136,17 +136,30 @@ make_3d_matrix <- function(bs, x, y, rows = NULL, cols, lims, kde_fun = c("ks", 
 #' @param Umax The maximum displayed value of potential.
 #' @inheritParams make_3d_static
 #' @inheritParams make_2d_matrix
-#' @param mat_3d Also make the matrix by [make_3d_matrix()]? If so, the matrix can be drawn with `plot(<landscape>, 3)`.
+#' @param mat_3d Also make the matrix by [make_3d_matrix()]? If so, the matrix
+#' can be drawn with `ggplot2::autoplot(<landscape>$mat_3d)`.
 #'
 #' @return A `3d_animation_landscape` object that describes the landscape of the system, including the smoothed distribution and the landscape plot.
 #'
 #' @export
 make_3d_animation <- function(bs, x, y, fr, lims, kde_fun = c("ks", "MASS"), n = 200, h, adjust = 1, Umax = 5, individual_landscape = TRUE, mat_3d = FALSE) {
-  kde_fun <- kde_fun[1]
+	if (!requireNamespace("gganimate", quietly = TRUE)) {
+		cli::cli_alert_warning(
+			"Package {.pkg gganimate} is required for {.fn make_3d_animation}."
+		)
+
+		if (interactive() && utils::askYesNo("Install {.pkg gganimate} now?")) {
+			utils::install.packages("gganimate")
+		} else {
+			cli::cli_abort("Cannot proceed without {.pkg gganimate}.")
+		}
+	}
+
+	kde_fun <- kde_fun[1]
   var_names <- c(x, y)
   h <- determine_h_batch(bs, var_names, kde_fun, h %>% rlang::maybe_missing(), adjust)
   lims <- determine_lims_batch(bs, var_names, lims %>% rlang::maybe_missing())
-  message("Wrangling the data...")
+  cli::cli_inform("Wrangling the data...")
   df_nested <- bs %>%
     dplyr::rowwise() %>%
     dplyr::mutate(
@@ -168,7 +181,7 @@ make_3d_animation <- function(bs, x, y, fr, lims, kde_fun = c("ks", "MASS"), n =
 
   df_nested_collect <- do.call(rbind, df_nested_tidy$tidy_dist)
 
-  message("Making the plots...")
+  cli::cli_inform("Making the plots...")
   p <-
     df_nested_collect %>%
     plotly::plot_ly(x = ~x, y = ~y, z = pmin(-log(.$d %>% t()), Umax), color = pmin(-log(.$d %>% t()), Umax), frame = ~fr) %>%

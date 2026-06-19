@@ -2,7 +2,7 @@
 % Please edit documentation in R/methods_landscape.R
 \name{plot.landscape}
 \alias{plot.landscape}
-\title{Make plots from landscape objects}
+\title{Plot landscape objects}
 \usage{
 \method{plot}{landscape}(x, index = 1, ...)
 }
@@ -13,11 +13,15 @@
 or a third plot (usually 3d matrices for 3d animations).
 Use \code{index = 2} to plot that one.}
 
-\item{...}{Not in use.}
+\item{...}{Arguments passed to the replacement method.}
 }
 \value{
 The plot.
 }
 \description{
-Make plots from landscape objects
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+}
+\details{
+Use \code{\link[ggplot2:autoplot]{ggplot2::autoplot()}} for ggplot output or \code{\link[=plotly_ld]{plotly_ld()}} for
+interactive landscape output.
 }

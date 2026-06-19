@@ -22,5 +22,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Jingmeng Cui \email{jingmeng.cui@outlook.com} (\href{https://orcid.org/0000-0003-3421-8457}{ORCID})
 
+Authors:
+\itemize{
+  \item Jingmeng Cui \email{jingmeng.cui@outlook.com} (\href{https://orcid.org/0000-0003-3421-8457}{ORCID})
+}
+
 }
 \keyword{internal}

@@ -83,7 +83,9 @@ print.arg_set <- function(x, detail = FALSE, ...) {
 fill_in_struct <- function(vec, struct) {
   if ("var_set" %in% class(struct)) {
     lifecycle::deprecate_warn("0.2.0", "fill_in_struct(struct = 'should be an `arg_set`')")
-  } else if (!("arg_set" %in% class(struct))) stop("Wrong input class. `struct` should be an `arg_set`.")
+  } else if (!("arg_set" %in% class(struct))) {
+    cli::cli_abort("{.arg struct} must be an {.cls arg_set} object.")
+  }
   vec_index <- 1
   for (i in 1:length(struct)) {
     for (j in 1:length(struct[[i]])) {
@@ -240,7 +242,9 @@ print.batch_simulation <- function(x, detail = FALSE, ...) {
 #' @return A `batch_simulation` object with all `hash_big_matrix`es attached.
 #' @export
 attach_all_matrices <- function(bs, backingpath = "bp") {
-  if (!"batch_simulation" %in% class(bs)) stop("Wrong input class. bs should be a `batch_simulation`.")
+  if (!"batch_simulation" %in% class(bs)) {
+    cli::cli_abort("{.arg bs} must be a {.cls batch_simulation} object.")
+  }
   bs <- bs %>%
     dplyr::mutate(output = purrr::map(output, attach_hash_big_matrix, backingpath = backingpath))
   return(bs)

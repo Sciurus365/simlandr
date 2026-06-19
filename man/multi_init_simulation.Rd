@@ -25,7 +25,7 @@ multi_init_simulation(
 
 \item{...}{Additional arguments passed to \code{sim_fun}.}
 
-\item{.furrr_options}{A list of options to be passed to \code{\link[furrr:future_map2]{furrr::future_pmap()}}.}
+\item{.furrr_options}{A list of options to be passed to \code{\link[furrr:future_pmap]{furrr::future_pmap()}}.}
 
 \item{return_object}{The type of object to return. Either "mcmc.list" or "raw". If "mcmc.list", a list of mcmc objects will be returned. If "raw", a tibble of initial values and raw simulation results will be returned.}
 }

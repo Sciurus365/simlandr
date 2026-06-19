@@ -32,7 +32,7 @@
 #' print(as.mcmc.list(mod2d))
 sim_SDE <- function(N = 1000, M = 1, x0, t0 = 0, T = 1, Dt = rlang::missing_arg(), drift, diffusion, corr = NULL, alpha = 0.5, mu = 0.5, type = "ito", method = "euler", keep_full = TRUE) {
   if (length(x0) > 3) {
-    stop("Only 1-3D SDE is supported.")
+    cli::cli_abort("Only one- to three-dimensional SDEs are supported.")
   }
 
   if (length(x0) == 1) {
@@ -162,7 +162,9 @@ multi_init_simulation <- function(sim_fun, R = 10, range_x0, sample_mode = c("gr
     tryCatch({
     	return(as.mcmc.list.list(sim_all))},
     	error = function(e) {
-    		warning("The output is not in a format that can be coerced to a mcmc.list object. Returning a raw output instead.")
+        cli::cli_warn(
+          "The output cannot be converted to an {.cls mcmc.list} object. Returning the raw output instead."
+        )
     		return_object <- "raw"
     	})
     }
@@ -207,6 +209,8 @@ as.mcmc.list.list <- function(x, ...) {
 
 		return(sim_all)
 	} else {
-		stop("The output is not in a format that can be coerced to a mcmc.list object. Returning a raw output instead.")
+    cli::cli_abort(
+      "The output cannot be converted to an {.cls mcmc.list} object."
+    )
 	}
 }

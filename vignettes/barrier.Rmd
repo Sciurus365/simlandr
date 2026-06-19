@@ -96,33 +96,33 @@ b_single_2d$saddle_point
 
 get_barrier_height(b_single_2d)
 
-plot(l_single_2d) + autolayer(b_single_2d)
+autoplot(l_single_2d) + autolayer(b_single_2d)
 ```
 
 
 # Barrier calculation for 3d single landscape
 ```{r}
 b_single_3d <- calculate_barrier(l_single_3d, start_location_value = c(-2.5, -2), end_location_value = c(2.5, 0), start_r = 0.3, end_r = 0.3)
-plot(l_single_3d, 2) + autolayer(b_single_3d)
+autoplot(l_single_3d) + autolayer(b_single_3d)
 ```
 
 # Barrier calculation for 2d batch landscape
 ```{r}
 b_batch_2d_m2 <- calculate_barrier(l_batch_2d_m2, start_location_value = -1, end_location_value = 1, start_r = 0.99, end_r = 0.99)
-plot(l_batch_2d_m2) + autolayer(b_batch_2d_m2)
+autoplot(l_batch_2d_m2) + autolayer(b_batch_2d_m2)
 ```
 
 # Barrier calculation for 3d batch landscape
 ```{r}
 b_batch_3d_m2 <- calculate_barrier(l_batch_3d_m2, start_location_value = c(-1, -1), end_location_value = c(1, 1), start_r = 0.9, end_r = 0.9)
-plot(l_batch_3d_m2) + autolayer(b_batch_3d_m2)
+autoplot(l_batch_3d_m2) + autolayer(b_batch_3d_m2)
 ```
 
 # Set the starting and end values for each landscape
 
 ```{r}
 b_batch_3d_m1 <- calculate_barrier(l_batch_3d_m1, start_location_value = c(0, 0), end_location_value = c(2, 1), start_r = 0.3, end_r = 0.6)
-plot(l_batch_3d_m1) + autolayer(b_batch_3d_m1)
+autoplot(l_batch_3d_m1) + autolayer(b_batch_3d_m1)
 
 ## This barrier calculation doesn't find proper local minimums for several landscapes. Specify the searching parameters per landscape manually.
 ## First, print a template of the data format.
@@ -144,7 +144,7 @@ b_batch_3d_m1 <- calculate_barrier(
       ))
   )
 )
-plot(l_batch_3d_m1) + autolayer(b_batch_3d_m1)
+autoplot(l_batch_3d_m1) + autolayer(b_batch_3d_m1)
 
 ## Now it works well.
 ```

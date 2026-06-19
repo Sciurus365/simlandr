@@ -13,9 +13,9 @@ as_hash_big_matrix(x, backingpath = "bp", silence = TRUE, ...)
 attach_hash_big_matrix(x, backingpath = "bp")
 }
 \arguments{
-\item{x}{A matrix, vector, or data.frame for \code{\link[bigmemory:big.matrix]{bigmemory::as.big.matrix()}}.}
+\item{x}{A matrix, vector, or data.frame for \code{\link[bigmemory:as.big.matrix]{bigmemory::as.big.matrix()}}.}
 
-\item{backingpath, ...}{Passed to \code{\link[bigmemory:big.matrix]{bigmemory::as.big.matrix()}}.}
+\item{backingpath, ...}{Passed to \code{\link[bigmemory:as.big.matrix]{bigmemory::as.big.matrix()}}.}
 
 \item{silence}{Suppress messages?}
 }

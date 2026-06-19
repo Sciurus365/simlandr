@@ -45,18 +45,24 @@ make_kernel_dist <- function(output, var_names, lims, kde_fun, n, h, adjust, wei
       result <- list(x = result_raw$eval.points[[1]], y = result_raw$eval.points[[2]], d = pmax(result_raw$estimate, 0))
     } else if (length(var_names) == 3) result <- list(x = result_raw$eval.points[[1]], y = result_raw$eval.points[[2]], z = result_raw$eval.points[[3]], d = pmax(result_raw$estimate, 0))
   } else if (kde_fun == "base") {
-    if (length(var_names) != 1) stop('kde_fun = "MASS" can only be used for 2D landscapes.')
+    if (length(var_names) != 1) {
+      cli::cli_abort('{.code kde_fun = "base"} can only be used for 2D landscapes.')
+    }
     x <- var_names
     result <- stats::density(output[, x], n = n, bw = h, from = lims[1], to = lims[2])
     result <- list(x = result$x, d = result$y)
   } else if (kde_fun == "MASS") {
-    if (length(var_names) != 2) stop('kde_fun = "MASS" can only be used for 3D landscapes.')
+    if (length(var_names) != 2) {
+      cli::cli_abort('{.code kde_fun = "MASS"} can only be used for 3D landscapes.')
+    }
     x <- var_names[1]
     y <- var_names[2]
     result <- MASS::kde2d(x = output[, x], y = output[, y], n = n, lims = lims, h = h)
     result <- list(x = result$x, y = result$y, d = result$z)
   } else {
-    stop('Wrong input for `kde_fun`. Please choose from "ks" and "MASS".')
+    cli::cli_abort(
+      '{.arg kde_fun} must be one of "ks", "base", or "MASS".'
+    )
   }
 
   return(result)
@@ -77,7 +83,9 @@ determine_h <- function(output, var_names, kde_fun, h, adjust) {
       h <- diag(h, length(var_names), length(var_names)) * adjust
     }
   } else if (kde_fun == "MASS") {
-    if (length(var_names) != 2) stop('kde_fun = "MASS" can only be used for 3D landscapes.')
+    if (length(var_names) != 2) {
+      cli::cli_abort('{.code kde_fun = "MASS"} can only be used for 3D landscapes.')
+    }
     x <- var_names[1]
     y <- var_names[2]
     if (rlang::is_missing(h)) {
@@ -86,7 +94,9 @@ determine_h <- function(output, var_names, kde_fun, h, adjust) {
       h <- h * adjust
     }
   } else if (kde_fun == "base") {
-    if (length(var_names) != 1) stop('kde_fun = "MASS" can only be used for 2D landscapes.')
+    if (length(var_names) != 1) {
+      cli::cli_abort('{.code kde_fun = "base"} can only be used for 2D landscapes.')
+    }
     x <- var_names
     h <- ifelse(rlang::is_missing(h), stats::bw.SJ(output[, x]), h) * adjust
   }
@@ -102,7 +112,9 @@ determine_lims <- function(output, var_names, lims) {
   if (rlang::is_missing(lims)) {
     return(c(sapply(var_names, function(v) grDevices::extendrange(output[, v], f = 0.1))))
   }
-  if (any(is.infinite(lims))) stop("Non-infinite values found in `lims`.")
+  if (any(is.infinite(lims))) {
+    cli::cli_abort("{.arg lims} must contain only finite values.")
+  }
 }
 
 

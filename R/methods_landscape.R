@@ -1,26 +1,107 @@
 #' @export
 #' @method print landscape
 print.landscape <- function(x, ...) {
-  cat("A landscape object of the class", class(x)[1], "was estimated. Use `plot()` to draw the landscape plot.")
+  cat(
+    "A landscape object of the class", class(x)[1],
+    "was estimated. Use `autoplot()` for ggplot output or `plotly_ld()`",
+    "for an interactive landscape."
+  )
 }
 
-#' Make plots from landscape objects
+#' Autoplot landscape objects
+#'
+#' Returns the ggplot representation stored in a landscape object.
+#'
+#' @param object A landscape object.
+#' @param ... Not in use.
+#'
+#' @return A ggplot object.
+#' @importFrom ggplot2 autoplot
+#' @export
+autoplot.landscape <- function(object, ...) {
+  if (ggplot2::is_ggplot(object$plot_2)) {
+    return(object$plot_2)
+  }
+  if (ggplot2::is_ggplot(object$plot)) {
+    return(object$plot)
+  }
+  cli::cli_abort("This landscape object does not contain a ggplot representation.")
+}
+
+#' Plot landscape objects interactively
+#'
+#' Returns the plotly representation stored in a landscape object.
+#'
+#' @param object A landscape object.
+#' @param ... Not in use.
+#'
+#' @return A plotly object.
+#' @export
+plotly_ld <- function(object, ...) {
+  UseMethod("plotly_ld")
+}
+
+#' @export
+plotly_ld.default <- function(object, ...) {
+  cli::cli_abort(
+    "No {.fn plotly_ld} method is available for objects of class {.cls {class(object)[1]}}."
+  )
+}
+
+#' @export
+plotly_ld.landscape <- function(object, ...) {
+  if (!inherits(object$plot, "plotly")) {
+    cli::cli_abort("This landscape object does not contain a plotly representation.")
+  }
+  object$plot
+}
+
+#' Plot landscape objects
+#'
+#' `r lifecycle::badge("deprecated")`
+#'
+#' Use [ggplot2::autoplot()] for ggplot output or [plotly_ld()] for
+#' interactive landscape output.
 #'
 #' @param x A landscape object
 #' @param index Default is 1. For some landscape objects, there is a second plot (usually 2d heatmaps for 3d landscapes)
 #' or a third plot (usually 3d matrices for 3d animations).
 #' Use `index = 2` to plot that one.
-#' @param ... Not in use.
+#' @param ... Arguments passed to the replacement method.
 #'
 #' @return The plot.
 #'
 #' @export
 plot.landscape <- function(x, index = 1, ...) {
   if (index == 1) {
-    x$plot
+    replacement <- if (inherits(x$plot, "plotly")) {
+      "plotly_ld()"
+    } else {
+      "ggplot2::autoplot()"
+    }
+    lifecycle::deprecate_warn("0.4.1", "plot.landscape()", replacement)
+    if (inherits(x$plot, "plotly")) {
+      plotly_ld(x, ...)
+    } else {
+      ggplot2::autoplot(x, ...)
+    }
   } else if (index == 2) {
-    x$plot_2
-  } else if (index == "mat_3d" | index == 3) plot(x$mat_3d)
+    lifecycle::deprecate_warn(
+      "0.4.1",
+      "plot.landscape()",
+      "ggplot2::autoplot()"
+    )
+    ggplot2::autoplot(x, ...)
+  } else if (index == "mat_3d" | index == 3) {
+    lifecycle::deprecate_warn(
+      "0.4.1",
+      "plot.landscape()",
+      "ggplot2::autoplot()"
+    )
+    ggplot2::autoplot(x$mat_3d, ...)
+  } else {
+    cli::cli_abort("{.arg index} must be 1, 2, 3, or {.val mat_3d}.")
+  }
 }
 
 #' Save landscape plots
@@ -35,7 +116,7 @@ plot.landscape <- function(x, index = 1, ...) {
 #' @export
 save_landscape <- function(l, path = NULL, selfcontained = FALSE, ...) {
   p <- l$plot
-  message("Saving the plot...")
+  cli::cli_inform("Saving the plot...")
   if (is.null(path)) {
     if (!is.null(l$fr)) {
       path <- paste(getwd(), "/pics/", l$x, "_", l$y, "_", l$fr, ".html", sep = "")
@@ -49,7 +130,7 @@ save_landscape <- function(l, path = NULL, selfcontained = FALSE, ...) {
   } else {
     if ("ggplot" %in% class(p)) ggplot2::ggsave(paste(path, ".png", sep = ""), p, ...)
   }
-  message("Done!")
+  cli::cli_inform("Done!")
   return(NULL)
 }
 
@@ -61,7 +142,9 @@ save_landscape <- function(l, path = NULL, selfcontained = FALSE, ...) {
 #' @return A `data.frame` that contains the distribution in the tidy format or the raw simulation result.
 #' @export
 get_dist <- function(l, index = 1) {
-  if (!"landscape" %in% class(l)) stop("l should be a `landscape`")
+  if (!"landscape" %in% class(l)) {
+    cli::cli_abort("{.arg l} must be a {.cls landscape} object.")
+  }
   if (index == 1) {
     return(l$dist)
   }
@@ -69,3 +152,7 @@ get_dist <- function(l, index = 1) {
     return(l$dist_raw)
   }
 }
+
+#' @importFrom ggplot2 autoplot
+#' @export
+ggplot2::autoplot

@@ -9,7 +9,9 @@
 #'
 #' @export
 make_barrier_grid_2d <- function(ag, start_location_value, start_r, end_location_value, end_r, df = NULL, print_template = FALSE) {
-  if (!"arg_grid" %in% class(ag)) stop("`ag` should be an arg_grid object")
+  if (!"arg_grid" %in% class(ag)) {
+    cli::cli_abort("{.arg ag} must be an {.cls arg_grid} object.")
+  }
   result <- ag
 
   if (is.null(df)) {
@@ -39,7 +41,9 @@ calculate_barrier.2d_landscape_batch <- function(l, bg = NULL,
                                                  base = exp(1), ...) {
   d <- l$dist_raw
   if (!"l_list" %in% colnames(d)) {
-    stop("l must contain a list of individual landscapes. Use individual_landscape = TRUE in `make_2d_matrix")
+    cli::cli_abort(
+      "{.arg l} must contain individual landscapes. Use {.code individual_landscape = TRUE} in {.fn make_2d_matrix}."
+    )
   }
 
   if (is.null(bg)) {
@@ -47,7 +51,9 @@ calculate_barrier.2d_landscape_batch <- function(l, bg = NULL,
       dplyr::rowwise() %>%
       dplyr::mutate(barrier = list(calculate_barrier(l_list, start_location_value, start_r, end_location_value, end_r, base)))
   } else {
-    if (!"2d_barrier_grid" %in% class(bg)) stop("`bg` should be a `barrier_grid_2d`.")
+    if (!"2d_barrier_grid" %in% class(bg)) {
+      cli::cli_abort("{.arg bg} must be a {.cls 2d_barrier_grid} object.")
+    }
     d <- d %>%
       dplyr::ungroup() %>%
       dplyr::left_join(bg %>% dplyr::select(1, (ncol(.) - 3):ncol(.)), by = "ele_list") %>%
@@ -122,7 +128,9 @@ make_barrier_grid_3d <- function(ag, start_location_value,
                                  start_r,
                                  end_location_value,
                                  end_r, df = NULL, print_template = FALSE) {
-  if (!"arg_grid" %in% class(ag)) stop("`ag` should be an arg_grid object")
+  if (!"arg_grid" %in% class(ag)) {
+    cli::cli_abort("{.arg ag} must be an {.cls arg_grid} object.")
+  }
   result <- ag
 
   if (is.null(df)) {
@@ -156,7 +164,9 @@ calculate_barrier.3d_landscape_batch <- function(l, bg = NULL,
                                                  omit_unstable = FALSE, base = exp(1), ...) {
   d <- l$dist_raw
   if (!"l_list" %in% colnames(d)) {
-    stop("l must contain a list of individual landscapes. Use individual_landscape = TRUE in `make_3d_animation` or `make_3d_matrix")
+    cli::cli_abort(
+      "{.arg l} must contain individual landscapes. Use {.code individual_landscape = TRUE} in {.fn make_3d_animation} or {.fn make_3d_matrix}."
+    )
   }
   if (missing(Umax)) Umax <- l$Umax
 
@@ -165,7 +175,9 @@ calculate_barrier.3d_landscape_batch <- function(l, bg = NULL,
       dplyr::rowwise() %>%
       dplyr::mutate(barrier = list(calculate_barrier(l_list, start_location_value, start_r, end_location_value, end_r, Umax, expand, omit_unstable, base)))
   } else {
-    if (!"barrier_grid_3d" %in% class(bg)) stop("`bg` should be a `barrier_grid_3d`.")
+    if (!"barrier_grid_3d" %in% class(bg)) {
+      cli::cli_abort("{.arg bg} must be a {.cls barrier_grid_3d} object.")
+    }
     d <- d %>%
       dplyr::ungroup() %>%
       dplyr::left_join(bg %>% dplyr::select(1, (ncol(.) - 3):ncol(.)), by = "ele_list") %>%

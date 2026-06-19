@@ -34,7 +34,7 @@ as_hash_big_matrix <- function(x, backingpath = "bp", silence = TRUE, ...) {
   temp@md5 <- digest::digest(x)
   if (file.exists(file.path(backingpath, paste0(temp@md5, ".desc")))) {
     temp@address <- bigmemory::attach.big.matrix(paste0(temp@md5, ".desc"), path = backingpath)@address
-    if (!silence) message("Old backing file attached.")
+    if (!silence) cli::cli_inform("Attached the existing backing file.")
   } else {
     temp@address <- bigmemory::as.big.matrix(x,
       backingpath = backingpath,
@@ -49,7 +49,9 @@ as_hash_big_matrix <- function(x, backingpath = "bp", silence = TRUE, ...) {
 #' @describeIn hash_big_matrix-class Attach a `hash_big_matrix` object from the backing file to the workspace.
 #' @export
 attach_hash_big_matrix <- function(x, backingpath = "bp") {
-  if (!methods::is(x, "hash_big_matrix")) stop("Wrong input class. x should be a `hash_big_matrix`.")
+  if (!methods::is(x, "hash_big_matrix")) {
+    cli::cli_abort("{.arg x} must be a {.cls hash_big_matrix} object.")
+  }
   if (!bigmemory::is.nil(x@address)) {
     return(x)
   }

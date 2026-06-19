@@ -1,0 +1,37 @@
+c(
+  bibentry(
+    bibtype = "Article",
+    title = "Simulation-based landscape construction for dynamical systems",
+    author = c(
+      person("Jingmeng", "Cui"),
+      person("Merlijn", "Olthof"),
+      person("Anna", "Lichtwarck-Aschoff"),
+      person("Tiejun", "Li"),
+      person("Fred", "Hasselman")
+    ),
+    journal = "The R Journal",
+    year = "2026",
+    volume = "17",
+    number = "4",
+    pages = "173--191",
+    doi = "10.32614/RJ-2025-039"
+  ),
+
+  bibentry(
+    bibtype = "Article",
+    title = "From metaphor to computation: Constructing the potential landscape for multivariate psychological formal models",
+    author = c(
+      person("Jingmeng", "Cui"),
+      person("Anna", "Lichtwarck-Aschoff"),
+      person("Merlijn", "Olthof"),
+      person("Tiejun", "Li"),
+      person("Fred", "Hasselman")
+    ),
+    journal = "Multivariate Behavioral Research",
+    year = "2023",
+    volume = "58",
+    number = "4",
+    pages = "743--761",
+    doi = "10.1080/00273171.2022.2119927"
+  )
+)

@@ -4,6 +4,6 @@
 \alias{as.mcmc.list}
 \title{as.mcmc.list generic function}
 \description{
-See \code{\link[coda:mcmc.list]{coda::as.mcmc.list()}}, \code{\link[=as.mcmc.list.list]{as.mcmc.list.list()}} for details.
+See \code{\link[coda:as.mcmc.list]{coda::as.mcmc.list()}}, \code{\link[=as.mcmc.list.list]{as.mcmc.list.list()}} for details.
 }
 \keyword{internal}

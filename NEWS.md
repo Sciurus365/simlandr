@@ -1,3 +1,12 @@
+# simlandr 0.4.1
+
+- Standardized landscape plotting: use `autoplot()` for ggplot output and
+  `plotly_ld()` for interactive plotly output. The previous `plot()` method
+  remains available with a soft-deprecation warning. `autoplot()` is
+  re-exported, so attaching `ggplot2` separately is not required.
+- Modernized user-facing messages, warnings, and errors using `cli`.
+- Updated citation information.
+
 # simlandr 0.4.0
 
 - Added simulation helper functions `sim_SDE()` and `multi_init_simulation()` for simulating stochastic differential equations (SDEs) and multiple initial conditions, respectively.

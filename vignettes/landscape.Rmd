@@ -57,7 +57,8 @@ single_test <- sim_fun_test(
 
 The result of the landscape functions is a `landscape` object, which contains the landscape plot as well as the smooth distributions that are used to calculate the landscapes. Plots without z-axis are built with `ggplot2` package, while plots with z-axis are built with `plotly` package. These plots can also be modified using `ggplot2` or `plotly` functions. 
 
-You can use `plot(l)` to access those plots. For some types of `landscape`s, there are multiple types of plots available. Use `plot(l, index = 2)` or `plot(l, index = 3)`, etc. to access those plots.
+Use `autoplot(l)` to access ggplot representations and
+`plotly_ld(l)` to access interactive plotly landscapes.
 
 Below are the examples of available plots. The meaning of the parameters can be found on the helping page of each function.
 
@@ -65,7 +66,7 @@ Below are the examples of available plots. The meaning of the parameters can be 
 
 ```{r}
 l_single_2d <- make_2d_static(single_test, x = "out1")
-plot(l_single_2d)
+autoplot(l_single_2d)
 ```
 
 ## 3d (x, y, z) or (x, y, color) plot 
@@ -76,11 +77,11 @@ l_single_3d <- make_3d_static(single_test, x = "out1", y = "out2")
 
 ```{r eval=is_pkgdown}
 # This chunk will only run when building with pkgdown
-plot(l_single_3d, 1)
+plotly_ld(l_single_3d)
 ```
 
 ```{r}
-plot(l_single_3d, 2)
+autoplot(l_single_3d)
 ```
 
 
@@ -89,7 +90,7 @@ plot(l_single_3d, 2)
 ```{r eval=is_pkgdown}
 # This chunk will only run when building with pkgdown
 l_single_4d <- make_4d_static(single_test, x = "out1", y = "out2", z = "out3")
-plot(l_single_4d) %>% plotly::layout(scene = list(zaxis = list(range = c(-3, 3))))
+plotly_ld(l_single_4d) %>% plotly::layout(scene = list(zaxis = list(range = c(-3, 3))))
 ```
 
 
@@ -136,10 +137,10 @@ Below are the examples of available plots.
 
 ```{r}
 l_batch_2d_m1 <- make_2d_matrix(batch_test_result, x = "out1", cols = "ele3")
-plot(l_batch_2d_m1)
+autoplot(l_batch_2d_m1)
 
 l_batch_2d_m2 <- make_2d_matrix(batch_test_result2, x = "out1", rows = "ele1", cols = "ele2")
-plot(l_batch_2d_m2)
+autoplot(l_batch_2d_m2)
 ```
 
 
@@ -147,10 +148,10 @@ plot(l_batch_2d_m2)
 
 ```{r}
 l_batch_3d_m1 <- make_3d_matrix(batch_test_result, x = "out1", y = "out2", cols = "ele3")
-plot(l_batch_3d_m1)
+autoplot(l_batch_3d_m1)
 
 l_batch_3d_m2 <- make_3d_matrix(batch_test_result2, x = "out1", y = "out2", rows = "ele1", cols = "ele2")
-plot(l_batch_3d_m2)
+autoplot(l_batch_3d_m2)
 ```
 
 ## 3d (x, y, z) or (x, y, color) animation and 3d (x, y, color) plot series with one varying parameter
@@ -159,6 +160,6 @@ plot(l_batch_3d_m2)
 ```{r eval = FALSE}
 l_batch_3d_a <- make_3d_animation(batch_test_result, x = "out1", y = "out2", fr = "ele3")
 
-plot(l_batch_3d_a, 1)
-plot(l_batch_3d_a, 2)
+plotly_ld(l_batch_3d_a)
+autoplot(l_batch_3d_a)
 ```

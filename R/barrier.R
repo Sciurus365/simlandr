@@ -118,7 +118,11 @@ NULL_path <- function() {
 #' @return A list with two elements: `U`, the potential value of the local minimum, and `location`, the position of the local minimum.
 #' @noRd
 find_local_min_3d <- function(dist, localmin, r, Umax, expand = TRUE, first_called = TRUE) {
-  if (!is.matrix(dist$d)) stop("Wrong input. `dist` should be a list with x, y, and d, and d should be a matrix.")
+  if (!is.matrix(dist$d)) {
+    cli::cli_abort(
+      "{.arg dist} must be a list with components {.field x}, {.field y}, and a matrix {.field d}."
+    )
+  }
   x1 <- localmin[1]
   y1 <- localmin[2]
   if (length(r) == 1) r <- rep(r, 2)
@@ -131,7 +135,9 @@ find_local_min_3d <- function(dist, localmin, r, Umax, expand = TRUE, first_call
 
   if (min_U > Umax) {
     if (expand) {
-      if (first_called) message("The U in this range is too high. Searching range expanded...")
+      if (first_called) {
+        cli::cli_alert_info("The potential in this range is too high. Expanding the search range.")
+      }
       return(find_local_min_3d(dist, localmin, c(r[1] + dist$x[2] - dist$x[1], r[2] + dist$y[2] - dist$y[1]), Umax, first_called = FALSE))
     } else {
       return(NULL_point())
@@ -141,7 +147,9 @@ find_local_min_3d <- function(dist, localmin, r, Umax, expand = TRUE, first_call
   location_value <- c(dist$x[location_index[1]], dist$y[location_index[2]])
   location <- c(location_index, location_value)
   names(location) <- c("x_index", "y_index", "x_value", "y_value")
-  if (!first_called) message(paste0("r = c(", r[1], ",", r[2], ")"))
+  if (!first_called) {
+    cli::cli_inform("Using {.code r = c({r[1]}, {r[2]})}.")
+  }
   return(list(U = min_U, location = location))
 }
 

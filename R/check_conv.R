@@ -27,7 +27,9 @@ check_conv <- function(output, vars, sample_perc = 0.2, plot_type = "bin") {
   }
 
   # check convergence of i in vars; init, mid, final, normalized dist, ...
-  if (sample_perc > 1 | sample_perc < 0) stop("`sample_perc should be between 0 and 1.")
+  if (sample_perc > 1 | sample_perc < 0) {
+    cli::cli_abort("{.arg sample_perc} must be between 0 and 1.")
+  }
 
   result_list <- list()
   simulation_length <- nrow(output)
@@ -52,7 +54,7 @@ check_conv <- function(output, vars, sample_perc = 0.2, plot_type = "bin") {
         ggplot2::labs(x = i) +
         ggplot2::theme_bw()
     } else {
-      stop("'plot_type` should be either 'bin' or 'density'.")
+      cli::cli_abort('{.arg plot_type} must be either "bin" or "density".')
     }
 
     result_list[[i]] <- p

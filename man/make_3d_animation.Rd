@@ -40,7 +40,8 @@ make_3d_animation(
 
 \item{individual_landscape}{Make individual landscape for each simulation? Default is \code{TRUE} so that it is possible to calculate barriers. Set to \code{FALSE} to save time.}
 
-\item{mat_3d}{Also make the matrix by \code{\link[=make_3d_matrix]{make_3d_matrix()}}? If so, the matrix can be drawn with \verb{plot(<landscape>, 3)}.}
+\item{mat_3d}{Also make the matrix by \code{\link[=make_3d_matrix]{make_3d_matrix()}}? If so, the matrix
+can be drawn with \verb{ggplot2::autoplot(<landscape>$mat_3d)}.}
 }
 \value{
 A \verb{3d_animation_landscape} object that describes the landscape of the system, including the smoothed distribution and the landscape plot.

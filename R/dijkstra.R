@@ -71,7 +71,9 @@ dijkstra <- function(d, s, e) {
       vwLength <- D[v[1], v[2]] + sqrt((v[1] - w[1])^2 + (v[2] - w[2])^2) * grad_m
       # if(is.na(vwLength)) return(list(v[1], v[2], d[v[1],v[2]], w[1], w[2], d[w[1],w[2]]))
       if (D[w[1], w[2]] != Inf) {
-        if (vwLength < D[v[1], v[2]]) stop("ValueError: vwLength < D[v[1], v[2]]")
+        if (vwLength < D[v[1], v[2]]) {
+          cli::cli_abort("Internal error: {.var vwLength} is smaller than the stored distance.")
+        }
       } else if (vwLength < Q[w[1], w[2]]) {
         if (Q[w[1], w[2]] == Inf) Q_size <- Q_size + 1
         Q[w[1], w[2]] <- vwLength
