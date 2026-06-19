@@ -1,0 +1,210 @@
+# 2. Construct the potential landscapes from simulation results
+
+``` r
+
+library(simlandr)
+```
+
+## Introduction
+
+Here comes the central purpose of `simlandr`: constructing the potential
+landscapes from simulation results.
+
+The landscape function is calculated based on the steady-state
+distribution of the system:
+
+``` math
+U = -\ln P_\textrm{SS}
+```
+
+My colleagues and I recently wrote some papers about the theoretical
+background of this method. You can find them at
+<https://doi.org/10.1080/00273171.2022.2119927> or
+<https://osf.io/pzva3>.
+
+`simlandr` provides a set of tools to construct 2d, 3d, and 4d
+landscapes from single or multiple simulation results. These methods
+will be illustrated in the following sections.
+
+------------------------------------------------------------------------
+
+Frequently used parameters for the family of landscape functions:
+
+`x`,`y`,`z`,`rols`,`cols`,`fr`: the variable names for plot dimensions;
+`from`,`to` (for 2d landscapes), `lims` (for 3d and 4d landscapes): the
+range of axes; `adjust` (for 2d landscapes), `h` (for 3d and 4d
+landscapes): the level of smoothness; `Umax`: the maximum displayed
+value of potential.
+
+------------------------------------------------------------------------
+
+## Single simulation landscape
+
+The landscapes in this section are only from a single simulation. We
+first make a simulation series for illustration.
+
+``` r
+
+single_test <- sim_fun_test(
+  arg1 = list(ele1 = 1),
+  arg2 = list(ele2 = 1, ele3 = 0)
+)
+```
+
+The result of the landscape functions is a `landscape` object, which
+contains the landscape plot as well as the smooth distributions that are
+used to calculate the landscapes. Plots without z-axis are built with
+`ggplot2` package, while plots with z-axis are built with `plotly`
+package. These plots can also be modified using `ggplot2` or `plotly`
+functions.
+
+Use `autoplot(l)` to access ggplot representations and `plotly_ld(l)` to
+access interactive plotly landscapes.
+
+Below are the examples of available plots. The meaning of the parameters
+can be found on the helping page of each function.
+
+### 2d (x, y) plot
+
+``` r
+
+l_single_2d <- make_2d_static(single_test, x = "out1")
+autoplot(l_single_2d)
+```
+
+![](landscape_files/figure-html/unnamed-chunk-3-1.png)
+
+### 3d (x, y, z) or (x, y, color) plot
+
+``` r
+
+l_single_3d <- make_3d_static(single_test, x = "out1", y = "out2")
+```
+
+``` r
+
+# This chunk will only run when building with pkgdown
+plotly_ld(l_single_3d)
+```
+
+``` r
+
+autoplot(l_single_3d)
+```
+
+![](landscape_files/figure-html/unnamed-chunk-6-1.png)
+
+### 4d (x, y, z, color) plot
+
+``` r
+
+# This chunk will only run when building with pkgdown
+l_single_4d <- make_4d_static(single_test, x = "out1", y = "out2", z = "out3")
+plotly_ld(l_single_4d) %>% plotly::layout(scene = list(zaxis = list(range = c(-3, 3))))
+```
+
+## Multiple simulation landscape
+
+The landscapes in the section are built from batch simulation results.
+The following two data sets will be used to illustrate the functions.
+The difference is that `batch_test_result` only contains one varying
+parameter, whereas `batch_test_result2` contains two.
+
+``` r
+
+batch_test <- new_arg_set()
+
+batch_test <- batch_test %>%
+  add_arg_ele("arg2", "ele3", 0.2, 0.5, 0.1)
+
+batch_test_grid <- make_arg_grid(batch_test)
+
+batch_test_result <- batch_simulation(batch_test_grid, sim_fun_test,
+  default_list = list(
+    arg1 = list(ele1 = 0),
+    arg2 = list(ele2 = 0, ele3 = 0)
+  ),
+  bigmemory = FALSE
+)
+batch_test_result
+#> Output(s) from 4 simulations.
+
+batch_test2 <- new_arg_set()
+batch_test2 <- batch_test2 %>%
+  add_arg_ele("arg1", "ele1", 0.2, 0.6, 0.2) %>%
+  add_arg_ele("arg2", "ele2", 0.2, 0.6, 0.2)
+batch_test_grid2 <- make_arg_grid(batch_test2)
+
+batch_test_result2 <- batch_simulation(batch_test_grid2, sim_fun_test,
+  default_list = list(
+    arg1 = list(ele1 = 0),
+    arg2 = list(ele2 = 0, ele3 = 0)
+  ),
+  bigmemory = FALSE
+)
+batch_test_result2
+#> Output(s) from 9 simulations.
+```
+
+Below are the examples of available plots.
+
+### 2d (x, y) plot series with one varying parameter or plot matrix with two varying parameters
+
+``` r
+
+l_batch_2d_m1 <- make_2d_matrix(batch_test_result, x = "out1", cols = "ele3")
+#> Wrangling the data...
+#> Making the plots...
+autoplot(l_batch_2d_m1)
+```
+
+![](landscape_files/figure-html/unnamed-chunk-9-1.png)
+
+``` r
+
+
+l_batch_2d_m2 <- make_2d_matrix(batch_test_result2, x = "out1", rows = "ele1", cols = "ele2")
+#> Wrangling the data...
+#> Making the plots...
+autoplot(l_batch_2d_m2)
+```
+
+![](landscape_files/figure-html/unnamed-chunk-9-2.png)
+
+### 3d (x, y, color) plot series with one varying parameter or plot matrix with two varying parameters
+
+``` r
+
+l_batch_3d_m1 <- make_3d_matrix(batch_test_result, x = "out1", y = "out2", cols = "ele3")
+#> Wrangling the data...
+#> Making the plots...
+autoplot(l_batch_3d_m1)
+```
+
+![](landscape_files/figure-html/unnamed-chunk-10-1.png)
+
+``` r
+
+
+l_batch_3d_m2 <- make_3d_matrix(batch_test_result2, x = "out1", y = "out2", rows = "ele1", cols = "ele2")
+#> Wrangling the data...
+#> Making the plots...
+autoplot(l_batch_3d_m2)
+```
+
+![](landscape_files/figure-html/unnamed-chunk-10-2.png)
+
+### 3d (x, y, z) or (x, y, color) animation and 3d (x, y, color) plot series with one varying parameter
+
+*This part is computational and storage expensive thus not evaluated in
+the released vignette. You can run it on your device to see how the
+function produces animations. `gifski` package is needed to show the 3d
+(x, y, color) animation.*
+
+``` r
+
+l_batch_3d_a <- make_3d_animation(batch_test_result, x = "out1", y = "out2", fr = "ele3")
+
+plotly_ld(l_batch_3d_a)
+autoplot(l_batch_3d_a)
+```

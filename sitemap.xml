@@ -14,6 +14,7 @@
 <url><loc>https://sciurus365.github.io/simlandr/reference/attach_all_matrices.html</loc></url>
 <url><loc>https://sciurus365.github.io/simlandr/reference/autolayer.barrier.html</loc></url>
 <url><loc>https://sciurus365.github.io/simlandr/reference/autolayer.html</loc></url>
+<url><loc>https://sciurus365.github.io/simlandr/reference/autoplot.landscape.html</loc></url>
 <url><loc>https://sciurus365.github.io/simlandr/reference/batch_simulation.html</loc></url>
 <url><loc>https://sciurus365.github.io/simlandr/reference/calculate_barrier.html</loc></url>
 <url><loc>https://sciurus365.github.io/simlandr/reference/check_conv.html</loc></url>
@@ -37,6 +38,8 @@
 <url><loc>https://sciurus365.github.io/simlandr/reference/multi_init_simulation.html</loc></url>
 <url><loc>https://sciurus365.github.io/simlandr/reference/pipe.html</loc></url>
 <url><loc>https://sciurus365.github.io/simlandr/reference/plot.landscape.html</loc></url>
+<url><loc>https://sciurus365.github.io/simlandr/reference/plotly_ld.html</loc></url>
+<url><loc>https://sciurus365.github.io/simlandr/reference/reexports.html</loc></url>
 <url><loc>https://sciurus365.github.io/simlandr/reference/save_landscape.html</loc></url>
 <url><loc>https://sciurus365.github.io/simlandr/reference/sim_SDE.html</loc></url>
 <url><loc>https://sciurus365.github.io/simlandr/reference/sim_fun_grad.html</loc></url>

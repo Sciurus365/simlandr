@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Simulation-Based Landscape Construction for Dynamical Systems • simlandr</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Simulation-Based Landscape Construction for Dynamical Systems">
 <meta name="description" content="A toolbox for constructing potential landscapes for dynamical systems using Monte Carlo simulation. The method is based on the potential landscape definition by Wang et al. (2008) &lt;doi:10.1073/pnas.0800579105&gt; (also see Zhou &amp; Li, 2016 &lt;doi:10.1063/1.4943096&gt; for further mathematical discussions) and can be used for a large variety of models.">
@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="index.html">simlandr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -120,45 +120,45 @@
 <span></span>
 <span><span class="co">## Example 1. 2D (x, y as U) landscape</span></span>
 <span><span class="va">l_single_grad_2d</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_2d_static.html">make_2d_static</a></span><span class="op">(</span><span class="va">single_output_grad</span>, x <span class="op">=</span> <span class="st">"x"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_single_grad_2d</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">l_single_grad_2d</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example2-1.png" width="100%"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">### To make the landscape smoother</span></span>
-<span><span class="fu"><a href="reference/make_2d_static.html">make_2d_static</a></span><span class="op">(</span><span class="va">single_output_grad</span>, x <span class="op">=</span> <span class="st">"x"</span>, adjust <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="reference/make_2d_static.html">make_2d_static</a></span><span class="op">(</span><span class="va">single_output_grad</span>, x <span class="op">=</span> <span class="st">"x"</span>, adjust <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example2-2.png" width="100%"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">## Example 2. 3D (x, y, color as U) landscape</span></span>
 <span><span class="va">l_single_grad_3d</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_3d_static.html">make_3d_static</a></span><span class="op">(</span><span class="va">single_output_grad</span>, x <span class="op">=</span> <span class="st">"x"</span>, y <span class="op">=</span> <span class="st">"y"</span>, adjust <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_single_grad_3d</span>, <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">l_single_grad_3d</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example2-3.png" width="100%"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="co">### plot(l_single_grad_3d) # to show the landscape in 3D (x, y, z)</span></span>
+<span><span class="co">### plotly_ld(l_single_grad_3d) # to show the landscape in 3D (x, y, z)</span></span>
 <span></span>
 <span><span class="co">## Example 3. 4D (x, y, z, color as U) landscape</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1614</span><span class="op">)</span></span>
 <span><span class="va">single_output_grad</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">single_output_grad</span><span class="op">)</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">1</span>, dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="st">"z"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">single_output_grad</span><span class="op">)</span></span>
 <span><span class="va">l_single_grad_4d</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_4d_static.html">make_4d_static</a></span><span class="op">(</span><span class="va">single_output_grad</span>, x <span class="op">=</span> <span class="st">"x"</span>, y <span class="op">=</span> <span class="st">"y"</span>, z <span class="op">=</span> <span class="st">"z"</span>, n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span>
-<span><span class="co">### plot(l_single_grad_4d) # to show the landscape in 4D (x, y, z, color as U)</span></span>
+<span><span class="co">### plotly_ld(l_single_grad_4d) # to show the landscape in 4D (x, y, z, color as U)</span></span>
 <span></span>
 <span><span class="co">## Example 4. 2D (x, y as U) matrix (by a)</span></span>
 <span><span class="va">l_batch_grad_2d</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_2d_matrix.html">make_2d_matrix</a></span><span class="op">(</span><span class="va">batch_output_grad</span>, x <span class="op">=</span> <span class="st">"x"</span>, cols <span class="op">=</span> <span class="st">"a"</span>, Umax <span class="op">=</span> <span class="fl">8</span>, adjust <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_batch_grad_2d</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">l_batch_grad_2d</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example2-4.png" width="100%"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">## Example 5. 3D (x, y, color as U) matrix (by a)</span></span>
 <span><span class="va">l_batch_grad_3d</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_3d_matrix.html">make_3d_matrix</a></span><span class="op">(</span><span class="va">batch_output_grad</span>, x <span class="op">=</span> <span class="st">"x"</span>, y <span class="op">=</span> <span class="st">"y"</span>, cols <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_batch_grad_3d</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">l_batch_grad_3d</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example2-5.png" width="100%"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">## Example 6. 3D (x, y, z/color as U) animation (by a)</span></span>
 <span><span class="va">l_batch_grad_3d_animation</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_3d_animation.html">make_3d_animation</a></span><span class="op">(</span><span class="va">batch_output_grad</span>, x <span class="op">=</span> <span class="st">"x"</span>, y <span class="op">=</span> <span class="st">"y"</span>, fr <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span></span>
-<span><span class="co">### plot(l_batch_grad_3d_animation) # to show the landscape animation in 3D (x, y, z as U)</span></span>
-<span><span class="co">### plot(l_batch_grad_3d_animation, 2) # to show the landscape animation in 3D (x, y, color as U)</span></span></code></pre></div>
+<span><span class="co">### plotly_ld(l_batch_grad_3d_animation) # landscape animation in 3D (x, y, z as U)</span></span>
+<span><span class="co">### autoplot(l_batch_grad_3d_animation) # animation with color as U</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Calculate energy barriers</span></span>
 <span><span class="co">## Example 1. Energy barrier for the 2D landscape</span></span>
@@ -170,7 +170,7 @@
 <span><span class="co">#&gt; delta_U_start   delta_U_end </span></span>
 <span><span class="co">#&gt;      2.896270      2.806378</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_single_grad_2d</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="reference/autolayer.html">autolayer</a></span><span class="op">(</span><span class="va">b_single_grad_2d</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">l_single_grad_2d</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="reference/autolayer.html">autolayer</a></span><span class="op">(</span><span class="va">b_single_grad_2d</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example3-1.png" width="100%"></p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
@@ -182,7 +182,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">b_single_grad_3d</span><span class="op">)</span></span>
 <span><span class="co">#&gt; delta_U_start   delta_U_end </span></span>
 <span><span class="co">#&gt;      3.491516      3.360399</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_single_grad_3d</span>, <span class="fl">2</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="reference/autolayer.html">autolayer</a></span><span class="op">(</span><span class="va">b_single_grad_3d</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">l_single_grad_3d</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="reference/autolayer.html">autolayer</a></span><span class="op">(</span><span class="va">b_single_grad_3d</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example3-2.png" width="100%"></p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
@@ -201,7 +201,7 @@
 <span><span class="co">#&gt; 4  -0.808   0.530 0.807  0.572   0.0205    1.62     -3         1.09       1.05  </span></span>
 <span><span class="co">#&gt; 5  -0.702   0.710 0.700  0.659   0.0205    0.884    -2         0.174      0.225 </span></span>
 <span><span class="co">#&gt; 6  -0.702   0.895 0.700  0.834  -0.702     0.895    -1         0          0.0613</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_batch_grad_2d</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="reference/autolayer.html">autolayer</a></span><span class="op">(</span><span class="va">b_batch_grad_2d</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">l_batch_grad_2d</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="reference/autolayer.html">autolayer</a></span><span class="op">(</span><span class="va">b_batch_grad_2d</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example3-3.png" width="100%"></p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
@@ -221,7 +221,7 @@
 <span><span class="co">#&gt; 5  -0.702  -0.712  0.608  0.700 0.712  0.466 -0.000710  0.0866       1.33    -2</span></span>
 <span><span class="co">#&gt; 6  -0.702  -0.712  1.12   0.700 0.712  1.11  -0.702    -0.712        1.12    -1</span></span>
 <span><span class="co">#&gt; # … with 2 more variables: delta_U_start &lt;dbl&gt;, delta_U_end &lt;dbl&gt;</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_batch_grad_3d</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="reference/autolayer.html">autolayer</a></span><span class="op">(</span><span class="va">b_batch_grad_3d</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">l_batch_grad_3d</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="reference/autolayer.html">autolayer</a></span><span class="op">(</span><span class="va">b_batch_grad_3d</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example3-4.png" width="100%"></p>
 </div>
 </div>
@@ -260,7 +260,7 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Jingmeng Cui <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-3421-8457" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Jingmeng Cui <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-3421-8457" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
 </ul>
 </div>
 
@@ -275,7 +275,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
