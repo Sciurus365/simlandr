@@ -2,6 +2,8 @@
 
 ## simlandr 0.4.1
 
+CRAN release: 2026-06-22
+
 - Standardized landscape plotting: use
   [`autoplot()`](https://ggplot2.tidyverse.org/reference/autoplot.html)
   for ggplot output and
